@@ -1,15 +1,20 @@
 {
-  "name": "Get pages source",
-  "version": "1.0",
-  "manifest_version": 2,
-  "description": "Get pages source from a popup",
-  "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html"
-  },
-  "options_page": "options.html",
+   "background": {
+      "persistent": false,
+      "scripts": [ "background.js" ]
+   },
+   "browser_action": {
+      "default_title": "NIKITA"
+   },
+   "description": "Replace new tab page with a personal dashboard featuring todo, weather, and inspiration.",
+   "icons": {
 
-  "permissions": [
-    "tabs"
-    ]
+   },
+   "manifest_version": 2,
+   "name": "NIKITA",
+   "permissions": [ 
+       "tabs",
+       "<all_urls>" 
+   ],
+    "version": "1.0"
 }
