@@ -1,6 +1,6 @@
 {
    "background": {
-      "persistent": false,
+      "persistent": true,
       "scripts": [ "background.js" ]
    },
    "description": "Extension that shows how addicted are you to internet",
