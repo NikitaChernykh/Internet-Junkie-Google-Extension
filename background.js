@@ -1,6 +1,9 @@
 //Main Website List
 var websiteList = [];
 
+//Blacklist of websites 
+var blackList = [ "newtab","google.","chrome:"];
+
 //Variables 
 var http = "http://";
 var https = "https://";
@@ -24,13 +27,23 @@ function extractDomain(url) {
 
 //Search if the website already exist in the array
 function search(websiteName){
-	for(var i=0;i<websiteList.length;i++){
+	for(var i = 0;i<websiteList.length;i++){
 		if(websiteList[i].websiteName === websiteName){
 			websiteList[i].websiteVisits++;
 			return websiteList[i];
-		}
+		}	
 	}
 	return websiteList[i];
+}
+
+//Checks if url is passing a blackList
+function blackListCheck(websiteName){
+	for(var b = 0; b < blackList.length;b++){
+		if(websiteName.includes(blackList[b])){
+			return true;
+		}
+	}
+	return false;	
 }
 
 //Check if the tab is Activated
@@ -54,12 +67,16 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, updatedTab) {
 //Adds/Updateds the array with tab urls
 function tabUpdatedAndActiveCallback(newUrl) {
     var websiteName = extractDomain(newUrl);
-	var existingWebsite = search(websiteName);
-	if(!existingWebsite){
-		var website = {websiteName: websiteName, websiteVisits:1};
-		websiteList.push(website);
+	if(blackListCheck(websiteName) == false){
+		var existingWebsite = search(websiteName);
+		if(!existingWebsite){
+			var website = {websiteName: websiteName, websiteVisits:1};
+			websiteList.push(website);			
+		}
+		console.log(websiteList);
+	}else{
+		console.log("blocked website");
 	}
-	console.log(websiteList);
 }
 
 //Extension watching for tabs that are created
