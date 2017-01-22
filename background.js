@@ -18,10 +18,8 @@ function extractDomain(url) {
     else {
         domain = url.split('/')[0];
     }
-
     //find & remove port number
     domain = domain.split(':')[0];
-
     return domain;
 }
 
@@ -66,8 +64,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, updatedTab) {
 
 //Adds/Updateds the array with tab urls
 function tabUpdatedAndActiveCallback(newUrl) {
-    var websiteName = extractDomain(newUrl);
-	if(blackListCheck(websiteName) == false){
+	if(blackListCheck(newUrl) == false){
+		var websiteName = extractDomain(newUrl);
 		var existingWebsite = search(websiteName);
 		if(!existingWebsite){
 			var website = {websiteName: websiteName, websiteVisits:1};
