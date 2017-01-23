@@ -2,11 +2,19 @@
 var websiteList = [];
 
 //Blacklist of websites 
-var blackList = [ "newtab","google.","chrome:"];
+var blackList = [ "newtab","google.","chrome:","localhost"];
 
 //Variables 
 var http = "http://";
 var https = "https://";
+
+//Unfinished timer
+var sec = 0;
+setInterval(myTimer, 1000);
+function myTimer() {
+    sec++;
+}
+
 
 //Get the clean domain name
 function extractDomain(url) {
@@ -47,7 +55,8 @@ function blackListCheck(websiteName){
 //Check if the tab is Activated
 chrome.tabs.onActivated.addListener(function(activeInfo) {
     chrome.tabs.get(activeInfo.tabId, function (tab) {
-        tabUpdatedAndActiveCallback(tab.url);
+		//Added states but not yet done
+        tabUpdatedAndActiveCallback(tab.url,"activated");
     });
 });
 
@@ -57,13 +66,14 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, updatedTab) {
         var activeTab = activeTabs[0];
 		//if the active tab is updated then is sends a callback
         if (activeTab == updatedTab) {
-            tabUpdatedAndActiveCallback(activeTab.url);
+            tabUpdatedAndActiveCallback(activeTab.url,"reloaded");
         }
     });
 });
 
 //Adds/Updateds the array with tab urls
-function tabUpdatedAndActiveCallback(newUrl) {
+function tabUpdatedAndActiveCallback(newUrl, state) {
+	//alert(state);
 	if(blackListCheck(newUrl) == false){
 		var websiteName = extractDomain(newUrl);
 		var existingWebsite = search(websiteName);
