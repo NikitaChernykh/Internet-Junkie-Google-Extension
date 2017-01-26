@@ -5,8 +5,17 @@ var background = chrome.extension.getBackgroundPage();
 background.websiteList.sort(function(a, b){
     return b.websiteVisits - a.websiteVisits;
 });
+
 //Display list of visited sites
 for (var i = 0; i < background.websiteList.length; i++) {
-  document.write("<tr><td>" + (i+1) + ") " + background.websiteList[i].websiteName +
-                  " visits: "+ background.websiteList[i].websiteVisits + "</td><br><hr>");
+  //Variables
+  var websiteName = background.websiteList[i].websiteName;
+  var visits = background.websiteList[i].websiteVisits; 
+  var icon = background.websiteList[i].favIcon;
+  document.write(
+    "<tr><td>"
+  + "<img src=" +icon+ " height='20' width='20'></td>"
+  + "<td><a href='http://" +websiteName+ "' target='_blank'> " +websiteName+ "</a>"
+  + " visits: " +visits+ "</td><br><hr>"
+  );
 }

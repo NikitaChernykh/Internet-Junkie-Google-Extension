@@ -56,7 +56,7 @@ function blackListCheck(websiteName){
 chrome.tabs.onActivated.addListener(function(activeInfo) {
     chrome.tabs.get(activeInfo.tabId, function (tab) {
 		//Added states but not yet done
-        tabUpdatedAndActiveCallback(tab.url,"activated");
+        tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl,"activated");
     });
 });
 
@@ -72,13 +72,13 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, updatedTab) {
 });
 
 //Adds/Updateds the array with tab urls
-function tabUpdatedAndActiveCallback(newUrl, state) {
+function tabUpdatedAndActiveCallback(newUrl,favIcon,state) {
 	//alert(state);
 	if(blackListCheck(newUrl) == false){
 		var websiteName = extractDomain(newUrl);
 		var existingWebsite = search(websiteName);
 		if(!existingWebsite){
-			var website = {websiteName: websiteName, websiteVisits:1};
+			var website = {websiteName: websiteName,favIcon: favIcon, websiteVisits:1};
 			websiteList.push(website);			
 		}
 		console.log(websiteList);
