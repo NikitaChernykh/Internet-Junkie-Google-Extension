@@ -12,6 +12,7 @@ for (var i = 0; i < background.websiteList.length; i++) {
   var websiteName = background.websiteList[i].websiteName;
   var visits = background.websiteList[i].websiteVisits; 
   var icon = background.websiteList[i].favIcon;
+  
   document.write(
     "<tr><td>"
   + "<img src=" +icon+ " height='20' width='20'></td>"

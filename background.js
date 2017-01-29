@@ -54,31 +54,42 @@ function blackListCheck(websiteName){
 
 //Check if the tab is Activated
 chrome.tabs.onActivated.addListener(function(activeInfo) {
+	chrome.tabs.query({},function(tabs){     
+		tabs.forEach(function(tab){
+		if(tab.active){
+			console.log(tab.url+"active")
+		}
+			console.log(tab.url+"not active tab")
+		});
+ 	});
     chrome.tabs.get(activeInfo.tabId, function (tab) {
 		//Added states but not yet done
         tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl,"activated");
     });
 });
 
-//Check is the tab is Updated 
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, updatedTab) {
-    chrome.tabs.query({'active': true}, function (activeTabs) {
-        var activeTab = activeTabs[0];
-		//if the active tab is updated then is sends a callback
-        if (activeTab == updatedTab) {
-            tabUpdatedAndActiveCallback(activeTab.url,"reloaded");
-        }
-    });
-});
+//Check if the tab is Updated 
+// chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, updatedTab) {
+//     chrome.tabs.query({'active': true}, function (activeTabs) {
+//         var activeTab = activeTabs[0];
+// 		//if the active tab is updated then is sends a callback
+//         if (activeTab == updatedTab) {
+//             tabUpdatedAndActiveCallback(activeTab.url,"reloaded");
+//         }
+//     });
+// });
 
 //Adds/Updateds the array with tab urls
 function tabUpdatedAndActiveCallback(newUrl,favIcon,state) {
-	//alert(state);
+	console.log(state);
 	if(blackListCheck(newUrl) == false){
 		var websiteName = extractDomain(newUrl);
 		var existingWebsite = search(websiteName);
 		if(!existingWebsite){
-			var website = {websiteName: websiteName,favIcon: favIcon, websiteVisits:1};
+			if(favIcon === undefined){
+				favIcon = "images/default_icon.png";
+			}
+			var website = {websiteName: websiteName, favIcon: favIcon, websiteVisits:1, active: true};
 			websiteList.push(website);			
 		}
 		console.log(websiteList);
