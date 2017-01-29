@@ -57,9 +57,10 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 	chrome.tabs.query({},function(tabs){     
 		tabs.forEach(function(tab){
 		if(tab.active){
-			console.log(tab.url+"active")
+			console.log(tab.url+"  active");
+		}else{
+			console.log(tab.url+"  not active tab");
 		}
-			console.log(tab.url+"not active tab")
 		});
  	});
     chrome.tabs.get(activeInfo.tabId, function (tab) {
@@ -81,7 +82,7 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 
 //Adds/Updateds the array with tab urls
 function tabUpdatedAndActiveCallback(newUrl,favIcon,state) {
-	console.log(state);
+	console.log(newUrl + state);
 	if(blackListCheck(newUrl) == false){
 		var websiteName = extractDomain(newUrl);
 		var existingWebsite = search(websiteName);
