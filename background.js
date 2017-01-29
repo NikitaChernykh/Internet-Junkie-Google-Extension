@@ -57,16 +57,18 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 	chrome.tabs.query({},function(tabs){     
 		tabs.forEach(function(tab){
 		if(tab.active){
-			console.log(tab.url+"  active");
+			tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl,true);
+			//console.log(tab.url+"  active");
 		}else{
-			console.log(tab.url+"  not active tab");
+			tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl,false);
+			//console.log(tab.url+"  not active tab");
 		}
 		});
  	});
-    chrome.tabs.get(activeInfo.tabId, function (tab) {
+    //chrome.tabs.get(activeInfo.tabId, function (tab) {
 		//Added states but not yet done
-        tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl,"activated");
-    });
+        //tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl,"activated");
+    //});
 });
 
 //Check if the tab is Updated 
@@ -82,7 +84,7 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 
 //Adds/Updateds the array with tab urls
 function tabUpdatedAndActiveCallback(newUrl,favIcon,state) {
-	console.log(newUrl + state);
+	console.log(newUrl + " "+ state);
 	if(blackListCheck(newUrl) == false){
 		var websiteName = extractDomain(newUrl);
 		var existingWebsite = search(websiteName);
@@ -90,8 +92,10 @@ function tabUpdatedAndActiveCallback(newUrl,favIcon,state) {
 			if(favIcon === undefined){
 				favIcon = "images/default_icon.png";
 			}
-			var website = {websiteName: websiteName, favIcon: favIcon, websiteVisits:1, active: true};
+			var website = {websiteName: websiteName, favIcon: favIcon, websiteVisits:1, active: state};
 			websiteList.push(website);			
+		}else{
+			existingWebsite.active = state;
 		}
 		console.log(websiteList);
 	}else{
