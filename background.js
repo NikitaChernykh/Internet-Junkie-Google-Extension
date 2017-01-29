@@ -36,7 +36,7 @@ function search(websiteName){
 //Checks if url is passing a blackList
 function blackListCheck(websiteName){
 	for(var b = 0; b < blackList.length;b++){
-		if(websiteName.includes(blackList[b])){
+		if(websiteName.includes(blackList[b]) || websiteName == ""){
 			return true;
 		}
 	}
@@ -90,7 +90,7 @@ function tabUpdatedAndActiveCallback(newUrl,favIcon) {
 		}
 		console.log(websiteList);
 	}else{
-		console.log("blocked website");
+		console.log("blocked website" + newUrl);
 	}
 }
 
