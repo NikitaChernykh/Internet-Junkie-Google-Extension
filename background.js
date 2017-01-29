@@ -8,14 +8,6 @@ var blackList = [ "newtab","google.","chrome:","localhost"];
 var http = "http://";
 var https = "https://";
 
-//Unfinished timer
-var sec = 0;
-setInterval(myTimer, 1000);
-function myTimer() {
-    sec++;
-}
-
-
 //Get the clean domain name
 function extractDomain(url) {
     var domain;
@@ -35,7 +27,6 @@ function extractDomain(url) {
 function search(websiteName){
 	for(var i = 0;i<websiteList.length;i++){
 		if(websiteList[i].websiteName === websiteName){
-			websiteList[i].websiteVisits++;
 			return websiteList[i];
 		}	
 	}
@@ -52,50 +43,50 @@ function blackListCheck(websiteName){
 	return false;	
 }
 
+//Updates the status of the tab
+function updateStatus(status,tabURL){
+	var websiteName = extractDomain(tabURL);
+	var existingWebsite = search(websiteName);
+	if(existingWebsite){
+		existingWebsite.active = status;
+	}
+}
+
 //Check if the tab is Activated
 chrome.tabs.onActivated.addListener(function(activeInfo) {
+	//status update
 	chrome.tabs.query({},function(tabs){     
 		tabs.forEach(function(tab){
-		if(tab.active){
-			tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl,true);
-			//console.log(tab.url+"  active");
-		}else{
-			tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl,false);
-			//console.log(tab.url+"  not active tab");
-		}
+			if(tab.active){
+				updateStatus(true,tab.url);
+			}else{
+				updateStatus(false,tab.url);
+			}
 		});
- 	});
-    //chrome.tabs.get(activeInfo.tabId, function (tab) {
-		//Added states but not yet done
-        //tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl,"activated");
-    //});
+	});
+	//get active tab
+    chrome.tabs.get(activeInfo.tabId, function (tab) {
+        tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl);
+    });
 });
 
-//Check if the tab is Updated 
-// chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, updatedTab) {
-//     chrome.tabs.query({'active': true}, function (activeTabs) {
-//         var activeTab = activeTabs[0];
-// 		//if the active tab is updated then is sends a callback
-//         if (activeTab == updatedTab) {
-//             tabUpdatedAndActiveCallback(activeTab.url,"reloaded");
-//         }
-//     });
-// });
-
 //Adds/Updateds the array with tab urls
-function tabUpdatedAndActiveCallback(newUrl,favIcon,state) {
-	console.log(newUrl + " "+ state);
+function tabUpdatedAndActiveCallback(newUrl,favIcon) {
+	//blacklist check
 	if(blackListCheck(newUrl) == false){
 		var websiteName = extractDomain(newUrl);
 		var existingWebsite = search(websiteName);
 		if(!existingWebsite){
+			//favicon check
 			if(favIcon === undefined){
 				favIcon = "images/default_icon.png";
 			}
-			var website = {websiteName: websiteName, favIcon: favIcon, websiteVisits:1, active: state};
+			//add new website to the list
+			var website = {websiteName: websiteName, favIcon: favIcon, websiteVisits:1,active: true};
 			websiteList.push(website);			
 		}else{
-			existingWebsite.active = state;
+			//add visits
+			existingWebsite.websiteVisits++;
 		}
 		console.log(websiteList);
 	}else{
