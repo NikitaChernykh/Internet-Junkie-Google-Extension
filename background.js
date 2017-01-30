@@ -70,6 +70,16 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
     });
 });
 
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
+	if(tab.active && tab.url != "chrome://newtab/"){
+		if (changeInfo.status == "complete" && tab.status == "complete" && tab.url != undefined){ 
+			//alert("update " + tabId);
+			//tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl);
+		}
+	}
+    
+});
+
 //Adds/Updateds the array with tab urls
 function tabUpdatedAndActiveCallback(newUrl,favIcon) {
 	//blacklist check
@@ -96,7 +106,6 @@ function tabUpdatedAndActiveCallback(newUrl,favIcon) {
 
 //Extension watching for tabs that are created
 chrome.tabs.onCreated.addListener(function(tab) {         
-   //alert("Tab Created");
 });
 
 //Extension watching for tabs that are removed
