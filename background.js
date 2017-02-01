@@ -114,5 +114,4 @@ chrome.tabs.onCreated.addListener(function(tab) {
 
 //Extension watching for tabs that are removed
 chrome.tabs.onRemoved.addListener(function (tab){
-	//alert("Tab Removed");
 });
