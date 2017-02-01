@@ -73,10 +73,11 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 });
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
-	if(tab.url != globalURL){
+	//comapre if the domain is the same
+	if(!tab.url.includes(globalURL.extractDomain())){
+		//wait until the url is fully loaded
 		if(changeInfo.status == "complete" && tab.status == "complete" && tab.url != undefined){
 			if (tab.active && tab.url != "chrome://newtab/"){ 
-				//alert("update " + tabId);
 				tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl);
 			}
 		}
