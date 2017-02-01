@@ -7,6 +7,7 @@ var blackList = [ "newtab","google.","chrome:","localhost"];
 //Variables 
 var http = "http://";
 var https = "https://";
+var globalURL;//url to avoid count on tab reload
 
 //Get the clean domain name
 function extractDomain(url) {
@@ -66,18 +67,20 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 	});
 	//get active tab
     chrome.tabs.get(activeInfo.tabId, function (tab) {
+		globalURL = tab.url;
         tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl);
     });
 });
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
-	if(tab.active && tab.url != "chrome://newtab/"){
-		if (changeInfo.status == "complete" && tab.status == "complete" && tab.url != undefined){ 
-			//alert("update " + tabId);
-			//tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl);
+	if(tab.url != globalURL){
+		if(changeInfo.status == "complete" && tab.status == "complete" && tab.url != undefined){
+			if (tab.active && tab.url != "chrome://newtab/"){ 
+				//alert("update " + tabId);
+				tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl);
+			}
 		}
-	}
-    
+	}  
 });
 
 //Adds/Updateds the array with tab urls
