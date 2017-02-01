@@ -7,7 +7,7 @@ var blackList = [ "newtab","google.","chrome:","localhost"];
 //Variables 
 var http = "http://";
 var https = "https://";
-var globalURL;//url to avoid count on tab reload
+var globalURL; //URL to avoid count on tab reload
 
 //Get the clean domain name
 function extractDomain(url) {
