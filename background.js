@@ -52,16 +52,26 @@ function updateStatus(status,tabURL){
 		existingWebsite.active = status;
 	}
 }
-
+//momentjs time test
+//var savedTime;
 //Check if the tab is Activated
 chrome.tabs.onActivated.addListener(function(activeInfo) {
 	//status update
 	chrome.tabs.query({},function(tabs){     
 		tabs.forEach(function(tab){
 			if(tab.active){
+				//var timeobj = {time: moment([])}; 
+				//savedTime = timeobj;
 				updateStatus(true,tab.url);
+				//console.log("activeTime "+tab.url +" time: ");
+				//console.log(timeobj.time._d);
 			}else{
+				//var timeobj = {time: moment([])};
 				updateStatus(false,tab.url);
+				//console.log("stopTime "+tab.url +" time: ");
+				//console.log(timeobj.time._d);
+				//var diff = moment.duration(moment(savedTime).diff(moment(timeobj)));
+				//console.log(diff);
 			}
 		});
 	});
@@ -74,7 +84,7 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
 	//comapre if the domain is the same
-	if(!tab.url.includes(globalURL.extractDomain())){
+	if(!tab.url.includes(extractDomain(globalURL))){
 		//wait until the url is fully loaded
 		if(changeInfo.status == "complete" && tab.status == "complete" && tab.url != undefined){
 			if (tab.active && tab.url != "chrome://newtab/"){ 
