@@ -2,7 +2,7 @@
 var websiteList = [];
 
 //Blacklist of websites 
-var blackList = [ "newtab","google.","chrome:","localhost"];
+var blackList = [ "newtab","www.google.","chrome:","localhost"];
 
 //Variables 
 var http = "http://";
@@ -54,6 +54,7 @@ function updateStatus(status,tabURL){
 }
 //momentjs time test
 //var savedTime;
+
 //Check if the tab is Activated
 chrome.tabs.onActivated.addListener(function(activeInfo) {
 	//status update
@@ -82,13 +83,17 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
     });
 });
 
+//Check if the tab is Updated
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
-	//comapre if the domain is the same
-	if(!tab.url.includes(extractDomain(globalURL))){
-		//wait until the url is fully loaded
-		if(changeInfo.status == "complete" && tab.status == "complete" && tab.url != undefined){
-			if (tab.active && tab.url != "chrome://newtab/"){ 
-				tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl);
+	//check for anactive tab reloading
+	if(tab.active == true){
+		//comapre if the domain is the same
+		if(!tab.url.includes(extractDomain(globalURL))){
+			//wait until the url is fully loaded
+			if(changeInfo.status == "complete" && tab.status == "complete" && tab.url != undefined){
+				if (tab.active && tab.url != "chrome://newtab/"){ 
+					tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl);
+				}
 			}
 		}
 	}  
@@ -114,7 +119,7 @@ function tabUpdatedAndActiveCallback(newUrl,favIcon) {
 		}
 		console.log(websiteList);
 	}else{
-		console.log("blocked website" + newUrl);
+		console.log("blocked website " + newUrl);
 	}
 }
 
