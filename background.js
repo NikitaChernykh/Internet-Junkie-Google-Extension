@@ -105,15 +105,17 @@ function tabUpdatedAndActiveCallback(newUrl,favIcon) {
 	if(blackListCheck(newUrl) == false){
 		var websiteName = extractDomain(newUrl);
 		var existingWebsite = search(websiteName);
-		if(!existingWebsite){
-			//favicon check
-			if(favIcon === undefined){
+		//favicon check
+		if(favIcon === undefined){
 				favIcon = "images/default_icon.png";
-			}
+		}
+		if(!existingWebsite){
 			//add new website to the list
 			var website = {websiteName: websiteName, favIcon: favIcon, websiteVisits:1,active: true};
 			websiteList.push(website);			
 		}else{
+			//update favicon
+			existingWebsite.favIcon = favIcon;
 			//add visits
 			existingWebsite.websiteVisits++;
 		}
