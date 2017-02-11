@@ -5,8 +5,6 @@ var websiteList = [];
 var blackList = [ "newtab","www.google.","chrome:","localhost"];
 
 //Variables 
-var http = "http://";
-var https = "https://";
 var globalURL; //URL to avoid count on tab reload
 
 //Get the clean domain name
@@ -64,6 +62,7 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 				//var timeobj = {time: moment([])}; 
 				//savedTime = timeobj;
 				updateStatus(true,tab.url);
+				//get active tab
 				//console.log("activeTime "+tab.url +" time: ");
 				//console.log(timeobj.time._d);
 			}else{
@@ -75,18 +74,18 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 				//console.log(diff);
 			}
 		});
+		chrome.tabs.get(activeInfo.tabId, function (tab) {
+			globalURL = tab.url;
+			tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl);
+		});
 	});
-	//get active tab
-    chrome.tabs.get(activeInfo.tabId, function (tab) {
-		globalURL = tab.url;
-        tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl);
-    });
 });
 
 //Check if the tab is Updated
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
 	//check for anactive tab reloading
 	if(tab.active == true){
+		globalURL = tab.url;
 		//comapre if the domain is the same
 		if(!tab.url.includes(extractDomain(globalURL))){
 			//wait until the url is fully loaded
