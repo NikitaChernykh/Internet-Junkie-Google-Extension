@@ -60,7 +60,7 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 		tabs.forEach(function(tab){
 			if(tab.active){
 				//var timeobj = {time: moment([])}; 
-				//savedTime = timeobj;
+				savedTime = timeobj;
 				updateStatus(true,tab.url);
 				//get active tab
 				//console.log("activeTime "+tab.url +" time: ");

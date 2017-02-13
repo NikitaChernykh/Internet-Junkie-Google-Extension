@@ -23,7 +23,7 @@ for (var i = 0; i < background.websiteList.length; i++) {
     var website = "<a href='http://" +websiteName+ "' target='_blank'><div class='listContainer'>"
     + "<div class='image'><img src=" +icon+ " height='20' width='20'></div>"
     + "<div class='item'><span> " +websiteName+ "</span>"
-    + " visits: " +visits+"</div></div></a>";
+    + "<span class='visits'> visits: " +visits+"</span></div></div></a>";
     content.innerHTML += website;
   }
   
