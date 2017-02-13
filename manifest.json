@@ -1,7 +1,7 @@
 {
    "background": {
       "persistent": true,
-      "scripts": [ "moment.js","background.js" ]
+      "page": "background.html"
    },
    "description": "Extension that shows how addicted you are to internet.",
    "icons": {
