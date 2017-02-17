@@ -2,7 +2,6 @@
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-91876786-1']);
 _gaq.push(['_trackPageview']);
-console.log("popup.js loaded");
 
 var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
 ga.src = 'https://ssl.google-analytics.com/ga.js';
@@ -86,13 +85,12 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 				//console.log(diff);
 			}
 		});
-		chrome.tabs.get(activeInfo.tabId, function (tab) {
+	});
+	chrome.tabs.get(activeInfo.tabId, function (tab) {
+		if (tab.active && tab.url != "chrome://newtab/"){
+			tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl);
 			globalURL = tab.url;
-			if(tab.status == "complete"){
-				tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl);
-			}
-			
-		});
+		}
 	});
 });
 
@@ -100,13 +98,12 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
 	//check for anactive tab reloading
 	if(tab.active == true){
-		globalURL = tab.url;
 		//comapre if the domain is the same
 		if(!tab.url.includes(extractDomain(globalURL))){
-			//wait until the url is fully loaded
 			if(changeInfo.status == "complete" && tab.status == "complete" && tab.url != undefined){
 				if (tab.active && tab.url != "chrome://newtab/"){ 
 					tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl);
+					globalURL = tab.url;
 				}
 			}
 		}
