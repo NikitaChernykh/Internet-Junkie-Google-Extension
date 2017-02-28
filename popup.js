@@ -2,7 +2,6 @@
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-91876786-1']);
 _gaq.push(['_trackPageview']);
-console.log("popup.js loaded");
 (function() {
   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
   ga.src = 'https://ssl.google-analytics.com/ga.js';
@@ -26,7 +25,6 @@ if(background.websiteList.length == 0){
 
 //Display list of visited sites
 for (var i = 0; i < background.websiteList.length; i++) {
-  console.log(background.websiteList[i]);
   if(i <5){
     //Variables
     var websiteName = background.websiteList[i].websiteName;
