@@ -17,6 +17,7 @@ var blackList = [ "newtab","www.google.","chrome:","localhost"];
 
 //Variables 
 var globalURL; //URL to avoid count on tab reload
+var prevTab = ''; //Check for preveous tab url for stopTime stamp
 
 //Get the clean domain name
 function extractDomain(url) {
@@ -54,35 +55,44 @@ function blackListCheck(websiteName){
 }
 
 //Updates the status of the tab
-function updateStatus(status,tabURL){
+//maybe needs refactoring
+function updateStatus(tabURL){
 	var websiteName = extractDomain(tabURL);
 	var existingWebsite = search(websiteName);
+	var end = moment().format();
 	if(existingWebsite){
-		existingWebsite.active = status;
+
+		var duration = moment.duration(moment(end).diff(existingWebsite.startTime));
+
+		if(existingWebsite.timeDifference != null){
+			var duration = duration.add(existingWebsite.timeDifference);
+		}
+		//format time
+		formatedTime = moment.utc(duration.as('milliseconds')).format('HH:mm:ss');
+
+		//update values
+		existingWebsite.endTime = end;
+		existingWebsite.timeDifference = duration;
+		existingWebsite.formatedTime = formatedTime;
 	}
 }
-//momentjs time test
-//var savedTime;
 
 //Check if the tab is Activated
+//maybe needs refactoring
 chrome.tabs.onActivated.addListener(function(activeInfo) {
 	//status update
 	chrome.tabs.query({},function(tabs){     
 		tabs.forEach(function(tab){
-			if(tab.active){
-				//var timeobj = {time: moment([])}; 
-				//savedTime = timeobj;
-				updateStatus(true,tab.url);
-				//get active tab
-				//console.log("activeTime "+tab.url +" time: ");
-				//console.log(timeobj.time._d);
-			}else{
-				//var timeobj = {time: moment([])};
-				updateStatus(false,tab.url);
-				//console.log("stopTime "+tab.url +" time: ");
-				//console.log(timeobj.time._d);
-				//var diff = moment.duration(moment(savedTime).diff(moment(timeobj)));
-				//console.log(diff);
+			if(prevTab != ''){
+				if(tab.active && prevTab != extractDomain(tab.url)){
+					updateStatus(prevTab);
+					prevTab = extractDomain(tab.url);
+				}
+			}
+			if(prevTab == ''){
+				if(tab.active){
+					prevTab = extractDomain(tab.url);
+				}
 			}
 		});
 	});
@@ -97,7 +107,7 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 //Check if the tab is Updated
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
 	//check for anactive tab reloading
-	if(tab.active == true){
+	if(tab.active){
 		//comapre if the domain is the same
 		if(!tab.url.includes(extractDomain(globalURL))){
 			if(changeInfo.status == "complete" && tab.status == "complete" && tab.url != undefined){
@@ -111,22 +121,35 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
 });
 
 //Adds/Updateds the array with tab urls
-function tabUpdatedAndActiveCallback(newUrl,favIcon) {
+//maybe needs refactoring
+function tabUpdatedAndActiveCallback(newUrl,favIcon,startTime,endTime,timeDifference) {
 	//blacklist check
 	if(blackListCheck(newUrl) == false){
 		var websiteName = extractDomain(newUrl);
 		var existingWebsite = search(websiteName);
+		var start = moment().format();
 		//favicon check
 		if(favIcon === undefined){
 				favIcon = "images/default_icon.png";
 		}
 		if(!existingWebsite){
 			//add new website to the list
-			var website = {websiteName: websiteName, favIcon: favIcon, websiteVisits:1,active: true};
+			
+			var website = {
+				websiteName: websiteName,
+				favIcon: favIcon,
+				websiteVisits:1,
+				active: true,
+				startTime : start,
+				endTime: "",
+			};
 			websiteList.push(website);			
 		}else{
-			//update favicon
-			existingWebsite.favIcon = favIcon;
+			if(existingWebsite.favIcon == "images/default_icon.png"){
+				existingWebsite.favIcon = favIcon;
+			}
+			
+			existingWebsite.startTime = start;
 			//add visits
 			existingWebsite.websiteVisits++;
 		}

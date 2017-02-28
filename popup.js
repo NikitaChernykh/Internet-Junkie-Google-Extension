@@ -14,7 +14,6 @@ console.log("popup.js loaded");
 //Get acsses to the background.js
 var background = chrome.extension.getBackgroundPage();
 var content = document.getElementById("websiteList");
-
 //Sort websites in descending order by visits
 background.websiteList.sort(function(a, b){
     return b.websiteVisits - a.websiteVisits;
@@ -27,16 +26,24 @@ if(background.websiteList.length == 0){
 
 //Display list of visited sites
 for (var i = 0; i < background.websiteList.length; i++) {
-
+  console.log(background.websiteList[i]);
   if(i <5){
     //Variables
     var websiteName = background.websiteList[i].websiteName;
     var visits = background.websiteList[i].websiteVisits; 
     var icon = background.websiteList[i].favIcon;
+    //check for time
+    var time = '';
+    if(background.websiteList[i].formatedTime == undefined){
+      var time = '';
+    }else{
+      var time = "time: "+background.websiteList[i].formatedTime;
+    }
+
     var website = "<a href='http://" +websiteName+ "' target='_blank'><div class='listContainer'>"
     + "<div class='image'><img src=" +icon+ " height='20' width='20'></div>"
     + "<div class='item'><span> " +websiteName+ "</span>"
-    + "<span class='visits'> visits: " +visits+"</span></div></div></a>";
+    + "<span class='visits'> visits: " +visits+ "</span><span id='time'> " +time+ "</span></div></div></a>";
     content.innerHTML += website;
   }
   
