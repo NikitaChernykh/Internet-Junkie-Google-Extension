@@ -139,7 +139,6 @@ function tabUpdatedAndActiveCallback(newUrl,favIcon,startTime,endTime,timeDiffer
 				websiteName: websiteName,
 				favIcon: favIcon,
 				websiteVisits:1,
-				active: true,
 				startTime : start,
 				endTime: "",
 			};
