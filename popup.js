@@ -20,15 +20,13 @@ background.websiteList.sort(function(a, b){
 });
 
 //Place holder monster for no results
-if(background.websiteList.length == 0 || background.websiteList[0].websiteVisits < 5){
+if(background.websiteList.length == 0){
   document.write('<div class="monsterText">Wow! You are not addicted to any website yet!</div><div class="container"><div class="monster"></div><div class="hair"></div><div class="face"><div class="eyes"><div class="iris"></div></div></div><div class="mouth"></div><div class="drool"></div><div class="teeth"><div></div><div></div></div><div class="text"></div></div>');
   document.getElementById("heading").style.display = "none";
 }
 
 //Display list of visited sites
 for (var i = 0; i < background.websiteList.length; i++) {
-  if(background.websiteList[0].websiteVisits >5)
-  {
     if(i <5){
       //Variables
       var websiteName = background.websiteList[i].websiteName;
@@ -48,5 +46,4 @@ for (var i = 0; i < background.websiteList.length; i++) {
       + "<span class='visits'> visits: " +visits+ "</span><span id='time'> " +time+ "</span></div></div></a>";
       content.innerHTML += website;
     }
-  }
 }
