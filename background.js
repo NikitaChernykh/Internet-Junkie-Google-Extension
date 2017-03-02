@@ -112,9 +112,9 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
 		if(!tab.url.includes(extractDomain(globalURL))){
 			if(changeInfo.status == "complete" && tab.status == "complete" && tab.url != undefined){
 				if (tab.active && tab.url != "chrome://newtab/"){
-					prevTab = extractDomain(tab.url); 
-					updateStatus(prevTab);
 					tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl);
+					updateStatus(prevTab);
+					prevTab = extractDomain(tab.url); 
 					globalURL = tab.url;
 				}
 			}
