@@ -78,7 +78,6 @@ function updateStatus(tabURL){
 			"min": min,
 			"sec": sec
 		};
-		//formatedTime = moment.utc(duration.as('milliseconds')).format('DD:HH:mm:ss');
 
 		//update values
 		existingWebsite.endTime = end;

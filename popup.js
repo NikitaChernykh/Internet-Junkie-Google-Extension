@@ -45,7 +45,7 @@ for (var i = 0; i < background.websiteList.length; i++) {
           var time = "time: "+ timeobj.days+" day(s) "+("0"+timeobj.hours.toString()).slice(-2)+":"+("0"+timeobj.min.toString()).slice(-2)+":"+("0"+timeobj.sec.toString()).slice(-2);
         }
       }
-
+      
       var website = "<a href='http://" +websiteName+ "' target='_blank'><div class='listContainer'>"
       + "<div class='image'><img src=" +icon+ " height='20' width='20'></div>"
       + "<div class='item'><span> " +websiteName+ "</span>"
