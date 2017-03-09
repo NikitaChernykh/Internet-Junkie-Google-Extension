@@ -37,7 +37,13 @@ for (var i = 0; i < background.websiteList.length; i++) {
       if(background.websiteList[i].formatedTime == undefined){
         var time = '';
       }else{
-        var time = "time: "+background.websiteList[i].formatedTime;
+        var timeobj = background.websiteList[i].formatedTime;
+        if(timeobj.days == 0){
+          var time = "time: "+("0"+timeobj.hours.toString()).slice(-2)+":"+("0"+timeobj.min.toString()).slice(-2)+":"+("0"+timeobj.sec.toString()).slice(-2);
+        }
+        else{
+          var time = "time: "+ timeobj.days+" day(s) "+("0"+timeobj.hours.toString()).slice(-2)+":"+("0"+timeobj.min.toString()).slice(-2)+":"+("0"+timeobj.sec.toString()).slice(-2);
+        }
       }
 
       var website = "<a href='http://" +websiteName+ "' target='_blank'><div class='listContainer'>"

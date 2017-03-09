@@ -68,7 +68,17 @@ function updateStatus(tabURL){
 			var duration = duration.add(existingWebsite.timeDifference);
 		}
 		//format time
-		formatedTime = moment.utc(duration.as('milliseconds')).format('HH:mm:ss');
+		var days = duration.days();
+		var hours = duration.hours();
+		var min = duration.minutes();
+		var sec = duration.seconds();
+		formatedTime = {
+			"days": days,
+			"hours": hours,
+			"min": min,
+			"sec": sec
+		};
+		//formatedTime = moment.utc(duration.as('milliseconds')).format('DD:HH:mm:ss');
 
 		//update values
 		existingWebsite.endTime = end;
@@ -88,6 +98,7 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 					updateStatus(prevTab);
 					prevTab = extractDomain(tab.url);
 				}
+				
 			}
 			if(prevTab == ''){
 				if(tab.active){
