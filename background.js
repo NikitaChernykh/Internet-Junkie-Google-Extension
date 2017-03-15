@@ -55,7 +55,7 @@ function blackListCheck(websiteName){
 }
 
 //Updates the status of the tab
-//maybe needs refactoring
+//maybe needs refactoring 
 function updateStatus(tabURL){
 	var websiteName = extractDomain(tabURL);
 	var existingWebsite = search(websiteName);
@@ -93,11 +93,19 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 	chrome.tabs.query({},function(tabs){     
 		tabs.forEach(function(tab){
 			if(prevTab != ''){
-				if(tab.active && prevTab != extractDomain(tab.url)){
-					updateStatus(prevTab);
+				var extractedUrl = extractDomain(tab.url);
+				if(tab.active){
+					if(prevTab != extractedUrl){
+						updateStatus(prevTab);
+					}
+					//should fix github issue with tabs
+					if(prevTab == extractedUrl){
+						updateStatus(prevTab);
+					}
 					prevTab = extractDomain(tab.url);
 				}
-				
+				//fix end	
+				//TO DO prove read readme file before push
 			}
 			if(prevTab == ''){
 				if(tab.active){
