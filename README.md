@@ -1,17 +1,17 @@
 # ☕️ 🍩 Internet Junkie
 
 # Description
-**Internet Junkie - your own internet time tracker. 
+**Internet Junkie - your own internet time tracker.<br /> 
 Track the time which you spend on the websites daily.**
-
+<br />
 Nowadays, we spent most of the time searching through the internet networks. This extension will help you to calculate total time spent and number of clicks you made on your favourite websites during the day. In addition, it will show the websites you are addicted to.
 
-**Features**
+**Features**<br />
 - Shows top 5 websites you are addicted to
 - Displays a count of website visits
 - Displays the time spent on the website
 
-**Future additions include**
+**Future additions include**<br />
 - Show a week/month chart metric 
 - Advance options to delete/refresh the list of websites 
 - Give suggestions about how to minimize the addiction to internet
