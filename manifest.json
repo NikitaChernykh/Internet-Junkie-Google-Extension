@@ -3,7 +3,7 @@
       "persistent": true,
       "page": "background.html"
    },
-   "description": "Extension that shows how addicted you are to internet.",
+   "description": "Internet Junkie - your own internet time tracker. Track the time which you spend on the websites daily.",
    "icons": {
     "48": "images/icon48.png",
     "128": "images/icon128.png" 
