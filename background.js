@@ -104,8 +104,6 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 					}
 					prevTab = extractDomain(tab.url);
 				}
-				//fix end	
-				//TO DO prove read readme file before push
 			}
 			if(prevTab == ''){
 				if(tab.active){
