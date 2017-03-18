@@ -1,5 +1,3 @@
-# ☕️ 🍩 Internet Junkie
-
 # Description
 **Internet Junkie - your own internet time tracker.<br /> 
 Track the time which you spend on the websites daily.**
