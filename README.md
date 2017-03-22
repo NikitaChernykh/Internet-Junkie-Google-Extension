@@ -15,7 +15,7 @@ Nowadays, we spent most of the time searching through the internet. This extensi
 - Advance options to delete/refresh the list of websites 
 - Give suggestions about how to minimize the addiction to internet
 
-#How to install
+# How to install
 From Chrome Web Store - https://goo.gl/CnQEuI
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
