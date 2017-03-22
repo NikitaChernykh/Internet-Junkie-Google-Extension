@@ -113,10 +113,16 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 		});
 	});
 	chrome.tabs.get(activeInfo.tabId, function (tab) {
-		if (tab.active && tab.url != "chrome://newtab/"){
-			tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl);
-			globalURL = tab.url;
+		if (chrome.runtime.lastError) {
+			var errorMsg = chrome.runtime.lastError.message;
+			console.error(errorMsg);
+    	}else{
+			if (tab.active && tab.url != "chrome://newtab/"){
+				tabUpdatedAndActiveCallback(tab.url,tab.favIconUrl);
+				globalURL = tab.url;
+			}
 		}
+		
 	});
 });
 
@@ -171,11 +177,23 @@ function tabUpdatedAndActiveCallback(newUrl,favIcon,startTime,endTime,timeDiffer
 			existingWebsite.websiteVisits++;
 		}
 		console.log(websiteList);
+		chrome.storage.local.set({'websiteList':websiteList});
 	}else{
 		console.log("blocked website " + newUrl);
 	}
+
+	
 }
 
+chrome.runtime.onMessage.addListener(function(request,sender,response){
+		if(request.action == "popup"){
+			chrome.storage.local.get('websiteList',function(data){
+				console.log(data);
+			});
+
+		}
+});
+chrome.runtime.lastError
 //Extension watching for tabs that are created
 chrome.tabs.onCreated.addListener(function(tab) {         
 });
@@ -183,3 +201,4 @@ chrome.tabs.onCreated.addListener(function(tab) {
 //Extension watching for tabs that are removed
 chrome.tabs.onRemoved.addListener(function (tab){
 });
+

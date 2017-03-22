@@ -3,7 +3,7 @@
       "persistent": true,
       "page": "background.html"
    },
-   "description": "Internet Junkie - your own internet time tracker. Track the time which you spend on the websites daily.",
+   "description": "Internet Junkie - your own internet time tracker. Track how addicted you are to the internet",
    "icons": {
     "48": "images/icon48.png",
     "128": "images/icon128.png" 
@@ -14,9 +14,11 @@
   },
    "manifest_version": 2,
    "name": "Internet Junkie",
+   "short_name":"Internet Junkie",
    "permissions": [ 
        "tabs",
-       "<all_urls>"
+       "<all_urls>",
+       "storage"
    ],
     "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
     "version": "1.1.3.5"

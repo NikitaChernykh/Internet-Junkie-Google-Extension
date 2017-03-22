@@ -53,3 +53,6 @@ for (var i = 0; i < background.websiteList.length; i++) {
       content.innerHTML += website;
     }
 }
+
+//Send message on popup active
+chrome.runtime.sendMessage({action:"popup"});

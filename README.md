@@ -3,7 +3,7 @@
 Track the time which you spend on the websites daily.**
 <br />
 <br />
-Nowadays, we spent most of the time searching through the internet networks. This extension will help you to calculate total time spent and number of clicks you made on your favourite websites during the day. In addition, it will show the websites you are addicted to.
+Nowadays, we spent most of the time searching through the internet. This extension will help you to calculate total time spent and number of clicks you made on your favourite websites during the day. In addition, it will show the websites you are addicted to.
 
 **Features**<br />
 - Shows top 5 websites you are addicted to
