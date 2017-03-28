@@ -4,7 +4,11 @@
 html{
 	margin: 0;
 	padding: 0;
-	background-color: #171d37;
+  background-color: #38416C; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#38416C, #38617F); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#38416C, #38617F); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#38416C, #38617F); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#38416C, #38617F);
 	border: 0;	
 }
 a{
@@ -21,8 +25,8 @@ a:hover{
 body{
 	color: #fff;
 	margin-top: 100px;
-    width: 300px;
-	height: 200px;
+  width: 400px;
+	height: 350px;
 	padding: 0;
 
 	font-family:"Roboto Condensed", Arial, sans-serif;	
@@ -33,8 +37,10 @@ body{
 	right:0;
 }
 .listContainer{
+  width: 390px;
 	height: 30px;
-	background-color: #262e4c;
+	
+  
 }
 .logo{
 	position: absolute;
@@ -59,7 +65,11 @@ body{
 	background-color: #2a3353;
 	color: #fff;
 }
-
+.remove{
+  width: 5x;
+  display: inline-block;
+  outline: 1px solid red;
+}
 .header{
 	border-top: 0;
 	position: fixed;
@@ -95,9 +105,9 @@ body{
 	position: absolute;
 	color: #fff;
 	text-align: center;
-	top: 120px;
-	left: 10px; 
-    width: 280px;
+  left: 60px;
+  top:190px;
+  width: 280px;
 }
 
 .container,
