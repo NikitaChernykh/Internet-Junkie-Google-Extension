@@ -9,6 +9,22 @@
 </div>
 <p id="heading">List of the Websites you may be addicted to:</p>
 <div id="websiteList"></div>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Visits</th>
+            <th>Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="website in websites | orderBy:sortOrder">
+            <td>{{website.websiteName}}</td>
+            <td>{{website.websiteVisits}}</td>
+            <td>{{website.formatedTime.sec}}</td>
+        </tr>
+    </tbody>
+</table>
 <div class="footer"><p>Copyright 2017 © All Rights Reserved.</p></div>
 <script type="text/javascript" src="/scripts/angular-1.5.8.min.js"></script>
 <script type="text/javascript" src="/scripts/popup.js"></script>
