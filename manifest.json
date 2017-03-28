@@ -1,16 +1,16 @@
 {
    "background": {
       "persistent": true,
-      "page": "background.html"
+      "page": "/views/background.html"
    },
    "description": "Internet Junkie - your own internet time tracker. Track how addicted you are to the internet",
    "icons": {
-    "48": "images/icon48.png",
-    "128": "images/icon128.png" 
+    "48": "/images/icon48.png",
+    "128": "/images/icon128.png" 
    },
    "browser_action": {
     "default_title": "Internet Junkie",
-    "default_popup": "popup.html"
+    "default_popup": "/views/popup.html"
   },
    "manifest_version": 2,
    "name": "Internet Junkie",
