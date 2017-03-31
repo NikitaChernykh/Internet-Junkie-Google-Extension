@@ -1,0 +1,222 @@
+/*MONSTER STYLES START*/
+
+.monsterText {
+    position: absolute;
+    color: #fff;
+    text-align: center;
+    left: 60px;
+    top: 190px;
+    width: 280px;
+}
+
+.container,
+.monster,
+.eyes,
+.iris,
+.mouth,
+.face,
+.text {
+    position: absolute;
+}
+
+.container {
+    margin: auto;
+    top: 70px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 300px;
+    height: 190px;
+}
+
+.face {
+    left: -3px;
+    transition: all 0.5s ease;
+}
+
+.monster {
+    top: 65px;
+    left: 115px;
+    width: 75px;
+    height: 75px;
+    background: #de3f53;
+    border-radius: 100%;
+}
+
+.monster:before,
+.monster:after {
+    position: absolute;
+    content: '';
+    width: 10px;
+    height: 15px;
+    background: #de3f53;
+}
+
+.monster:before {
+    left: 10px;
+    border-radius: 100% 0 0 0;
+}
+
+.monster:after {
+    left: 55px;
+    border-radius: 0 100% 0 0;
+}
+
+.hair {
+    position: absolute;
+    top: 63px;
+    left: 147px;
+    width: 5px;
+    height: 5px;
+    background: #de3f53;
+    border-radius: 100% 0 100% 100%;
+    transform: rotate(-10deg);
+}
+
+.hair:before {
+    position: absolute;
+    content: '';
+    top: 0px;
+    left: 5px;
+    width: 5px;
+    height: 5px;
+    background: #de3f53;
+    border-radius: 100% 0 100% 100%;
+}
+
+.eyes {
+    width: 15px;
+    height: 15px;
+    background: #FFF;
+    top: 84px;
+    left: 130px;
+    border-radius: 100%;
+}
+
+.eyes:before {
+    position: absolute;
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: #FFF;
+    left: 35px;
+    border-radius: 100%;
+}
+
+.iris {
+    width: 10px;
+    height: 10px;
+    background: #59C3C3;
+    border-radius: 100%;
+    top: 2.5px;
+    left: 3.5px;
+    transition: all 0.5s ease;
+}
+
+.iris:before {
+    position: absolute;
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #59C3C3;
+    border-radius: 100%;
+    left: 33px;
+}
+
+.mouth {
+    overflow: hidden;
+    top: 110px;
+    left: 140px;
+    width: 30px;
+    height: 1.5px;
+    background: #603335;
+    border-radius: 0 0 100px 100px;
+    transition: all 0.5s ease;
+}
+
+.teeth {
+    position: relative;
+    top: 110px;
+    left: 145px;
+}
+
+.teeth div:nth-child(1) {
+    position: absolute;
+    width: 3.5px;
+    height: 5px;
+    background: #FFF;
+    border-radius: 0 0 0 100%;
+}
+
+.teeth div:nth-child(2) {
+    position: absolute;
+    left: 15px;
+    width: 3.5px;
+    height: 5px;
+    background: #FFF;
+    border-radius: 0 0 100% 0;
+}
+
+.container:hover>.mouth {
+    height: 22px;
+}
+
+.container:hover>.drool {
+    transform: translate(3px, 20px);
+}
+
+.container:hover .iris {
+    top: 0.5px;
+}
+
+.drool {
+    position: absolute;
+    top: 110px;
+    left: 145px;
+    width: 2px;
+    height: 10.5px;
+    background: #C5DFEA;
+    border-radius: 100px;
+    transition: all 0.2s ease;
+    animation: 5s drip infinite ease;
+}
+
+.drool:before {
+    position: absolute;
+    content: '';
+    width: 3px;
+    height: 3px;
+    background: #C5DFEA;
+    top: 15px;
+    left: -1px;
+    border-radius: 0 100% 100% 100%;
+    transform: rotate(40deg);
+    animation: 2s droplet infinite ease;
+}
+
+.text {
+    background: #C5DFEA;
+    border-radius: 100%;
+    height: 10px;
+    width: 65px;
+    top: 150px;
+    left: 119.5px;
+    font-family: sans-serif;
+    font-size: 7px;
+    letter-spacing: 1px;
+}
+
+@keyframes drip {
+    100% {
+        height: 10px;
+    }
+}
+
+@keyframes droplet {
+    100% {
+        transform: translateY(10px);
+    }
+}
+
+
+/*MONSTER STYLES END*/

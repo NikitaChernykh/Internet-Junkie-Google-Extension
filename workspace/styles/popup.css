@@ -1,0 +1,143 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900);
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700);
+@import 'monster.css';
+
+
+
+/* Angular cloak */
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+    display: none !important;
+}
+/* Angular pointer */
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+    cursor: pointer;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    background-color: #38416C;
+    /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#38416C, #38617F);
+    /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#38416C, #38617F);
+    /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#38416C, #38617F);
+    /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#38416C, #38617F);
+    border: 0;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+a:active {
+    color: #fff;
+}
+
+a:hover {
+    color: #8284a3;
+}
+
+body {
+    color: #fff;
+    margin-top: 100px;
+    width: 400px;
+    height: 350px;
+    padding: 0;
+    font-family: "Roboto Condensed", Arial, sans-serif;
+}
+th{
+    font-weight: normal;
+}
+#websiteList {
+    position: fixed;
+    left: 0;
+    right: 0;
+    font-family: "Roboto Condensed", Arial, sans-serif;
+}
+
+
+.logo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.header {
+    border-top: 0;
+    position: fixed;
+    height: 80px;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 5px;
+    color: #fff;
+    background-color: #de3f53;
+}
+
+.heading {
+    outline: 1px solid red;
+    height: 20px;
+    margin-top: 120px;
+    margin-top: 10px;
+    color: #fff;
+}
+
+.visitsLabel .circle {
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 5px;
+    font-size: 1em;
+    background-color: #8EA6FE;
+    -webkit-box-shadow: 0px 0px 8px 2px rgba(142, 166, 254, .75);
+    -moz-box-shadow: 0px 0px 8px 2px rgba(142, 166, 254, .75);
+    box-shadow: 0px 0px 8px 2px rgba(142, 166, 254, .75);
+}
+.timeLabel .circle{
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 5px;
+    font-size: 1em;
+    background-color: #91FF8F;
+    -webkit-box-shadow: 0px 0px 8px 2px rgba(145, 255, 143, .75);
+    -moz-box-shadow: 0px 0px 8px 2px rgba(145, 255, 143, .75);
+    box-shadow: 0px 0px 8px 2px rgba(145, 255, 143, .75);
+}
+.footer {
+    height: 25px;
+    left: 0;
+    bottom: 0;
+    padding-left: 5px;
+    position: fixed;
+}
+
+.footer p {
+    font-size: 0.8em;
+}
+
+.remove img{
+    width: 30px;
+    margin: 0;
+    padding: 0;
+    outline: 1px solid red;
+    
+}
+
+
+
