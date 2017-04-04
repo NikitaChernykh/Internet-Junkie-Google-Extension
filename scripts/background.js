@@ -43,7 +43,7 @@ function search(websiteName) {
             return websiteList[i];
         }
     }
-    return websiteList[i];
+    return websiteList[i]; //<==TODO possibly returns undefined 
 }
 
 //Checks if url is passing a blackList
@@ -57,7 +57,6 @@ function blackListCheck(websiteName) {
 }
 
 //Updates the status of the tab
-//maybe needs refactoring 
 function updateStatus(tabURL) {
     var websiteName = extractDomain(tabURL);
     var existingWebsite = search(websiteName);
@@ -79,7 +78,7 @@ function updateStatus(tabURL) {
             "hours": hours,
             "min": min,
             "sec": sec
-        };
+        }; //TODO check how obj can be created this way
 
         //update values
         existingWebsite.endTime = end;
@@ -89,7 +88,6 @@ function updateStatus(tabURL) {
 }
 
 //Check if the tab is Activated
-//maybe needs refactoring
 chrome.tabs.onActivated.addListener(function (activeInfo) {
     //status update
     chrome.tabs.query({}, function (tabs) {
@@ -97,11 +95,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
             if (prevTab != '') {
                 var extractedUrl = extractDomain(tab.url);
                 if (tab.active) {
-                    if (prevTab != extractedUrl) {
-                        updateStatus(prevTab);
-                    }
-                    //should fix github issue with tabs
-                    if (prevTab == extractedUrl) {
+                    if (prevTab != extractedUrl || prevTab == extractedUrl) {
                         updateStatus(prevTab);
                     }
                     prevTab = extractDomain(tab.url);
@@ -146,8 +140,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     }
 });
 
-//Adds/Updateds the array with tab urls
-//maybe needs refactoring
+//Adds or Updateds the array with tab urls
 function tabUpdatedAndActiveCallback(newUrl, favIcon, startTime, endTime, timeDifference) {
     //blacklist check
     if (blackListCheck(newUrl) == false) {
@@ -156,7 +149,7 @@ function tabUpdatedAndActiveCallback(newUrl, favIcon, startTime, endTime, timeDi
         var start = moment().format();
         //favicon check
         if (favIcon === undefined) {
-            favIcon = "images/default_icon.png";
+            favIcon = "/images/default_icon.png";
         }
         if (!existingWebsite) {
             //add new website to the list
@@ -170,7 +163,7 @@ function tabUpdatedAndActiveCallback(newUrl, favIcon, startTime, endTime, timeDi
             };
             websiteList.push(website);
         } else {
-            if (existingWebsite.favIcon == "images/default_icon.png") {
+            if (existingWebsite.favIcon == "/images/default_icon.png") {
                 existingWebsite.favIcon = favIcon;
             }
 
@@ -202,7 +195,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, response) {
     }
 });
 
+//Catch errors
 chrome.runtime.lastError;
+
 //Extension watching for tabs that are created
 chrome.tabs.onCreated.addListener(function (tab) {});
 
