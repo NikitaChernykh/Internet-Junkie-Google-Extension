@@ -32,7 +32,37 @@
                         </a>
                     </td>
                     <td class="centered">{{website.websiteVisits}}</td>
-                    <td class="centered">{{('0'+website.formatedTime.hours.toString()).slice(-2)+':'+('0'+website.formatedTime.min.toString()).slice(-2)+':'+('0'+website.formatedTime.sec.toString()).slice(-2)}}</td>
+                    <td class="centered">
+                        <div class="timeContainer">
+                            <div class="timeBox">
+                                <div class="minBox">
+                                    <div class="time">{{('0'+website.formatedTime.days.toString()).slice(-2)}}</div>
+                                    <div class="label">DAYS</div>
+                                </div>
+                                <div class="inline"><span>:</span></div>
+                            </div>
+                            <div class="timeBox">
+                                <div class="minBox">
+                                    <div class="time">{{('0'+website.formatedTime.hours.toString()).slice(-2)}}</div>
+                                    <div class="label">HOURS</div>
+                                </div>
+                                <div class="inline"><span>:</span></div> 
+                            </div>
+                            <div class="timeBox">
+                                <div class="minBox">
+                                    <div class="time">{{('0'+website.formatedTime.min.toString()).slice(-2)}}</div>
+                                    <div class="label">MINUTES</div>
+                                </div>
+                                <div class="inline"><span>:</span></div> 
+                            </div>
+                            <div class="timeBox">
+                                <div class="minBox">
+                                    <div class="time">{{('0'+website.formatedTime.sec.toString()).slice(-2)}}</div>
+                                    <div class="label">SECONDS</div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
                     <td class="centered">
                         <button class="remove" ng-click="remove(website)" tabindex="-1">-</button>
                     </td>

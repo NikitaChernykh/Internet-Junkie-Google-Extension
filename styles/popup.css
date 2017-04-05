@@ -53,7 +53,7 @@ a:hover {
 body {
     color: #fff;
     margin-top: 100px;
-    width: 400px;
+    width: 420px;
     height: 350px;
     padding: 0;
     font-family: "Roboto Condensed", Arial, sans-serif;
@@ -72,6 +72,7 @@ tr .centered {
 tbody tr:hover {
     background-color: #1c2340;
 }
+
 
 table {
     width: 100%;
@@ -109,7 +110,6 @@ img {
 }
 
 .heading {
-    outline: 1px solid red;
     height: 20px;
     margin-top: 120px;
     margin-top: 10px;
@@ -148,6 +148,43 @@ img {
     padding-left: 5px;
 }
 
+.time{
+    margin: auto;
+    width: 15px;
+    text-align: center;
+    font-family: 'Questrial', sans-serif;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: #fff;
+    color:black;
+}
+.inline{
+    float: right;
+    display: inline-block;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+.minBox{ 
+    width: 40px;
+    display: inline-block;
+}
+.timeLabel{
+    
+    text-align: left; 
+}
+.label{
+    text-transform: lowercase;
+    text-align: center;
+}
+.timeContainer{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left;
+}
+.timeBox{
+   
+    display: inline-block;
+}
 .remove img {
     width: 30px;
     margin: 0;
