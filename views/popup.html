@@ -11,16 +11,17 @@
     </div>
     <p id="heading">List of the Websites you may be addicted to:</p>
     <div id="websiteList">
-        <table>
+        <table cellspacing="0" cellpadding="0" style="border-collapse: collapse">
             <thead>
                 <tr>
-                    <th></th>
-                    <th></th>
+                    <th class="nameLabel"></th>
+                    <th class="nameLabel">
+                        <div class="circle"></div>Websites</th>
                     <th class="visitsLabel">
                         <div class="circle"></div>Visits</th>
                     <th class="timeLabel">
                         <div class="circle"></div>Time</th>
-                    <th></th>
+                    <th class="timeLabel"></th>
                 </tr>
             </thead>
             <tbody>
@@ -34,38 +35,20 @@
                     <td class="centered">{{website.websiteVisits}}</td>
                     <td class="centered">
                         <div class="timeContainer">
-                            <div class="timeBox">
-                                <div class="minBox">
-                                    <div class="time">{{('0'+website.formatedTime.days.toString()).slice(-2)}}</div>
-                                    <div class="label">DAYS</div>
-                                </div>
-                                <div class="inline"><span>:</span></div>
+                            <div class="inline" ng-hide="{{(website.formatedTime.days == 0) ? 'true':'false'}}">
+                                {{('0'+website.formatedTime.days.toString()).slice(-2)+'d'}}
                             </div>
-                            <div class="timeBox">
-                                <div class="minBox">
-                                    <div class="time">{{('0'+website.formatedTime.hours.toString()).slice(-2)}}</div>
-                                    <div class="label">HOURS</div>
-                                </div>
-                                <div class="inline"><span>:</span></div> 
-                            </div>
-                            <div class="timeBox">
-                                <div class="minBox">
-                                    <div class="time">{{('0'+website.formatedTime.min.toString()).slice(-2)}}</div>
-                                    <div class="label">MINUTES</div>
-                                </div>
-                                <div class="inline"><span>:</span></div> 
-                            </div>
-                            <div class="timeBox">
-                                <div class="minBox">
-                                    <div class="time">{{('0'+website.formatedTime.sec.toString()).slice(-2)}}</div>
-                                    <div class="label">SECONDS</div>
-                                </div>
-                            </div>
+                            <div class="inline" ng-hide="{{(website.formatedTime.hours == 0) ? 'true':'false'}}">{{('0'+website.formatedTime.hours.toString()).slice(-2)+'h'}}</div>
+                            <div class="inline">{{('0'+website.formatedTime.min.toString()).slice(-2)+'m'}}</div>
+
+                            <div class="inline">{{('0'+website.formatedTime.sec.toString()).slice(-2)+'s'}}</div>
                         </div>
+
                     </td>
                     <td class="centered">
                         <button class="remove" ng-click="remove(website)" tabindex="-1">-</button>
                     </td>
+
                 </tr>
             </tbody>
         </table>

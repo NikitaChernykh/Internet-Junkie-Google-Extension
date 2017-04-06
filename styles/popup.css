@@ -62,17 +62,19 @@ body {
 th {
     font-weight: normal;
     text-align: left;
-    padding-left: 5px;
 }
 
 tr .centered {
     text-align: center;
 }
-
+tbody tr {
+    background-color: #2a3353;
+    border-bottom: 2px solid #1c2340;
+    
+}
 tbody tr:hover {
     background-color: #1c2340;
 }
-
 
 table {
     width: 100%;
@@ -115,8 +117,16 @@ img {
     margin-top: 10px;
     color: #fff;
 }
+.timeContainer{
+    display: block;
+}
+.nameLabel{
+    padding-bottom: 2px;
+    border-collapse: collapse;
+    border-bottom:1px solid #8EA6FE;
+}
 
-.visitsLabel .circle {
+.nameLabel .circle {
     width: 8px;
     height: 8px;
     display: inline-block;
@@ -127,6 +137,32 @@ img {
     -webkit-box-shadow: 0px 0px 8px 2px rgba(142, 166, 254, .75);
     -moz-box-shadow: 0px 0px 8px 2px rgba(142, 166, 254, .75);
     box-shadow: 0px 0px 8px 2px rgba(142, 166, 254, .75);
+}
+
+.visitsLabel{
+    padding-bottom: 2px;
+    border-collapse: collapse;
+    border-bottom:1px solid #22d8ff;
+}
+
+.visitsLabel .circle {
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 5px;
+    font-size: 1em;
+    background-color: #22d8ff;
+    -webkit-box-shadow: 0px 0px 8px 2px rgba(34, 216, 255, .75);
+    -moz-box-shadow: 0px 0px 8px 2px rgba(34, 216, 255, .75);
+    box-shadow: 0px 0px 8px 2px rgba(34, 216, 255, .75);
+}
+
+.timeLabel{
+    text-align: left; 
+    padding-bottom: 2px;
+    border-collapse: collapse;
+    border-bottom:1px solid #91FF8F;
 }
 
 .timeLabel .circle {
@@ -148,43 +184,10 @@ img {
     padding-left: 5px;
 }
 
-.time{
-    margin: auto;
-    width: 15px;
-    text-align: center;
-    font-family: 'Questrial', sans-serif;
-    padding: 5px;
-    border-radius: 50%;
-    background-color: #fff;
-    color:black;
-}
 .inline{
-    float: right;
-    display: inline-block;
-    margin-top: 5px;
-    margin-left: 5px;
-}
-.minBox{ 
-    width: 40px;
     display: inline-block;
 }
-.timeLabel{
-    
-    text-align: left; 
-}
-.label{
-    text-transform: lowercase;
-    text-align: center;
-}
-.timeContainer{
-    padding-top: 5px;
-    padding-bottom: 5px;
-    text-align: left;
-}
-.timeBox{
-   
-    display: inline-block;
-}
+
 .remove img {
     width: 30px;
     margin: 0;
