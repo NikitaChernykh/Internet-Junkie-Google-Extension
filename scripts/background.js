@@ -69,7 +69,7 @@ function updateStatus(tabURL) {
             var duration = duration.add(existingWebsite.timeDifference);
         }
         //format time
-        var days = duration.days();
+        var days = duration.days();//kevin was here      
         var hours = duration.hours();
         var min = duration.minutes();
         var sec = duration.seconds();

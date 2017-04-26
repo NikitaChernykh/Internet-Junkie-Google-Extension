@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="/styles/popup.css">
 </head>
 
-<body ng-controller="MainController" ng-cloak>
+<body ng-controller="MainController"  ng-cloak>
     <div class="header">
         <img class="logo" width="100" height="50" src="/images/internetJunkie.png" />
     </div>
@@ -25,7 +25,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="website in websites | limitTo:5 | orderBy:sortOrder track by $index">
+                <tr ng-repeat="website in websites | limitTo:5 | orderBy:sortOrder track by $index" ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
                     <td>
                         <a ng-href="http://{{website.websiteName}}" target="_blank" tabindex="-1">
@@ -45,15 +45,17 @@
                         </div>
 
                     </td>
-                    <td class="centered">
-                        <button class="remove" ng-click="remove(website)" tabindex="-1">-</button>
+                    <td class="removetd">
+                        <div class="binBG" ng-mouseleave="removeStyle={left:30+'px'}"><img ng-click="remove(website)" class="remove" src="/images/bin.svg"></div>
+                        <div ng-style="removeStyle" ng-class="{'removeArrow': true}" ><div ng-mouseenter="removeStyle={left:0}" class="arrow"> > </div></div>
                     </td>
+                    
 
                 </tr>
             </tbody>
         </table>
     </div>
-
+    
     <div class="footer">
         <p>Copyright 2017 © All Rights Reserved.</p>
     </div>
