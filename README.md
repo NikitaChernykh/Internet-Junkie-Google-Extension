@@ -16,8 +16,7 @@ Nowadays, we spent most of the time searching through the internet. This extensi
 - Give suggestions about how to minimize the addiction to the internet
 
 # How to install
-![picture](images/badge.png)
 [<img src="images/badge.png">](https://goo.gl/CnQEuI)
-From Chrome Web Store - https://goo.gl/CnQEuI
+
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
