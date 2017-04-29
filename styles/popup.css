@@ -130,6 +130,7 @@ img {
 }
 
 .nameLabel .circle {
+    margin-left: 15px;
     width: 8px;
     height: 8px;
     display: inline-block;
@@ -184,7 +185,8 @@ img {
 .siteName {
     height: 30px;
     line-height: 30px;
-    padding-left: 5px;
+    padding-left: 15px;
+    width:180px;    
 }
 
 .inline{
