@@ -34,7 +34,7 @@
                     </td>
                     <td class="centered">{{website.websiteVisits}}</td>
                     <td class="centered">
-                        <div class="timeContainer">
+                        <div class="timeContainer" ng-hide="{{(website.formatedTime == undefined) ? 'true':'false'}}">
                             <div class="inline" ng-hide="{{(website.formatedTime.days == 0) ? 'true':'false'}}">
                                 {{('0'+website.formatedTime.days.toString()).slice(-2)+'d'}}
                             </div>
