@@ -6,7 +6,7 @@
    "name": "Internet Junkie",
    "description": "Your own internet time tracker. Track how much time you spend on the websites daily.",
    "icons": {
-    "48": "/images/icon48_2.png",
+    "48": "/images/icon48.png",
     "128": "/images/icon128.png" 
    },
    "browser_action": {
