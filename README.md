@@ -1,6 +1,6 @@
 # Description
-**Internet Junkie - your own internet time tracker.<br /> 
-Track the time which you spend on the websites daily.**
+**Track how much time you spend on the websites daily.<br /> 
+ Your own internet time tracker.**
 <br />
 <br />
 Nowadays, we spent most of the time searching through the internet. This extension will calculate total time you spent and number of clicks you made on your favourite websites during the day.
