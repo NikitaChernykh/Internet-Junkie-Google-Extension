@@ -5,22 +5,38 @@
     <link rel="stylesheet" href="/styles/popup.css">
 </head>
 
-<body ng-controller="MainController"  ng-cloak>
+<body ng-controller="MainController" ng-cloak>
     <div class="header">
         <img class="logo" width="100" height="80" src="/images/logo.svg" />
     </div>
-    <p id="heading">List of the websites you may be addicted to:</p>
-    <div id="websiteList">
+    <div ng-show="monsterToggle()">
+        <div class="monsterText" >{{placeholder_msg}}</div>
+        <div class="container">
+            <div class="monster"></div>
+            <div class="hair"></div>
+            <div class="face">
+                <div class="eyes">
+                    <div class="iris"></div>
+                </div>
+            </div>
+            <div class="mouth"></div>
+            <div class="drool"></div>
+            <div class="teeth"></div>
+            <div class="text"></div>
+        </div>
+    </div>
+    <p id="heading" ng-hide="monsterToggle()">{{top5_header_text}}</p>
+    <div id="websiteList" ng-hide="monsterToggle()">
         <table cellspacing="0" cellpadding="0" style="border-collapse: collapse">
             <thead>
                 <tr>
                     <th class="nameLabel"></th>
                     <th class="nameLabel">
-                        <div class="circle"></div>Websites</th>
+                        <div class="circle"></div>{{websites_label}}</th>
                     <th class="visitsLabel">
-                        <div class="circle"></div>Visits</th>
+                        <div class="circle"></div>{{visits_label}}</th>
                     <th class="timeLabel">
-                        <div class="circle"></div>Time</th>
+                        <div class="circle"></div>{{time_label}}</th>
                     <th class="timeLabel"></th>
                 </tr>
             </thead>
@@ -43,14 +59,11 @@
 
                             <div class="inline">{{('0'+website.formatedTime.sec.toString()).slice(-2)+'s'}}</div>
                         </div>
-
                     </td>
                     <td class="removetd">
                         <div class="binBG" ng-mouseleave="removeStyle={left:30+'px'}"><img ng-click="remove(website)" class="remove" src="/images/bin.svg"></div>
                         <div ng-style="removeStyle" ng-class="{'removeArrow': true}" ><div ng-mouseenter="removeStyle={left:0}" class="arrow"> > </div></div>
                     </td>
-                    
-
                 </tr>
             </tbody>
         </table>

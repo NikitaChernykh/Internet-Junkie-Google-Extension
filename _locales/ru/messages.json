@@ -1,0 +1,30 @@
+{
+    "ext_name": {
+        "message": "Internet Junkie",
+        "description": "The title of the application, displayed in the web store."
+    },
+    "ext_description": {
+        "message": "Твой личный счетчик времени в интеренете. Узнай сколько ежедневно времени ты тратишь на сайтах.",
+        "description": "The description of the application, displayed in the web store."
+    },
+    "placeholder_msg": {
+        "message": "Круть! Пока нет зависимости к каким либо сайтам...",
+        "description": "Message when you have no addiction."
+    },
+    "top5_header_text": {
+        "message": "Самые посещаемые сайты за последнее время:",
+        "description": "Message label for top 5 websites."
+    },
+    "websites_label": {
+        "message": "Веб-сайты",
+        "description": "Label for row with websites."
+    },
+    "visits_label": {
+        "message": "Посещения",
+        "description": "Label for row with visits."
+    },
+    "time_label": {
+        "message": "Время",
+        "description": "Label for row with time."
+    }
+}

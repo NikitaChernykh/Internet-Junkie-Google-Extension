@@ -3,8 +3,8 @@
       "persistent": true,
       "page": "/views/background.html"
    },
-   "name": "Internet Junkie",
-   "description": "Track how much time you spend on the websites daily. Your own internet time tracker.",
+   "name": "__MSG_ext_name__",
+   "description": "__MSG_ext_description__",
    "icons": {
     "48": "/images/icon48.png",
     "128": "/images/icon128.png" 
@@ -13,6 +13,7 @@
     "default_title": "Internet Junkie",
     "default_popup": "/views/popup.html"
   },
+   "default_locale": "en",
    "manifest_version": 2,
    "short_name":"Internet Junkie",
    "web_accessible_resources": ["images/default_icon.png"],
