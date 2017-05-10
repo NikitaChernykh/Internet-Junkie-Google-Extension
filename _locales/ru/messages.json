@@ -4,7 +4,7 @@
         "description": "The title of the application, displayed in the web store."
     },
     "ext_description": {
-        "message": "Твой личный счетчик времени в интеренете. Узнай сколько ежедневно времени ты тратишь на сайтах.",
+        "message": "Твой личный счетчик времени в интернете. Узнай сколько ежедневно времени ты тратишь на сайтах.",
         "description": "The description of the application, displayed in the web store."
     },
     "placeholder_msg": {
