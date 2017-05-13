@@ -17,6 +17,7 @@
    "manifest_version": 2,
    "short_name":"Internet Junkie",
    "web_accessible_resources": ["images/default_icon.png"],
+   "options_page": "/views/options.html",
    "permissions": [ 
        "tabs",
        "<all_urls>",
