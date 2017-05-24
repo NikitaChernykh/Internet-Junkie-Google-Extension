@@ -36,7 +36,25 @@ background.websiteList.sort(function (a, b) {
         chrome.runtime.sendMessage({
             action: "popup"
         });
-    
+        
+        //sort color and order toggle
+        $scope.sortToggle = function (order) {
+            //track website sorting event
+            _gaq.push(['_trackEvent', order, 'listSorted']);
+            
+            if (order == "websiteVisits") {
+                $scope.ascStyle = {fill: "#ffffff"};
+                $scope.desStyle = {fill: "#22d8ff"}
+                return $scope.sortOrder = "-websiteVisits"; 
+            }else{
+                $scope.ascStyle = {fill: "#22d8ff"};
+                $scope.desStyle = {fill: "#ffffff"}
+                return $scope.sortOrder = "websiteVisits";  
+            }
+            return;
+            
+        };
+        
         //remove website
         $scope.remove = function (website) {
             $scope.websites.splice($scope.websites.indexOf(website), 1);
@@ -49,9 +67,10 @@ background.websiteList.sort(function (a, b) {
                 list: $scope.websites
             });
         };
+        
         //monster toggle
         $scope.monsterToggle = function () {
-            if (background.websiteList[0] == undefined || background.websiteList[0].websiteVisits < 5) {
+            if (background.websiteList[0] == undefined || background.websiteList[0].websiteVisits < 0) {
                 return true;
             }  
             return false;    

@@ -26,13 +26,6 @@ html {
     margin: 0;
     padding: 0;
     background-color: #38416C;
-    /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(#38416C, #38617F);
-    /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#38416C, #38617F);
-    /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#38416C, #38617F);
-    /* For Firefox 3.6 to 15 */
     background: linear-gradient(#38416C, #38617F);
     border: 0;
 }
@@ -138,15 +131,25 @@ img {
     margin-right: 5px;
     font-size: 1em;
     background-color: #8EA6FE;
-    -webkit-box-shadow: 0px 0px 8px 2px rgba(142, 166, 254, .75);
-    -moz-box-shadow: 0px 0px 8px 2px rgba(142, 166, 254, .75);
     box-shadow: 0px 0px 8px 2px rgba(142, 166, 254, .75);
 }
 
+.sortIcon{
+    bottom: 0;
+    position: absolute;
+    width:15px;
+    height: 15px;
+}
+
+.visitsLabel div{
+    display: inline-block;
+}
 .visitsLabel{
     padding-bottom: 2px;
     border-collapse: collapse;
     border-bottom:1px solid #22d8ff;
+    position: relative;
+    padding-right: 5px;
 }
 
 .visitsLabel .circle {
@@ -157,10 +160,9 @@ img {
     margin-right: 5px;
     font-size: 1em;
     background-color: #22d8ff;
-    -webkit-box-shadow: 0px 0px 8px 2px rgba(34, 216, 255, .75);
-    -moz-box-shadow: 0px 0px 8px 2px rgba(34, 216, 255, .75);
     box-shadow: 0px 0px 8px 2px rgba(34, 216, 255, .75);
 }
+
 
 .timeLabel{
     text-align: left; 
@@ -177,8 +179,6 @@ img {
     margin-right: 5px;
     font-size: 1em;
     background-color: #91FF8F;
-    -webkit-box-shadow: 0px 0px 8px 2px rgba(145, 255, 143, .75);
-    -moz-box-shadow: 0px 0px 8px 2px rgba(145, 255, 143, .75);
     box-shadow: 0px 0px 8px 2px rgba(145, 255, 143, .75);
 }
 
@@ -196,6 +196,7 @@ img {
     width: 60px;
  
 }
+
 .binBG{
     width: 30px;
     height: 30px;
@@ -233,6 +234,8 @@ img {
 .notActive{
      left:30px;
 }
+
+
 .footer {
     height: 25px;
     left: 0;
