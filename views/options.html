@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="internetJunkie">
 
     <head>
-       <title>Options for Color Chooser</title>
-	    <script type="text/javascript" src="/scripts/options.js"></script>
+       <title>Settings</title>
     </head>
 
-    <body>
-        <h1>Future options page!</h1>           
+    <body ng-controller="OptionsController" ng-cloak>
+        <h1>Future options page!</h1>
+        <p>Delete all websites: </p>
+        <button ng-click="clearAll()">Clear all</button>
+        <script type="text/javascript" src="/scripts/angular-1.5.8.min.js"></script>
+        <script type="text/javascript" src="/scripts/tracking.js"></script>
+        <script type="text/javascript" src="/scripts/app.js"></script>
+        <script type="text/javascript" src="/scripts/options.js"></script>
     </body>
 
 </html>

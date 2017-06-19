@@ -8,6 +8,7 @@
 <body ng-controller="MainController" ng-cloak>
     <div class="header">
         <img class="logo" width="100" height="80" src="/images/logo.svg" />
+        <a ng-click="settings()"><img class="settingsIcon" width="28" height="28" title="Settings" src="/images/settings.svg" /></a>
     </div>
     <div ng-show="monsterToggle()">
         <div class="monsterText" >{{placeholder_msg}}</div>
@@ -37,7 +38,7 @@
                         <div class="circle"></div>
                         <div>{{visits_label}}</div>
                         <div>
-                            <a ng-click="sortToggle(sortOrder)" >
+                            <a ng-click="sortToggle(sortOrder)" title="Sort">
                                 <svg class="sortIcon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" style="enable-background:new 0 0 100 100;" xml:space="preserve">
                                     <g>
                                         <path fill="#22d8ff" id="des" ng-style="desStyle" d="M36.2,56.7c2.3,0,4.4-0.9,6-2.5l22.4-22.7c3.3-3.3,3.3-8.7-0.1-12c-3.3-3.3-8.7-3.3-12,0.1L36.1,36.2L19.5,19.6   c-3.3-3.3-8.7-3.3-12,0c-3.3,3.3-3.3,8.7,0,12l22.7,22.7C31.7,55.8,33.9,56.7,36.2,56.7C36.1,56.7,36.2,56.7,36.2,56.7z"/>
@@ -73,19 +74,20 @@
                         </div>
                     </td>
                     <td class="removetd">
-                        <div class="binBG" ng-mouseleave="removeStyle={left:30+'px'}"><img ng-click="remove(website)" class="remove" src="/images/bin.svg"></div>
+                        <div class="binBG" ng-mouseleave="removeStyle={left:30+'px'}"><img ng-click="remove(website)" class="remove" title="Delete" src="/images/bin.svg"></div>
                         <div ng-style="removeStyle" ng-class="{'removeArrow': true}" ><div ng-mouseenter="removeStyle={left:0}" class="arrow"> > </div></div>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    
+
     <div class="footer">
         <p>&copy; Copyright 2017 All Rights Reserved.</p>
     </div>
     <script type="text/javascript" src="/scripts/angular-1.5.8.min.js"></script>
     <script type="text/javascript" src="/scripts/tracking.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
     <script type="text/javascript" src="/scripts/popup.js"></script>
 </body>
 

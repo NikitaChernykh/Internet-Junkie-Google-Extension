@@ -14,26 +14,33 @@ s.parentNode.insertBefore(ga, s);
 
 //Main Website List
 var websiteList = [];
-
-//Blacklist of websites 
+var windowsList = [];
+//Blacklist of websites
 var blackList = ["newtab", "www.google.", "chrome:", "localhost"];
 
-//Variables 
+//Variables
 var globalURL; //URL to avoid count on tab reload
 var prevTab = ''; //Check for preveous tab url for stopTime stamp
+var activeWindow;
+
+
+console.log("active window id: " + activeWindow);
 
 //Get the clean domain name
 function extractDomain(url) {
-    var domain;
-    //find & remove protocol (http, ftp, etc.) and get domain
-    if (url.indexOf("://") > -1) {
-        domain = url.split('/')[2];
-    } else {
-        domain = url.split('/')[0];
+    if(url != undefined){
+       var domain;
+        //find & remove protocol (http, ftp, etc.) and get domain
+        if (url.indexOf("://") > -1) {
+            domain = url.split('/')[2];
+        } else {
+            domain = url.split('/')[0];
+        }
+        //find & remove port number
+        domain = domain.split(':')[0];
+        return domain; 
     }
-    //find & remove port number
-    domain = domain.split(':')[0];
-    return domain;
+    return "";
 }
 
 //Search if the website already exist in the array
@@ -43,7 +50,7 @@ function search(websiteName) {
             return websiteList[i];
         }
     }
-    return websiteList[i]; //<==TODO possibly returns undefined 
+    return websiteList[i]; //<==TODO possibly returns undefined
 }
 
 //Checks if url is passing a blackList
@@ -60,16 +67,16 @@ function blackListCheck(websiteName) {
 function updateStatus(tabURL) {
     var websiteName = extractDomain(tabURL);
     var existingWebsite = search(websiteName);
-    var end = moment().format();
-    if (existingWebsite) {
 
+    if (existingWebsite) {
+        var end = moment().format();
         var duration = moment.duration(moment(end).diff(existingWebsite.startTime));
 
         if (existingWebsite.timeDifference != null) {
             var duration = duration.add(existingWebsite.timeDifference);
         }
         //format time
-        var days = duration.days();//kevin was here      
+        var days = duration.days();
         var hours = duration.hours();
         var min = duration.minutes();
         var sec = duration.seconds();
@@ -78,7 +85,7 @@ function updateStatus(tabURL) {
             "hours": hours,
             "min": min,
             "sec": sec
-        }; //TODO check how obj can be created this way
+        };
 
         //update values
         existingWebsite.endTime = end;
@@ -89,20 +96,21 @@ function updateStatus(tabURL) {
 
 //Check if the tab is Activated
 chrome.tabs.onActivated.addListener(function (activeInfo) {
+    console.log("this was previous tab " + prevTab);
     //status update
     chrome.tabs.query({}, function (tabs) {
         tabs.forEach(function (tab) {
-            if (prevTab != '') {
-                var extractedUrl = extractDomain(tab.url);
-                if (tab.active) {
-                    if (prevTab != extractedUrl || prevTab == extractedUrl) {
-                        updateStatus(prevTab);
-                    }
-                    prevTab = extractDomain(tab.url);
+            //console.log("tab: "+tab.url);
+            if(tab.active){
+                //console.log("this one is active: "+tab.url);
+                if(prevTab == ''){
+                    prevTab = extractDomain(tab.url);  
                 }
-            }
-            if (prevTab == '') {
-                if (tab.active) {
+                
+                var extractedUrl = extractDomain(tab.url);
+                
+                if (prevTab != extractedUrl || prevTab == extractedUrl) {
+                    updateStatus(prevTab);
                     prevTab = extractDomain(tab.url);
                 }
             }
@@ -124,20 +132,21 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
 
 //Check if the tab is Updated
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-    //check for anactive tab reloading
-    if (tab.active) {
-        //comapre if the domain is the same
-        if (!tab.url.includes(extractDomain(globalURL))) {
-            if (changeInfo.status == "complete" && tab.status == "complete" && tab.url != undefined) {
-                if (tab.active && tab.url != "chrome://newtab/") {
-                    tabUpdatedAndActiveCallback(tab.url, tab.favIconUrl);
-                    updateStatus(prevTab);
-                    prevTab = extractDomain(tab.url);
-                    globalURL = tab.url;
-                }
-            }
-        }
-        
+  if(tab.url != "chrome://newtab/"){
+      //check for anactive tab reloading
+      if (tab.active) {
+          //comapre if the domain is the same
+          if (!tab.url.includes(extractDomain(globalURL))) {
+              if (changeInfo.status == "complete" && tab.status == "complete" && tab.url != undefined) {
+                  if (tab.active && tab.url != "chrome://newtab/") {
+                      tabUpdatedAndActiveCallback(tab.url, tab.favIconUrl);
+                      updateStatus(prevTab);
+                      prevTab = extractDomain(tab.url);
+                      globalURL = tab.url;
+                  }
+              }
+          }
+      }
     }
 });
 
@@ -202,12 +211,43 @@ chrome.runtime.lastError;
 //Extension watching for tabs that are created
 chrome.tabs.onCreated.addListener(function (tab) {});
 
+
+function searchWindow(window) {
+    var exist;
+    for (var i = 0; i < windowsList.length; i++) {
+        if (windowsList[i].windowId == window) {
+            exist = true;
+        }
+        exist = false;
+    }
+    return exist;
+}
+chrome.windows.onFocusChanged.addListener(function(windowId) {
+    console.log("window ID from focus: "+windowId);
+    console.log("gloabal URL: " +globalURL);
+    console.log("prev TAB from focus: "+prevTab);
+    activeWindow = windowId;
+    if(searchWindow(windowId)){
+        
+    }else{
+       console.log(searchWindow(windowId));
+        windowsList.push({
+          windowId: windowId
+        });
+        console.log(windowsList); 
+    }
+});
+
 chrome.windows.getAll({populate:true},function(windows){
   windows.forEach(function(window){
-      console.log(window);
+      //get all the windows and push them in to the list
+      console.log(window.id);
+      windowsList.push({
+          windowId: window.id
+      });
     window.tabs.forEach(function(tab){
       //collect all of the urls here, I will just log them instead
-      console.log(tab.url);
+      //console.log(tab.url);
     });
   });
 });

@@ -64,7 +64,7 @@ tbody tr {
     background-color: #2a3353;
     border-bottom: 2px solid #1c2340;
     transition: 0.5s;
-    
+
 }
 tbody tr:hover{
     background-color: #1c2340;
@@ -94,7 +94,12 @@ img {
     margin-bottom: 5px;
     margin-left: 5px;
 }
-
+.settingsIcon {
+  position: absolute;
+  right: 5px;
+  bottom: -5px;
+  cursor: pointer;
+}
 .header {
     border-top: 0;
     position: fixed;
@@ -165,7 +170,7 @@ img {
 
 
 .timeLabel{
-    text-align: left; 
+    text-align: left;
     padding-bottom: 2px;
     border-collapse: collapse;
     border-bottom:1px solid #91FF8F;
@@ -186,7 +191,7 @@ img {
     height: 30px;
     line-height: 30px;
     padding-left: 15px;
-    width:130px;    
+    width:130px;
 }
 
 .inline{
@@ -194,7 +199,7 @@ img {
 }
 .removetd{
     width: 60px;
- 
+
 }
 
 .binBG{
