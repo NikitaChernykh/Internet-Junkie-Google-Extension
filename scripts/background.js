@@ -35,6 +35,11 @@ function extractDomain(url) {
         }
         //find & remove port number
         domain = domain.split(':')[0];
+        //removes everything before 1 dot
+        var regex = /(\..*){2,}/;
+        if(regex.test(domain)){
+            domain = domain.substring(domain.indexOf(".") + 1);
+        }
         return domain;
     }
     return "";
