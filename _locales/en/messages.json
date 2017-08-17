@@ -11,7 +11,7 @@
         "message": "Wow! You are not addicted to any website yet!",
         "description": "Message when you have no addiction."
     },
-    "top5_header_text": {
+    "table_header_text": {
         "message": "List of the websites you maybe addicted to:",
         "description": "Message label for top 5 websites."
     },

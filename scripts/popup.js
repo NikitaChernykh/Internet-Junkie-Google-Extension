@@ -19,7 +19,7 @@ background.websiteList.sort(function (a, b) {
         
         //_locales translate TODO => move the translation in saparate file
         $scope.placeholder_msg = chrome.i18n.getMessage("placeholder_msg");
-        $scope.top5_header_text = chrome.i18n.getMessage("top5_header_text");
+        $scope.top5_header_text = chrome.i18n.getMessage("table_header_text");
         $scope.websites_label = chrome.i18n.getMessage("websites_label");
         $scope.visits_label = chrome.i18n.getMessage("visits_label");
         $scope.time_label = chrome.i18n.getMessage("time_label");
@@ -64,12 +64,24 @@ background.websiteList.sort(function (a, b) {
             });
         };
 
+        //show day table
+        $scope.dayBtn = 1;
+        $scope.isActive = false;
+        $scope.dayClick = function(day){
+            $scope.dayBtn = day;
+            $scope.isActive = !$scope.isActive;
+            if (day == 1){
+                $scope.isActive = false;
+            }
+            
+        }
         //monster toggle
         $scope.monsterToggle = function () {
             if (background.websiteList[0] == undefined || background.websiteList[0].websiteVisits < 0) {
                 return true;
+            }else{
+                return false;
             }
-            return false;
         };
     };
 

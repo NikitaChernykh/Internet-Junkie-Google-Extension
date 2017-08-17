@@ -26,9 +26,9 @@
             <div class="text"></div>
         </div>
     </div>
-    <p id="heading" ng-hide="monsterToggle()">{{top5_header_text}}</p>
-    <div id="websiteList" ng-hide="monsterToggle()">
-        <table cellspacing="0" cellpadding="0" style="border-collapse: collapse">
+    <p id="heading" ng-hide="monsterToggle()">{{table_header_text}}</p>
+    <div id="websiteList" ng-hide="monsterToggle()" >
+        <table  cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
             <thead>
                 <tr>
                     <th class="nameLabel"></th>
@@ -53,7 +53,7 @@
                     <th class="timeLabel"></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody ng-show="dayBtn == 1" class="fade">
                 <tr ng-repeat="website in websites | limitTo:5 | orderBy:sortOrder track by $index" ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
                     <td>
@@ -79,35 +79,62 @@
                     </td>
                 </tr>
             </tbody>
+            <tbody ng-show="dayBtn == 2" class="fade">
+                <tr ng-repeat="website in websites | limitTo:4 | orderBy:sortOrder track by $index" ng-mouseleave="removeStyle={left:30+'px'}">
+                    <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
+                    <td>
+                        <a ng-href="http://{{website.websiteName}}" target="_blank" tabindex="-1">
+                            <div class="siteName">text</div>
+                        </a>
+                    </td>
+                    <td class="centered">2</td>
+                    <td class="centered">
+                        <div class="timeContainer" ng-hide="{{(website.formatedTime == undefined) ? 'true':'false'}}">
+                            <div class="inline" ng-hide="{{(website.formatedTime.days == 0) ? 'true':'false'}}">
+                                {{('0'+website.formatedTime.days.toString()).slice(-2)+'d'}}
+                            </div>
+                            <div class="inline" ng-hide="{{(website.formatedTime.hours == 0) ? 'true':'false'}}">{{('0'+website.formatedTime.hours.toString()).slice(-2)+'h'}}</div>
+                            <div class="inline">{{('0'+website.formatedTime.min.toString()).slice(-2)+'m'}}</div>
+
+                            <div class="inline">{{('0'+website.formatedTime.sec.toString()).slice(-2)+'s'}}</div>
+                        </div>
+                    </td>
+                    <td class="removetd">
+                        <div class="binBG" ng-mouseleave="removeStyle={left:30+'px'}"><img ng-click="remove(website)" class="remove" title="Delete" src="/images/bin.svg"></div>
+                        <div ng-style="removeStyle" ng-class="{'removeArrow': true}" ><div ng-mouseenter="removeStyle={left:0}" class="arrow"> > </div></div>
+                    </td>
+                </tr>
+            </tbody>
         </table>
         <div class="week-menu-container">
             <div class="days-container">
+                <p>See other days</p>
                 <div class="day-of-the-week">
-                    <div class="day-circle">11</div>
+                    <div class="day-circle other-day">11</div>
                     <div class="day-name">FRI</div>
                 </div>
                 <div class="day-of-the-week">
-                    <div class="day-circle">12</div>
+                    <div class="day-circle other-day">12</div>
                     <div class="day-name">SAT</div>
                 </div>
                 <div class="day-of-the-week">
-                    <div class="day-circle">13</div>
+                    <div class="day-circle other-day">13</div>
                     <div class="day-name">SUN</div>
                 </div>
                 <div class="day-of-the-week">
-                    <div class="day-circle">14</div>
+                    <div class="day-circle other-day">14</div>
                     <div class="day-name">MON</div>
                 </div>
-                <div class="day-of-the-week">
-                    <div class="day-circle">15</div>
+                <div class="day-of-the-week" ng-click="dayClick(3)">
+                    <div class="day-circle other-day" ng-class="{'other-day-active': dayBtn == 3}">15</div>
                     <div class="day-name">TUE</div>
                 </div>
-                <div class="day-of-the-week">
-                    <div class="day-circle">16</div>
+                <div class="day-of-the-week" ng-click="dayClick(2)" >
+                    <div class="day-circle other-day" ng-class="{'other-day-active': dayBtn == 2}">16</div>
                     <div class="day-name">WED</div>
                 </div>
-                <div class="day-of-the-week">
-                    <div class="day-circle">17</div>
+                <div class="day-of-the-week" ng-click="dayClick(1)">
+                    <div class="day-circle today">17</div>
                     <div class="day-name">THU</div>
                 </div>
             </div>
@@ -118,6 +145,7 @@
         <p>&copy; Copyright 2017 All Rights Reserved.</p>
     </div>
     <script type="text/javascript" src="/scripts/angular-1.5.8.min.js"></script>
+    <script type="text/javascript" src="/scripts/angular-animate.min.js"></script>
     <script type="text/javascript" src="/scripts/tracking.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
     <script type="text/javascript" src="/scripts/popup.js"></script>
