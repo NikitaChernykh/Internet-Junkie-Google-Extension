@@ -16,8 +16,8 @@ background.websiteList.sort(function (a, b) {
         $scope.websites = background.websiteList;
         //descending sort order
         $scope.sortOrder = "-websiteVisits";
-
-        //_locales translate
+        
+        //_locales translate TODO => move the translation in saparate file
         $scope.placeholder_msg = chrome.i18n.getMessage("placeholder_msg");
         $scope.top5_header_text = chrome.i18n.getMessage("top5_header_text");
         $scope.websites_label = chrome.i18n.getMessage("websites_label");

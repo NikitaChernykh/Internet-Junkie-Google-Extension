@@ -14,7 +14,6 @@ s.parentNode.insertBefore(ga, s);
 
 //Main Website List
 var websiteList = [];
-var windowsList = [];
 //Blacklist of websites
 var blackList = ["newtab", "www.google.", "chrome:", "localhost"];
 
@@ -25,8 +24,12 @@ var activeWIndow;
 
 //Get the clean domain name
 function extractDomain(url) {
-    if(url != undefined){
-       var domain;
+    'use strict';
+    if (url !== undefined) {
+        //vars
+        var domain;
+        var regex = /(\..*){2,}/;
+        
         //find & remove protocol (http, ftp, etc.) and get domain
         if (url.indexOf("://") > -1) {
             domain = url.split('/')[2];
@@ -35,9 +38,9 @@ function extractDomain(url) {
         }
         //find & remove port number
         domain = domain.split(':')[0];
-        //removes everything before 1 dot
-        var regex = /(\..*){2,}/;
-        if(regex.test(domain)){
+        
+        //removes everything before 1 dot - like: "www"
+        if (regex.test(domain)) {
             domain = domain.substring(domain.indexOf(".") + 1);
         }
         return domain;
@@ -52,7 +55,7 @@ function search(websiteName) {
             return websiteList[i];
         }
     }
-    return websiteList[i]; //<==TODO possibly returns undefined
+    return websiteList[i];
 }
 
 //Checks if url is passing a blackList
@@ -62,7 +65,7 @@ function blackListCheck(websiteName) {
             return true;
         }
     }
-    return false;
+    return false; // TODO thnik of a better blacklist
 }
 
 //Updates the status of the tab
@@ -155,7 +158,6 @@ function tabUpdatedAndActiveCallback(newUrl, favIcon, startTime, deactivationTim
         }
         if (!existingWebsite) {
             //add new website to the list
-
             var website = {
                 websiteName: websiteName,
                 favIcon: favIcon,
@@ -168,16 +170,18 @@ function tabUpdatedAndActiveCallback(newUrl, favIcon, startTime, deactivationTim
             if (existingWebsite.favIcon == "/images/default_icon.png") {
                 existingWebsite.favIcon = favIcon;
             }
-
+            //add tab start time
             existingWebsite.startTime = start;
             //add visits
             existingWebsite.websiteVisits++;
         }
         console.log(websiteList);
+        //save the list to the storage
         chrome.storage.local.set({
             'websiteList': websiteList
         });
     } else {
+        //log if blocked 
         console.log("blocked website " + newUrl);
     }
 
@@ -226,45 +230,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, response) {
     }
 });
 
-//Catch errors
-chrome.runtime.lastError;
-
-//Extension watching for tabs that are created
-chrome.tabs.onCreated.addListener(function (tab) {});
-
-function searchWindow(window){
-    var exist;
-    for (var i=0; i < windowsList.length; i++){
-        if(windowsList[i].windowsId == window){
-           exist = true;
-            }
-        exist = false;
-    }
-    return exist;
-}
+//Catch errors 
+chrome.runtime.lastError; //TODO reserch on error handling
 
 
-chrome.windows.onFocusChanged.addListener(function(windowId) { 
-    console.log("Window ID from focus: "+ windowId);
-    console.log("globalURL"+ globalURL);
-    console.log("prev TAB from focus: "+ prevTab);
-    aciveWindow = windowId;
-    if(searchWindow(windowId)){
-        
-    }else{
-        console.log(searchWindow(windowId));
-        windowsList.push({
-            windowId: windowId
-        });
-        console.log(windowsList);
-    }   
-});
 
-
-chrome.windows.getAll({populate: true}, function(windows){
-    windows.forEach(function(window){
-        windowsList.push({
-           windowId: window.id
-        });
-    });              
-});
