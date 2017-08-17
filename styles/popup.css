@@ -47,7 +47,7 @@ body {
     color: #fff;
     margin-top: 100px;
     width: 420px;
-    height:270px;
+    height:300px;
     padding: 0;
     font-family: "Roboto Condensed", Arial, sans-serif;
 }
@@ -199,7 +199,6 @@ img {
 }
 .removetd{
     width: 60px;
-
 }
 
 .binBG{
@@ -240,7 +239,38 @@ img {
      left:30px;
 }
 
-
+.week-menu-container{
+    /* outline: 1px red solid; */
+    height: 50px;
+}
+.days-container{
+    /* outline: 1px green solid; */
+    width: 65%;
+    height: inherit;
+    margin: 10px auto 5px auto;
+    padding-left: 15px;
+}
+.day-of-the-week{
+    /* outline: 1px purple solid; */
+    height: inherit;
+    display: inline-block;
+    cursor: pointer;
+}
+.day-circle{
+    margin-left: 2px;
+    margin-right: 2px;
+    border-radius: 50%;
+	width: 30px;
+    height: 30px; 
+    border: 1px white solid;
+    text-align: center;
+    line-height: 30px;
+    background-color: #2a3353;
+}
+.day-name{
+    margin-top: 5px;
+    text-align: center;
+}
 .footer {
     height: 25px;
     left: 0;
