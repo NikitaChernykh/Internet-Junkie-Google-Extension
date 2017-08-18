@@ -19,7 +19,7 @@ background.websiteList.sort(function (a, b) {
         
         //_locales translate TODO => move the translation in saparate file
         $scope.placeholder_msg = chrome.i18n.getMessage("placeholder_msg");
-        $scope.top5_header_text = chrome.i18n.getMessage("table_header_text");
+        $scope.table_header_text = chrome.i18n.getMessage("table_header_text");
         $scope.websites_label = chrome.i18n.getMessage("websites_label");
         $scope.visits_label = chrome.i18n.getMessage("visits_label");
         $scope.time_label = chrome.i18n.getMessage("time_label");

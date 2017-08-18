@@ -184,8 +184,6 @@ function tabUpdatedAndActiveCallback(newUrl, favIcon, startTime, deactivationTim
         //log if blocked 
         console.log("blocked website " + newUrl);
     }
-
-
 }
 function windowNowInactive(tabURL){
     var domain = extractDomain(tabURL);
@@ -230,8 +228,28 @@ chrome.runtime.onMessage.addListener(function (request, sender, response) {
     }
 });
 
-//Catch errors 
-chrome.runtime.lastError; //TODO reserch on error handling
+// Check if chome is out of focus or pc in sleep mode TODO in progress 
+chrome.windows.onFocusChanged.addListener(function(window) {
+        if (window == chrome.windows.WINDOW_ID_NONE) {
+            inFocus = false;
+            console.log("chrome is NOT active");
+            console.log("I just stoped: " + prevTab);
+            updateDeactivationTime(prevTab);
+            globalURL = prevTab;
+        } else {
+            inFocus = true;
+            chrome.tabs.query({active: true, currentWindow: true},function(tabs){
+                console.log("I just restarted: " + tabs[0].url);
+                console.log("global was: " + globalURL);
+                tabUpdatedAndActiveCallback(extractDomain(tabs[0].url));
+                prevTab = extractDomain(tabs[0].url);
+                globalURL = extractDomain(tabs[0].url);
+            });
+            console.log("global now: " + globalURL);
+            console.log("chrome is active");
+        }
+    
+});
 
 
 
