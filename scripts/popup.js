@@ -67,13 +67,42 @@ background.websiteList.sort(function (a, b) {
         //show day table
         $scope.dayBtn = 1;
         $scope.isActive = false;
+
+        //week days in progress TODO
+        $scope.today = moment().date();
+        $scope.weekdays = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+        $scope.lastweek =  moment().day(-5).format("ddd").toUpperCase();              
+        $scope.weekday = moment().isoWeekday();
+        // switch($scope.weekday){
+        //     case 1:
+        //     $scope.weekday = $scope.weekdays[1];
+        //     break;
+        //     case 2:
+        //     $scope.weekday = $scope.weekdays[2];
+        //     break;
+        //     case 3:
+        //     $scope.weekday = $scope.weekdays[3];
+        //     break;
+        //     case 4:
+        //     $scope.weekday = $scope.weekdays[4];
+        //     break;
+        //     case 5:
+        //     $scope.weekday = $scope.weekdays[5];
+        //     break;
+        //     case 6:
+        //     $scope.weekday = $scope.weekdays[6];
+        //     break;
+        //     case 7:
+        //     $scope.weekday = $scope.weekdays[0];
+        //     break;
+        // }
+
         $scope.dayClick = function(day){
             $scope.dayBtn = day;
             $scope.isActive = !$scope.isActive;
             if (day == 1){
                 $scope.isActive = false;
             }
-            
         }
         //monster toggle
         $scope.monsterToggle = function () {
