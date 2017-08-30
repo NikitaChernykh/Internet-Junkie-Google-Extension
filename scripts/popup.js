@@ -74,6 +74,11 @@ background.websiteList.sort(function (a, b) {
             var date = moment().subtract('days', i);
             var formattedDate = {number: moment(date).format("D"), name: moment(date).format("ddd")};
             $scope.days.push(formattedDate);
+            if(i == 5){
+                 $scope.dayStyle = {color: "#000"};
+            }else{
+                $scope.dayStyle = {color: "#fff"};
+            }
         }
         var today = {number: moment().format("D"), name: moment().format("ddd")};
         $scope.days.push(today);
