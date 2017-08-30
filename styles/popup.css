@@ -252,6 +252,7 @@ img {
     height: inherit;
     margin: 0 auto 5px auto;
     padding-left: 15px;
+    display: inline;
 }
 .days-container p {
     margin-top: 5px;
@@ -269,7 +270,7 @@ img {
     margin-right: 2px;
     border-radius: 50%;
 	width: 30px;
-    height: 30px; 
+    height: 30px;
     border: 1px white solid;
     text-align: center;
     line-height: 30px;

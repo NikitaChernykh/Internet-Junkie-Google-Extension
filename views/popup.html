@@ -106,37 +106,15 @@
                 </tr>
             </tbody>
         </table>
+
         <div class="week-menu-container">
-            <div class="days-container">
-                <p>See other days</p>
-                <div class="day-of-the-week">
-                    <div class="day-circle other-day">{{today-6}}</div>
-                    <div class="day-name">{{lastweek}}</div>
-                </div>
-                <div class="day-of-the-week">
-                    <div class="day-circle other-day">{{today-5}}</div>
-                    <div class="day-name">{{lastweek}}</div>
-                </div>
-                <div class="day-of-the-week">
-                    <div class="day-circle other-day">{{today-4}}</div>
-                    <div class="day-name">SUN</div>
-                </div>
-                <div class="day-of-the-week">
-                    <div class="day-circle other-day">{{today-3}}</div>
-                    <div class="day-name">MON</div>
-                </div>
-                <div class="day-of-the-week" ng-click="dayClick(3)">
-                    <div class="day-circle other-day" ng-class="{'other-day-active': dayBtn == 3}">{{today-2}}</div>
-                    <div class="day-name">{{weekday}}</div>
-                </div>
-                <div class="day-of-the-week" ng-click="dayClick(2)" >
-                    <div class="day-circle other-day" ng-class="{'other-day-active': dayBtn == 2}">{{today-1}}</div>
-                    <div class="day-name">{{weekday}}</div>
-                </div>
-                <div class="day-of-the-week" ng-click="dayClick(1)">
-                    <div class="day-circle today">{{today}}</div>
-                    <div class="day-name">{{weekday}}</div>
-                </div>
+            <p>See other days</p>
+            <div class="days-container" ng-repeat="day in days">
+                    <div class="day-of-the-week">
+                        <div class="day-circle other-day">{{day.number}}</div>
+                        <div class="day-name">{{day.name}}</div>
+                    </div>
+
             </div>
         </div>
     </div>
