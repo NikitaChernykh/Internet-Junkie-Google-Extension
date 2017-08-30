@@ -78,37 +78,13 @@ background.websiteList.sort(function (a, b) {
         var today = {number: moment().format("D"), name: moment().format("ddd")};
         $scope.days.push(today);
 
-        // switch($scope.weekday){
-        //     case 1:
-        //     $scope.weekday = $scope.weekdays[1];
-        //     break;
-        //     case 2:
-        //     $scope.weekday = $scope.weekdays[2];
-        //     break;
-        //     case 3:
-        //     $scope.weekday = $scope.weekdays[3];
-        //     break;
-        //     case 4:
-        //     $scope.weekday = $scope.weekdays[4];
-        //     break;
-        //     case 5:
-        //     $scope.weekday = $scope.weekdays[5];
-        //     break;
-        //     case 6:
-        //     $scope.weekday = $scope.weekdays[6];
-        //     break;
-        //     case 7:
-        //     $scope.weekday = $scope.weekdays[0];
-        //     break;
-        // }
-
-        $scope.dayClick = function(day){
-            $scope.dayBtn = day;
-            $scope.isActive = !$scope.isActive;
-            if (day == 1){
-                $scope.isActive = false;
-            }
-        }
+//        $scope.dayClick = function(day){
+//            $scope.dayBtn = day;
+//            $scope.isActive = !$scope.isActive;
+//            if (day == 1){
+//                $scope.isActive = false;
+//            }
+//        }
         //monster toggle
         $scope.monsterToggle = function () {
             if (background.websiteList[0] == undefined || background.websiteList[0].websiteVisits < 0) {
