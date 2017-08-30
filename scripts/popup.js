@@ -16,7 +16,7 @@ background.websiteList.sort(function (a, b) {
         $scope.websites = background.websiteList;
         //descending sort order
         $scope.sortOrder = "-websiteVisits";
-        
+
         //_locales translate TODO => move the translation in saparate file
         $scope.placeholder_msg = chrome.i18n.getMessage("placeholder_msg");
         $scope.table_header_text = chrome.i18n.getMessage("table_header_text");
@@ -69,10 +69,15 @@ background.websiteList.sort(function (a, b) {
         $scope.isActive = false;
 
         //week days in progress TODO
-        $scope.today = moment().date();
-        $scope.weekdays = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
-        $scope.lastweek =  moment().day(-5).format("ddd").toUpperCase();              
-        $scope.weekday = moment().isoWeekday();
+        $scope.days = [];
+        for (var i = 6; i >= 1; i--) {
+            var date = moment().subtract('days', i);
+            var formattedDate = {number: moment(date).format("D"), name: moment(date).format("ddd")};
+            $scope.days.push(formattedDate);
+        }
+        var today = {number: moment().format("D"), name: moment().format("ddd")};
+        $scope.days.push(today);
+
         // switch($scope.weekday){
         //     case 1:
         //     $scope.weekday = $scope.weekdays[1];
