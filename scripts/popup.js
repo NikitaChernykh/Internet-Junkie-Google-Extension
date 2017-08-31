@@ -1,9 +1,9 @@
 'use strict';
-//Get acsses to the background.js
+//get acsses to the background.js
 var background = chrome.extension.getBackgroundPage();
 
-//Sort websites in descending order by visits
-//Sorts before load
+//sort websites in descending order by visits
+//sorts before load
 background.websiteList.sort(function (a, b) {
     return b.websiteVisits - a.websiteVisits;
 });
@@ -51,6 +51,7 @@ background.websiteList.sort(function (a, b) {
           var newURL = location.origin+"/views/options.html";
           chrome.tabs.create({ url: newURL });
         };
+
         //remove website
         $scope.remove = function (website) {
             $scope.websites.splice($scope.websites.indexOf(website), 1);
@@ -69,46 +70,21 @@ background.websiteList.sort(function (a, b) {
         $scope.isActive = false;
 
         //week days in progress TODO
-        $scope.today = moment().date();
-        $scope.weekdays = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
-        $scope.lastweek =  moment().day(-5).format("ddd").toUpperCase();              
-        $scope.weekday = moment().isoWeekday();
-        // switch($scope.weekday){
-        //     case 1:
-        //     $scope.weekday = $scope.weekdays[1];
-        //     break;
-        //     case 2:
-        //     $scope.weekday = $scope.weekdays[2];
-        //     break;
-        //     case 3:
-        //     $scope.weekday = $scope.weekdays[3];
-        //     break;
-        //     case 4:
-        //     $scope.weekday = $scope.weekdays[4];
-        //     break;
-        //     case 5:
-        //     $scope.weekday = $scope.weekdays[5];
-        //     break;
-        //     case 6:
-        //     $scope.weekday = $scope.weekdays[6];
-        //     break;
-        //     case 7:
-        //     $scope.weekday = $scope.weekdays[0];
-        //     break;
-        // }
-
-        $scope.dayClick = function(day){
-            $scope.dayBtn = day;
-            $scope.isActive = !$scope.isActive;
-            if (day == 1){
-                $scope.isActive = false;
+        $scope.days = [];
+        for (var i = 6; i >= 1; i--) {
+            var date = moment().subtract('days', i);
+            var formattedDate = {number: moment(date).format("D"), name: moment(date).format("ddd")};
+            $scope.days.push(formattedDate);
+            if(i == 5){
+                 $scope.dayStyle = {color: "#000"};
+            }else{
+                $scope.dayStyle = {color: "#fff"};
             }
         }
-<<<<<<< Updated upstream
-=======
         var today = {number: moment().format("D"), name: moment().format("ddd")};
         $scope.days.push(today);
 
+//TODO!
 //        $scope.dayClick = function(day){
 //            $scope.dayBtn = day;
 //            $scope.isActive = !$scope.isActive;
@@ -116,15 +92,17 @@ background.websiteList.sort(function (a, b) {
 //                $scope.isActive = false;
 //            }
 //        }
-        
+
+        //google auth popup
         $scope.gauth = function(){
             chrome.identity.getAuthToken({
                 "interactive": true
             },function(token){
+                //sends to the console the authentication token
                 console.log(token);
             });
         }
->>>>>>> Stashed changes
+
         //monster toggle
         $scope.monsterToggle = function () {
             if (background.websiteList[0] == undefined || background.websiteList[0].websiteVisits < 0) {

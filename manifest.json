@@ -18,7 +18,8 @@
    "short_name":"Internet Junkie",
    "web_accessible_resources": ["images/default_icon.png"],
    "options_page": "/views/options.html",
-   "permissions": [ 
+   "permissions": [
+      "identity", 
        "tabs",
        "<all_urls>",
        "storage"
