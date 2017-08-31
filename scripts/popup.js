@@ -104,6 +104,27 @@ background.websiteList.sort(function (a, b) {
                 $scope.isActive = false;
             }
         }
+<<<<<<< Updated upstream
+=======
+        var today = {number: moment().format("D"), name: moment().format("ddd")};
+        $scope.days.push(today);
+
+//        $scope.dayClick = function(day){
+//            $scope.dayBtn = day;
+//            $scope.isActive = !$scope.isActive;
+//            if (day == 1){
+//                $scope.isActive = false;
+//            }
+//        }
+        
+        $scope.gauth = function(){
+            chrome.identity.getAuthToken({
+                "interactive": true
+            },function(token){
+                console.log(token);
+            });
+        }
+>>>>>>> Stashed changes
         //monster toggle
         $scope.monsterToggle = function () {
             if (background.websiteList[0] == undefined || background.websiteList[0].websiteVisits < 0) {

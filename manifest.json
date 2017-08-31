@@ -23,6 +23,14 @@
        "<all_urls>",
        "storage"
    ],
+    "oauth2": {
+    "client_id": "673180643315-a7rnqnhbjvssslsdnchbeaegccjpi6n0.apps.googleusercontent.com",
+    "scopes": [
+      "profile",
+      "email"
+    ]
+  },
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkOZwK6Q/oLZRnFYB7bFoUyPDEvH0l2JbllOG+jbZwcXElX5Bm06wUW7aOvdaXFF5OlzFJpfzvY+588iBy5YzPcIZq/Fddi3QhDC6VJuIsF5t/3wvPwnwsUZ2zVGE/lN+jZcRwDvnjSGn0fHNkgd3Apyt1n5J6fIV2n+Fh3H+rzSQRxd7fuKQSTV6w5Wmz6bEqBVRc63hrHA7hUxs+qmCUeJGghrjUn6yEf2v1ktmdx23bFHce0rEgU37xc+YxV+9m6AlWnEDfqNB+/+APg0UHSQcKrVySvh+UZXE3rgdvjimiq9pUOsUcSqYdqzqARv5VLTLVOjR5haNYeQolxdvkQIDAQAB",
     "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
     "version": "1.1.3.9"
 }
