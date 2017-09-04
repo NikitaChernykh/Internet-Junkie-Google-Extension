@@ -95,12 +95,11 @@ background.websiteList.sort(function (a, b) {
 
         //google auth popup
         $scope.gauth = function(){
-            chrome.identity.getAuthToken({
-                "interactive": true
-            },function(token){
-                //sends to the console the authentication token
-                console.log(token);
-            });
+             if (firebase.auth().currentUser) {
+                firebase.auth().signOut();
+              } else {
+                startAuth(true);
+              }
         }
 
         //monster toggle

@@ -108,62 +108,24 @@
                 </tr>
             </tbody>
         </table>
+        
         <div class="week-menu-container">
-            <div class="days-container">
-                <p>See other days</p>
+            <p>See other days</p>
+            <div class="days-container" ng-repeat="day in days">
                 <div class="day-of-the-week">
-                    <div class="day-circle other-day">{{today-6}}</div>
-                    <div class="day-name">{{lastweek}}</div>
-                </div>
-                <div class="day-of-the-week">
-                    <div class="day-circle other-day">{{today-5}}</div>
-                    <div class="day-name">{{lastweek}}</div>
-                </div>
-                <div class="day-of-the-week">
-                    <div class="day-circle other-day">{{today-4}}</div>
-                    <div class="day-name">SUN</div>
-                </div>
-                <div class="day-of-the-week">
-                    <div class="day-circle other-day">{{today-3}}</div>
-                    <div class="day-name">MON</div>
-                </div>
-                <div class="day-of-the-week" ng-click="dayClick(3)">
-                    <div class="day-circle other-day" ng-class="{'other-day-active': dayBtn == 3}">{{today-2}}</div>
-                    <div class="day-name">{{weekday}}</div>
-                </div>
-                <div class="day-of-the-week" ng-click="dayClick(2)" >
-                    <div class="day-circle other-day" ng-class="{'other-day-active': dayBtn == 2}">{{today-1}}</div>
-                    <div class="day-name">{{weekday}}</div>
-                </div>
-                <div class="day-of-the-week" ng-click="dayClick(1)">
-                    <div class="day-circle today">{{today}}</div>
-                    <div class="day-name">{{weekday}}</div>
-                                <div class="inline">{{('0'+website.formatedTime.sec.toString()).slice(-2)+'s'}}</div>
-                            </div>
-                        </td>
-                        <td class="removetd">
-                            <div class="binBG" ng-mouseleave="removeStyle={left:30+'px'}"><img ng-click="remove(website)" class="remove" title="Delete" src="/images/bin.svg"></div>
-                            <div ng-style="removeStyle" ng-class="{'removeArrow': true}" ><div ng-mouseenter="removeStyle={left:0}" class="arrow"> > </div></div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="week-menu-container">
-                <p>See other days</p>
-                <div class="days-container" ng-repeat="day in days">
-                    <div class="day-of-the-week">
-                        <div class="day-circle ng-style: dayStyle;">{{day.number}}</div>
-                        <div class="day-name">{{day.name}}</div>
-                    </div>
+                    <div class="day-circle  other-day ng-style: dayStyle;">{{day.number}}</div>
+                    <div class="day-name">{{day.name}}</div>
                 </div>
             </div>
         </div>
-
-        <div class="footer">
-            <p>&copy; Copyright 2017 All Rights Reserved.</p>
-        </div>
     </div>
+    <div class="footer">
+        <p>&copy; Copyright 2017 All Rights Reserved.</p>
+    </div>
+</div>
     <script type="text/javascript" src="/scripts/angular-1.5.8.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+    <script type="text/javascript" src="/scripts/credentials.js"></script>
     <script type="text/javascript" src="/scripts/moment.js"></script>
     <script type="text/javascript" src="/scripts/tracking.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
