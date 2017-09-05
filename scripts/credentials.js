@@ -22,8 +22,9 @@ function initApp() {
       var isAnonymous = user.isAnonymous;
       var uid = user.uid;
       var providerData = user.providerData;
+        console.log(user);
     } else {
-      startAuth(true);
+      
     }
   });
 }

@@ -92,16 +92,22 @@ background.websiteList.sort(function (a, b) {
 //                $scope.isActive = false;
 //            }
 //        }
-
+        if(firebase.auth().currentUser){
+             $scope.logged = true;
+        }else{
+             $scope.logged = false;
+        }
+       
         //google auth popup
         $scope.gauth = function(){
              if (firebase.auth().currentUser) {
                 firebase.auth().signOut();
+                 $scope.logged = false;
               } else {
                 startAuth(true);
+                $scope.logged = true;
               }
         }
-
         //monster toggle
         $scope.monsterToggle = function () {
             if (background.websiteList[0] == undefined || background.websiteList[0].websiteVisits < 0) {
