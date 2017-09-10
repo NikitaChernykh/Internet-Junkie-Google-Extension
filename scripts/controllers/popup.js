@@ -9,8 +9,6 @@ background.websiteList.sort(function (a, b) {
 });
 
 (function () {
-
-
     var MainController = function ($scope) {
 
         $scope.websites = background.websiteList;
@@ -84,30 +82,15 @@ background.websiteList.sort(function (a, b) {
         var today = {number: moment().format("D"), name: moment().format("ddd")};
         $scope.days.push(today);
 
-//TODO!
-//        $scope.dayClick = function(day){
-//            $scope.dayBtn = day;
-//            $scope.isActive = !$scope.isActive;
-//            if (day == 1){
-//                $scope.isActive = false;
-//            }
-//        }
-        if(firebase.auth().currentUser){
-             $scope.logged = true;
-        }else{
-             $scope.logged = false;
-        }
-       
-        //google auth popup
-        $scope.gauth = function(){
-             if (firebase.auth().currentUser) {
-                firebase.auth().signOut();
-                 $scope.logged = false;
-              } else {
-                startAuth(true);
-                $scope.logged = true;
-              }
-        }
+        //TODO!
+        //        $scope.dayClick = function(day){
+        //            $scope.dayBtn = day;
+        //            $scope.isActive = !$scope.isActive;
+        //            if (day == 1){
+        //                $scope.isActive = false;
+        //            }
+        //        }
+        
         //monster toggle
         $scope.monsterToggle = function () {
             if (background.websiteList[0] == undefined || background.websiteList[0].websiteVisits < 0) {

@@ -1,8 +1,5 @@
 'use strict';
-
-
 var app = angular.module("internetJunkie", []);
-
 //config for overwriting whitelist ex: for img path
 app.config(['$compileProvider',function ($compileProvider) {
       //  Default imgSrcSanitizationWhitelist: /^\s*((https?|ftp|file|blob):|data:image\/)/
