@@ -9,12 +9,13 @@ background.websiteList.sort(function (a, b) {
 });
 
 (function () {
+    
     var MainController = function ($scope) {
 
         $scope.websites = background.websiteList;
         //descending sort order
         $scope.sortOrder = "-websiteVisits";
-        
+        $scope.authenticated = false;
         //_locales translate TODO => move the translation in saparate file
         $scope.placeholder_msg = chrome.i18n.getMessage("placeholder_msg");
         $scope.table_header_text = chrome.i18n.getMessage("table_header_text");
@@ -62,7 +63,24 @@ background.websiteList.sort(function (a, b) {
                 list: $scope.websites
             });
         };
-
+       
+        
+        $scope.gauth = function(){
+            chrome.runtime.sendMessage({action: "login"}, function(response) {
+            if (response.response) {
+                    $scope.authenticated = true;
+                }
+            });
+        }
+        
+        //logoff
+        $scope.logoff = function(){
+            $scope.authenticated = false;
+            chrome.runtime.sendMessage({
+               action: "logoff",
+            });
+        }
+        
         //show day table
         $scope.dayBtn = 1;
         $scope.isActive = false;

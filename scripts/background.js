@@ -1,7 +1,7 @@
 //Main Website List
 var websiteList = [];
 //Blacklist of websites
-var blackList = ["newtab", "www.google.", "chrome:", "localhost"];
+var blackList = ["newtab", "www.google.", "chrome://", "localhost"];
 
 //Variables
 var globalURL; //URL to avoid count on tab reload
@@ -200,7 +200,7 @@ function windowNowInactive(tabURL){
         existingWebsite.formatedTime = formatedTime;
     }
 }
-chrome.runtime.onMessage.addListener(function (request, sender, response) {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action == "popup") {
         chrome.storage.local.get('websiteList', function (data) {
             console.log("LIST OF WEBSITES FROM STORAGE");
@@ -212,39 +212,47 @@ chrome.runtime.onMessage.addListener(function (request, sender, response) {
         console.log(request.list);
         websiteList = request.list;
     }
+    if (request.action == "logoff"){
+        console.log("user requsted to logoff");
+        firebase.auth().signOut().then(function() {
+          // Sign-out successful.
+          console.log("Sign-out successful");
+        }).catch(function(error) {
+          // An error happened.
+        });
+    }
+    if(request.action == "login") {
+        chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
+         var credential = firebase.auth.GoogleAuthProvider.credential(null, token);
+         firebase.auth().signInWithCredential(credential);
+         sendResponse({
+            response: "success"
+         });
+         console.log("user erqusted to login");
+        });
+       
+    }
 });
 
 // Check if chome is out of focus or pc in sleep mode TODO in progress 
 chrome.windows.onFocusChanged.addListener(function(window) {
-        if (window == chrome.windows.WINDOW_ID_NONE) {
-            inFocus = false;
-            console.log("chrome is NOT active");
-            console.log("I just stoped: " + prevTab);
-            updateDeactivationTime(prevTab);
-            globalURL = prevTab;
-        } else {
-            inFocus = true;
-            chrome.tabs.query({active: true, currentWindow: true},function(tabs){
-                console.log("I just restarted: " + tabs[0].url);
-                console.log("global was: " + globalURL);
-                tabUpdatedAndActiveCallback(extractDomain(tabs[0].url));
-                prevTab = extractDomain(tabs[0].url);
-                globalURL = extractDomain(tabs[0].url);
-            });
-            console.log("global now: " + globalURL);
-            console.log("chrome is active");
-        }
-    
+    if (window == chrome.windows.WINDOW_ID_NONE) {
+        inFocus = false;
+        console.log("chrome is NOT active");
+        console.log("I just stoped: " + prevTab);
+        updateDeactivationTime(prevTab);
+        globalURL = prevTab;
+    } else {
+        inFocus = true;
+        chrome.tabs.query({active: true, currentWindow: true},function(tabs){
+            console.log("I just restarted: " + tabs[0].url);
+            console.log("global was: " + globalURL);
+            tabUpdatedAndActiveCallback(extractDomain(tabs[0].url));
+            prevTab = extractDomain(tabs[0].url);
+            globalURL = extractDomain(tabs[0].url);
+        });
+        console.log("global now: " + globalURL);
+        console.log("chrome is active");
+    }
 });
 
-
-function initApp() {
-  // Listen for auth state changes.
-  firebase.auth().onAuthStateChanged(function(user) {
-    console.log('User state change detected from the Background script of the Chrome Extension:', user);
-  });
-}
-
-window.onload = function() {
-  initApp();
-};
