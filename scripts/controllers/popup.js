@@ -24,10 +24,15 @@ background.websiteList.sort(function (a, b) {
         $scope.time_label = chrome.i18n.getMessage("time_label");
 
         //send popup action to background
-        chrome.runtime.sendMessage({
-            action: "popup"
+        chrome.runtime.sendMessage({action: "popup"}, function(response){
+           if(response.user == "null"){
+              $scope.authenticated = false;
+           } 
+           if(response.user = "authenticated"){
+              $scope.authenticated = true;
+           }
         });
-
+        
         //sort color and order toggle
         $scope.sortToggle = function (order) {
             //track website sorting event

@@ -7,6 +7,7 @@ var blackList = ["newtab", "www.google.", "chrome://", "localhost"];
 var globalURL; //URL to avoid count on tab reload
 var prevTab = ''; //Check for preveous tab url for stopTime stamp
 var activeWIndow;
+var authenticated = false;
 
 //Get the clean domain name
 function extractDomain(url) {
@@ -201,12 +202,23 @@ function windowNowInactive(tabURL){
     }
 }
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    
     if (request.action == "popup") {
-        chrome.storage.local.get('websiteList', function (data) {
-            console.log("LIST OF WEBSITES FROM STORAGE");
-            console.log(data);
-        });
+        var user = firebase.auth().currentUser;
+        if(user){
+                chrome.storage.local.get('websiteList', function (data) {
+                console.log("LIST OF WEBSITES FROM STORAGE");
+                console.log(data);
+                sendResponse({
+                    user: "authenticated"
+                    });
+                });
+            authenticated = true;
+        }else{
+            sendResponse({
+                user: "null"
+            });
+            authenticated = false;
+        }
         console.log("popup opened");
     }
     if (request.action == "remove") {
@@ -217,12 +229,15 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     
     if (request.action == "logoff"){
         console.log("user requsted to logoff");
+        authenticated = false;
         firebase.auth().signOut().then(function() {
           // Sign-out successful.
           console.log("Sign-out successful");
+           
         }).catch(function(error) {
           // An error happened.
         });
+        
     }
     if(request.action == "login") {
         chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
@@ -233,6 +248,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         sendResponse({
             login: "success"
         });
+        authenticated = true;
         console.log("user erqusted to login");
     }
 });
