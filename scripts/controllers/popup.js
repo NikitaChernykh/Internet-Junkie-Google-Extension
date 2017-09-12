@@ -67,8 +67,9 @@ background.websiteList.sort(function (a, b) {
         
         $scope.gauth = function(){
             chrome.runtime.sendMessage({action: "login"}, function(response) {
-            if (response.response) {
+            if (response.login == "success") {
                     $scope.authenticated = true;
+                    $scope.$apply();
                 }
             });
         }

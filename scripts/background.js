@@ -201,6 +201,7 @@ function windowNowInactive(tabURL){
     }
 }
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    
     if (request.action == "popup") {
         chrome.storage.local.get('websiteList', function (data) {
             console.log("LIST OF WEBSITES FROM STORAGE");
@@ -212,6 +213,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         console.log(request.list);
         websiteList = request.list;
     }
+    
+    
     if (request.action == "logoff"){
         console.log("user requsted to logoff");
         firebase.auth().signOut().then(function() {
@@ -225,12 +228,12 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
          var credential = firebase.auth.GoogleAuthProvider.credential(null, token);
          firebase.auth().signInWithCredential(credential);
-         sendResponse({
-            response: "success"
-         });
-         console.log("user erqusted to login");
+         console.log("token: "+token);
         });
-       
+        sendResponse({
+            login: "success"
+        });
+        console.log("user erqusted to login");
     }
 });
 
