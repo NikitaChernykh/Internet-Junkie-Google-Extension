@@ -1,3 +1,37 @@
+// Initialize Firebase
+var config = {
+     apiKey: "AIzaSyATPYL8AmU4Joh0TAxqcEFKsFCANmnSZBI",
+     authDomain: "internt-junkie.firebaseapp.com",
+     databaseURL: "https://internt-junkie.firebaseio.com",
+     projectId: "internt-junkie",
+     storageBucket: "internt-junkie.appspot.com",
+     messagingSenderId: "673180643315"
+   };
+firebase.initializeApp(config);
+
+
+
+(function () {
+    
+    var BGController = function ($scope, authService) {
+        firebase.auth().onAuthStateChanged(function(user) {
+        console.log('User state change detected from the Background script of the Chrome Extension:', user);
+          if(user){
+              auth = true;
+              authService.authenticated = auth;
+              chrome.runtime.sendMessage({auth: "exist"});
+          }else{
+              auth = false;
+              authService.authenticated = auth;
+              chrome.runtime.sendMessage({auth: "null"});
+          }
+        });
+    };
+    //regsiter a controller in the module
+    app.controller("BGController", ["$scope", "authService", BGController]);
+}());
+
+
 //Main Website List
 var websiteList = [];
 //Blacklist of websites
@@ -7,8 +41,8 @@ var blackList = ["newtab", "www.google.", "chrome://", "localhost"];
 var globalURL; //URL to avoid count on tab reload
 var prevTab = ''; //Check for preveous tab url for stopTime stamp
 var activeWIndow;
-var authenticated = false;
 
+var auth = false;
 //Get the clean domain name
 function extractDomain(url) {
     'use strict';
@@ -203,53 +237,24 @@ function windowNowInactive(tabURL){
 }
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action == "popup") {
-        var user = firebase.auth().currentUser;
-        if(user){
-                chrome.storage.local.get('websiteList', function (data) {
-                console.log("LIST OF WEBSITES FROM STORAGE");
-                console.log(data);
-                sendResponse({
-                    user: "authenticated"
-                    });
-                });
-            authenticated = true;
+        chrome.storage.local.get('websiteList', function (data) {
+        console.log("LIST OF WEBSITES FROM STORAGE");
+        console.log(data);
+        });
+        if(auth){
+           sendResponse({
+                user: "authenticated"
+            });
         }else{
-            sendResponse({
+           sendResponse({
                 user: "null"
             });
-            authenticated = false;
         }
-        console.log("popup opened");
+        
     }
     if (request.action == "remove") {
         console.log(request.list);
         websiteList = request.list;
-    }
-    
-    
-    if (request.action == "logoff"){
-        console.log("user requsted to logoff");
-        authenticated = false;
-        firebase.auth().signOut().then(function() {
-          // Sign-out successful.
-          console.log("Sign-out successful");
-           
-        }).catch(function(error) {
-          // An error happened.
-        });
-        
-    }
-    if(request.action == "login") {
-        chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
-         var credential = firebase.auth.GoogleAuthProvider.credential(null, token);
-         firebase.auth().signInWithCredential(credential);
-         console.log("token: "+token);
-        });
-        sendResponse({
-            login: "success"
-        });
-        authenticated = true;
-        console.log("user erqusted to login");
     }
 });
 

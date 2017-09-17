@@ -10,12 +10,12 @@ background.websiteList.sort(function (a, b) {
 
 (function () {
     
-    var MainController = function ($scope) {
+    var MainController = function ($scope, authService) {
 
         $scope.websites = background.websiteList;
         //descending sort order
         $scope.sortOrder = "-websiteVisits";
-        $scope.authenticated = false;
+        $scope.authenticated = authService.authenticated;
         //_locales translate TODO => move the translation in saparate file
         $scope.placeholder_msg = chrome.i18n.getMessage("placeholder_msg");
         $scope.table_header_text = chrome.i18n.getMessage("table_header_text");
@@ -32,7 +32,6 @@ background.websiteList.sort(function (a, b) {
               $scope.authenticated = true;
            }
         });
-        
         //sort color and order toggle
         $scope.sortToggle = function (order) {
             //track website sorting event
@@ -55,7 +54,47 @@ background.websiteList.sort(function (a, b) {
           var newURL = location.origin+"/views/options.html";
           chrome.tabs.create({ url: newURL });
         };
-
+        
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                 $scope.authenticated = true;
+            }else{
+                 $scope.authenticated = false;
+            }
+        });
+        function startAuth(interactive) {
+          // Request an OAuth token from the Chrome Identity API.
+          chrome.identity.getAuthToken({interactive: !!interactive}, function(token) {
+            if (chrome.runtime.lastError && !interactive) {
+              console.log('It was not possible to get a token programmatically.');
+            } else if(chrome.runtime.lastError) {
+              console.error(chrome.runtime.lastError);
+            } else if (token) {
+              // Authrorize Firebase with the OAuth Access Token.
+              var credential = firebase.auth.GoogleAuthProvider.credential(null, token);
+              firebase.auth().signInWithCredential(credential).catch(function(error) {
+                // The OAuth token might have been invalidated. Lets' remove it from cache.
+                if (error.code === 'auth/invalid-credential') {
+                  chrome.identity.removeCachedAuthToken({token: token}, function() {
+                    startAuth(interactive);
+                  });
+                }
+              });
+            } else {
+              console.error('The OAuth Token was null');
+            }
+          });
+        }
+        chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+            if (request.auth == "exist") {
+                $scope.authenticated = true;
+                authService.authenticated = $scope.authenticated;
+            }
+            if (request.auth == "null") {
+                $scope.authenticated = false;
+                authService.authenticated = $scope.authenticated;
+            }
+        });
         //remove website
         $scope.remove = function (website) {
             $scope.websites.splice($scope.websites.indexOf(website), 1);
@@ -71,17 +110,15 @@ background.websiteList.sort(function (a, b) {
        
         
         $scope.gauth = function(){
-            chrome.runtime.sendMessage({action: "login"}, function(response) {
-            if (response.login == "success") {
-                    $scope.authenticated = true;
-                    $scope.$apply();
-                }
-            });
+            startAuth(true);
+            $scope.authenticated = true;
+            authService.authenticated = $scope.authenticated;
         }
         
         //logoff
         $scope.logoff = function(){
             $scope.authenticated = false;
+            authService.authenticated = $scope.authenticated;
             chrome.runtime.sendMessage({
                action: "logoff",
             });
@@ -126,5 +163,5 @@ background.websiteList.sort(function (a, b) {
     };
 
     //regsiter a controller in the module
-    app.controller("MainController", ["$scope", MainController]);
+    app.controller("MainController", ["$scope", "authService", MainController]);
 }());
