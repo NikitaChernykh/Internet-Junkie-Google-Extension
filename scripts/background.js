@@ -241,16 +241,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         console.log("LIST OF WEBSITES FROM STORAGE");
         console.log(data);
         });
-        if(auth){
-           sendResponse({
-                user: "authenticated"
-            });
-        }else{
-           sendResponse({
-                user: "null"
-            });
-        }
-        
     }
     if (request.action == "remove") {
         console.log(request.list);

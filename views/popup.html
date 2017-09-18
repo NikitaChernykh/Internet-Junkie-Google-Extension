@@ -6,6 +6,7 @@
 </head>
 
 <body ng-controller="MainController" ng-cloak>
+    <div>{{authenticated}}</div>
     <div ng-hide="authenticated"  ><button ng-click="gauth()" >Google login</button></div>
     <div class="wrap" ng-show="authenticated" >
         <div class="header">

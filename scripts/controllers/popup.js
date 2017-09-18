@@ -23,15 +23,43 @@ background.websiteList.sort(function (a, b) {
         $scope.visits_label = chrome.i18n.getMessage("visits_label");
         $scope.time_label = chrome.i18n.getMessage("time_label");
 
-        //send popup action to background
-        chrome.runtime.sendMessage({action: "popup"}, function(response){
-           if(response.user == "null"){
-              $scope.authenticated = false;
-           } 
-           if(response.user = "authenticated"){
-              $scope.authenticated = true;
-           }
+        console.log(authService.authenticated);
+        
+        firebase.auth().onAuthStateChanged(function(user) {
+            if(user){
+                console.log("User EXIST on changed: "+user);
+                $scope.authenticated = true;
+                authService.authenticated = $scope.authenticated;
+                console.log(authService.authenticated);
+                $scope.$apply();
+                chrome.runtime.sendMessage({action: "popup"});
+            }else{
+                console.log("user is NULLL on changed");
+                $scope.authenticated = false;
+                authService.authenticated = $scope.authenticated;
+                console.log(authService.authenticated);
+                $scope.$apply();
+                chrome.runtime.sendMessage({action: "popup"});
+            }
         });
+        
+        var user = firebase.auth().currentUser;
+        if(user){
+            console.log("User EXIST: "+user);
+            $scope.authenticated = true;
+            authService.authenticated = $scope.authenticated;
+            console.log(authService.authenticated);
+            chrome.runtime.sendMessage({action: "popup"});
+        }else{
+            console.log("user is NULLL");
+            $scope.authenticated = false;
+            authService.authenticated = $scope.authenticated;
+            console.log(authService.authenticated);
+            chrome.runtime.sendMessage({action: "popup"});
+        }
+        
+        console.log(authService.authenticated);
+        
         //sort color and order toggle
         $scope.sortToggle = function (order) {
             //track website sorting event
@@ -54,14 +82,6 @@ background.websiteList.sort(function (a, b) {
           var newURL = location.origin+"/views/options.html";
           chrome.tabs.create({ url: newURL });
         };
-        
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                 $scope.authenticated = true;
-            }else{
-                 $scope.authenticated = false;
-            }
-        });
         function startAuth(interactive) {
           // Request an OAuth token from the Chrome Identity API.
           chrome.identity.getAuthToken({interactive: !!interactive}, function(token) {
@@ -85,16 +105,7 @@ background.websiteList.sort(function (a, b) {
             }
           });
         }
-        chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-            if (request.auth == "exist") {
-                $scope.authenticated = true;
-                authService.authenticated = $scope.authenticated;
-            }
-            if (request.auth == "null") {
-                $scope.authenticated = false;
-                authService.authenticated = $scope.authenticated;
-            }
-        });
+
         //remove website
         $scope.remove = function (website) {
             $scope.websites.splice($scope.websites.indexOf(website), 1);
@@ -113,12 +124,14 @@ background.websiteList.sort(function (a, b) {
             startAuth(true);
             $scope.authenticated = true;
             authService.authenticated = $scope.authenticated;
+            $scope.$apply();
         }
         
         //logoff
         $scope.logoff = function(){
             $scope.authenticated = false;
             authService.authenticated = $scope.authenticated;
+            $scope.$apply();
             chrome.runtime.sendMessage({
                action: "logoff",
             });
