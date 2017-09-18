@@ -129,6 +129,7 @@ background.websiteList.sort(function (a, b) {
         
         //logoff
         $scope.logoff = function(){
+            firebase.auth().signOut();
             $scope.authenticated = false;
             authService.authenticated = $scope.authenticated;
             $scope.$apply();
