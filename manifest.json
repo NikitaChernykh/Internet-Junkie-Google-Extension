@@ -1,7 +1,7 @@
 {
    "background": {
       "persistent": true,
-      "page": "/views/background.html"
+      "page": "/app/Shared/background.html"
    },
    "name": "__MSG_ext_name__",
    "description": "__MSG_ext_description__",
@@ -11,13 +11,13 @@
    },
    "browser_action": {
     "default_title": "Internet Junkie",
-    "default_popup": "/views/popup.html"
+    "default_popup": "/app/Shared/popup.html"
   },
    "default_locale": "en",
    "manifest_version": 2,
    "short_name":"Internet Junkie",
    "web_accessible_resources": ["images/default_icon.png"],
-   "options_page": "/views/options.html",
+   "options_page": "/app/Options/options.html",
    "permissions": [
       "identity", 
        "tabs",
