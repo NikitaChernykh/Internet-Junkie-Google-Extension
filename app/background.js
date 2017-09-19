@@ -49,7 +49,7 @@ firebase.initializeApp(config);
 //Main Website List
 var websiteList = [];
 //Blacklist of websites
-var blackList = ["newtab", "www.google.", "chrome://", "localhost"];
+var blackList = ["newtab", "www.google.", "chrome://", "localhost", "chrome-extension://"];
 
 //Variables
 var globalURL; //URL to avoid count on tab reload

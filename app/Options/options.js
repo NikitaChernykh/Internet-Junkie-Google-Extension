@@ -4,9 +4,7 @@
 var background = chrome.extension.getBackgroundPage();
 
 (function () {
-  app.controller('OptionsController',
-    function OptionsController($scope){
-
+    app.controller('OptionsController', function OptionsController($scope){
       $scope.websites = background.websiteList;
       $scope.blackList = background.blackList;
       //clear all website list
@@ -17,7 +15,5 @@ var background = chrome.extension.getBackgroundPage();
         }
         return;
       };
-
-    }
-  );
+    });
 }());

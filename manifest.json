@@ -1,22 +1,22 @@
 {
    "background": {
       "persistent": true,
-      "page": "/app/Shared/background.html"
+      "page": "/app/background.html"
    },
    "name": "__MSG_ext_name__",
    "description": "__MSG_ext_description__",
    "icons": {
-    "48": "/images/icon48.png",
-    "128": "/images/icon128.png" 
+    "48": "/app/assets/images/icon48.png",
+    "128": "/app/assets/images/icon128.png" 
    },
    "browser_action": {
     "default_title": "Internet Junkie",
-    "default_popup": "/app/Shared/popup.html"
+    "default_popup": "/app/popup.html"
   },
    "default_locale": "en",
    "manifest_version": 2,
    "short_name":"Internet Junkie",
-   "web_accessible_resources": ["images/default_icon.png"],
+   "web_accessible_resources": ["/app/assets/images/default_icon.png"],
    "options_page": "/app/Options/options.html",
    "permissions": [
       "identity", 

@@ -7,3 +7,5 @@ app.config(['$compileProvider',function ($compileProvider) {
       $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
     }
 ]);
+
+
