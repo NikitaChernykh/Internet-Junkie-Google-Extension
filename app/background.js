@@ -189,7 +189,7 @@ function tabUpdatedAndActiveCallback(newUrl, favIcon, startTime, deactivationTim
         var start = moment().format();
         //favicon check
         if (favIcon === undefined) {
-            favIcon = "/images/default_icon.png";
+            favIcon = "/app/assets/images/default_icon.png";
         }
         if (!existingWebsite) {
             //add new website to the list
@@ -202,7 +202,7 @@ function tabUpdatedAndActiveCallback(newUrl, favIcon, startTime, deactivationTim
             };
             websiteList.push(website);
         } else {
-            if (existingWebsite.favIcon == "/images/default_icon.png") {
+            if (existingWebsite.favIcon == "/app/assets/images/default_icon.png") {
                 existingWebsite.favIcon = favIcon;
             }
             //add tab start time
