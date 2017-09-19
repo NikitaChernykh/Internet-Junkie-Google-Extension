@@ -124,7 +124,6 @@ background.websiteList.sort(function (a, b) {
             startAuth(true);
             $scope.authenticated = true;
             authService.authenticated = $scope.authenticated;
-            $scope.$apply();
         }
         
         //logoff
@@ -132,7 +131,7 @@ background.websiteList.sort(function (a, b) {
             firebase.auth().signOut();
             $scope.authenticated = false;
             authService.authenticated = $scope.authenticated;
-            $scope.$apply();
+            
             chrome.runtime.sendMessage({
                action: "logoff",
             });

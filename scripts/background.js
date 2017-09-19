@@ -26,6 +26,20 @@ firebase.initializeApp(config);
               chrome.runtime.sendMessage({auth: "null"});
           }
         });
+        var user = firebase.auth().currentUser;
+        if(user){
+            console.log("User EXIST: "+user);
+            auth = true;
+            authService.authenticated = auth;
+            console.log(authService.authenticated);
+            chrome.runtime.sendMessage({auth: "exist"});
+        }else{
+            console.log("user is NULLL");
+            auth = false;
+            authService.authenticated = auth;
+            console.log(authService.authenticated);
+            chrome.runtime.sendMessage({auth: "null"});
+        }
     };
     //regsiter a controller in the module
     app.controller("BGController", ["$scope", "authService", BGController]);
