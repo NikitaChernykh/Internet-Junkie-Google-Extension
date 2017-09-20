@@ -65,10 +65,10 @@ background.websiteList.sort(function (a, b) {
           chrome.tabs.create({ url: newURL });
         };
 
-        //user signout button
+        //signout button
         $scope.signOut = function(){
+            authService.signOut();
             $scope.authenticated = false;
-            firebase.auth().signOut();
             authService.authenticated = $scope.authenticated;
         }
         //show day table
@@ -82,7 +82,7 @@ background.websiteList.sort(function (a, b) {
             var formattedDate = {number: moment(date).format("D"), name: moment(date).format("ddd")};
             $scope.days.push(formattedDate);
             if(i == 5){
-                 $scope.dayStyle = {color: "#000"};
+                $scope.dayStyle = {color: "#000"};
             }else{
                 $scope.dayStyle = {color: "#fff"};
             }
