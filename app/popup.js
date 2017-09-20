@@ -9,7 +9,7 @@ background.websiteList.sort(function (a, b) {
 });
 
 (function () {
-    
+
     var MainController = function ($scope, authService) {
 
         $scope.websites = background.websiteList;
@@ -40,7 +40,7 @@ background.websiteList.sort(function (a, b) {
                 chrome.runtime.sendMessage({action: "popup"});
             }
         });
-        
+
         var user = firebase.auth().currentUser;
         if(user){
             console.log("User EXIST: "+user);
@@ -55,7 +55,7 @@ background.websiteList.sort(function (a, b) {
             console.log(authService.authenticated);
             chrome.runtime.sendMessage({action: "popup"});
         }
-        
+
         //sort color and order toggle
         $scope.sortToggle = function (order) {
             //track website sorting event
@@ -72,7 +72,7 @@ background.websiteList.sort(function (a, b) {
             }
             return;
         };
-        
+
         //clear all website list
         $scope.settings = function(){
           var newURL = location.origin+"/app/Options/options.html";
@@ -82,6 +82,7 @@ background.websiteList.sort(function (a, b) {
         //user signout button
         $scope.signOut = function(){
             $scope.authenticated = false;
+            firebase.auth().signOut();
             authService.authenticated = $scope.authenticated;
         }
         //show day table
@@ -100,7 +101,7 @@ background.websiteList.sort(function (a, b) {
                 $scope.dayStyle = {color: "#fff"};
             }
         }
-        
+
         var today = {number: moment().format("D"), name: moment().format("ddd")};
         $scope.days.push(today);
 
