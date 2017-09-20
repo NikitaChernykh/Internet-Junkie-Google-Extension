@@ -41,20 +41,6 @@ background.websiteList.sort(function (a, b) {
             }
         });
 
-        var user = firebase.auth().currentUser;
-        if(user){
-            console.log("User EXIST: "+user);
-            $scope.authenticated = true;
-            authService.authenticated = $scope.authenticated;
-            console.log(authService.authenticated);
-            chrome.runtime.sendMessage({action: "popup"});
-        }else{
-            console.log("user is NULLL");
-            $scope.authenticated = false;
-            authService.authenticated = $scope.authenticated;
-            console.log(authService.authenticated);
-            chrome.runtime.sendMessage({action: "popup"});
-        }
 
         //sort color and order toggle
         $scope.sortToggle = function (order) {
