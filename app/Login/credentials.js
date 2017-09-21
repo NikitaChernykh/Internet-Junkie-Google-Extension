@@ -14,6 +14,7 @@ firebase.initializeApp(config);
     
     var CredentialsController = function ($scope, authService) {
         $scope.authenticated = authService.authenticated;
+        
         firebase.auth().onAuthStateChanged(function(user) {
             if(user){
                 console.log("User EXIST on changed: "+user);
@@ -46,33 +47,11 @@ firebase.initializeApp(config);
             console.log(authService.authenticated);
             chrome.runtime.sendMessage({action: "popup"});
         }
+        
         $scope.gauth = function(){
-            startAuth(true);
+            authService.loginWithGoogle();
             $scope.authenticated = true;
             authService.authenticated = $scope.authenticated;
-        }
-        function startAuth(interactive) {
-          // Request an OAuth token from the Chrome Identity API.
-          chrome.identity.getAuthToken({interactive: !!interactive}, function(token) {
-            if (chrome.runtime.lastError && !interactive) {
-              console.log('It was not possible to get a token programmatically.');
-            } else if(chrome.runtime.lastError) {
-              console.error(chrome.runtime.lastError);
-            } else if (token) {
-              // Authrorize Firebase with the OAuth Access Token.
-              var credential = firebase.auth.GoogleAuthProvider.credential(null, token);
-              firebase.auth().signInWithCredential(credential).catch(function(error) {
-                // The OAuth token might have been invalidated. Lets' remove it from cache.
-                if (error.code === 'auth/invalid-credential') {
-                  chrome.identity.removeCachedAuthToken({token: token}, function() {
-                    startAuth(interactive);
-                  });
-                }
-              });
-            } else {
-              console.error('The OAuth Token was null');
-            }
-          });
         }
     };
     //regsiter a controller in the module
