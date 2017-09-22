@@ -95,10 +95,16 @@ img {
     margin-left: 5px;
 }
 .settingsIcon {
-  position: absolute;
-  right: 5px;
-  bottom: -5px;
-  cursor: pointer;
+    position: absolute;
+    right: 25px;
+    bottom: -5px;
+    cursor: pointer;
+}
+.logoffIcon{
+    position: absolute;
+    right: 5px;
+    bottom: -2px;
+    cursor: pointer;
 }
 .header {
     border-top: 0;
