@@ -18,7 +18,7 @@ background.websiteList.sort(function (a, b) {
         $scope.authenticated = authService.authenticated;
         
         //_locales translate TODO => move the translation in saparate file
-        $scope.placeholder_msg = chrome.i18n.getMessage("placeholder_msg");
+       
         $scope.table_header_text = chrome.i18n.getMessage("table_header_text");
         $scope.websites_label = chrome.i18n.getMessage("websites_label");
         $scope.visits_label = chrome.i18n.getMessage("visits_label");
@@ -89,18 +89,8 @@ background.websiteList.sort(function (a, b) {
                 $scope.dayStyle = {color: "#fff"};
             }
         }
-
         var today = {number: moment().format("D"), name: moment().format("ddd")};
         $scope.days.push(today);
-
-        //monster toggle
-        $scope.monsterToggle = function () {
-            if (background.websiteList[0] == undefined || background.websiteList[0].websiteVisits < 0) {
-                return true;
-            }else{
-                return false;
-            }
-        };
     };
 
     //regsiter a controller in the module

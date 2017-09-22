@@ -14,7 +14,7 @@ firebase.initializeApp(config);
     
     var CredentialsController = function ($scope, authService) {
         $scope.authenticated = authService.authenticated;
-        
+         $scope.placeholder_msg = chrome.i18n.getMessage("placeholder_msg");
         firebase.auth().onAuthStateChanged(function(user) {
             if(user){
                 console.log("User EXIST on changed: "+user);
