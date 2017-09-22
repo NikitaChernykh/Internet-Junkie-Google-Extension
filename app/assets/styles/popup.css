@@ -94,6 +94,15 @@ img {
     margin-bottom: 5px;
     margin-left: 5px;
 }
+.login-view{
+    outline: 1px solid red;
+    height: 100%;
+    width: 100%;
+    
+}
+.login-logo{
+    outline: 1px solid red;
+}
 .settingsIcon {
     position: absolute;
     right: 25px;

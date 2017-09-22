@@ -9,9 +9,7 @@ background.websiteList.sort(function (a, b) {
 });
 
 (function () {
-
-    var MainController = function ($scope, authService) {
-
+    app.controller('MainController', function MainController($scope, authService){
         $scope.websites = background.websiteList;
         //descending sort order
         $scope.sortOrder = "-websiteVisits";
@@ -22,8 +20,7 @@ background.websiteList.sort(function (a, b) {
         $scope.websites_label = chrome.i18n.getMessage("websites_label");
         $scope.visits_label = chrome.i18n.getMessage("visits_label");
         $scope.time_label = chrome.i18n.getMessage("time_label");
-        
-        
+        $scope.placeholder_msg = chrome.i18n.getMessage("placeholder_msg");
 
         //sort & color change on order toggle
         $scope.sortToggle = function (order) {
@@ -72,8 +69,14 @@ background.websiteList.sort(function (a, b) {
         }
         var today = {number: moment().format("D"), name: moment().format("ddd")};
         $scope.days.push(today);
-    };
-
-    //regsiter a controller in the module
-    app.controller("MainController", ["$scope", "authService", MainController]);
+        
+        //monster toggle
+         $scope.monsterToggle = function () {
+            if (background.websiteList[0] == undefined || background.websiteList[0].websiteVisits < 0) {
+                 return true;
+            }else{
+                return false;
+            }
+        };
+    });
 }());

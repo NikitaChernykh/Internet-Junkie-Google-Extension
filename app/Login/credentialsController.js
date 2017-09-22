@@ -9,23 +9,13 @@ var config = {
    };
 firebase.initializeApp(config);
 
-
 (function () {
-    
-    var CredentialsController = function ($scope, authService) {
+    app.controller('CredentialsController', function CredentialsController($scope, authService){
         $scope.authenticated = authService.authenticated;
-        $scope.placeholder_msg = chrome.i18n.getMessage("placeholder_msg");
-        
-        
-        
-        
         $scope.gauth = function(){
             authService.loginWithGoogle();
             $scope.authenticated = true;
             authService.authenticated = $scope.authenticated;
-            $scope.$apply();
         }
-    };
-    //regsiter a controller in the module
-    app.controller("CredentialsController", ["$scope", "authService", CredentialsController]);
+    });
 }());
