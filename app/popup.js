@@ -17,34 +17,15 @@ background.websiteList.sort(function (a, b) {
         $scope.sortOrder = "-websiteVisits";
         $scope.authenticated = authService.authenticated;
         
-        //_locales translate TODO => move the translation in saparate file
-       
+        //_locales text that translates
         $scope.table_header_text = chrome.i18n.getMessage("table_header_text");
         $scope.websites_label = chrome.i18n.getMessage("websites_label");
         $scope.visits_label = chrome.i18n.getMessage("visits_label");
         $scope.time_label = chrome.i18n.getMessage("time_label");
         
-        firebase.auth().onAuthStateChanged(function(user) {
-            if(user){
-                console.log("User EXIST on changed: "+user);
-                $scope.authenticated = true;
-                authService.authenticated = $scope.authenticated;
-                console.log(authService.authenticated);
-                $scope.$apply();
-                $scope.user = firebase.auth().currentUser;
-                chrome.runtime.sendMessage({action: "popup"});
-            }else{
-                console.log("user is NULLL on changed");
-                $scope.authenticated = false;
-                authService.authenticated = $scope.authenticated;
-                console.log(authService.authenticated);
-                $scope.$apply();
-                chrome.runtime.sendMessage({action: "popup"});
-            }
-        });
+        
 
-
-        //sort color and order toggle
+        //sort & color change on order toggle
         $scope.sortToggle = function (order) {
             //track website sorting event
             _gaq.push(['_trackEvent', order, 'listSorted']);
@@ -61,13 +42,13 @@ background.websiteList.sort(function (a, b) {
             return;
         };
 
-        //clear all website list
+        //open setting page
         $scope.settings = function(){
           var newURL = location.origin+"/app/Options/options.html";
           chrome.tabs.create({ url: newURL });
         };
 
-        //signout button
+        //sign out button
         $scope.signOut = function(){
             authService.signOut();
             $scope.authenticated = false;
