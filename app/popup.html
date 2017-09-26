@@ -16,22 +16,7 @@
             <a ng-click="signOut()"><img class="logoffIcon" width="23" height="23" title="Sign out" src="assets/images/icons/logoff.svg" /></a>
             <a ng-click="settings()"><img class="settingsIcon" width="28" height="28" title="Settings" src="assets/images/icons/settings.svg" /></a>
         </div>
-        <div ng-show="monsterToggle()">
-             <div class="monsterText" >{{placeholder_msg}}</div>
-             <div class="container">
-                 <div class="monster"></div>
-                 <div class="hair"></div>
-                 <div class="face">
-                     <div class="eyes">
-                         <div class="iris"></div>
-                     </div>
-                 </div>
-                 <div class="mouth"></div>
-                 <div class="drool"></div>
-                 <div class="teeth"></div>
-                 <div class="text"></div>
-             </div>
-         </div>
+        <monster></monster>
         <p id="heading" ng-hide="monsterToggle()">{{table_header_text}}</p>
         <div id="websiteList" ng-hide="monsterToggle()" >
         <table  cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
@@ -90,13 +75,13 @@
             <p>See other days</p>
             <div class="days-container" ng-repeat="day in days">
                 <div class="day-of-the-week">
-                    <div class="day-circle  other-day ng-style: dayStyle;">{{day.number}}</div>
+                    <div class="day-circle  other-day">{{day.number}}</div>
                     <div class="day-name">{{day.name}}</div>
                 </div>
             </div>
         </div>
     </div>
-    <div   class="footer">
+    <div class="footer">
         <p>&copy; Copyright 2017 All Rights Reserved.</p>
     </div>
 </div>
@@ -108,6 +93,7 @@
     <script type="text/javascript" src="/app/Login/credentialsController.js"></script>
     <script type="text/javascript" src="/app/popupController.js"></script>
     <script type="text/javascript" src="/app/WebsiteList/removeDirective.js"></script>
+    <script type="text/javascript" src="/app/WebsiteList/monsterDirective.js"></script>
     <script type="text/javascript" src="/app/Login/authService.js"></script>
     <script type="text/javascript" src="/app/Login/constantService.js"></script>
     <script type="text/javascript" src="/app/Login/authDirective.js"></script>

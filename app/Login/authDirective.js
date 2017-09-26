@@ -18,7 +18,8 @@ app.directive('authDerective',function(authService){
                 scope.$apply();
                 chrome.runtime.sendMessage({action: "popup"});
             }
-                var user = firebase.auth().currentUser;
+            var user = firebase.auth().currentUser;
+            console.log(user);
             if(user){
                 console.log("User EXIST: "+user);
                 scope.authenticated = true;
