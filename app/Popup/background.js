@@ -92,7 +92,6 @@ function search(websiteName) {
     }
     return websiteList[i];
 }
-
 //Checks if url is passing a blackList
 function blackListCheck(websiteName) {
     for (var b = 0; b < blackList.length; b++) {
@@ -189,7 +188,7 @@ function tabUpdatedAndActiveCallback(newUrl, favIcon, startTime, deactivationTim
         var start = moment().format();
         //favicon check
         if (favIcon === undefined) {
-            favIcon = "/app/assets/images/default_icon.png";
+            favIcon = "/assets/images/default_icon.png";
         }
         if (!existingWebsite) {
             //add new website to the list
@@ -202,7 +201,7 @@ function tabUpdatedAndActiveCallback(newUrl, favIcon, startTime, deactivationTim
             };
             websiteList.push(website);
         } else {
-            if (existingWebsite.favIcon == "/app/assets/images/default_icon.png") {
+            if (existingWebsite.favIcon == "/assets/images/default_icon.png") {
                 existingWebsite.favIcon = favIcon;
             }
             //add tab start time

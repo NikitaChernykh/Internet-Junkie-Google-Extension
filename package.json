@@ -1,0 +1,25 @@
+{
+  "name": "internet-junkie",
+  "version": "1.0.0",
+  "description": "**Track how much time you spend on the websites daily.<br /> \r  Your own internet time tracker.**\r <br />\r <br />\r Nowadays, we spent most of the time searching through the internet. This extension will calculate total time you spent and number of clicks you made on your favourite websites during the day.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NikitaChernykh/Internet-Junkie-Google-Extension.git"
+  },
+  "keywords": [
+    "chrome"
+  ],
+  "author": "Nikita Chernykh",
+  "license": "CC BY-NC-SA 4.0",
+  "bugs": {
+    "url": "https://github.com/NikitaChernykh/Internet-Junkie-Google-Extension/issues"
+  },
+  "homepage": "https://github.com/NikitaChernykh/Internet-Junkie-Google-Extension#readme",
+  "devDependencies": {
+    "jest": "^21.2.0"
+  }
+}

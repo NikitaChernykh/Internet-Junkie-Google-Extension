@@ -41,7 +41,7 @@ background.websiteList.sort(function (a, b) {
 
         //open setting page
         $scope.settings = function(){
-          var newURL = location.origin+"/app/Options/options.html";
+          var newURL = location.origin+"/Options/options.html";
           chrome.tabs.create({ url: newURL });
         };
 
