@@ -1,11 +1,18 @@
 
-const chrome = require('sinon-chrome');
-const background = require("../../app/Popup/background");
+const bgModule = require("../../app/Popup/background.js");
 
-const search = jest.fn(function() {
-  return false;
-});
-
-test('blaklistcheck', () => {
-    expect(search("dss")).toBe(false);
+describe("terst cases for extractDomain()", () =>{
+    
+    it("extracts domain from a string", () => {   
+       var testValue = "http://www.facebook.com";
+       var expected = bgModule.extractDomain(testValue);
+       expect(expected).toBe("facebook.com");
+    });
+    
+    it("returns '' from a undefined", () => {   
+       var testValue = undefined;
+       var expected = bgModule.extractDomain(testValue);
+       expect(expected).toBe("");
+    });
+    
 });

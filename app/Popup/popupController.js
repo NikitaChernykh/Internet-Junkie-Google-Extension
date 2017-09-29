@@ -1,7 +1,7 @@
 'use strict';
 //get acsses to the background.js
 var background = chrome.extension.getBackgroundPage();
-
+background = background.bgModule;
 //sort websites in descending order by visits
 //sorts before load
 background.websiteList.sort(function (a, b) {

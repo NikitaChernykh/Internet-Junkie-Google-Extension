@@ -1,14 +1,16 @@
+
+
 //Check if the tab is Activated
 chrome.tabs.onActivated.addListener(function (activeInfo) {
     chrome.tabs.query({active: true, currentWindow: true},function(tabs){
         console.log(tabs[0].url);
-        console.log("prev tab at the begining of the query: "+ prevTab);
-        if(typeof prevTab == "undefined"){
-            prevTab = extractDomain(tabs[0].url);
+        console.log("prev tab at the begining of the query: "+ bgModule.prevTab);
+        if(typeof bgModule.prevTab == "undefined"){
+            bgModule.prevTab = bgModule.extractDomain(tabs[0].url);
         }else{
-            console.log("prev tab before status update: "+ prevTab);
-            updateDeactivationTime(prevTab);
-            prevTab = extractDomain(tabs[0].url);
+            console.log("prev tab before status update: "+ bgModule.prevTab);
+            bgModule.updateDeactivationTime(bgModule.prevTab);
+            bgModule.prevTab = bgModule.extractDomain(tabs[0].url);
         }
     });
     chrome.tabs.get(activeInfo.tabId, function(tab){
@@ -17,8 +19,8 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
             console.log(errorMsg);
         }else{
             if(tab.active && tab.url != "chrome://newtab/"){
-                tabUpdatedAndActiveCallback(tab.url, tab.favIconUrl);
-                globalURL = tab.url;
+                bgModule.tabUpdatedAndActiveCallback(tab.url, tab.favIconUrl);
+                bgModule.globalURL = tab.url;
             }
         }
     });
@@ -30,13 +32,13 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
       //check for anactive tab reloading
       if (tab.active) {
           //comapre if the domain is the same
-          if (!tab.url.includes(extractDomain(globalURL))) {
+          if (!tab.url.includes(bgModule.extractDomain(bgModule.globalURL))) {
               if (changeInfo.status == "complete" && tab.status == "complete" && tab.url != undefined) {
                   if (tab.active && tab.url != "chrome://newtab/") {
-                      tabUpdatedAndActiveCallback(tab.url, tab.favIconUrl);
-                      updateDeactivationTime(prevTab);
-                      prevTab = extractDomain(tab.url);
-                      globalURL = tab.url;
+                      bgModule.tabUpdatedAndActiveCallback(tab.url, tab.favIconUrl);
+                      bgModule.updateDeactivationTime(bgModule.prevTab);
+                      bgModule.prevTab = bgModule.extractDomain(tab.url);
+                      bgModule.globalURL = tab.url;
                   }
               }
           }
@@ -54,7 +56,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
     if (request.action == "remove") {
         console.log(request.list);
-        websiteList = request.list;
+        bgModule.websiteList = request.list;
     }
 });
 
@@ -63,19 +65,19 @@ chrome.windows.onFocusChanged.addListener(function(window) {
     if (window == chrome.windows.WINDOW_ID_NONE) {
         inFocus = false;
         console.log("chrome is NOT active");
-        console.log("I just stoped: " + prevTab);
-        updateDeactivationTime(prevTab);
-        globalURL = prevTab;
+        console.log("I just stoped: " + bgModule.prevTab);
+        bgModule.updateDeactivationTime(bgModule.prevTab);
+        bgModule.globalURL = bgModule.prevTab;
     } else {
         inFocus = true;
         chrome.tabs.query({active: true, currentWindow: true},function(tabs){
             console.log("I just restarted: " + tabs[0].url);
-            console.log("global was: " + globalURL);
-            tabUpdatedAndActiveCallback(extractDomain(tabs[0].url));
-            prevTab = extractDomain(tabs[0].url);
-            globalURL = extractDomain(tabs[0].url);
+            console.log("global was: " + bgModule.globalURL);
+            bgModule.tabUpdatedAndActiveCallback(bgModule.extractDomain(tabs[0].url));
+            bgModule.prevTab = bgModule.extractDomain(tabs[0].url);
+            bgModule.globalURL = bgModule.extractDomain(tabs[0].url);
         });
-        console.log("global now: " + globalURL);
+        console.log("global now: " + bgModule.globalURL);
         console.log("chrome is active");
     }
 });
