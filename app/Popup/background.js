@@ -20,7 +20,7 @@ var bgModule = {
                 }
                 //find & remove port number
                 domain = domain.split(':')[0];
-                
+
                 var arr = domain.match(/[.]/gi);
                 var counter = arr.length;
                 while(counter > 1){
@@ -31,7 +31,7 @@ var bgModule = {
             }
             return "";
         }
-        return ""; 
+        return "";
     },
     search: function (websiteName) {
         for (var i = 0; i < bgModule.websiteList.length; i++) {
@@ -39,7 +39,7 @@ var bgModule = {
                 return bgModule.websiteList[i];
             }
         }
-        return bgModule.websiteList[i];
+        return null;
     },
     blackListCheck: function (websiteName) {
         for (var b = 0; b < bgModule.blackList.length; b++) {
@@ -142,10 +142,9 @@ var bgModule = {
                 'websiteList': bgModule.websiteList
             });
         } else {
-            //log if blocked 
+            //log if blocked
             console.log("blocked website " + newUrl);
         }
     }
 }
 module.exports = bgModule;
-

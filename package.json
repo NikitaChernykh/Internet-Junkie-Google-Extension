@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/NikitaChernykh/Internet-Junkie-Google-Extension#readme",
   "devDependencies": {
-    "jest": "^21.2.0",
+    "jest": "^21.2.1",
     "sinon-chrome": "^2.2.1"
   }
 }
