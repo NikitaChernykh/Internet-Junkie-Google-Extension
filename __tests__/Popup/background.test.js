@@ -24,7 +24,7 @@ describe("test cases for extractDomain()", () =>{
         };
         expect(expectedData).toEqual({
             url_1_result: "w3schools.com",
-            url_2_result: "",
+            url_2_result: "w3schools.com",
             url_3_result: "",
             url_4_result: "",
 
