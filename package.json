@@ -4,7 +4,8 @@
   "description": "**Track how much time you spend on the websites daily.<br /> \r  Your own internet time tracker.**\r <br />\r <br />\r Nowadays, we spent most of the time searching through the internet. This extension will calculate total time you spent and number of clicks you made on your favourite websites during the day.",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "build": "browserify"
   },
   "jest": {
     "verbose": true
@@ -23,7 +24,8 @@
   },
   "homepage": "https://github.com/NikitaChernykh/Internet-Junkie-Google-Extension#readme",
   "devDependencies": {
+    "browserify": "^14.4.0",
     "jest": "^21.2.1",
-    "sinon-chrome": "^2.2.1"
+    "moment": "^2.18.1"
   }
 }

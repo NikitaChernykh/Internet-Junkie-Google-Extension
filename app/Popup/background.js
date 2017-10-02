@@ -11,7 +11,7 @@ var bgModule = {
         //vars
         var domain;
         var regex = /(\..*){2,}/;
-        
+
         //find & remove protocol (http, ftp, etc.) and get domain
         if (url.indexOf("://") > -1) {
             domain = url.split('/')[2];
@@ -20,7 +20,7 @@ var bgModule = {
         }
         //find & remove port number
         domain = domain.split(':')[0];
-        
+
         //removes everything before 1 dot - like: "www"
         if (regex.test(domain)) {
             domain = domain.substring(domain.indexOf(".") + 1);
@@ -35,7 +35,7 @@ var bgModule = {
             counter--;
         }
         return domain;
-        
+
     }
     return "";
     },
@@ -80,35 +80,6 @@ var bgModule = {
 
             //update values
             existingWebsite.deactivationTime = deactivationTime;
-            existingWebsite.timeDifference = duration;
-            existingWebsite.formatedTime = formatedTime;
-        }
-    },
-    windowNowInactive: function (tabURL){
-        var domain = bgModule.extractDomain(tabURL);
-        var existingWebsite = bgModule.search(domain);
-        if (existingWebsite) {
-            console.log("this website updated end time because of window focus " + existingWebsite.websiteName);
-            var end = moment().format();
-            var duration = moment.duration(moment(end).diff(existingWebsite.startTime));
-
-            if (existingWebsite.timeDifference != null) {
-                var duration = duration.add(existingWebsite.timeDifference);
-            }
-            //format time
-            var days = duration.days();
-            var hours = duration.hours();
-            var min = duration.minutes();
-            var sec = duration.seconds();
-            var formatedTime = {
-                "days": days,
-                "hours": hours,
-                "min": min,
-                "sec": sec
-            };
-
-            //update values
-            existingWebsite.deactivationTime = end;
             existingWebsite.timeDifference = duration;
             existingWebsite.formatedTime = formatedTime;
         }

@@ -1,5 +1,6 @@
 
 const bgModule = require("../../app/Popup/background.js");
+const moment = require('moment');
 
 describe("test cases for extractDomain()", () =>{
 
@@ -9,7 +10,6 @@ describe("test cases for extractDomain()", () =>{
            url_2: "www.w3schools.com/jsref/tryit.asp?filename",
            url_3: "dfsdfsdfsdfsdfsdfsdfsdfsdfsdfgsdfsdfssdgsghs",
            url_4: undefined
-
         }
         var expectedData = {};
         var result1 = bgModule.extractDomain(testData.url_1);
@@ -93,5 +93,25 @@ describe("test cases for blackListCheck()", () =>{
             search_2_result: false,
             search_3_result: true
         });
+    });
+});
+
+describe("test cases for updateDeactivationTime()", () =>{
+    it("checks if deactivation time was updated correctly", () => {
+        const testWebsiteName = "https://atom.io/";
+        const testExistingWebsite = "scott.mn";
+        const testEnd = "2017-10-02T15:32:15-04:00";
+        const testStartTime = "2017-10-02T10:32:15-04:00";
+        const testWebsiteList = [
+           {
+             websiteName: "scott.mn",
+             favIcon: "https://scott.mn/favicon.ico",
+             websiteVisits: 5,
+             startTime: "2017-10-02T15:49:40-04:00",
+             deactivationTime: "2017-10-02T15:49:43-04:00"
+           },
+           {websiteName: "stackoverflow.com"},
+           {websiteName: "w3schools.com"}
+        ]
     });
 });
