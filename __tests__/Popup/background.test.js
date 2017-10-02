@@ -65,3 +65,33 @@ describe("test cases for search()", () =>{
         });
     });
 });
+
+describe("test cases for blackListCheck()", () =>{
+
+    it("checks if website exists in blacklist", () => {
+        const testWebsite = "https://badwebsite.com";
+        const testBlacklist = [
+          [],
+          ["newtab", "www.google.", "chrome://", "localhost", "chrome-extension://"],
+          ["newtab", "www.google.", "chrome://", "localhost", "chrome-extension://", "badwebsite.com"]
+        ];
+
+        var results = [];
+
+        for (var i = 0; i < testBlacklist.length; i++) {
+          bgModule.blackList = testBlacklist[i];
+          results.push(bgModule.blackListCheck(testWebsite));
+        }
+
+        var expectedData ={
+           search_1_result: results[0],
+           search_2_result: results[1],
+           search_3_result: results[2]
+        };
+        expect(expectedData).toEqual({
+            search_1_result: false,
+            search_2_result: false,
+            search_3_result: true
+        });
+    });
+});
