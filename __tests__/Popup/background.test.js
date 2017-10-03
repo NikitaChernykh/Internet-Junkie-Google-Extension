@@ -1,7 +1,10 @@
 
+jest.dontMock("../../app/Popup/background.js");
+jest.dontMock('moment');
+
 const bgModule = require("../../app/Popup/background.js");
 const moment = require('moment');
-
+//DOTO create Mocks and stubs if needed.
 describe("test cases for extractDomain()", () =>{
 
     it("extracts domain from a string", () => {
@@ -9,24 +12,28 @@ describe("test cases for extractDomain()", () =>{
            url_1: "https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_split",
            url_2: "www.w3schools.com/jsref/tryit.asp?filename",
            url_3: "dfsdfsdfsdfsdfsdfsdfsdfsdfsdfgsdfsdfssdgsghs",
-           url_4: undefined
+           url_4: undefined,
+           url_5: "w3schools.com"
         }
         var expectedData = {};
         var result1 = bgModule.extractDomain(testData.url_1);
         var result2 = bgModule.extractDomain(testData.url_2);
         var result3 = bgModule.extractDomain(testData.url_3);
         var result4 = bgModule.extractDomain(testData.url_4);
+        var result5 = bgModule.extractDomain(testData.url_5);
         expectedData ={
            url_1_result: result1,
            url_2_result: result2,
            url_3_result: result3,
-           url_4_result: result4
+           url_4_result: result4,
+           url_5_result: result5
         };
         expect(expectedData).toEqual({
             url_1_result: "w3schools.com",
             url_2_result: "w3schools.com",
             url_3_result: "",
             url_4_result: "",
+            url_5_result: "w3schools.com"
 
         });
     });
@@ -117,5 +124,10 @@ describe("test cases for updateDeactivationTime()", () =>{
         var duration = moment.duration(moment(deactivationTime).diff(testExistingWebsite.startTime));
         testExistingWebsite.timeDifference = duration;
         expect(testExistingWebsite.timeDifference._data.minutes).toEqual(1);
+    });
+});
+describe("test cases for tabUpdatedAndActive()", () =>{
+    it("checks if tab was updated correctly", () => {
+
     });
 });

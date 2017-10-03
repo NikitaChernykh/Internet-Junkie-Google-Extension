@@ -7,37 +7,36 @@ var bgModule = {
     inFocus: false,
     extractDomain: function(url){
        'use strict';
-    if (url !== undefined) {
-        //vars
-        var domain;
-        var regex = /(\..*){2,}/;
+        if (url !== undefined) {
+            //vars
+            var domain;
+            var regex = /(\..*){2,}/;
 
-        //find & remove protocol (http, ftp, etc.) and get domain
-        if (url.indexOf("://") > -1) {
-            domain = url.split('/')[2];
-        } else {
-            domain = url.split('/')[0];
-        }
-        //find & remove port number
-        domain = domain.split(':')[0];
+            //find & remove protocol (http, ftp, etc.) and get domain
+            if (url.indexOf("://") > -1) {
+                domain = url.split('/')[2];
+            } else {
+                domain = url.split('/')[0];
+            }
+            //find & remove port number
+            domain = domain.split(':')[0];
 
-        //removes everything before 1 dot - like: "www"
-        if (regex.test(domain)) {
-            domain = domain.substring(domain.indexOf(".") + 1);
+            //removes everything before 1 dot - like: "www"
+            if (regex.test(domain)) {
+                domain = domain.substring(domain.indexOf(".") + 1);
+            }
+            var arr = domain.match(/[.]/gi);
+            if(arr == null){
+               return "";
+            }
+            var counter = arr.length;
+            while(counter > 1){
+                domain = domain.substr(domain.indexOf('.')+1);
+                counter--;
+            }
+            return domain;
         }
-        var arr = domain.match(/[.]/gi);
-        if(arr == null){
-           return "";
-        }
-        var counter = arr.length;
-        while(counter > 1){
-            domain = domain.substr(domain.indexOf('.')+1);
-            counter--;
-        }
-        return domain;
-
-    }
-    return "";
+        return "";
     },
     search: function (websiteName) {
         for (var i = 0; i < bgModule.websiteList.length; i++) {
@@ -49,16 +48,15 @@ var bgModule = {
     },
     blackListCheck: function (websiteName) {
         for (var b = 0; b < bgModule.blackList.length; b++) {
-            if (websiteName.includes(bgModule.blackList[b]) || websiteName == "") {
+            if (websiteName.includes(bgModule.blackList[b])) {
                 return true;
             }
         }
-        return false; // TODO thnik of a better blacklist
+        return false;
     },
     updateDeactivationTime: function (tabURL) {
         var websiteName = bgModule.extractDomain(tabURL);
         var existingWebsite = bgModule.search(websiteName);
-
         if (existingWebsite) {
             var deactivationTime = moment().format();
             var duration = moment.duration(moment(deactivationTime).diff(existingWebsite.startTime));
@@ -83,7 +81,7 @@ var bgModule = {
             existingWebsite.formatedTime = formatedTime;
         }
     },
-    tabUpdatedAndActiveCallback: function (newUrl, favIcon, startTime, deactivationTime, timeDifference) {
+    tabUpdatedAndActive: function (newUrl, favIcon, startTime, deactivationTime, timeDifference) {
         //blacklist check
         if (bgModule.blackListCheck(newUrl) == false) {
             var websiteName = bgModule.extractDomain(newUrl);
@@ -112,7 +110,6 @@ var bgModule = {
                 //add visits
                 existingWebsite.websiteVisits++;
             }
-            console.log(bgModule.websiteList);
             //save the list to the storage
             chrome.storage.local.set({
                 'websiteList': bgModule.websiteList
