@@ -31,7 +31,6 @@ describe("test cases for extractDomain()", () =>{
         });
     });
 });
-
 describe("test cases for search()", () =>{
 
     it("checks if website exists in global website list", () => {
@@ -65,7 +64,6 @@ describe("test cases for search()", () =>{
         });
     });
 });
-
 describe("test cases for blackListCheck()", () =>{
 
     it("checks if website exists in blacklist", () => {
@@ -95,23 +93,29 @@ describe("test cases for blackListCheck()", () =>{
         });
     });
 });
-
 describe("test cases for updateDeactivationTime()", () =>{
     it("checks if deactivation time was updated correctly", () => {
-        const testWebsiteName = "https://atom.io/";
-        const testExistingWebsite = "scott.mn";
-        const testEnd = "2017-10-02T15:32:15-04:00";
-        const testStartTime = "2017-10-02T10:32:15-04:00";
-        const testWebsiteList = [
-           {
-             websiteName: "scott.mn",
-             favIcon: "https://scott.mn/favicon.ico",
-             websiteVisits: 5,
-             startTime: "2017-10-02T15:49:40-04:00",
-             deactivationTime: "2017-10-02T15:49:43-04:00"
-           },
-           {websiteName: "stackoverflow.com"},
-           {websiteName: "w3schools.com"}
+      const testWebsiteList = [
+         {
+           websiteName: "scott.mn",
+           favIcon: "https://scott.mn/favicon.ico",
+           websiteVisits: 5,
+           startTime: "2017-10-02T15:50:40-04:00",
+           deactivationTime: "2017-10-02T15:49:43-04:00"
+         },
+         {
+           websiteName: "stackoverflow.com",
+           favIcon: "https://scott.mn/favicon.ico",
+           websiteVisits: 5,
+           startTime: "2017-10-02T15:49:40-04:00",
+           deactivationTime: "2017-10-02T15:49:43-04:00"
+         },
+         {websiteName: "w3schools.com"}
         ]
+        const testExistingWebsite = testWebsiteList[0];
+        var deactivationTime = "2017-10-02T15:51:40-04:00";
+        var duration = moment.duration(moment(deactivationTime).diff(testExistingWebsite.startTime));
+        testExistingWebsite.timeDifference = duration;
+        expect(testExistingWebsite.timeDifference._data.minutes).toEqual(1);
     });
 });

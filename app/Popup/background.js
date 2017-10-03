@@ -77,7 +77,6 @@ var bgModule = {
                 "min": min,
                 "sec": sec
             };
-
             //update values
             existingWebsite.deactivationTime = deactivationTime;
             existingWebsite.timeDifference = duration;
