@@ -1,7 +1,7 @@
 
 var bgModule = {
     websiteList: [],
-    blackList: ["newtab", "www.google.", "chrome://", "localhost", "chrome-extension://"],
+    blackList: ["newtab", "google.", "chrome://", "localhost", "chrome-extension://"],
     globalUrl: "",
     prevTab: "",
     inFocus: false,
