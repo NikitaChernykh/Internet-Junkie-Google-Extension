@@ -9,11 +9,11 @@
         <h1>Future options page!</h1>
         <p>Delete all websites: </p>
         <button ng-click="clearAll()">Clear all</button>
-        
+
         <h2>Black List</h2>
         <p>If website contains this part of text. It will be excluded.</p>
         <p>{{blackList}}</p>
-        <button ng-click="addToBlackList()">Add to BlackList</button>
+        <button ng-click="addToBlackList()" ng-hide="true">Add to BlackList</button>
         <script type="text/javascript" src="/scripts/angular-1.5.8.min.js"></script>
         <script type="text/javascript" src="/scripts/tracking.js"></script>
         <script type="text/javascript" src="/scripts/app.js"></script>

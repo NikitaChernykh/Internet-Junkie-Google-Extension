@@ -15,7 +15,7 @@ s.parentNode.insertBefore(ga, s);
 //Main Website List
 var websiteList = [];
 //Blacklist of websites
-var blackList = ["newtab", "www.google.", "chrome:", "localhost"];
+var blackList = ["newtab", "google.", "chrome:", "localhost", "dnicljoamjfdhelibamddkocdmcbedoj"];
 
 //Variables
 var globalURL; //URL to avoid count on tab reload
@@ -29,7 +29,7 @@ function extractDomain(url) {
         //vars
         var domain;
         var regex = /(\..*){2,}/;
-        
+
         //find & remove protocol (http, ftp, etc.) and get domain
         if (url.indexOf("://") > -1) {
             domain = url.split('/')[2];
@@ -38,11 +38,20 @@ function extractDomain(url) {
         }
         //find & remove port number
         domain = domain.split(':')[0];
-        
+
         //removes everything before 1 dot - like: "www"
         if (regex.test(domain)) {
             domain = domain.substring(domain.indexOf(".") + 1);
         }
+        var arr = domain.match(/[.]/gi);
+            if(arr == null){
+               return "";
+            }
+            var counter = arr.length;
+            while(counter > 1){
+                domain = domain.substr(domain.indexOf('.')+1);
+                counter--;
+            }
         return domain;
     }
     return "";
@@ -181,7 +190,7 @@ function tabUpdatedAndActiveCallback(newUrl, favIcon, startTime, deactivationTim
             'websiteList': websiteList
         });
     } else {
-        //log if blocked 
+        //log if blocked
         console.log("blocked website " + newUrl);
     }
 }
@@ -228,7 +237,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, response) {
     }
 });
 
-// Check if chome is out of focus or pc in sleep mode TODO in progress 
+// Check if chome is out of focus or pc in sleep mode TODO in progress
 chrome.windows.onFocusChanged.addListener(function(window) {
         if (window == chrome.windows.WINDOW_ID_NONE) {
             inFocus = false;
@@ -248,8 +257,5 @@ chrome.windows.onFocusChanged.addListener(function(window) {
             console.log("global now: " + globalURL);
             console.log("chrome is active");
         }
-    
+
 });
-
-
-
