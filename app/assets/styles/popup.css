@@ -23,6 +23,7 @@
 }
 
 html {
+    outline: 1px solid red;
     margin: 0;
     padding: 0;
     background-color: #38416C;
@@ -95,13 +96,54 @@ img {
     margin-left: 5px;
 }
 .login-view{
-    outline: 1px solid red;
-    height: 100%;
-    width: 100%;
-    
+    outline: 2px solid red;
+    height: 425px;
+    width: 433px;
+    position: fixed;
+    top:0;
+    left:0;
+    margin-left: 1px;
+    margin-top: 1px;
 }
 .login-logo{
-    outline: 1px solid red;
+    margin-top: 10%;
+    margin-left: 92px;
+    margin-bottom: -13px;
+}
+.login-container{
+    background-color: #F8F9FA;
+    height: 200px;
+    width: 250px;
+    margin: 0 auto ;
+    position: relative;
+}
+.login-btn-cont{
+  position: absolute;
+  bottom: 5px;
+  margin-left: 30px;
+}
+.login-google-btn{
+    width: 191px;
+    height: 46px;
+    background-size: 191px 46px;
+    background-image: url("/assets/images/google/btn_google_signin_light_normal_web@2x.png");
+}
+.login-google-btn:hover{
+    background-image: url("/assets/images/google/btn_google_signin_light_focus_web@2x.png");
+}
+.login-google-btn:active{
+    background-image: url("/assets/images/google/btn_google_signin_light_pressed_web@2x.png");
+}
+.login-copy{
+  text-align: center;
+  font-size: 10px;
+  margin-top: 5px;
+}
+.login-monster{
+  position: absolute;
+  height: 300px;
+  width: 90px;
+  bottom: 0;
 }
 .settingsIcon {
     position: absolute;
@@ -282,7 +324,7 @@ img {
     margin-right: 2px;
     border-radius: 50%;
 	width: 30px;
-    height: 30px; 
+    height: 30px;
     border: 1px white solid;
     text-align: center;
     line-height: 30px;
