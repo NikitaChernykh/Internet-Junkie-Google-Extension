@@ -96,7 +96,6 @@ img {
     margin-left: 5px;
 }
 .login-view{
-    outline: 2px solid red;
     height: 425px;
     width: 433px;
     position: fixed;
@@ -118,9 +117,9 @@ img {
     position: relative;
 }
 .login-btn-cont{
-  position: absolute;
-  bottom: 5px;
-  margin-left: 30px;
+    position: absolute;
+    bottom: 5px;
+    margin-left: 30px;
 }
 .login-google-btn{
     width: 191px;
@@ -135,15 +134,15 @@ img {
     background-image: url("/assets/images/google/btn_google_signin_light_pressed_web@2x.png");
 }
 .login-copy{
-  text-align: center;
-  font-size: 10px;
-  margin-top: 5px;
+    text-align: center;
+    font-size: 10px;
+    margin-top: 5px;
 }
 .login-monster{
-  position: absolute;
-  height: 300px;
-  width: 90px;
-  bottom: 0;
+    position: absolute;
+    height: 250px;
+    width: 90px;
+    bottom: 50px;
 }
 .settingsIcon {
     position: absolute;
