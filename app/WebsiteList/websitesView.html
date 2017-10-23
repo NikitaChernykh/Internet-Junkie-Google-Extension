@@ -1,0 +1,75 @@
+<div ng-show="authenticated" ng-controller="MainController" class="wrap"  auth-directive>
+    <div class="header">
+        <img class="logo" width="100" height="80" src="/assets/images/icons/logo.svg" />
+        <a ng-click="signOut()"><img class="logoffIcon" width="23" height="23" title="Sign out" src="/assets/images/icons/logoff.svg" /></a>
+        <a ng-click="settings()"><img class="settingsIcon" width="28" height="28" title="Settings" src="/assets/images/icons/settings.svg" /></a>
+    </div>
+    <monster></monster>
+    <p id="heading" ng-hide="monsterToggle()">{{table_header_text}}</p>
+    <div id="websiteList" ng-hide="monsterToggle()" >
+        <table  cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th class="nameLabel"></th>
+                    <th class="nameLabel">
+                        <div class="circle"></div>{{websites_label}}</th>
+                    <th class="visitsLabel">
+                        <div class="circle"></div>
+                        <div>{{visits_label}}</div>
+                        <div>
+                            <a ng-click="sortToggle(sortOrder)" title="Sort">
+                                <svg class="sortIcon" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" >
+                                    <g>
+                                        <path fill="#22d8ff" id="des" ng-style="desStyle" d="M36.2,56.7c2.3,0,4.4-0.9,6-2.5l22.4-22.7c3.3-3.3,3.3-8.7-0.1-12c-3.3-3.3-8.7-3.3-12,0.1L36.1,36.2L19.5,19.6   c-3.3-3.3-8.7-3.3-12,0c-3.3,3.3-3.3,8.7,0,12l22.7,22.7C31.7,55.8,33.9,56.7,36.2,56.7C36.1,56.7,36.2,56.7,36.2,56.7z"/>
+                                        <path fill="#ffffff" id="asc" ng-style="ascStyle" d="M69.9,46.6c-1.6-1.6-3.8-2.5-6-2.5c0,0,0,0,0,0c-2.3,0-4.4,0.9-6,2.5L35.4,69.3c-3.3,3.3-3.3,8.7,0.1,12   c3.3,3.3,8.7,3.3,12-0.1l16.4-16.6l16.6,16.6c1.7,1.7,3.8,2.5,6,2.5s4.4-0.8,6-2.5c3.3-3.3,3.3-8.7,0-12L69.9,46.6z"/>
+                                    </g>
+                                </svg>
+                            </a>
+                        </div>
+                    </th>
+                    <th class="timeLabel">
+                        <div class="circle"></div>{{time_label}}</th>
+                    <th class="timeLabel"></th>
+                </tr>
+            </thead>
+            <tbody ng-show="dayBtn == 1" class="fade">
+                <tr ng-repeat="website in websites | limitTo:5 | orderBy:sortOrder track by $index" ng-mouseleave="removeStyle={left:30+'px'}">
+                    <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
+                    <td>
+                        <a ng-href="http://{{website.websiteName}}" target="_blank" tabindex="-1">
+                            <div class="siteName">{{website.websiteName}}</div>
+                        </a>
+                    </td>
+                    <td class="centered">{{website.websiteVisits}}</td>
+                    <td class="centered">
+                        <div class="timeContainer" ng-hide="{{(website.formatedTime == undefined) ? 'true':'false'}}">
+                            <div class="inline" ng-hide="{{(website.formatedTime.days == 0) ? 'true':'false'}}">
+                                {{('0'+website.formatedTime.days.toString()).slice(-2)+'d'}}
+                            </div>
+                            <div class="inline" ng-hide="{{(website.formatedTime.hours == 0) ? 'true':'false'}}">{{(website.formatedTime.hours.toString()).slice(-2)+'h'}}</div>
+                            <div class="inline">{{(website.formatedTime.min.toString()).slice(-2)+'m'}}</div>
+
+                            <div class="inline">{{('0'+website.formatedTime.sec.toString()).slice(-2)+'s'}}</div>
+                        </div>
+                    </td>
+                    <td class="removetd">
+                        <div class="binBG" ng-mouseleave="removeStyle={left:30+'px'}"><img remove class="remove" title="Delete" src="/assets/images/icons/bin.svg"></div>
+                        <div ng-style="removeStyle" ng-class="{'removeArrow': true}" ><div ng-mouseenter="removeStyle={left:0}" class="arrow"> > </div></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="week-menu-container">
+            <p>See other days</p>
+            <div class="days-container" ng-repeat="day in days">
+                <div class="day-of-the-week">
+                    <div class="day-circle  other-day">{{day.number}}</div>
+                    <div class="day-name">{{day.name}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; Copyright 2017 All Rights Reserved.</p>
+    </div>
+</div>
