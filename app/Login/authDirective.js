@@ -5,7 +5,7 @@ app.directive('authDirective',function(authService){
             firebase.auth().onAuthStateChanged(function(user) {
               if(user){
                   scope.authenticated = true;
-                  // writeUserData(user.uid,user.displayName,user.email,user.photoURL);
+                  writeUserData(user.uid,user.displayName,user.email,user.photoURL);
               }else{
                   scope.authenticated = false;
               }
@@ -14,13 +14,13 @@ app.directive('authDirective',function(authService){
               chrome.runtime.sendMessage({action: "popup"});
             });
 
-            // function writeUserData(userId, name, email, imageUrl) {
-            //   database.ref('users/' + userId).set({
-            //     username: name,
-            //     email: email,
-            //     profile_picture : imageUrl
-            //   });
-            // }
+            function writeUserData(userId, name, email, imageUrl) {
+              database.ref('users/' + userId).set({
+                username: name,
+                email: email,
+                profile_picture : imageUrl
+              });
+            }
             // //first load
             // var user = firebase.auth().currentUser;
             // console.log("first load of auth directive happen");

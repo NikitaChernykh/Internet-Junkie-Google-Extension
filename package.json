@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
-    "build": "browserify"
+    "build": "browserify ./app/Popup/app.js -o ./app/Popup/bundle.js",
+    "build2": "browserify ./app/Popup/popupController.js -o ./app/Popup/popupBundle.js"
   },
   "jest": {
     "verbose": true
@@ -26,6 +27,10 @@
   "devDependencies": {
     "browserify": "^14.4.0",
     "jest": "^21.2.1",
-    "moment": "^2.18.1"
+    "moment": "^2.19.1"
+  },
+  "dependencies": {
+    "angular": "^1.5.8",
+    "systemjs": "^0.20.19"
   }
 }
