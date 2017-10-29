@@ -62,7 +62,7 @@ var bgModule = {
           var duration = moment.duration(moment(deactivationTime).diff(existingWebsite.startTime));
 
           if (existingWebsite.timeDifference != null) {
-              var duration = duration.add(existingWebsite.timeDifference);
+              duration = duration.add(existingWebsite.timeDifference);
           }
           //format time
           var days = duration.days();
@@ -115,7 +115,6 @@ var bgModule = {
           //save the list to the storage
           chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
           });
-          console.log(bgModule.websiteList);
       } else {
           //log if blocked
           console.log("blocked website " + bgModule.newUrl);

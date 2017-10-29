@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
-    "build": "browserify ./app/Popup/app.js -o ./app/Popup/bundle.js",
-    "build2": "browserify ./app/Popup/popupController.js -o ./app/Popup/popupBundle.js"
+    "build": "watchify ./app/Popup/app.js -o ./app/Popup/bundle.js --debug -v",
+    "build2": "browserify ./app/Popup/popupController.js -o ./app/Popup/popupBundle.js --debug"
   },
   "jest": {
     "verbose": true
@@ -26,11 +26,13 @@
   "homepage": "https://github.com/NikitaChernykh/Internet-Junkie-Google-Extension#readme",
   "devDependencies": {
     "browserify": "^14.4.0",
+    "gulp-sass": "^3.1.0",
     "jest": "^21.2.1",
     "moment": "^2.19.1"
   },
   "dependencies": {
     "angular": "^1.5.8",
+    "gulp": "^3.9.1",
     "systemjs": "^0.20.19"
   }
 }

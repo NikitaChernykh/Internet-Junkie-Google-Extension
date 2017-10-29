@@ -87,7 +87,7 @@ var moment = require('moment');
         //week days in progress TODO
         $scope.days = [];
         for (var i = 6; i >= 1; i--) {
-            var date = moment().subtract('days', i);
+            var date = moment().subtract(i,'days');
             var formattedDate = {number: moment(date).format("D"), name: moment(date).format("ddd")};
             $scope.days.push(formattedDate);
         }
