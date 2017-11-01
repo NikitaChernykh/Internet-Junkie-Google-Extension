@@ -27,7 +27,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 
 # Install from Chrome Web Store
-[<img src="images/badge.png">](https://goo.gl/CnQEuI)
 
+[<img src="images/badge.png">](https://goo.gl/CnQEuI)
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
