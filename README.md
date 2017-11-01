@@ -18,7 +18,7 @@ These instructions will get you a copy of the project up and running on your loc
 * All done! You should see it appear on the top right corner of your browser.
 
 
-# Deployment
+## Deployment
 * For build commands to build .js bundles run: "npm run build1" and "npm run build2"(only if any changes made in .js files)
 * To compile scss run gulp tasks: "gulp scss" or "gulp scss-watcher"
 * To run test use: "jest test" command.
@@ -26,7 +26,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 
 
-## Install from Chrome Web Store
+# Install from Chrome Web Store
 [<img src="images/badge.png">](https://goo.gl/CnQEuI)
 
 
