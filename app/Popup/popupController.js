@@ -16,6 +16,7 @@ var moment = require('moment');
     chrome.storage.local.get("blackList", function(data){
       blackList = data.blackList;
     });
+    console.log(websiteList);
     //config for overwriting whitelist ex: for img path
     app.config(['$compileProvider',function ($compileProvider) {
           //  Default imgSrcSanitizationWhitelist: /^\s*((https?|ftp|file|blob):|data:image\/)/
@@ -95,18 +96,23 @@ var moment = require('moment');
         };
     });
 
-    app.constant('AUTH_EVENTS',{
-        loginSuccess: 'auth-login-success',
-        loginFailed: 'auth-login-failed',
-        logoutSuccess: 'auth-logout-success',
-        sessionTimeout: 'auth-session-timeout',
-        notAuthenticated: 'auth-not-authenticated',
-        notAuthorized: 'auth-not-authorized'
-    });
-    app.constant('USER_ROLES', {
-      all: '*',
-      user: 'user'
-    });
+
+
+
+    app.constant('AUTH_EVENTS', require('../../app/Login/constantService'));
+
+    // app.constant('AUTH_EVENTS',{
+    //     loginSuccess: 'auth-login-success',
+    //     loginFailed: 'auth-login-failed',
+    //     logoutSuccess: 'auth-logout-success',
+    //     sessionTimeout: 'auth-session-timeout',
+    //     notAuthenticated: 'auth-not-authenticated',
+    //     notAuthorized: 'auth-not-authorized'
+    // });
+    // app.constant('USER_ROLES', {
+    //   all: '*',
+    //   user: 'user'
+    // });
 
     app.factory('authService', function(AUTH_EVENTS){
         console.log("I ran auth service");

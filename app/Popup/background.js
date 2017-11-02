@@ -112,7 +112,7 @@ var bgModule = {
               //add visits
               existingWebsite.websiteVisits++;
           }
-          //save the list to the storage
+          //save the webiste list to the storage
           chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
           });
       } else {
