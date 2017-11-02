@@ -10,5 +10,5 @@ gulp.task('scss', function () {
 });
 
 gulp.task('scss-watcher',function(){
-  gulp.watch('./app/assets/styles/styles.scss',['scss']);
+  gulp.watch('./app/assets/scss/styles.scss',['scss']);
 });
