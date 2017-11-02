@@ -1,23 +1,21 @@
-'use strict';
-var angular = require('angular');
+
+//var angular = require('angular');
 var moment = require('moment');
 
 
-
-//browserify ./app/Popup/popupController.js -o ./app/Popup/popupBundle.js
-
-
-
-// websiteList.sort(function (a, b) {
-//     return b.websiteVisits - a.websiteVisits;
-// });
-
 (function () {
+    'use strict';
     var websiteList = [];
+    var blackList = [];
+    var app = require('angular').module("internetJunkie", []);
+
     chrome.storage.local.get("websiteList", function(data){
       websiteList = data.websiteList;
     });
-    var app = angular.module("internetJunkie", []);
+
+    chrome.storage.local.get("blackList", function(data){
+      blackList = data.blackList;
+    });
     //config for overwriting whitelist ex: for img path
     app.config(['$compileProvider',function ($compileProvider) {
           //  Default imgSrcSanitizationWhitelist: /^\s*((https?|ftp|file|blob):|data:image\/)/
@@ -25,33 +23,12 @@ var moment = require('moment');
           $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
         }
     ]);
-    app.controller('CredentialsController', function CredentialsController($scope, authService){
-        $scope.authenticated = authService.authenticated;
-        $scope.gauth = function(){
-            authService.loginWithGoogle(true);
-            $scope.authenticated = true;
-            authService.authenticated = $scope.authenticated;
-        }
-    });
-    app.controller('OptionsController', function OptionsController($scope){
-      $scope.websites = websiteList;
-      $scope.blackList = blackList;
-      //clear all website list
-      $scope.clearAll = function(){
-        var c = confirm("Are you sure you want to delete all the websites?");
-        if(c){
-          $scope.websites.length = 0;
-        }
-        return;
-      };
-    });
+    //controllers
+    app.controller('CredentialsController', require('../../app/Login/credentialsController'));
+    app.controller('OptionsController', require('../../app/Options/optionsController'));
+
     app.controller('MainController', function MainController($scope, authService){
-
         $scope.websites = websiteList;
-
-
-
-
         //descending sort order
         $scope.sortOrder = "-websiteVisits";
         $scope.authenticated = authService.authenticated;
@@ -70,12 +47,14 @@ var moment = require('moment');
 
             if (order == "websiteVisits") {
                 $scope.ascStyle = {fill: "#ffffff"};
-                $scope.desStyle = {fill: "#22d8ff"}
-                return $scope.sortOrder = "-websiteVisits";
+                $scope.desStyle = {fill: "#22d8ff"};
+                $scope.sortOrder = "-websiteVisits";
+                return "-websiteVisits";
             }else{
                 $scope.ascStyle = {fill: "#22d8ff"};
-                $scope.desStyle = {fill: "#ffffff"}
-                return $scope.sortOrder = "websiteVisits";
+                $scope.desStyle = {fill: "#ffffff"};
+                $scope.sortOrder = "websiteVisits;";
+                return "websiteVisits";
             }
             return;
         };
@@ -91,7 +70,7 @@ var moment = require('moment');
             authService.signOut();
             $scope.authenticated = false;
             authService.authenticated = $scope.authenticated;
-        }
+        };
         //show day table
         $scope.dayBtn = 1;
         $scope.isActive = false;
@@ -127,7 +106,7 @@ var moment = require('moment');
     app.constant('USER_ROLES', {
       all: '*',
       user: 'user'
-    })
+    });
 
     app.factory('authService', function(AUTH_EVENTS){
         console.log("I ran auth service");
@@ -206,19 +185,19 @@ var moment = require('moment');
                 //     chrome.runtime.sendMessage({action: "popup"});
                 // }
             }
-        }
+        };
     });
     app.directive('loginView',function(){
         return{
             templateUrl: "/Login/loginView.html",
             restrict: "E"
-        }
+        };
     });
     app.directive('websitesView',function(){
         return{
             templateUrl: "/WebsiteList/websitesView.html",
             restrict: "E"
-        }
+        };
     });
     app.directive('remove',function(){
         return{
@@ -233,13 +212,13 @@ var moment = require('moment');
                     });
                 });
             }
-        }
+        };
     });
     app.directive('monster',function(){
         return{
             templateUrl: "/WebsiteList/monster.html",
             restrict: "E"
-        }
+        };
     });
 
 
