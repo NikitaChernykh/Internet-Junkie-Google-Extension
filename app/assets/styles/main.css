@@ -226,6 +226,7 @@ a:hover {
   color: #fff; }
 
 body {
+  overflow: hidden;
   color: #fff;
   margin-top: 100px;
   width: 420px;

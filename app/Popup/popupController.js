@@ -1,33 +1,32 @@
-
-//var angular = require('angular');
 var moment = require('moment');
-
 
 (function () {
     'use strict';
-    var websiteList = [];
-    var blackList = [];
     var app = require('angular').module("internetJunkie", []);
 
+    //TODO clean this up
+    var websiteList = [];
+    var blackList = [];
     chrome.storage.local.get("websiteList", function(data){
       websiteList = data.websiteList;
     });
-
     chrome.storage.local.get("blackList", function(data){
       blackList = data.blackList;
     });
-    console.log(websiteList);
-    //config for overwriting whitelist ex: for img path
+
+    //app config for overwriting whitelist ex: for img path
     app.config(['$compileProvider',function ($compileProvider) {
           //  Default imgSrcSanitizationWhitelist: /^\s*((https?|ftp|file|blob):|data:image\/)/
           //  chrome-extension: will be added to the end of the expression
           $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
         }
     ]);
+
     //controllers
     app.controller('CredentialsController', require('../../app/Login/credentialsController'));
     app.controller('OptionsController', require('../../app/Options/optionsController'));
 
+    //TODO convet this to module
     app.controller('MainController', function MainController($scope, authService){
         $scope.websites = websiteList;
         //descending sort order
@@ -96,24 +95,18 @@ var moment = require('moment');
         };
     });
 
+    //directives
+    app.directive('authDirective', require('../../app/Login/authDirective'));
+    app.directive('loginView', require('../../app/Login/loginViewDirective'));
+    app.directive('websitesView', require('../../app/WebsiteList/websitesViewDirective'));
+    app.directive('remove', require('../../app/WebsiteList/removeDirective'));
+    app.directive('monster', require('../../app/WebsiteList/monsterDirective'));
 
+    //constants
+    app.constant('AUTH_EVENTS', require('../../app/Login/authEventsConstant'));
+    app.constant('AUTH_EVENTS', require('../../app/Login/userRolesConstant'));
 
-
-    app.constant('AUTH_EVENTS', require('../../app/Login/constantService'));
-
-    // app.constant('AUTH_EVENTS',{
-    //     loginSuccess: 'auth-login-success',
-    //     loginFailed: 'auth-login-failed',
-    //     logoutSuccess: 'auth-logout-success',
-    //     sessionTimeout: 'auth-session-timeout',
-    //     notAuthenticated: 'auth-not-authenticated',
-    //     notAuthorized: 'auth-not-authorized'
-    // });
-    // app.constant('USER_ROLES', {
-    //   all: '*',
-    //   user: 'user'
-    // });
-
+    //TODO convert this to module
     app.factory('authService', function(AUTH_EVENTS){
         console.log("I ran auth service");
         var signOut = function() {
@@ -153,79 +146,4 @@ var moment = require('moment');
             loginWithGoogle : loginWithGoogle
        };
     });
-
-    app.directive('authDirective',function(authService){
-        return{
-            link: function (scope,element,attrs,controller){
-                //on state change
-                firebase.auth().onAuthStateChanged(function(user) {
-                  if(user){
-                      scope.authenticated = true;
-                      writeUserData(user.uid,user.displayName,user.email,user.photoURL);
-                  }else{
-                      scope.authenticated = false;
-                  }
-                  authService.authenticated = scope.authenticated;
-                  scope.$apply();
-                  chrome.runtime.sendMessage({action: "popup"});
-                });
-
-                function writeUserData(userId, name, email, imageUrl) {
-                  database.ref('users/' + userId).set({
-                    username: name,
-                    email: email,
-                    profile_picture : imageUrl
-                  });
-                }
-                // //first load
-                // var user = firebase.auth().currentUser;
-                // console.log("first load of auth directive happen");
-                // if(user){
-                //     scope.authenticated = true;
-                //     authService.authenticated = scope.authenticated;
-                //     chrome.runtime.sendMessage({action: "popup"});
-                //     //writeUserData(user.uid,user.displayName,user.email,user.photoURL);
-                // }else{
-                //     scope.authenticated = false;
-                //     authService.authenticated = scope.authenticated;
-                //     chrome.runtime.sendMessage({action: "popup"});
-                // }
-            }
-        };
-    });
-    app.directive('loginView',function(){
-        return{
-            templateUrl: "/Login/loginView.html",
-            restrict: "E"
-        };
-    });
-    app.directive('websitesView',function(){
-        return{
-            templateUrl: "/WebsiteList/websitesView.html",
-            restrict: "E"
-        };
-    });
-    app.directive('remove',function(){
-        return{
-            link: function (scope,element,attrs,controller){
-                element.on('click', function(event){
-                    scope.websites.splice(scope.websites.indexOf(scope.website), 1);
-                    scope.$apply();
-                    _gaq.push(['_trackEvent', scope.website.websiteName, 'websiteRemoved']);
-                    chrome.runtime.sendMessage({
-                        action: "remove",
-                        list: scope.websites
-                    });
-                });
-            }
-        };
-    });
-    app.directive('monster',function(){
-        return{
-            templateUrl: "/WebsiteList/monster.html",
-            restrict: "E"
-        };
-    });
-
-
 }());

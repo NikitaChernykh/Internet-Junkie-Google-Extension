@@ -1,6 +1,6 @@
-app.directive('loginView',function(){
-    return{
-        templateUrl: "/Login/loginView.html",
-        restrict: "E"
-    }
-});
+module.exports = function() {
+  return{
+      templateUrl: "/Login/loginView.html",
+      restrict: "E"
+  }
+};
