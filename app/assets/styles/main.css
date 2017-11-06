@@ -192,6 +192,15 @@
     transform: translateY(10px); } }
 
 /*MONSTER STYLES END*/
+.footer {
+  height: 25px;
+  left: 0;
+  bottom: 0;
+  padding-left: 5px;
+  position: fixed; }
+  .footer p {
+    font-size: 0.8em; }
+
 /* Angular cloak */
 [ng\:cloak],
 [ng-cloak],
@@ -481,7 +490,6 @@ img {
   text-align: center; }
 
 .day-of-the-week {
-  /*    outline: 1px purple solid; */
   height: inherit;
   display: inline-block;
   cursor: pointer; }
@@ -503,45 +511,15 @@ img {
   text-transform: uppercase; }
 
 .today {
-  /*
-    border: 1px #de3f53 solid;
-    box-shadow: 0px 0px 8px 2px rgba(222, 63, 83, .75);
-*/
   border: 1px #91FF8F solid;
   box-shadow: 0px 0px 8px 2px rgba(145, 255, 143, 0.75); }
 
-/*
-.other-day{
-    border: 1px #22d8ff solid;
-    box-shadow: 0px 0px 8px 2px rgba(34, 216, 255, .75);
-}
-*/
 .other-day:hover {
   border: 1px #de3f53 solid;
-  box-shadow: 0px 0px 8px 2px rgba(222, 63, 83, 0.75);
-  /*
-    border: 1px #91FF8F solid;
-    box-shadow: 0px 0px 8px 2px rgba(145, 255, 143, .75);
-*/ }
+  box-shadow: 0px 0px 8px 2px rgba(222, 63, 83, 0.75); }
 
 .other-day-active {
   border: 1px #de3f53 solid;
-  box-shadow: 0px 0px 8px 2px rgba(222, 63, 83, 0.75);
-  /*
-    border: 1px #91FF8F solid;
-    box-shadow: 0px 0px 8px 2px rgba(145, 255, 143, .75);
-*/ }
+  box-shadow: 0px 0px 8px 2px rgba(222, 63, 83, 0.75); }
 
 /*WEEK-MENU END*/
-/*FOOTER  START*/
-.footer {
-  height: 25px;
-  left: 0;
-  bottom: 0;
-  padding-left: 5px;
-  position: fixed; }
-
-.footer p {
-  font-size: 0.8em; }
-
-/*FOOTER  END*/
