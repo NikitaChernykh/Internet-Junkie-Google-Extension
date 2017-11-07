@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
-    "build": "browserify ./app/Popup/app.js -o ./app/Popup/bundle.js --debug -v",
+    "build": "browserify ./app/Popup/app.js -o ./app/Background/bundle.js --debug -v",
     "build2": "browserify ./app/Popup/popupController.js -o ./app/Popup/popupBundle.js --debug"
   },
   "jest": {

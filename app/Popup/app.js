@@ -1,6 +1,6 @@
 'use strict';
 
-var bgModule = require('../../app/Popup/background.js');
+var bgModule = require('../../app/Background/background.js');
 console.log("bundle loaded");
 
 chrome.tabs.onActivated.addListener(function (activeInfo) {

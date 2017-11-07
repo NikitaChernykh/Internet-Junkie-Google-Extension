@@ -1,8 +1,8 @@
 
-jest.dontMock("../../app/Popup/background.js");
+jest.dontMock("../../app/Background/background.js");
 jest.dontMock('moment');
 
-const bgModule = require("../../app/Popup/background.js");
+const bgModule = require("../../app/Background/background.js");
 const moment = require('moment');
 //DOTO create Mocks and stubs if needed.
 describe("test cases for extractDomain()", () =>{
