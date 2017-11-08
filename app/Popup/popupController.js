@@ -29,7 +29,8 @@ var moment = require('moment');
     //TODO convet this to module
     app.controller('MainController', function MainController($scope, authService){
         $scope.websites = websiteList;
-        //descending sort order
+
+        //declaration of descending sort order
         $scope.sortOrder = "-websiteVisits";
         $scope.authenticated = authService.authenticated;
 
@@ -44,29 +45,27 @@ var moment = require('moment');
         $scope.sortToggle = function (order) {
             //track website sorting event
             _gaq.push(['_trackEvent', order, 'listSorted']);
-
-            if (order == "websiteVisits") {
+            if (order === "websiteVisits") {
                 $scope.ascStyle = {fill: "#ffffff"};
                 $scope.desStyle = {fill: "#22d8ff"};
                 $scope.sortOrder = "-websiteVisits";
-                return "-websiteVisits";
             }else{
                 $scope.ascStyle = {fill: "#22d8ff"};
                 $scope.desStyle = {fill: "#ffffff"};
-                $scope.sortOrder = "websiteVisits;";
-                return "websiteVisits";
+                $scope.sortOrder = "websiteVisits";
             }
-            return;
         };
 
         //open setting page
         $scope.settings = function(){
+          _gaq.push(['_trackEvent', 'settingsOpen']);
           var newURL = location.origin+"/Options/options.html";
           chrome.tabs.create({ url: newURL });
         };
 
         //sign out button
         $scope.signOut = function(){
+            _gaq.push(['_trackEvent', 'userSignedOut']);
             authService.signOut();
             $scope.authenticated = false;
             authService.authenticated = $scope.authenticated;
@@ -87,6 +86,7 @@ var moment = require('moment');
 
         //monster toggle
          $scope.monsterToggle = function () {
+            _gaq.push(['_trackEvent', 'userSawMonster']);
             if (websiteList[0] == undefined || websiteList[0].websiteVisits < 0) {
                  return true;
             }else{
