@@ -1,5 +1,3 @@
-'use strict';
-
 var bgModule = require('../../app/Background/background.js');
 console.log("bundle loaded");
 

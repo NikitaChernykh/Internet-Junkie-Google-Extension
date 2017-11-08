@@ -70,6 +70,7 @@ var moment = require('moment');
             $scope.authenticated = false;
             authService.authenticated = $scope.authenticated;
         };
+
         //show day table
         $scope.dayBtn = 1;
         $scope.isActive = false;
@@ -83,6 +84,9 @@ var moment = require('moment');
         }
         var today = {number: moment().format("D"), name: moment().format("ddd")};
         $scope.days.push(today);
+
+
+
 
         //monster toggle
          $scope.monsterToggle = function () {
@@ -106,44 +110,7 @@ var moment = require('moment');
     app.constant('AUTH_EVENTS', require('../../app/Login/authEventsConstant'));
     app.constant('AUTH_EVENTS', require('../../app/Login/userRolesConstant'));
 
-    //TODO convert this to module
-    app.factory('authService', function(AUTH_EVENTS){
-        console.log("I ran auth service");
-        var signOut = function() {
-            firebase.auth().signOut().then(function() {
-                console.log(AUTH_EVENTS.logoutSuccess);
-            }).catch(function(error) {
-                console.error("Sign-out error",error);
-            });
-        };
-        var loginWithGoogle = function(interactive){
-            chrome.identity.getAuthToken({interactive: !!interactive}, function(token) {
-                if (chrome.runtime.lastError && !interactive) {
-                  console.log('It was not possible to get a token programmatically.');
-                } else if(chrome.runtime.lastError) {
-                  console.error(chrome.runtime.lastError);
-                } else if (token) {
-                  // Authrorize Firebase with the OAuth Access Token.
-                  var credential = firebase.auth.GoogleAuthProvider.credential(null, token);
-                  firebase.auth().signInWithCredential(credential).catch(function(error) {
-                    // The OAuth token might have been invalidated. Lets' remove it from cache.
-                    if (error.code === 'auth/invalid-credential') {
-                      chrome.identity.removeCachedAuthToken({token: token}, function() {
-                        loginWithGoogle(interactive);
-                      });
-                    }
-                  });
-                  //writeUserData(user.uid,user.displayName,user.email,user.photoURL);
-                } else {
-                  console.error('The OAuth Token was null');
-                }
-              });
-        };
+    //services
+    app.factory('authService', require('../../app/Login/authService'));
 
-        return{
-            authenticated: false,
-            signOut: signOut,
-            loginWithGoogle : loginWithGoogle
-       };
-    });
 }());

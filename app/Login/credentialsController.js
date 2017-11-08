@@ -1,3 +1,5 @@
+var authService = require('../../app/Login/authService');
+
 module.exports = function($scope, authService) {
   'use strict';
   $scope.authenticated = authService.authenticated;

@@ -1,3 +1,5 @@
+var authService = require('../../app/Login/authService');
+
 module.exports = function(authService) {
   return{
       link: function (scope,element,attrs,controller){

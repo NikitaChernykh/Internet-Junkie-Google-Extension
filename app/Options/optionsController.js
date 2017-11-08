@@ -2,6 +2,8 @@
 
 module.exports = function($scope) {
   'use strict';
+
+  //TODO clean this up
   var websiteList = [];
   var blackList = [];
   $scope.websites = websiteList;
@@ -13,6 +15,8 @@ module.exports = function($scope) {
   chrome.storage.local.get("blackList", function(data){
     blackList = data.blackList;
   });
+
+
   //clear all website list
   $scope.clearAll = function(){
     var c = confirm("Are you sure you want to delete all the websites?");
