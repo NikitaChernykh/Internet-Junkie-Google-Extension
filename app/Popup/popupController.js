@@ -1,18 +1,8 @@
 var moment = require('moment');
-
+var angular = require('angular');
 (function () {
     'use strict';
-    var app = require('angular').module("internetJunkie", []);
-
-    //TODO clean this up
-    var websiteList = [];
-    var blackList = [];
-    chrome.storage.local.get("websiteList", function(data){
-      websiteList = data.websiteList;
-    });
-    chrome.storage.local.get("blackList", function(data){
-      blackList = data.blackList;
-    });
+    var app = angular.module("internetJunkie", []);
 
     //app config for overwriting whitelist ex: for img path
     app.config(['$compileProvider',function ($compileProvider) {
@@ -21,16 +11,26 @@ var moment = require('moment');
           $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
         }
     ]);
-
+    //services
+    app.factory('authService', require('../../app/Login/authService'));
+    app.factory('dataService', require('../../app/Shared/dataService'));
     //controllers
     app.controller('CredentialsController', require('../../app/Login/credentialsController'));
     app.controller('OptionsController', require('../../app/Options/optionsController'));
 
     //TODO convet this to module
-    app.controller('MainController', function MainController($scope, authService){
-        $scope.websites = websiteList;
+    app.controller('MainController', function MainController($scope, $timeout, authService, dataService){
+        var websiteList = [];
+        dataService.getData().then(function(result){
+          console.log(result.websiteList);
+          $timeout(function() {
+            websiteList = result.websiteList;
+            $scope.websites = websiteList;
+          });
+        }).catch(function () {
+          console.log("getData error");
+        });
 
-        //declaration of descending sort order
         $scope.sortOrder = "-websiteVisits";
         $scope.authenticated = authService.authenticated;
 
@@ -110,7 +110,6 @@ var moment = require('moment');
     app.constant('AUTH_EVENTS', require('../../app/Login/authEventsConstant'));
     app.constant('AUTH_EVENTS', require('../../app/Login/userRolesConstant'));
 
-    //services
-    app.factory('authService', require('../../app/Login/authService'));
+
 
 }());

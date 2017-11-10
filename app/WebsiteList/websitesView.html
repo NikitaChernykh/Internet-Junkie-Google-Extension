@@ -5,6 +5,7 @@
         <a ng-click="settings()"><img class="settingsIcon" width="28" height="28" title="Settings" src="/assets/images/icons/settings.svg" /></a>
     </div>
     <monster></monster>
+
     <p id="heading" ng-hide="monsterToggle()">{{table_header_text}}</p>
     <div id="websiteList" ng-hide="monsterToggle()" >
         <table  cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
@@ -33,6 +34,7 @@
                 </tr>
             </thead>
             <tbody ng-show="dayBtn == 1" class="fade">
+
                 <tr ng-repeat="website in websites | limitTo:10 | orderBy:sortOrder track by $index" ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
                     <td>

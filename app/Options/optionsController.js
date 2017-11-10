@@ -1,21 +1,20 @@
-
-
-module.exports = function($scope) {
+module.exports = function($scope, $timeout, dataService) {
   'use strict';
 
-  //TODO clean this up
   var websiteList = [];
   var blackList = [];
-  $scope.websites = websiteList;
-  $scope.blackList = blackList;
-  chrome.storage.local.get("websiteList", function(data){
-    websiteList = data.websiteList;
-  });
 
-  chrome.storage.local.get("blackList", function(data){
-    blackList = data.blackList;
+  dataService.getData().then(function(result){
+    console.log(result.websiteList);
+    $timeout(function() {
+      websiteList = result.websiteList;
+      blackList = result.blackList;
+      $scope.websites = websiteList;
+      $scope.blackList = blackList;
+    });
+  }).catch(function () {
+    console.log("getData error");
   });
-
 
   //clear all website list
   $scope.clearAll = function(){
