@@ -6,6 +6,10 @@ module.exports = function($scope, $timeout, authService, dataService) {
     $timeout(function() {
       websiteList = result.websiteList;
       $scope.websites = websiteList;
+
+      for(var i = 0; i < websiteList.length; i++){
+          $scope.totalVisits += $scope.websites[i].websiteVisits;
+      }
     });
   }).catch(function () {
     console.log("getData error");
@@ -13,7 +17,8 @@ module.exports = function($scope, $timeout, authService, dataService) {
 
   $scope.sortOrder = "-websiteVisits";
   $scope.authenticated = authService.authenticated;
-
+  $scope.totalVisits = 0;
+  $scope.totalTime =  0;
   //_locales text that translates
   $scope.table_header_text = chrome.i18n.getMessage("table_header_text");
   $scope.websites_label = chrome.i18n.getMessage("websites_label");
@@ -65,10 +70,17 @@ module.exports = function($scope, $timeout, authService, dataService) {
   var today = {number: moment().format("D"), name: moment().format("ddd")};
   $scope.days.push(today);
 
+
+
+
+
+  //for debugging
+  window.MY_SCOPE = $scope;
+
   //monster toggle
-   $scope.monsterToggle = function () {
-      _gaq.push(['_trackEvent', 'userSawMonster']);
+  $scope.monsterToggle = function () {
       if (websiteList[0] == undefined || websiteList[0].websiteVisits < 0) {
+            _gaq.push(['_trackEvent', 'showedMonster']);
            return true;
       }else{
           return false;

@@ -261,7 +261,29 @@ img {
 .removetd{
     width: 60px;
 }
+.total-container{
+  margin-top: 5px;
+  text-align: right;
 
+}
+.total-text{
+  width: 50px;
+  display: inline-block;
+  font-weight: 300;
+}
+.total-visits{
+  width: 70px;
+  display: inline-block;
+  text-align: center;
+  font-weight: 300;
+}
+.total-time{
+  width: 61px;
+  display: inline-block;
+  text-align: center;
+  margin-right: 60px;
+  font-weight: 300;
+}
 .binBG{
     width: 30px;
     height: 30px;
@@ -306,7 +328,7 @@ img {
     position: absolute;
     width: 280px;
     left: 20px;
-    top: 350px;
+    top: 360px;
     padding-left: 60px;
     padding-right: 60px;
 }
