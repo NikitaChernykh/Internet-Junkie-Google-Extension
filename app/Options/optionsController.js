@@ -5,7 +5,6 @@ module.exports = function($scope, $timeout, dataService) {
   var blackList = [];
 
   dataService.getData().then(function(result){
-    console.log(result.websiteList);
     $timeout(function() {
       websiteList = result.websiteList;
       blackList = result.blackList;
