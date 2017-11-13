@@ -128,6 +128,24 @@ describe("test cases for updateDeactivationTime()", () =>{
 });
 describe("test cases for tabUpdatedAndActive()", () =>{
     it("checks if tab was updated correctly", () => {
+      const testWebsiteList = [
+         {
+           websiteName: "scott.mn",
+           favIcon: "https://scott.mn/favicon.ico",
+           websiteVisits: 5,
+           startTime: "2017-10-02T15:50:40-04:00",
+           deactivationTime: "2017-10-02T15:49:43-04:00"
+         },
+         {
+           websiteName: "stackoverflow.com",
+           favIcon: "https://scott.mn/favicon.ico",
+           websiteVisits: 5,
+           startTime: "2017-10-02T15:49:40-04:00",
+           deactivationTime: "2017-10-02T15:49:43-04:00"
+         },
+         {websiteName: "w3schools.com"}
+        ]
 
+      expect(testWebsiteList.length).toEqual(3);
     });
 });

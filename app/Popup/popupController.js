@@ -8,7 +8,7 @@ module.exports = function($scope, $timeout, authService, dataService) {
       websiteList = result.websiteList;
       $scope.websites = websiteList;
 
-      for(var i = 0; i < websiteList.length; i++){
+      for(var i = 0; i < 10; i++){
           $scope.model.totalVisits += $scope.websites[i].websiteVisits;
           $scope.model.totalTime += $scope.websites[i].formatedTime.min+($scope.websites[i].formatedTime.hours*60)+(($scope.websites[i].formatedTime.days*24)*60);
       }
@@ -73,10 +73,6 @@ module.exports = function($scope, $timeout, authService, dataService) {
   }
   var today = {number: moment().format("D"), name: moment().format("ddd")};
   $scope.days.push(today);
-
-
-
-
 
   //for debugging
   window.MY_SCOPE = $scope;

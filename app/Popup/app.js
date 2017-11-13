@@ -30,4 +30,6 @@ var angular = require('angular');
     //constants
     app.constant('AUTH_EVENTS', require('../../app/Login/authEventsConstant'));
     app.constant('AUTH_EVENTS', require('../../app/Login/userRolesConstant'));
+    
+    module.exports = app;
 }());
