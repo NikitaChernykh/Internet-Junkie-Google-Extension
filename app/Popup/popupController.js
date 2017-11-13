@@ -3,12 +3,14 @@ module.exports = function($scope, $timeout, authService, dataService) {
   'use strict';
   var websiteList = [];
   dataService.getData().then(function(result){
+
     $timeout(function() {
       websiteList = result.websiteList;
       $scope.websites = websiteList;
 
       for(var i = 0; i < websiteList.length; i++){
-          $scope.totalVisits += $scope.websites[i].websiteVisits;
+          $scope.model.totalVisits += $scope.websites[i].websiteVisits;
+          $scope.model.totalTime += $scope.websites[i].formatedTime.min+($scope.websites[i].formatedTime.hours*60)+(($scope.websites[i].formatedTime.days*24)*60);
       }
     });
   }).catch(function () {
@@ -17,8 +19,10 @@ module.exports = function($scope, $timeout, authService, dataService) {
 
   $scope.sortOrder = "-websiteVisits";
   $scope.authenticated = authService.authenticated;
-  $scope.totalVisits = 0;
-  $scope.totalTime =  0;
+  $scope.model = {
+    totalVisits: 0,
+    totalTime:0
+  }
   //_locales text that translates
   $scope.table_header_text = chrome.i18n.getMessage("table_header_text");
   $scope.websites_label = chrome.i18n.getMessage("websites_label");
