@@ -20,8 +20,6 @@ module.exports = function(authService) {
               username: name,
               email: email,
               profile_picture : imageUrl
-            }, function(error) {
-              console.log(error); // Stacktrace
             });
           }
           // //first load

@@ -1,7 +1,7 @@
 var AUTH_EVENTS = require('../../app/Login/authEventsConstant');
 
 module.exports = function(AUTH_EVENTS) {
-  console.log("I ran auth service");
+
   var signOut = function() {
       firebase.auth().signOut().then(function() {
           console.log(AUTH_EVENTS.logoutSuccess);
@@ -9,6 +9,7 @@ module.exports = function(AUTH_EVENTS) {
           console.error("Sign-out error",error);
       });
   };
+
   var loginWithGoogle = function(interactive){
       chrome.identity.getAuthToken({interactive: !!interactive}, function(token) {
           if (chrome.runtime.lastError && !interactive) {
@@ -26,7 +27,6 @@ module.exports = function(AUTH_EVENTS) {
                 });
               }
             });
-            //writeUserData(user.uid,user.displayName,user.email,user.photoURL);
           } else {
             console.error('The OAuth Token was null');
           }
