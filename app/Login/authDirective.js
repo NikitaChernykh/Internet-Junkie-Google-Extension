@@ -15,10 +15,13 @@ module.exports = function(authService) {
           });
 
           function writeUserData(userId, name, email, imageUrl) {
+
             database.ref('users/' + userId).set({
               username: name,
               email: email,
               profile_picture : imageUrl
+            }, function(error) {
+              console.log(error); // Stacktrace
             });
           }
           // //first load

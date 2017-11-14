@@ -7,11 +7,18 @@ module.exports = function($scope, $timeout, authService, dataService) {
     $timeout(function() {
       websiteList = result.websiteList;
       $scope.websites = websiteList;
-
-      for(var i = 0; i < 10; i++){
-          $scope.model.totalVisits += $scope.websites[i].websiteVisits;
-          $scope.model.totalTime += $scope.websites[i].formatedTime.min+($scope.websites[i].formatedTime.hours*60)+(($scope.websites[i].formatedTime.days*24)*60);
+      if($scope.websites.length>10){
+        for(var i = 0; i < 10; i++){
+            $scope.model.totalVisits += $scope.websites[i].websiteVisits;
+            $scope.model.totalTime += $scope.websites[i].formatedTime.min+($scope.websites[i].formatedTime.hours*60)+(($scope.websites[i].formatedTime.days*24)*60);
+        }
+      }else{
+        for(var i = 0; i < $scope.websites.length; i++){
+            $scope.model.totalVisits += $scope.websites[i].websiteVisits;
+            $scope.model.totalTime += $scope.websites[i].formatedTime.min+($scope.websites[i].formatedTime.hours*60)+(($scope.websites[i].formatedTime.days*24)*60);
+        }
       }
+
     });
   }).catch(function () {
     console.log("getData error");

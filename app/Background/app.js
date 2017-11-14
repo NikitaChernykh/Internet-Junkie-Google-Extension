@@ -53,17 +53,21 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 // Check if chome is out of focus or pc in sleep mode TODO in progress
 chrome.windows.onFocusChanged.addListener(function(window) {
-    if (window == chrome.windows.WINDOW_ID_NONE) {
+    if (window === chrome.windows.WINDOW_ID_NONE) {
         bgModule.inFocus = false;
-        bgModule.updateDeactivationTime(bgModule.prevTab);
+        if(bgModule.prevTab !== ""){
+          bgModule.updateDeactivationTime(bgModule.prevTab);
+        }
         bgModule.globalURL = bgModule.prevTab;
         console.log("chrome is not active");
     } else {
         bgModule.inFocus = true;
         chrome.tabs.query({active: true, currentWindow: true},function(tabs){
-            bgModule.tabUpdatedAndActive(bgModule.extractDomain(tabs[0].url));
-            bgModule.prevTab = bgModule.extractDomain(tabs[0].url);
-            bgModule.globalURL = bgModule.extractDomain(tabs[0].url);
+          if(bgModule.prevTab !== ""){
+              bgModule.tabUpdatedAndActive(bgModule.extractDomain(tabs[0].url));
+              bgModule.prevTab = bgModule.extractDomain(tabs[0].url);
+              bgModule.globalURL = bgModule.extractDomain(tabs[0].url);
+          }
         });
         console.log("chrome is active");
     }
