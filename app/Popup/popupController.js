@@ -73,12 +73,14 @@ module.exports = function($scope, $timeout, authService, dataService) {
 
   //week days in progress TODO
   $scope.days = [];
+  var today = {number: moment().format("D"), name: moment().format("ddd")};
+  $scope.today = today.number;
   for (var i = 6; i >= 1; i--) {
       var date = moment().subtract(i,'days');
       var formattedDate = {number: moment(date).format("D"), name: moment(date).format("ddd")};
       $scope.days.push(formattedDate);
   }
-  var today = {number: moment().format("D"), name: moment().format("ddd")};
+
   $scope.days.push(today);
 
   //for debugging
