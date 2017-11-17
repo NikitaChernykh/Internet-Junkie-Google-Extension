@@ -15,6 +15,7 @@ var angular = require('angular');
     app.factory('dataService', require('../../app/Shared/dataService'));
 
     //controllers
+    app.controller('AppController', require('../../app/Popup/appController'));
     app.controller('PopupController', require('../../app/Popup/popupController'));
     app.controller('CredentialsController', require('../../app/Login/credentialsController'));
     app.controller('OptionsController', require('../../app/Options/optionsController'));
@@ -30,6 +31,6 @@ var angular = require('angular');
     //constants
     app.constant('AUTH_EVENTS', require('../../app/Login/authEventsConstant'));
     app.constant('AUTH_EVENTS', require('../../app/Login/userRolesConstant'));
-    
+
     module.exports = app;
 }());

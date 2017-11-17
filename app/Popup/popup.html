@@ -4,8 +4,7 @@
 <head>
     <link rel="stylesheet" href="/assets/styles/main.css">
 </head>
-
-<body ng-cloak>
+<body ng-controller="AppController" ng-switch="view" ng-cloak>
     <login-view></login-view>
     <websites-view></websites-view>
     <script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
