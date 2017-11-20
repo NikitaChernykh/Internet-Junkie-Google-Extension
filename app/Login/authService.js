@@ -1,6 +1,7 @@
 var AUTH_EVENTS = require('../../app/Login/authEventsConstant');
+var APP_VIEWS = require('../../app/Login/appViewsConstant');
 
-module.exports = function(AUTH_EVENTS) {
+module.exports = function(AUTH_EVENTS,APP_VIEWS) {
 
   var signOut = function() {
       firebase.auth().signOut().then(function() {
@@ -32,9 +33,9 @@ module.exports = function(AUTH_EVENTS) {
           }
         });
   };
-
+  var view = APP_VIEWS.loginView;
   return{
-      authenticated: false,
+      view: view,
       signOut: signOut,
       loginWithGoogle : loginWithGoogle
  };

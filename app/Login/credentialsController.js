@@ -1,9 +1,10 @@
-module.exports = function($scope, authService) {
+var APP_VIEWS = require('../../app/Login/appViewsConstant');
+
+module.exports = function($scope, authService,APP_VIEWS) {
   'use strict';
-  $scope.authenticated = authService.authenticated;
   $scope.gauth = function(){
       authService.loginWithGoogle(true);
-      $scope.authenticated = true;
-      authService.authenticated = $scope.authenticated;
+      authService.view = APP_VIEWS.homeView;
+      $scope.$emit('view', authService.view);
   };
 };
