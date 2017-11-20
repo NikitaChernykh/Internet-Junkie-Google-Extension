@@ -6,7 +6,9 @@
   "scripts": {
     "test": "jest --coverage",
     "build": "browserify ./app/Background/app.js -o ./app/Background/bundle.js --debug",
-    "build2": "browserify ./app/Popup/app.js -o ./app/Popup/bundle.js --debug "
+    "build2": "browserify ./app/Popup/app.js -o ./app/Popup/bundle.js --debug ",
+    "watch_build": "watchify ./app/Background/app.js -o ./app/Background/bundle.js --debug",
+    "watch_build2": "watchify ./app/Popup/app.js -o ./app/Popup/bundle.js --debug "
   },
   "jest": {
     "verbose": true

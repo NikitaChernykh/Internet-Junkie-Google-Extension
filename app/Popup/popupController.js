@@ -1,5 +1,6 @@
 var moment = require('moment');
-module.exports = function($scope, $timeout, authService, dataService) {
+var APP_VIEWS = require('../../app/Login/appViewsConstant');
+module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS) {
   'use strict';
   var websiteList = [];
   dataService.getData().then(function(result){
@@ -25,7 +26,6 @@ module.exports = function($scope, $timeout, authService, dataService) {
   });
 
   $scope.sortOrder = "-websiteVisits";
-  $scope.authenticated = authService.authenticated;
   $scope.model = {
     totalVisits: 0,
     totalTime:0
@@ -63,8 +63,8 @@ module.exports = function($scope, $timeout, authService, dataService) {
   $scope.signOut = function(){
       _gaq.push(['_trackEvent', 'userSignedOut']);
       authService.signOut();
-      $scope.authenticated = false;
-      authService.authenticated = $scope.authenticated;
+      authService.view = APP_VIEWS.loginView;
+      $scope.$emit('view', authService.view);
   };
 
   //show day table

@@ -4,13 +4,14 @@
 <head>
     <link rel="stylesheet" href="/assets/styles/main.css">
 </head>
-<body ng-controller="AppController" ng-switch="view" ng-cloak>
-    <login-view></login-view>
-    <websites-view></websites-view>
+<body ng-controller="AppController" ng-switch="view" ng-cloak auth-directive>
+    <login-view ng-switch-when="login-view"></login-view>
+    <websites-view ng-switch-when="home-view"></websites-view>
+
+
     <script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
     <script type="text/javascript" src="/Shared/firebase-init.js"></script>
     <script type="text/javascript" src="/Shared/tracking.js"></script>
     <script type="text/javascript" src="/Popup/bundle.js"></script>
 </body>
-
 </html>

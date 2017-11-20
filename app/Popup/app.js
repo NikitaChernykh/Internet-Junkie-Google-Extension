@@ -30,7 +30,7 @@ var angular = require('angular');
 
     //constants
     app.constant('AUTH_EVENTS', require('../../app/Login/authEventsConstant'));
-    app.constant('AUTH_EVENTS', require('../../app/Login/userRolesConstant'));
+    app.constant('APP_VIEWS', require('../../app/Login/appViewsConstant'));
 
     module.exports = app;
 }());

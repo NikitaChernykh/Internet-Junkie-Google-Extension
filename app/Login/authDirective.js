@@ -1,15 +1,17 @@
-module.exports = function(authService) {
+var APP_VIEWS = require('../../app/Login/appViewsConstant');
+
+module.exports = function(authService,APP_VIEWS) {
   return{
       link: function (scope,element,attrs,controller){
           //on state change
           firebase.auth().onAuthStateChanged(function(user) {
             if(user){
-                scope.authenticated = true;
+                scope.view = APP_VIEWS.homeView;
                 writeUserData(user.uid,user.displayName,user.email,user.photoURL);
             }else{
-                scope.authenticated = false;
+                scope.view = APP_VIEWS.loginView;
             }
-            authService.authenticated = scope.authenticated;
+            authService.view = scope.view;
             scope.$apply();
             chrome.runtime.sendMessage({action: "popup"});
           });
