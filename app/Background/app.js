@@ -42,12 +42,21 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action == "popup") {
+        //get websites
         chrome.storage.local.get('websiteList', function (data) {
+        });
+        //get blacklist
+        chrome.storage.local.get('blackList', function (data) {
         });
     }
     if (request.action == "remove") {
         bgModule.websiteList = request.list;
         chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
+        });
+    }
+    if(request.action == "addBlacklist"){
+        bgModule.blackList = request.blackList;
+        chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
         });
     }
 });

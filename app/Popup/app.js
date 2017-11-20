@@ -19,12 +19,14 @@ var angular = require('angular');
     app.controller('PopupController', require('../../app/Popup/popupController'));
     app.controller('CredentialsController', require('../../app/Login/credentialsController'));
     app.controller('OptionsController', require('../../app/Options/optionsController'));
+    app.controller('SettingsController', require('../../app/Settings/settingsController'));
 
 
     //directives
     app.directive('authDirective', require('../../app/Login/authDirective'));
     app.directive('loginView', require('../../app/Login/loginViewDirective'));
     app.directive('websitesView', require('../../app/WebsiteList/websitesViewDirective'));
+    app.directive('settingsView', require('../../app/Settings/settingsViewDirective'));
     app.directive('remove', require('../../app/WebsiteList/removeDirective'));
     app.directive('monster', require('../../app/WebsiteList/monsterDirective'));
 

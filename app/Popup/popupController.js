@@ -55,8 +55,8 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   //open setting page
   $scope.settings = function(){
     _gaq.push(['_trackEvent', 'settingsOpen']);
-    var newURL = location.origin+"/Options/options.html";
-    chrome.tabs.create({ url: newURL });
+    authService.view = APP_VIEWS.settingsView;
+    $scope.$emit('view', authService.view);
   };
 
   //sign out button

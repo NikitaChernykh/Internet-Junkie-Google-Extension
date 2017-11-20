@@ -7,7 +7,7 @@
 <body ng-controller="AppController" ng-switch="view" ng-cloak auth-directive>
     <login-view ng-switch-when="login-view"></login-view>
     <websites-view ng-switch-when="home-view"></websites-view>
-
+    <settings-view ng-switch-when="settings-view"></settings-view>
 
     <script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
     <script type="text/javascript" src="/Shared/firebase-init.js"></script>
