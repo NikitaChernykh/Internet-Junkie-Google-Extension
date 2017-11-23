@@ -6,14 +6,16 @@
     <p>Delete all websites: </p>
     <button ng-click="clearAll()">Clear all</button>
     <h2>Black List</h2>
-    <form name="myForm" >
+    <form name="blacklistForm" >
       <label for="website">Add website to blacklist:</label>
       <br>
       <br>
-      <input id="website" type="url" ng-model="website" placeholder="Enter valid URL"/>
-      <span class="error" ng-show="myForm.input.$error.website">
+      <input id="website" type="url" name="input" ng-model="website" placeholder="Enter valid URL"/>
+      <button ng-click="addToBlackList()" ng-disabled="blacklistForm.$valid">add</button>
+      <div role="alert">
+        <span class="error" ng-show="blacklistForm.$error.website">
         Not valid url!</span>
-      <button ng-click="addToBlackList()" ng-disabled="myForm.input.$valid">add</button>
+      </div>
     </form>
     <div class="blacklist-container">
       <div class="blacklist-item" ng-repeat="item in blackList">
