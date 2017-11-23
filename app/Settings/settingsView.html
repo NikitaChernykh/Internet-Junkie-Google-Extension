@@ -11,7 +11,17 @@
     <br>
     <input id="website" ng-model="website" placeholder="Enter valid URL"/>
     <button ng-click="addToBlackList()">add</button>
-    <p>{{blackList}}</p>
+    <div class="blacklist-container">
+      <div class="blacklist-item" ng-repeat="item in blackList">
+        <div class="blacklist-item-text">
+          {{item}}
+        </div>
+        <div class="blacklist-remove">
+          <img class="closeIcon" width="15" height="15" title="Settings" src="/assets/images/icons/close.svg" />
+        </div>
+      </div>
+    </div>
+
     <br>
     <br>
     <button type="button" name="button" ng-click="goback()"> <= go back</button>

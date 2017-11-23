@@ -35,6 +35,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
         action: "addBlacklist",
         blackList: $scope.blackList
     });
+    $scope.website = "";
   };
   $scope.goback = function(){
     authService.view = APP_VIEWS.homeView;
