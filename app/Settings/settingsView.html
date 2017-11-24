@@ -10,8 +10,8 @@
       <label for="website">Add website to blacklist:</label>
       <br>
       <br>
-      <input id="website" type="url" name="input" ng-model="website" placeholder="Enter valid URL"/>
-      <button ng-click="addToBlackList()" ng-disabled="blacklistForm.$valid">add</button>
+      <input id="website" type="url" name="input" ng-model="website"  required placeholder="Enter valid URL"/>
+      <button ng-click="addToBlackList()" ng-disabled="!blacklistForm.$valid">add</button>
       <div role="alert">
         <span class="error" ng-show="blacklistForm.$error.website">
         Not valid url!</span>

@@ -65,6 +65,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 chrome.storage.local.set({'blackList': ["newtab", "google.", "chrome://", "localhost", "chrome-extension://"]}, function() {
 });
 
+//TODO for now resets websiteList on ex reload. until duplicate validation and remove functionality
+chrome.storage.local.set({'websiteList': []}, function() {
+});
 // Check if chome is out of focus or pc in sleep mode TODO in progress
 chrome.windows.onFocusChanged.addListener(function(window) {
     if (window === chrome.windows.WINDOW_ID_NONE) {

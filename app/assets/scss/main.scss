@@ -389,7 +389,8 @@ img {
   background-color: $white;
   height: 100px;
   color: $black;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   padding: 10px;
 }
 .blacklist-item{

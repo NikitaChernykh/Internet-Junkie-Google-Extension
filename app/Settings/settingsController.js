@@ -28,8 +28,41 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
       });
       return;
   };
+  function extractDomain(url){
+    if (url !== undefined) {
+        //vars
+        var domain;
+        var regex = /(\..*){2,}/;
+
+        //find & remove protocol (http, ftp, etc.) and get domain
+        if (url.indexOf("://") > -1) {
+            domain = url.split('/')[2];
+        } else {
+            domain = url.split('/')[0];
+        }
+        //find & remove port number
+        domain = domain.split(':')[0];
+
+        //removes everything before 1 dot - like: "www"
+        if (regex.test(domain)) {
+            domain = domain.substring(domain.indexOf(".") + 1);
+        }
+        var arr = domain.match(/[.]/gi);
+        if(arr == null){
+           return "";
+        }
+        var counter = arr.length;
+        while(counter > 1){
+            domain = domain.substr(domain.indexOf('.')+1);
+            counter--;
+        }
+        return domain;
+    }
+    return "";
+  } 
   $scope.addToBlackList = function(){
-    $scope.blackList.push($scope.website);
+    var site = extractDomain($scope.website);
+    $scope.blackList.push(site);
     console.log($scope.blackList);
     chrome.runtime.sendMessage({
         action: "addBlacklist",

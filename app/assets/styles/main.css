@@ -559,7 +559,8 @@ img {
   background-color: #fff;
   height: 100px;
   color: #000;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   padding: 10px; }
 
 .blacklist-item {
