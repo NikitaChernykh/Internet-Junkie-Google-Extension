@@ -10,11 +10,16 @@
       <label for="website">Add website to blacklist:</label>
       <br>
       <br>
-      <input id="website" type="url" name="input" ng-model="website"  required placeholder="Enter valid URL"/>
-      <button ng-click="addToBlackList()" ng-disabled="!blacklistForm.$valid">add</button>
-      <div role="alert">
-        <span class="error" ng-show="blacklistForm.$error.website">
-        Not valid url!</span>
+      <input type="text" id="website"  ng-minlength="5" ng-model="website"  required />
+
+      <button ng-click="addToBlackList()" >add</button>
+      <div ng-messages="blacklistForm.website.$error">
+        <div ng-message="required">
+          You forgot to enter your email address...
+        </div>
+        <div ng-message="minlength">
+          minlength
+        </div>
       </div>
     </form>
     <div class="blacklist-container">
@@ -27,7 +32,6 @@
         </div>
       </div>
     </div>
-
     <br>
     <br>
     <button type="button" name="button" ng-click="goback()"> <= go back</button>

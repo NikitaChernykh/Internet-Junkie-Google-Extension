@@ -1,4 +1,5 @@
 var moment = require('moment');
+
 var APP_VIEWS = require('../../app/Login/appViewsConstant');
 module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS) {
   'use strict';

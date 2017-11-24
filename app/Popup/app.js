@@ -1,7 +1,7 @@
 var angular = require('angular');
 (function () {
     'use strict';
-    var app = angular.module("internetJunkie", []);
+    var app = angular.module("internetJunkie", [require('angular-messages')]);
 
     //app config for overwriting whitelist ex: for img path
     app.config(['$compileProvider',function ($compileProvider) {
@@ -20,7 +20,6 @@ var angular = require('angular');
     app.controller('CredentialsController', require('../../app/Login/credentialsController'));
     app.controller('OptionsController', require('../../app/Options/optionsController'));
     app.controller('SettingsController', require('../../app/Settings/settingsController'));
-
 
     //directives
     app.directive('authDirective', require('../../app/Login/authDirective'));
