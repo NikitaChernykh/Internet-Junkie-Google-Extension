@@ -10,10 +10,11 @@
       <label for="website">Add website to blacklist:</label>
       <br>
       <br>
-      <input type="text"  name="website"  ng-minlength="5" ng-model="website"/>
+      <input type="text"  existcheck name="website"  ng-minlength="5" ng-model="website"/>
       <button ng-click="addToBlackList()" type="submit">add</button>
       <div ng-messages="blacklistForm.website.$error" style="color: red;"ng-if="blacklistForm.website.$touched">
         <div ng-message="minlength">Your field is too short</div>
+        <div ng-message="invalidEntry">Your field is too short</div>
       </div>
     </form>
     <div class="blacklist-container">
@@ -22,7 +23,7 @@
           {{item}}
         </div>
         <div class="blacklist-remove">
-          <img class="closeIcon" width="15" height="15" title="Settings" src="/assets/images/icons/close.svg" />
+          <img class="closeIcon" removeblk width="15" height="15" title="Settings" src="/assets/images/icons/close.svg" />
         </div>
       </div>
     </div>

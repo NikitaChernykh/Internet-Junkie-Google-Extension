@@ -28,6 +28,8 @@ var angular = require('angular');
     app.directive('settingsView', require('../../app/Settings/settingsViewDirective'));
     app.directive('remove', require('../../app/WebsiteList/removeDirective'));
     app.directive('monster', require('../../app/WebsiteList/monsterDirective'));
+    app.directive('existcheck', require('../../app/Settings/existcheckDirective'));
+    app.directive('removeblk', require('../../app/Settings/removeblkDirective'));
 
     //constants
     app.constant('AUTH_EVENTS', require('../../app/Login/authEventsConstant'));

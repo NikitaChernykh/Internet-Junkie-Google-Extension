@@ -37,8 +37,6 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
           blackList: $scope.blackList
       });
       $scope.website = "";
-    }else {
-        $scope.blacklistForm.website.$setValidity('', false);
     }
   };
   $scope.goback = function(){

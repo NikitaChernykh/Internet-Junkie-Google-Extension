@@ -59,6 +59,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
         });
     }
+    if(rrequest.action == "removeBlacklist"){
+      bgModule.blackList = request.blackList;
+      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
+      });
+    }
 });
 
 //TODO for now resets blacklist on ex reload. until duplicate validation and remove functionality
