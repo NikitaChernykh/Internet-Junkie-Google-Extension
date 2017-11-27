@@ -6,20 +6,14 @@
     <p>Delete all websites: </p>
     <button ng-click="clearAll()">Clear all</button>
     <h2>Black List</h2>
-    <form name="blacklistForm" >
+    <form name="blacklistForm" novalidate>
       <label for="website">Add website to blacklist:</label>
       <br>
       <br>
-      <input type="text" id="website"  ng-minlength="5" ng-model="website"  required />
-
-      <button ng-click="addToBlackList()" >add</button>
-      <div ng-messages="blacklistForm.website.$error">
-        <div ng-message="required">
-          You forgot to enter your email address...
-        </div>
-        <div ng-message="minlength">
-          minlength
-        </div>
+      <input type="text"  name="website"  ng-minlength="5" ng-model="website"/>
+      <button ng-click="addToBlackList()" type="submit">add</button>
+      <div ng-messages="blacklistForm.website.$error" style="color: red;"ng-if="blacklistForm.website.$touched">
+        <div ng-message="minlength">Your field is too short</div>
       </div>
     </form>
     <div class="blacklist-container">
