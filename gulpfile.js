@@ -6,21 +6,21 @@ var csso       = require('gulp-csso');
 var uglify     = require('gulp-uglify');
 var buffer     = require('vinyl-buffer');
 
-
 var paths = {
   scripts: {
     source: './app/Background/app.js',
     destination: './app/Background/',
     filename: 'bundle.js',
-    watch: './app/Background/app.js'
+    watch: './app/Background/*.js'
   }
 }
+
 var paths2 = {
   scripts: {
     source: './app/Popup/app.js',
     destination: './app/Popup/',
     filename: 'bundle.js',
-    watch: './app/Popup/app.js'
+    watch: './app/Popup/*.js'
   }
 }
 

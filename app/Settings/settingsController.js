@@ -14,6 +14,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
       $scope.websites = websiteList;
       $scope.blackList = blackList;
     });
+    return result;
   }).catch(function () {
     console.log("getData error");
   });
