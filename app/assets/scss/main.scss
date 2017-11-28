@@ -416,6 +416,11 @@ img {
 .blacklist-remove:hover{
   cursor: pointer;
 }
+.blk-input{
+  height: 20px;
+  font-size: 15px;
+  padding: 5px;
+}
 .error{
   color: $red-monster;
   margin-top: 5px;

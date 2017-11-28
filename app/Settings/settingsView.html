@@ -5,12 +5,13 @@
     <h2>Settings</h2>
     <p>Delete all websites: </p>
     <button ng-click="clearAll()">Clear all</button>
-    <h2>Black List</h2>
+    <br>
+    <br>
     <form name="blacklistForm" novalidate>
       <label for="website">Add website to blacklist:</label>
       <br>
       <br>
-      <input type="text"  existcheck name="website"  ng-minlength="5" ng-model="website"/>
+      <input type="text" class="blk-input" existcheck name="website"  ng-minlength="5" ng-model="website"/>
       <button ng-click="addToBlackList()" type="submit">add</button>
       <div ng-messages="blacklistForm.website.$error" class="error" ng-if="blacklistForm.website.$touched">
         <div ng-message="minlength">Your field is too short.</div>
