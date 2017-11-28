@@ -201,6 +201,50 @@
   .footer p {
     font-size: 0.8em; }
 
+.snow-container {
+  position: absolute;
+  height: 700px;
+  width: 450px;
+  max-width: 100%;
+  top: 0;
+  overflow: hidden;
+  z-index: 2;
+  margin-left: -10px;
+  pointer-events: none; }
+
+.snow {
+  display: block;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  transform: translate3d(0, -100%, 0);
+  animation: snow linear infinite; }
+  .snow.foreground {
+    background-image: url("https://dl6rt3mwcjzxg.cloudfront.net/assets/snow/snow-large-075d267ecbc42e3564c8ed43516dd557.png");
+    animation-duration: 30s; }
+  .snow.layered {
+    animation-delay: 15s; }
+  .snow.middleground {
+    background-image: image-url("https://dl6rt3mwcjzxg.cloudfront.net/assets/snow/snow-medium-0b8a5e0732315b68e1f54185be7a1ad9.png");
+    animation-duration: 20s; }
+  .snow.layered {
+    animation-delay: 10s; }
+  .snow.background {
+    background-image: image-url("https://dl6rt3mwcjzxg.cloudfront.net/assets/snow/snow-small-1ecd03b1fce08c24e064ff8c0a72c519.png");
+    animation-duration: 30s; }
+  .snow.layered {
+    animation-delay: 15s; }
+
+@keyframes snow {
+  0% {
+    transform: translate3d(0, -100%, 0); }
+  100% {
+    transform: translate3d(15%, 100%, 0); } }
+
 /* Angular cloak */
 [ng\:cloak],
 [ng-cloak],
@@ -585,3 +629,7 @@ img {
 
 .blacklist-remove:hover {
   cursor: pointer; }
+
+.error {
+  color: #de3f53;
+  margin-top: 5px; }

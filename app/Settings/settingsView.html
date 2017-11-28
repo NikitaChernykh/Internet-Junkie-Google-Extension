@@ -12,9 +12,9 @@
       <br>
       <input type="text"  existcheck name="website"  ng-minlength="5" ng-model="website"/>
       <button ng-click="addToBlackList()" type="submit">add</button>
-      <div ng-messages="blacklistForm.website.$error" style="color: red;"ng-if="blacklistForm.website.$touched">
-        <div ng-message="minlength">Your field is too short</div>
-        <div ng-message="invalidEntry">Your field is too short</div>
+      <div ng-messages="blacklistForm.website.$error" class="error" ng-if="blacklistForm.website.$touched">
+        <div ng-message="minlength">Your field is too short.</div>
+        <div ng-message="invalidEntry">This is already in the blacklist.</div>
       </div>
     </form>
     <div class="blacklist-container">

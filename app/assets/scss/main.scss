@@ -3,7 +3,7 @@
 @import '_colors';
 @import '_monster';
 @import '_footer';
-
+@import '_snow';
 /* Angular cloak */
 [ng\:cloak],
 [ng-cloak],
@@ -416,6 +416,7 @@ img {
 .blacklist-remove:hover{
   cursor: pointer;
 }
-.closeIcon{
-
+.error{
+  color: $red-monster;
+  margin-top: 5px;
 }
