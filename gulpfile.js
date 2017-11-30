@@ -20,7 +20,7 @@ var paths2 = {
     source: './app/Popup/app.js',
     destination: './app/Popup/',
     filename: 'bundle.js',
-    watch: './app/Popup/*.js'
+    watch: './app/Settings/*.js'
   }
 }
 

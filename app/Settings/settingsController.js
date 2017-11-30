@@ -3,18 +3,11 @@ var APP_VIEWS = require('../../app/Login/appViewsConstant');
 module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS) {
   'use strict';
 
-  var websiteList = [];
-  var blackList = [];
 
   //get website data
   dataService.getData().then(function(result){
-    $timeout(function() {
-      websiteList = result.websiteList;
-      blackList = result.blackList;
-      $scope.websites = websiteList;
-      $scope.blackList = blackList;
-    });
-    return result;
+    $scope.websites = result.websiteList;
+    $scope.blackList = result.blackList;
   }).catch(function () {
     console.log("getData error");
   });
@@ -38,6 +31,8 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
           blackList: $scope.blackList
       });
       $scope.website = "";
+      $scope.blacklistForm.$setPristine();
+      $scope.blacklistForm.$setUntouched();
     }
   };
   $scope.goback = function(){

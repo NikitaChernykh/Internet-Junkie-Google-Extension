@@ -93,7 +93,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
             _gaq.push(['_trackEvent', 'showedMonster']);
            return true;
       }else{
-          return false;
+           return false;
       }
   };
 };
