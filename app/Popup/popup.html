@@ -5,9 +5,21 @@
     <link rel="stylesheet" href="/assets/styles/main.css">
 </head>
 <body ng-controller="AppController" ng-switch="view" ng-cloak auth-directive>
+  
+    <!-- SNOW FOR X-MAS START-->
+    <div class="snow-container">
+      <div class="snow foreground"></div>
+      <div class="snow foreground layered"></div>
+      <div class="snow middleground"></div>
+      <div class="snow middleground layered"></div>
+      <div class="snow background"></div>
+      <div class="snow background layered"></div>
+    </div>
+    <!-- SNOW FOR X-MAS END-->
+
     <login-view ng-switch-when="login-view"></login-view>
     <websites-view ng-switch-when="home-view"></websites-view>
-
+    <settings-view ng-switch-when="settings-view"></settings-view>
 
     <script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
     <script type="text/javascript" src="/Shared/firebase-init.js"></script>

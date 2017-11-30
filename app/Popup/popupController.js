@@ -1,4 +1,5 @@
 var moment = require('moment');
+
 var APP_VIEWS = require('../../app/Login/appViewsConstant');
 module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS) {
   'use strict';
@@ -55,8 +56,8 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   //open setting page
   $scope.settings = function(){
     _gaq.push(['_trackEvent', 'settingsOpen']);
-    var newURL = location.origin+"/Options/options.html";
-    chrome.tabs.create({ url: newURL });
+    authService.view = APP_VIEWS.settingsView;
+    $scope.$emit('view', authService.view);
   };
 
   //sign out button
@@ -84,7 +85,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   $scope.days.push(today);
 
   //for debugging
-  window.MY_SCOPE = $scope;
+  //window.MY_SCOPE = $scope;
 
   //monster toggle
   $scope.monsterToggle = function () {
@@ -92,7 +93,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
             _gaq.push(['_trackEvent', 'showedMonster']);
            return true;
       }else{
-          return false;
+           return false;
       }
   };
 };

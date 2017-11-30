@@ -6,6 +6,22 @@ var bgModule = {
     globalUrl: "",
     prevTab: "",
     inFocus: false,
+    blackListInit: function(){
+      chrome.storage.local.get('blackList', function (data) {
+        if(data.blackList.length == 0){
+          chrome.storage.local.set({'blackList': bgModule.blackList}, function() {});
+        }
+        bgModule.blackList = data.blackList.slice(0);
+       });
+    },
+    resetBlackList: function(){
+      chrome.storage.local.set({'blackList': []}, function() {
+      });
+    },
+    resetWesiteList: function(){
+      chrome.storage.local.set({'websiteList': []}, function() {
+      });
+    },
     extractDomain: function (url){
       if (url !== undefined) {
           //vars
@@ -117,7 +133,7 @@ var bgModule = {
           });
       } else {
           //log if blocked
-          console.log("blocked website " + bgModule.newUrl);
+          console.log("blocked website: " + newUrl);
       }
     }
 };

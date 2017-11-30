@@ -3,9 +3,9 @@ module.exports = function() {
       link: function (scope,element,attrs,controller){
           element.on('click', function(event){
               scope.websites.splice(scope.websites.indexOf(scope.website), 1);
-              console.log(scope.websites);
               //remove visits and min from totals
               //scope.model.totalVisits -= scope.website.websiteVisits;
+              //todo move to background as totalmin
               scope.model.totalVisits = 0;
               scope.model.totalTime = 0;
               if(scope.websites.length >10){
@@ -19,9 +19,7 @@ module.exports = function() {
                     scope.model.totalTime += scope.websites[i].formatedTime.min+(scope.websites[i].formatedTime.hours*60)+((scope.websites[i].formatedTime.days*24)*60);
                 }
               }
-
-              //todo move to background as totalmin
-              //scope.model.totalTime -= scope.website.formatedTime.min+(scope.website.formatedTime.hours*60)+((scope.website.formatedTime.days*24)*60);
+              scope.$apply();
               _gaq.push(['_trackEvent', scope.website.websiteName, 'websiteRemoved']);
               chrome.runtime.sendMessage({
                   action: "remove",

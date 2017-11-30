@@ -11,7 +11,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
     chrome.tabs.get(activeInfo.tabId, function(tab){
         if(chrome.runtime.lastError){
             var errorMsg = chrome.runtime.lastError.message;
-            console.log(errorMsg);
+            console.error(errorMsg);
         }else{
             if(tab.active && tab.url != "chrome://newtab/"){
                 bgModule.tabUpdatedAndActive(tab.url, tab.favIconUrl);
@@ -20,6 +20,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
         }
     });
 });
+
 //Check if the tab is Updated
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if(tab.url != "chrome://newtab/"){
@@ -42,16 +43,33 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action == "popup") {
-        chrome.storage.local.get('websiteList', function (data) {
-        });
+        //get websites
+        chrome.storage.local.get('websiteList', function (data) {});
+        //get blacklist
+        chrome.storage.local.get('blackList', function (data) {});
     }
     if (request.action == "remove") {
         bgModule.websiteList = request.list;
-        chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
+        chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {});
+    }
+    if(request.action == "addBlacklist"){
+        bgModule.blackList = request.blackList;
+        chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
         });
     }
+    if(request.action == "removeBlacklist"){
+      bgModule.blackList = request.blackList;
+      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
+      });
+    }
 });
-// Check if chome is out of focus or pc in sleep mode TODO in progress
+
+//reset for arrays on app reload
+//bgModule.resetBlackList();
+bgModule.blackListInit();
+bgModule.resetWesiteList();
+
+// Check if chome is out of focus or pc in sleep mode
 chrome.windows.onFocusChanged.addListener(function(window) {
     if (window === chrome.windows.WINDOW_ID_NONE) {
         bgModule.inFocus = false;
