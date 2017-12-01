@@ -1,7 +1,7 @@
 var angular = require('angular');
 (function () {
     'use strict';
-    var app = angular.module("internetJunkie", [require('angular-messages')]);
+    var app = angular.module("internetJunkie", [require('angular-messages'),require('angular-animate')]);
 
     //app config for overwriting whitelist ex: for img path
     app.config(['$compileProvider',function ($compileProvider) {

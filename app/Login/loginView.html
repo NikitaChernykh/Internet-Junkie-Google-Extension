@@ -1,6 +1,27 @@
 <div class="login-view" ng-controller="CredentialsController" >
     <img  class="login-logo" width="120" height="100" src="/assets/images/icons/logo.svg" />
     <div class="login-container">
+      <div class="tabs-component">
+        <div class="signin-tab active">
+          <a>SIGN IN</a>
+        </div>
+        <div class="register-tab">
+          <a>SIGN UP</a>
+          <span class="line"></span>
+        </div>
+      </div>
+      <div class="login-component">
+        <div class="signin-component">
+          <form>
+            <label for="">Email:</label>
+            <input type="text" name="" value="">
+            <label for="">Password:</label>
+            <input type="text" name="" value="">
+            <button type="sybmit" name="button">Sign in</button>
+          </form>
+        </div>
+      </div>
+      <p>or</p>
       <a ng-click="gauth()" class="login-btn-cont"><div class="login-google-btn"></div></a>
     </div>
     <p class="login-copy">&copy; Copyright 2017 All Rights Reserved.</p>
