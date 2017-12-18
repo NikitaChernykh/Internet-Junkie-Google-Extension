@@ -39,6 +39,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   $scope.placeholder_msg = chrome.i18n.getMessage("placeholder_msg");
 
   $scope.total_text = chrome.i18n.getMessage("total_text");
+  $scope.visits_text = chrome.i18n.getMessage("visits_text");
 
   $scope.abbreviation_min = chrome.i18n.getMessage("abbreviation_min");
   $scope.abbreviation_sec = chrome.i18n.getMessage("abbreviation_sec");

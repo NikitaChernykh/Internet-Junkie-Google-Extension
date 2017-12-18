@@ -27,6 +27,10 @@
         "message": "Total: ",
         "description": "Total text."
     },
+    "visits_text": {
+        "message": "visitas",
+        "description": "Visits lowercase text."
+    },
     "abbreviation_min": {
         "message": "m",
         "description": "Abbreviation for minutes."
@@ -38,5 +42,29 @@
     "abbreviation_days": {
         "message": "d",
         "description": "Abbreviation for days."
+    },
+    "settings_title":{
+        "message": "Settings",
+        "description": "Settings title."
+    },
+    "settings_del":{
+        "message": "Delete all websites:",
+        "description": "Clear the site list."
+    },
+    "settings_btn_clear":{
+        "message": "Clear all",
+        "description": "Clear btn text."
+    },
+    "settings_add_blacklist":{
+        "message": "Add website to blacklist:",
+        "description": "Add to blacklist text."
+    },
+    "settings_btn_blacklist":{
+        "message": "Add to blacklist",
+        "description": "Add to blacklist btn."
+    },
+    "settings_btn_goback":{
+        "message": "Go back",
+        "description": "Go back btn."
     }
 }

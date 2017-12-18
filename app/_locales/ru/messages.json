@@ -27,6 +27,10 @@
         "message": "Всего: ",
         "description": "Total text."
     },
+    "visits_text": {
+        "message": "посещений",
+        "description": "Visits lowercase text."
+    },
     "abbreviation_min": {
         "message": "м",
         "description": "Abbreviation for minutes."
@@ -38,5 +42,29 @@
     "abbreviation_days": {
         "message": "д",
         "description": "Abbreviation for days."
+    },
+    "settings_title":{
+        "message": "Настройки",
+        "description": "Settings title."
+    },
+    "settings_del":{
+        "message": "Очистить список сайтов:",
+        "description": "Clear the site list."
+    },
+    "settings_btn_clear":{
+        "message": "Стереть все",
+        "description": "Clear btn text."
+    },
+    "settings_add_blacklist":{
+        "message": "Добавить сайт в черный список:",
+        "description": "Add to blacklist text."
+    },
+    "settings_btn_blacklist":{
+        "message": "Добавить",
+        "description": "Add to blacklist btn."
+    },
+    "settings_btn_goback":{
+        "message": "Вернуться назад",
+        "description": "Go back btn."
     }
 }

@@ -12,6 +12,14 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
     console.log("getData error");
   });
 
+  //_locales text that translates
+  $scope.settings_title = chrome.i18n.getMessage("settings_title");
+  $scope.settings_del = chrome.i18n.getMessage("settings_del");
+  $scope.settings_btn_clear = chrome.i18n.getMessage("settings_btn_clear");
+  $scope.settings_add_blacklist = chrome.i18n.getMessage("settings_add_blacklist");
+  $scope.settings_btn_blacklist = chrome.i18n.getMessage("settings_btn_blacklist");
+  $scope.settings_btn_goback = chrome.i18n.getMessage("settings_btn_goback");
+
   //clear all website list
   $scope.clearAll = function(){
       //TODO make a confirmation modal
