@@ -70,7 +70,7 @@ gulp.task('scss', function () {
 });
 
 gulp.task('scss-watcher',function(){
-  gulp.watch('./app/assets/scss/main.scss',['scss']);
+  gulp.watch('./app/assets/scss/*.scss',['scss']);
 });
 
 //Full build

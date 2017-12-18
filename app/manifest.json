@@ -3,7 +3,7 @@
       "persistent": true,
       "page": "/Background/background.html"
    },
-   "name": "__MSG_ext_name__",
+   "name": "Internet Junkie",
    "description": "__MSG_ext_description__",
    "icons": {
     "48": "/assets/images/icon48.png",

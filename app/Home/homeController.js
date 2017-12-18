@@ -85,7 +85,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   $scope.days.push(today);
 
   //for debugging
-  //window.MY_SCOPE = $scope;
+  window.MY_SCOPE = $scope;
 
   //monster toggle
   $scope.monsterToggle = function () {

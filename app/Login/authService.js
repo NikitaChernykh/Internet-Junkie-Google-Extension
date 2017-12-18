@@ -33,7 +33,7 @@ module.exports = function(AUTH_EVENTS,APP_VIEWS) {
           }
         });
   };
-  var view = APP_VIEWS.loginView;
+  var view = APP_VIEWS.homeView;
   return{
       view: view,
       signOut: signOut,

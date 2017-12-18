@@ -1,6 +1,6 @@
 module.exports = function() {
   return{
-      templateUrl: "/WebsiteList/websitesView.html",
+      templateUrl: "/Home/monster.html",
       restrict: "E"
   }
 };

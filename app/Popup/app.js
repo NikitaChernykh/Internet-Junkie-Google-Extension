@@ -1,7 +1,7 @@
 var angular = require('angular');
 (function () {
     'use strict';
-    var app = angular.module("internetJunkie", [require('angular-messages')]);
+    var app = angular.module("internetJunkie", [require('angular-messages'),require('angular-animate')]);
 
     //app config for overwriting whitelist ex: for img path
     app.config(['$compileProvider',function ($compileProvider) {
@@ -16,7 +16,7 @@ var angular = require('angular');
 
     //controllers
     app.controller('AppController', require('../../app/Popup/appController'));
-    app.controller('PopupController', require('../../app/Popup/popupController'));
+    app.controller('HomeController', require('../../app/Home/homeController'));
     app.controller('CredentialsController', require('../../app/Login/credentialsController'));
     app.controller('OptionsController', require('../../app/Options/optionsController'));
     app.controller('SettingsController', require('../../app/Settings/settingsController'));
@@ -24,10 +24,10 @@ var angular = require('angular');
     //directives
     app.directive('authDirective', require('../../app/Login/authDirective'));
     app.directive('loginView', require('../../app/Login/loginViewDirective'));
-    app.directive('websitesView', require('../../app/WebsiteList/websitesViewDirective'));
+    app.directive('homeView', require('../../app/Home/homeViewDirective'));
     app.directive('settingsView', require('../../app/Settings/settingsViewDirective'));
-    app.directive('remove', require('../../app/WebsiteList/removeDirective'));
-    app.directive('monster', require('../../app/WebsiteList/monsterDirective'));
+    app.directive('remove', require('../../app/Home/removeDirective'));
+    app.directive('monster', require('../../app/Home/monsterDirective'));
     app.directive('existcheck', require('../../app/Settings/existcheckDirective'));
     app.directive('removeblk', require('../../app/Settings/removeblkDirective'));
 

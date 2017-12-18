@@ -1,8 +1,4 @@
 {
-    "ext_name": {
-        "message": "Internet Junkie",
-        "description": "The title of the application, displayed in the web store."
-    },
     "ext_description": {
         "message": "Твой личный счетчик времени в интернете. Узнай сколько ежедневно времени ты тратишь на сайтах.",
         "description": "The description of the application, displayed in the web store."
