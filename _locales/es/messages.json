@@ -1,0 +1,30 @@
+{
+    "ext_name": {
+        "message": "Internet Junkie",
+        "description": "The title of the application, displayed in the web store."
+    },
+    "ext_description": {
+        "message": "Verifica el tiempo que gastas en sitios web diariamente.",
+        "description": "The description of the application, displayed in the web store."
+    },
+    "placeholder_msg": {
+        "message": "Wow todavía no eres adicto a ningun sitio web!",
+        "description": "Message when you have no addiction."
+    },
+    "table_header_text": {
+        "message": "Lista de sitios web a los que quizás eres adicto:",
+        "description": "Message label for top 5 websites."
+    },
+    "websites_label": {
+        "message": "Sitios web",
+        "description": "Label for row with websites."
+    },
+    "visits_label": {
+        "message": "Visitas",
+        "description": "Label for row with visits."
+    },
+    "time_label": {
+        "message": "Hora",
+        "description": "Label for row with time."
+    }
+}
