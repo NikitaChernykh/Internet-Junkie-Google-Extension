@@ -22,5 +22,21 @@
     "time_label": {
         "message": "Время",
         "description": "Label for row with time."
+    },
+    "total_text": {
+        "message": "Всего: ",
+        "description": "Total text."
+    },
+    "abbreviation_min": {
+        "message": "м",
+        "description": "Abbreviation for minutes."
+    },
+    "abbreviation_sec": {
+        "message": "с",
+        "description": "Abbreviation for seconds."
+    },
+    "abbreviation_days": {
+        "message": "д",
+        "description": "Abbreviation for days."
     }
 }

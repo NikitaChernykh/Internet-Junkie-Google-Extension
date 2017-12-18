@@ -1,8 +1,4 @@
 {
-    "ext_name": {
-        "message": "Internet Junkie",
-        "description": "The title of the application, displayed in the web store."
-    },
     "ext_description": {
         "message": "Verifica el tiempo que gastas en sitios web diariamente.",
         "description": "The description of the application, displayed in the web store."
@@ -26,5 +22,21 @@
     "time_label": {
         "message": "Hora",
         "description": "Label for row with time."
+    },
+    "total_text": {
+        "message": "Total: ",
+        "description": "Total text."
+    },
+    "abbreviation_min": {
+        "message": "m",
+        "description": "Abbreviation for minutes."
+    },
+    "abbreviation_sec": {
+        "message": "s",
+        "description": "Abbreviation for seconds."
+    },
+    "abbreviation_days": {
+        "message": "d",
+        "description": "Abbreviation for days."
     }
 }

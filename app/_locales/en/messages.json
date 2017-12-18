@@ -22,6 +22,21 @@
     "time_label": {
         "message": "Time",
         "description": "Label for row with time."
+    },
+    "total_text": {
+        "message": "Total: ",
+        "description": "Total text."
+    },
+    "abbreviation_min": {
+        "message": "m",
+        "description": "Abbreviation for minutes."
+    },
+    "abbreviation_sec": {
+        "message": "s",
+        "description": "Abbreviation for seconds."
+    },
+    "abbreviation_days": {
+        "message": "d",
+        "description": "Abbreviation for days."
     }
-   
 }

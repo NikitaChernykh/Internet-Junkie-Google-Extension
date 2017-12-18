@@ -46,12 +46,12 @@
                     <td class="centered">
                         <div class="timeContainer" ng-hide="{{(website.formatedTime == undefined) ? 'true':'false'}}">
                             <div class="inline" ng-hide="{{(website.formatedTime.days == 0) ? 'true':'false'}}">
-                                {{('0'+website.formatedTime.days.toString()).slice(-2)+'d'}}
+                                {{('0'+website.formatedTime.days.toString()).slice(-2)}}{{abbreviation_days}}
                             </div>
                             <div class="inline" ng-hide="{{(website.formatedTime.hours == 0) ? 'true':'false'}}">{{(website.formatedTime.hours.toString()).slice(-2)+'h'}}</div>
-                            <div class="inline" >{{(website.formatedTime.min.toString()).slice(-2)+'m'}}</div>
+                            <div class="inline" >{{(website.formatedTime.min.toString()).slice(-2)}}{{abbreviation_min}}</div>
 
-                            <div class="inline">{{('0'+website.formatedTime.sec.toString()).slice(-2)+'s'}}</div>
+                            <div class="inline">{{('0'+website.formatedTime.sec.toString()).slice(-2)}}{{abbreviation_sec}}</div>
                         </div>
                     </td>
                     <td class="removetd">
@@ -62,9 +62,9 @@
             </tbody>
         </table>
         <div class="total-container">
-          <div class="total-text">Total: </div>
-          <div class="total-visits">{{model.totalVisits}} vists</div>
-          <div class="total-time">{{model.totalTime}} m</div>
+          <div class="total-text">{{total_text}}</div>
+          <div class="total-visits">{{model.totalVisits}} {{visits_label | lowercase}}</div>
+          <div class="total-time">{{model.totalTime}} {{abbreviation_min}}</div>
         </div>
         <!-- HIDDEN DAYS FEATURE-->
         <!-- <div class="week-menu-container">

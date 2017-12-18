@@ -65,7 +65,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 
 //reset for arrays on app reload
-bgModule.resetBlackList();
+//bgModule.resetBlackList();
 bgModule.blackListInit();
 bgModule.resetWesiteList();
 
