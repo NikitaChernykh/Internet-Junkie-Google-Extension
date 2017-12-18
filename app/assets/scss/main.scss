@@ -372,3 +372,12 @@ img {
   color: $red-monster;
   margin-top: 5px;
 }
+
+.btn {
+  background-color: $red-monster;
+  padding: 5px 15px;
+  border: none;
+  color: $white;
+  font-size: 12px;
+  cursor: pointer;
+}
