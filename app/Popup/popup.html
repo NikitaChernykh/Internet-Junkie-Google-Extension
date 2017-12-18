@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" href="/assets/styles/main.css">
 </head>
-<body ng-controller="AppController" ng-switch="view" ng-cloak auth-directive>
+<body ng-controller="AppController" ng-switch="view" ng-cloak >
 
     <!-- SNOW FOR X-MAS START-->
     <div class="snow-container">
@@ -17,7 +17,9 @@
     </div>
     <!-- SNOW FOR X-MAS END-->
 
-    <login-view class="sample-show-hide" ng-switch-when="login-view"></login-view>
+    <!--HIDDEN LOGIN START-->
+    <!-- <login-view class="sample-show-hide" ng-switch-when="login-view"></login-view> -->
+    <!--HIDDEN LOGIN END-->
     <websites-view class="sample-show-hide" ng-switch-when="home-view"></websites-view>
     <settings-view class="sample-show-hide" ng-switch-when="settings-view"></settings-view>
 
