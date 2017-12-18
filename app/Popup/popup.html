@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="internetJunkie">
+
+<head>
+    <link rel="stylesheet" href="/assets/styles/main.css">
+</head>
+<body ng-controller="AppController" ng-switch="view" ng-cloak >
+
+    <!-- SNOW FOR X-MAS START-->
+    <div class="snow-container">
+      <div class="snow foreground"></div>
+      <div class="snow foreground layered"></div>
+      <div class="snow middleground"></div>
+      <div class="snow middleground layered"></div>
+      <div class="snow background"></div>
+      <div class="snow background layered"></div>
+    </div>
+    <!-- SNOW FOR X-MAS END-->
+
+    <!--HIDDEN LOGIN START-->
+    <!-- <login-view class="sample-show-hide" ng-switch-when="login-view"></login-view> -->
+    <!--HIDDEN LOGIN END-->
+    <home-view class="sample-show-hide" ng-switch-when="home-view"></home-view>
+    <settings-view class="sample-show-hide" ng-switch-when="settings-view"></settings-view>
+
+    <script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
+    <script type="text/javascript" src="/Shared/firebase-init.js"></script>
+    <script type="text/javascript" src="/Shared/tracking.js"></script>
+    <script type="text/javascript" src="/Popup/bundle.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<div class="settings-view" ng-controller="SettingsController" >
+    <div class="header">
+      <img class="logo" width="100" height="80" src="/assets/images/icons/logo.svg" />
+    </div>
+    <h2>Settings</h2>
+    <p>Delete all websites: </p>
+    <button ng-click="clearAll()" class="btn">Clear all</button>
+    <br>
+    <br>
+    <form name="blacklistForm" novalidate>
+      <label for="website">Add website to blacklist:</label>
+      <br>
+      <br>
+      <input type="text" class="blk-input" existcheck name="website"  ng-minlength="5" ng-model="website" required/>
+      <button ng-click="addToBlackList()" type="submit" class="btn" style="margin-left: 10px;">Add to blacklist</button>
+      <div ng-messages="blacklistForm.website.$error" class="error" ng-show="blacklistForm.website.$dirty && blacklistForm.website.$touched">
+        <div ng-message="minlength">Your field is too short.</div>
+        <div ng-message="required">The input is empty.</div>
+        <div ng-message="invalidEntry">This is already in the blacklist.</div>
+      </div>
+    </form>
+    <div class="blacklist-container">
+      <div class="blacklist-item" ng-repeat="item in blackList | limitTo : blackList.length : 5">
+        <div class="blacklist-item-text">
+          {{item}}
+        </div>
+        <div class="blacklist-remove">
+          <img class="closeIcon" removeblk width="15" height="15" title="Settings" src="/assets/images/icons/close.svg" />
+        </div>
+      </div>
+    </div>
+    <br>
+    <button type="button" name="button" class="btn" ng-click="goback()"> <= Go back</button>
+</div>

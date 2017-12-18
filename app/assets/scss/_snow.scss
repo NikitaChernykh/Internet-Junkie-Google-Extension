@@ -1,0 +1,61 @@
+.snow-container {
+  position: absolute;
+  height: 700px;
+  width: 450px;
+  max-width: 100%;
+  top: 0;
+  overflow: hidden;
+  z-index: 2;
+  margin-left: -10px;
+  pointer-events: none;
+}
+.snow {
+  $foreground-speed: 30s;
+  $middleground-speed: 20s;
+  $background-speed: 30s;
+  display: block;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  transform: translate3d(0,-100%,0);
+  animation: snow linear infinite;
+  &.foreground{
+    background-image: url('https://dl6rt3mwcjzxg.cloudfront.net/assets/snow/snow-large-075d267ecbc42e3564c8ed43516dd557.png');
+    animation-duration: $foreground-speed;
+  }
+    &.layered{
+      animation-delay: $foreground-speed/2;
+      }
+  &.middleground{
+    background-image: image-url('https://dl6rt3mwcjzxg.cloudfront.net/assets/snow/snow-medium-0b8a5e0732315b68e1f54185be7a1ad9.png');
+    animation-duration: $middleground-speed;
+  }
+    &.layered{
+      animation-delay: $middleground-speed/2;
+    }
+  &.background{
+    background-image: image-url('https://dl6rt3mwcjzxg.cloudfront.net/assets/snow/snow-small-1ecd03b1fce08c24e064ff8c0a72c519.png');
+    animation-duration: $background-speed;
+    }
+    &.layered{
+      animation-delay: $background-speed/2;
+      }
+}
+@keyframes snow {
+  0%{
+    transform: translate3d(0,-100%,0);
+  }
+
+  100%{
+    transform: translate3d(15%,100%,0);
+  }
+
+}
+
+
+
+

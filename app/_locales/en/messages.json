@@ -1,0 +1,27 @@
+{
+    "ext_description": {
+        "message": "Your own internet time tracker. Track the time which you spend on the websites daily.",
+        "description": "The description of the application, displayed in the web store."
+    },
+    "placeholder_msg": {
+        "message": "Wow! You are not addicted to any website yet!",
+        "description": "Message when you have no addiction."
+    },
+    "table_header_text": {
+        "message": "List of the websites you maybe addicted to:",
+        "description": "Message label for top 5 websites."
+    },
+    "websites_label": {
+        "message": "Websites",
+        "description": "Label for row with websites."
+    },
+    "visits_label": {
+        "message": "Visits",
+        "description": "Label for row with visits."
+    },
+    "time_label": {
+        "message": "Time",
+        "description": "Label for row with time."
+    }
+   
+}

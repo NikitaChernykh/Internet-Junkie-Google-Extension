@@ -1,0 +1,45 @@
+{
+  "name": "internet-junkie",
+  "version": "1.0.0",
+  "description": "**Track how much time you spend on the websites daily.<br /> \r  Your own internet time tracker.**\r <br />\r <br />\r Nowadays, we spent most of the time searching through the internet. This extension will calculate total time you spent and number of clicks you made on your favourite websites during the day.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "watch": "jest --watch __tests__/**/*.js"
+  },
+  "jest": {
+    "verbose": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NikitaChernykh/Internet-Junkie-Google-Extension.git"
+  },
+  "keywords": [
+    "chrome"
+  ],
+  "author": "Nikita Chernykh",
+  "license": "CC-BY-NC-SA-4.0",
+  "bugs": {
+    "url": "https://github.com/NikitaChernykh/Internet-Junkie-Google-Extension/issues"
+  },
+  "homepage": "https://github.com/NikitaChernykh/Internet-Junkie-Google-Extension#readme",
+  "devDependencies": {
+    "browserify": "^14.4.0",
+    "cb": "^0.1.0",
+    "gulp": "^3.9.1",
+    "gulp-csso": "^3.0.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
+    "jest": "^21.2.1",
+    "pump": "^1.0.3",
+    "systemjs": "^0.20.19",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "angular": "~1.5.3",
+    "angular-animate": "~1.5.3",
+    "angular-messages": "~1.5.3",
+    "moment": "^2.19.2"
+  }
+}
