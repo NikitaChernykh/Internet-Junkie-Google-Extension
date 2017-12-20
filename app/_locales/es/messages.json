@@ -44,27 +44,27 @@
         "description": "Abbreviation for days."
     },
     "settings_title":{
-        "message": "Settings",
+        "message": "Ajustes",
         "description": "Settings title."
     },
     "settings_del":{
-        "message": "Delete all websites:",
+        "message": "Eliminar todos los sitios web:",
         "description": "Clear the site list."
     },
     "settings_btn_clear":{
-        "message": "Clear all",
+        "message": "Limpiar todo",
         "description": "Clear btn text."
     },
     "settings_add_blacklist":{
-        "message": "Add website to blacklist:",
+        "message": "Agregar sitio web a la lista negra:",
         "description": "Add to blacklist text."
     },
     "settings_btn_blacklist":{
-        "message": "Add to blacklist",
+        "message": "Agregar a lista negra",
         "description": "Add to blacklist btn."
     },
     "settings_btn_goback":{
-        "message": "Go back",
+        "message": "Regresar",
         "description": "Go back btn."
     }
 }
