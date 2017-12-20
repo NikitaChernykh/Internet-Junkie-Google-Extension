@@ -24,7 +24,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   $scope.clearAll = function(){
       //TODO make a confirmation modal
       $scope.websites.length = 0;
-      _gaq.push(['_trackEvent', 'clearAllWebsites']);
+      _gaq.push(['_trackEvent','clearAllWebsites']);
       chrome.runtime.sendMessage({
           action: "remove",
           list: $scope.websites
@@ -33,6 +33,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   };
   $scope.addToBlackList = function(){
     if($scope.blacklistForm.$valid){
+      _gaq.push(['_trackEvent', $scope.website, 'addToBlackList']);
       $scope.blackList.push($scope.website);
       chrome.runtime.sendMessage({
           action: "addBlacklist",
@@ -44,6 +45,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
     }
   };
   $scope.goback = function(){
+    _gaq.push(['_trackEvent','backFromSettings']);
     authService.view = APP_VIEWS.homeView;
     $scope.$emit('view', authService.view);
   };

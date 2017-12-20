@@ -48,7 +48,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   //sort & color change on order toggle
   $scope.sortToggle = function (order) {
       //track website sorting event
-      _gaq.push(['_trackEvent', order, 'listSorted']);
+      _gaq.push(['_trackEvent','listSorted']);
       if (order === "websiteVisits") {
           $scope.ascStyle = {fill: "#ffffff"};
           $scope.desStyle = {fill: "#22d8ff"};
@@ -97,7 +97,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   //monster toggle
   $scope.monsterToggle = function () {
       if (websiteList[0] == undefined || websiteList[0].websiteVisits < 0) {
-            _gaq.push(['_trackEvent', 'showedMonster']);
+           _gaq.push(['_trackEvent', 'showedMonster']);
            return true;
       }else{
            return false;
