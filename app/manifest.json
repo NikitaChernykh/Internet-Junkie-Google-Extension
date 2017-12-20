@@ -24,14 +24,6 @@
        "<all_urls>",
        "storage"
    ],
-    "oauth2": {
-    "client_id": "1038620565602-cicnna5si68590tn7na0kpf8skq6d3bc.apps.googleusercontent.com",
-    "scopes": [
-      "https://www.googleapis.com/auth/userinfo.email",
-      "https://www.googleapis.com/auth/userinfo.profile"
-    ]
-  },
-    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkOZwK6Q/oLZRnFYB7bFoUyPDEvH0l2JbllOG+jbZwcXElX5Bm06wUW7aOvdaXFF5OlzFJpfzvY+588iBy5YzPcIZq/Fddi3QhDC6VJuIsF5t/3wvPwnwsUZ2zVGE/lN+jZcRwDvnjSGn0fHNkgd3Apyt1n5J6fIV2n+Fh3H+rzSQRxd7fuKQSTV6w5Wmz6bEqBVRc63hrHA7hUxs+qmCUeJGghrjUn6yEf2v1ktmdx23bFHce0rEgU37xc+YxV+9m6AlWnEDfqNB+/+APg0UHSQcKrVySvh+UZXE3rgdvjimiq9pUOsUcSqYdqzqARv5VLTLVOjR5haNYeQolxdvkQIDAQAB",
     "content_security_policy": "script-src 'self' https://ssl.google-analytics.com https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
     "version": "1.1.4.1"
 }
