@@ -7,12 +7,7 @@ var bgModule = {
     prevTab: "",
     inFocus: false,
     blackListInit: function(){
-      chrome.storage.local.get('blackList', function (data) {
-        if(data.blackList.length == 0){
-          chrome.storage.local.set({'blackList': bgModule.blackList}, function() {});
-        }
-        bgModule.blackList = data.blackList.slice(0);
-       });
+        chrome.storage.local.set({'blackList': bgModule.blackList}, function() {});
     },
     resetBlackList: function(){
       chrome.storage.local.set({'blackList': []}, function() {
