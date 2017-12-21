@@ -68,6 +68,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 //bgModule.resetBlackList();
 bgModule.blackListInit();
 bgModule.resetWesiteList();
+bgModule.resetAtMidnight();
 
 // Check if chome is out of focus or pc in sleep mode
 chrome.windows.onFocusChanged.addListener(function(window) {

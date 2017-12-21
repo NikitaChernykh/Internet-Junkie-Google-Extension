@@ -7,7 +7,7 @@ var bgModule = {
     prevTab: "",
     inFocus: false,
     blackListInit: function(){
-        chrome.storage.local.set({'blackList': bgModule.blackList}, function() {});
+      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {});
     },
     resetBlackList: function(){
       chrome.storage.local.set({'blackList': []}, function() {
@@ -16,6 +16,22 @@ var bgModule = {
     resetWesiteList: function(){
       chrome.storage.local.set({'websiteList': []}, function() {
       });
+    },
+    resetAtMidnight: function(){
+      //Declare now date
+      //Declare night date(end of day)
+
+      //Declare the time left to next day
+      //var msToMidnight = night.getTime() - now.getTime();
+
+      //set timeout
+      setTimeout(function() {
+        console.log("day reset test");
+        //reset();              //      This is the function being called at midnight.
+        bgModule.resetAtMidnight();    //      Then, reset again next midnight.
+      }, 5000);                 //      Shoud be msToMidnight time to next day
+
+      //run resetAtMidnight on the first load of the application.
     },
     extractDomain: function (url){
       if (url !== undefined) {
