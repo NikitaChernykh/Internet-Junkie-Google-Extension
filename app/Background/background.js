@@ -110,7 +110,7 @@ var bgModule = {
       chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
       });
     },
-    tabUpdatedAndActive: function (newUrl, favIcon, startTime, deactivationTime, timeDifference) {
+    tabUpdatedAndActive: function (newUrl, favIcon) {
       //blacklist check
       if (bgModule.blackListCheck(newUrl) == false) {
           var websiteName = bgModule.extractDomain(newUrl);
