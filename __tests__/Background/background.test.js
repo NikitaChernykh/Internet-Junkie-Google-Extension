@@ -148,4 +148,7 @@ describe("background script", () =>{
       testWebsiteList[2].websiteVisits++;
       expect(testWebsiteList[2].websiteVisits).toEqual(6);
     });
+    it("should check reset timer at midnight", () => {
+      
+    });
 });

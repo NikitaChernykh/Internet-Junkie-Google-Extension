@@ -70,6 +70,7 @@ bgModule.blackListInit();
 bgModule.resetWesiteList();
 bgModule.resetAtMidnight();
 
+
 // Check if chome is out of focus or pc in sleep mode
 chrome.windows.onFocusChanged.addListener(function(window) {
     if (window === chrome.windows.WINDOW_ID_NONE) {

@@ -4,11 +4,14 @@ var APP_VIEWS = require('../../app/Login/appViewsConstant');
 module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS) {
   'use strict';
   var websiteList = [];
+  var topTenYesterday = [];
   dataService.getData().then(function(result){
 
     $timeout(function() {
       websiteList = result.websiteList;
+      topTenYesterday = result.topTenYesterday;
       $scope.websites = websiteList;
+      $scope.topTenYesterday = topTenYesterday;
       if($scope.websites.length>10){
         for(var i = 0; i < 10; i++){
             $scope.model.totalVisits += $scope.websites[i].websiteVisits;
@@ -74,25 +77,41 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
       authService.view = APP_VIEWS.loginView;
       $scope.$emit('view', authService.view);
   };
-
+  var today = {number: moment().format("D"), name: moment().format("ddd"), fulldate : moment()};
+  $scope.today = today;
   //show day table
-  $scope.dayBtn = 1;
+  $scope.dayBtn = $scope.today.number;
   $scope.isActive = false;
 
   //week days in progress TODO
   $scope.days = [];
-  var today = {number: moment().format("D"), name: moment().format("ddd")};
-  $scope.today = today.number;
+
   for (var i = 6; i >= 1; i--) {
       var date = moment().subtract(i,'days');
       var formattedDate = {number: moment(date).format("D"), name: moment(date).format("ddd")};
       $scope.days.push(formattedDate);
   }
 
+  $scope.dayClick = function(number){
+
+    if(number == 4){
+      $scope.dayBtn = 2;
+    }
+    if(number == 5){
+      $scope.dayBtn = $scope.today.number;
+    }
+    $scope.$apply();
+    console.log("day clicked "+ number);
+  }
+  $scope.setActive = function (number) {
+    if(number != $scope.today.number){
+    //TODO figure out how to apply styles in this
+    }
+  }
   $scope.days.push(today);
 
   //for debugging
-  window.MY_SCOPE = $scope;
+  //window.MY_SCOPE = $scope;
 
   //monster toggle
   $scope.monsterToggle = function () {

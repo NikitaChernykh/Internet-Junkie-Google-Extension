@@ -1,10 +1,12 @@
-'use strict';
+
 var moment = require('moment');
 var bgModule = {
     websiteList: [],
+    topTenYesterday: [],
     blackList: ["newtab", "google.", "chrome://", "localhost", "chrome-extension://"],
     globalUrl: "",
     prevTab: "",
+    daysfrominstall: 0,
     inFocus: false,
     blackListInit: function(){
       chrome.storage.local.set({'blackList': bgModule.blackList}, function() {});
@@ -18,20 +20,24 @@ var bgModule = {
       });
     },
     resetAtMidnight: function(){
-      //Declare now date
-      //Declare night date(end of day)
-
-      //Declare the time left to next day
-      //var msToMidnight = night.getTime() - now.getTime();
-
-      //set timeout
+      var now = moment();
+      var endoftheday = moment().endOf('day');
+      var nextreset = moment.duration(moment(endoftheday).diff(now));
+      console.log("daysfrominstall "+bgModule.daysfrominstall);
       setTimeout(function() {
+        'use strict';
         console.log("day reset test");
-        //reset();              //      This is the function being called at midnight.
-        bgModule.resetAtMidnight();    //      Then, reset again next midnight.
-      }, 5000);                 //      Shoud be msToMidnight time to next day
-
-      //run resetAtMidnight on the first load of the application.
+        //TODO test sort
+        // var thisday = bgModule.websiteList.sort(function(a,b){
+        //   return b.websiteVisits - a.websiteVisits;
+        // });
+        var topTenYesterday = bgModule.websiteList.slice(0, 9)
+        console.log(topTenYesterday);
+        bgModule.websiteList = [];
+        bgModule.daysfrominstall++;
+        bgModule.resetAtMidnight();
+        console.log(bgModule.daysfrominstall);
+      }, 60000);
     },
     extractDomain: function (url){
       if (url !== undefined) {
@@ -121,6 +127,10 @@ var bgModule = {
               favIcon = "/assets/images/default_icon.png";
           }
           if (!existingWebsite) {
+              //max 30 website cap for faster loading
+              if(bgModule.websiteList.length >=30){
+                return;
+              }
               //add new website to the list
               var website = {
                   websiteName: websiteName,
