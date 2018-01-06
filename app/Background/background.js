@@ -31,7 +31,7 @@ var bgModule = {
         // var thisday = bgModule.websiteList.sort(function(a,b){
         //   return b.websiteVisits - a.websiteVisits;
         // });
-        var topTenYesterday = bgModule.websiteList.slice(0, 9)
+        var topTenYesterday = bgModule.websiteList.slice(0, 9);
         console.log(topTenYesterday);
         bgModule.websiteList = [];
         bgModule.daysfrominstall++;
@@ -87,6 +87,10 @@ var bgModule = {
       }
       return false;
     },
+    saveWebsiteList: function(){
+      chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
+      });
+    },
     updateDeactivationTime: function (tabURL) {
       var websiteName = bgModule.extractDomain(tabURL);
       var existingWebsite = bgModule.search(websiteName);
@@ -113,8 +117,7 @@ var bgModule = {
           existingWebsite.timeDifference = duration;
           existingWebsite.formatedTime = formatedTime;
       }
-      chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
-      });
+      bgModule.saveWebsiteList();
     },
     tabUpdatedAndActive: function (newUrl, favIcon) {
       //blacklist check
@@ -149,9 +152,7 @@ var bgModule = {
               //add visits
               existingWebsite.websiteVisits++;
           }
-          //save the webiste list to the storage
-          chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
-          });
+          bgModule.saveWebsiteList();
       } else {
           //log if blocked
           console.log("blocked website: " + newUrl);

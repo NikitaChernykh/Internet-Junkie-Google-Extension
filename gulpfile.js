@@ -13,7 +13,7 @@ var paths = {
     filename: 'bundle.js',
     watch: './app/Background/*.js'
   }
-}
+};
 
 var paths2 = {
   scripts: {
@@ -22,7 +22,7 @@ var paths2 = {
     filename: 'bundle.js',
     watch: './app/Settings/*.js'
   }
-}
+};
 
 gulp.task('browserify-bg', function () {
   var bundle = browserify({
@@ -33,7 +33,7 @@ gulp.task('browserify-bg', function () {
     return function (err) {
       console.error('Error from ' + name + ' in compress task', err.toString());
     };
-  };
+  }
   return bundle.bundle()
     .pipe(source(paths.scripts.filename))
     .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object

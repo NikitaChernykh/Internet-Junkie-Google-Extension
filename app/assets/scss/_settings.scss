@@ -1,0 +1,52 @@
+.blacklist-container{
+  margin-top: 10px;
+  background-color: $white;
+  height: 100px;
+  color: $black;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 10px;
+}
+
+
+.blacklist-item{
+  position: relative;
+  background-color: $dark-grey;
+  padding-left: 10px;
+  padding-right: 25px;
+  margin: 5px;
+  width: max-content;
+  display: inline-block;
+  border-radius: 10px;
+  height: 21px;
+}
+.blacklist-item-text{
+  vertical-align: sub;
+  display: inline-block;
+}
+.blacklist-remove{
+  position: absolute;
+  right: 5px;
+  top: 0;
+}
+.blacklist-remove:hover{
+  cursor: pointer;
+}
+.blk-input{
+  height: 20px;
+  font-size: 15px;
+  padding: 5px;
+}
+.error{
+  color: $red-monster;
+  margin-top: 5px;
+}
+
+.btn {
+  background-color: $red-monster;
+  padding: 5px 15px;
+  border: none;
+  color: $white;
+  font-size: 12px;
+  cursor: pointer;
+}

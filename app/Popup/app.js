@@ -30,6 +30,7 @@ var angular = require('angular');
     app.directive('monster', require('../../app/Home/monsterDirective'));
     app.directive('existcheck', require('../../app/Settings/existcheckDirective'));
     app.directive('removeblk', require('../../app/Settings/removeblkDirective'));
+    app.directive('footer', require('../../app/Shared/footerDirective'));
 
     //constants
     app.constant('AUTH_EVENTS', require('../../app/Login/authEventsConstant'));
