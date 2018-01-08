@@ -6,4 +6,7 @@ module.exports = function($scope , authService, APP_VIEWS) {
    $scope.$on('view', function (event, data) {
      $scope.view = data;
    });
+   chrome.runtime.sendMessage({
+       action: "popup"
+   });
 };

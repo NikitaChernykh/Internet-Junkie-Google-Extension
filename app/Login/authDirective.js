@@ -13,7 +13,7 @@ module.exports = function(authService,APP_VIEWS) {
             }
             authService.view = scope.view;
             scope.$apply();
-            chrome.runtime.sendMessage({action: "popup"});
+            //chrome.runtime.sendMessage({action: "popup"});
           });
 
           function writeUserData(userId, name, email, imageUrl) {
@@ -38,5 +38,5 @@ module.exports = function(authService,APP_VIEWS) {
           //     chrome.runtime.sendMessage({action: "popup"});
           // }
       }
-  }
+  };
 };

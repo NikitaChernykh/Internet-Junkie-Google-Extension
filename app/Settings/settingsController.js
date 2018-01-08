@@ -36,7 +36,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
       _gaq.push(['_trackEvent', $scope.website, 'addToBlackList']);
       $scope.blackList.push($scope.website);
       chrome.runtime.sendMessage({
-          action: "addBlacklist",
+          action: "updateBlackList",
           blackList: $scope.blackList
       });
       $scope.website = "";

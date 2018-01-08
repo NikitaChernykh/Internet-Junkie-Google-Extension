@@ -44,20 +44,31 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action == "popup") {
         //get websites
-        chrome.storage.local.get('websiteList', function (data) {});
+        chrome.storage.local.get('websiteList', function (data) {
+          // Notify that we saved.
+          console.log('websiteList pulled');
+          console.log(data);
+        });
         //get blacklist
-        chrome.storage.local.get('blackList', function (data) {});
+        chrome.storage.local.get('blackList', function (data) {
+          // Notify that we saved.
+          console.log('blackList pulled');
+          console.log(data);
+        });
+        //get topTenYesterday
+        chrome.storage.local.get('topTenYesterday', function (data) {
+          // Notify that we saved.
+          console.log('topTenYesterday pulled');
+          console.log(data);
+        });
+
+
     }
     if (request.action == "remove") {
         bgModule.websiteList = request.list;
         chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {});
     }
-    if(request.action == "addBlacklist"){
-        bgModule.blackList = request.blackList;
-        chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
-        });
-    }
-    if(request.action == "removeBlacklist"){
+    if(request.action == "updateBlackList"){
       bgModule.blackList = request.blackList;
       chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
       });
@@ -67,7 +78,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 //reset for arrays on app reload
 //bgModule.resetBlackList();
 bgModule.blackListInit();
-bgModule.resetWesiteList();
+bgModule.resetWebsiteList();
 bgModule.resetAtMidnight();
 
 

@@ -6,10 +6,10 @@ module.exports = function() {
               scope.$apply();
               _gaq.push(['_trackEvent', scope.item ,'removedBlackListItem']);
               chrome.runtime.sendMessage({
-                  action: "removeBlacklist",
+                  action: "updateBlackList",
                   blackList: scope.blackList
               });
           });
       }
-  }
+  };
 };

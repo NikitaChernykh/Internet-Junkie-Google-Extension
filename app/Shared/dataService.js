@@ -11,8 +11,20 @@ module.exports = function($q) {
 		});
 		return deferred.promise;
   };
-
+  var getTopTen = function () {
+    var deferred = $q.defer();
+    chrome.storage.local.get(function( data ) {
+			if (!data) {
+				deferred.reject();
+			} else {
+        console.log(data.topTenYesterday);
+				deferred.resolve(data.topTenYesterday);
+			}
+		});
+		return deferred.promise;
+  };
   return {
+    getTopTen : getTopTen,
     getData : getData
   };
 };

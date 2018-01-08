@@ -10,12 +10,13 @@ var bgModule = {
     inFocus: false,
     blackListInit: function(){
       chrome.storage.local.set({'blackList': bgModule.blackList}, function() {});
+      chrome.storage.local.set({'topTenYesterday': bgModule.topTenYesterday}, function() {});
     },
     resetBlackList: function(){
       chrome.storage.local.set({'blackList': []}, function() {
       });
     },
-    resetWesiteList: function(){
+    resetWebsiteList: function(){
       chrome.storage.local.set({'websiteList': []}, function() {
       });
     },
@@ -23,7 +24,7 @@ var bgModule = {
       var now = moment();
       var endoftheday = moment().endOf('day');
       var nextreset = moment.duration(moment(endoftheday).diff(now));
-      console.log("daysfrominstall "+bgModule.daysfrominstall);
+      bgModule.daysfrominstall++;
       setTimeout(function() {
         'use strict';
         console.log("day reset test");
@@ -31,13 +32,17 @@ var bgModule = {
         // var thisday = bgModule.websiteList.sort(function(a,b){
         //   return b.websiteVisits - a.websiteVisits;
         // });
-        var topTenYesterday = bgModule.websiteList.slice(0, 9);
-        console.log(topTenYesterday);
-        bgModule.websiteList = [];
-        bgModule.daysfrominstall++;
+        console.log("daysfrominstall "+bgModule.daysfrominstall);
+        bgModule.topTenYesterday = bgModule.websiteList;
+        //bgModule.topTenYesterday.slice(0,9);
+        console.log(bgModule.topTenYesterday);
+        console.log(bgModule.websiteList);
+        //bgModule.websiteList = [];
+        bgModule.saveData();
+        bgModule.saveTopYesterday();
         bgModule.resetAtMidnight();
         console.log(bgModule.daysfrominstall);
-      }, 60000);
+      }, 30000);
     },
     extractDomain: function (url){
       if (url !== undefined) {
@@ -87,8 +92,14 @@ var bgModule = {
       }
       return false;
     },
-    saveWebsiteList: function(){
+    saveData: function(){
       chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
+      });
+      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
+      });
+    },
+    saveTopYesterday : function () {
+      chrome.storage.local.set({'topTenYesterday': bgModule.topTenYesterday}, function() {
       });
     },
     updateDeactivationTime: function (tabURL) {
@@ -117,7 +128,7 @@ var bgModule = {
           existingWebsite.timeDifference = duration;
           existingWebsite.formatedTime = formatedTime;
       }
-      bgModule.saveWebsiteList();
+      bgModule.saveData();
     },
     tabUpdatedAndActive: function (newUrl, favIcon) {
       //blacklist check
@@ -152,7 +163,7 @@ var bgModule = {
               //add visits
               existingWebsite.websiteVisits++;
           }
-          bgModule.saveWebsiteList();
+          bgModule.saveData();
       } else {
           //log if blocked
           console.log("blocked website: " + newUrl);

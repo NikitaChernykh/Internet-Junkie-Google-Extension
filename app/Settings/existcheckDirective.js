@@ -12,13 +12,13 @@ module.exports = function() {
     require: 'ngModel',
     link: function (scope, element, attr, ngModel) {
       ngModel.$parsers.unshift(function(value) {
+        var valid = searchBlacklist(value.toLowerCase(),scope.blackList);
         if(value){
           // test and set the validity
-          var valid = searchBlacklist(value.toLowerCase(),scope.blackList);
           ngModel.$setValidity('invalidEntry', valid);
         }
         return valid ? value : undefined;
       });
     }
   };
-}
+};

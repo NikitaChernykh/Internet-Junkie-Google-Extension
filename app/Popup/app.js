@@ -14,6 +14,7 @@ var angular = require('angular');
     app.factory('authService', require('../../app/Login/authService'));
     app.factory('dataService', require('../../app/Shared/dataService'));
 
+
     //controllers
     app.controller('AppController', require('../../app/Popup/appController'));
     app.controller('HomeController', require('../../app/Home/homeController'));
@@ -32,6 +33,8 @@ var angular = require('angular');
     app.directive('removeblk', require('../../app/Settings/removeblkDirective'));
     app.directive('footer', require('../../app/Shared/footerDirective'));
 
+
+    app.directive('dataaaa', require('../../app/Shared/testDirective'));
     //constants
     app.constant('AUTH_EVENTS', require('../../app/Login/authEventsConstant'));
     app.constant('APP_VIEWS', require('../../app/Login/appViewsConstant'));

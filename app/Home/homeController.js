@@ -4,23 +4,24 @@ var APP_VIEWS = require('../../app/Login/appViewsConstant');
 module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS) {
   'use strict';
   var websiteList = [];
-  var topTenYesterday = [];
+
+
   dataService.getData().then(function(result){
 
     $timeout(function() {
       websiteList = result.websiteList;
-      topTenYesterday = result.topTenYesterday;
+
       $scope.websites = websiteList;
-      $scope.topTenYesterday = topTenYesterday;
+
       if($scope.websites.length>10){
         for(var i = 0; i < 10; i++){
             $scope.model.totalVisits += $scope.websites[i].websiteVisits;
             $scope.model.totalTime += $scope.websites[i].formatedTime.min+($scope.websites[i].formatedTime.hours*60)+(($scope.websites[i].formatedTime.days*24)*60);
         }
       }else{
-        for(var i = 0; i < $scope.websites.length; i++){
-            $scope.model.totalVisits += $scope.websites[i].websiteVisits;
-            $scope.model.totalTime += $scope.websites[i].formatedTime.min+($scope.websites[i].formatedTime.hours*60)+(($scope.websites[i].formatedTime.days*24)*60);
+        for(var f = 0; f < $scope.websites.length; f++){
+            $scope.model.totalVisits += $scope.websites[f].websiteVisits;
+            $scope.model.totalTime += $scope.websites[f].formatedTime.min+($scope.websites[f].formatedTime.hours*60)+(($scope.websites[f].formatedTime.days*24)*60);
         }
       }
 
@@ -33,7 +34,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   $scope.model = {
     totalVisits: 0,
     totalTime:0
-  }
+  };
   //_locales text that translates
   $scope.table_header_text = chrome.i18n.getMessage("table_header_text");
   $scope.websites_label = chrome.i18n.getMessage("websites_label");
@@ -94,24 +95,25 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
 
   $scope.dayClick = function(number){
 
-    if(number == 4){
+    if(number == 6){
       $scope.dayBtn = 2;
+      console.log($scope);
+      //console.log($scope.topTenYesterday);
     }
-    if(number == 5){
+    if(number == 7){
       $scope.dayBtn = $scope.today.number;
     }
-    $scope.$apply();
     console.log("day clicked "+ number);
-  }
+  };
   $scope.setActive = function (number) {
     if(number != $scope.today.number){
     //TODO figure out how to apply styles in this
     }
-  }
+  };
   $scope.days.push(today);
 
   //for debugging
-  //window.MY_SCOPE = $scope;
+  window.MY_SCOPE = $scope;
 
   //monster toggle
   $scope.monsterToggle = function () {
