@@ -34,7 +34,7 @@ var bgModule = {
         // });
         console.log("daysfrominstall "+bgModule.daysfrominstall);
         bgModule.topTenYesterday = bgModule.websiteList;
-        //bgModule.topTenYesterday.slice(0,9);
+        bgModule.topTenYesterday.slice(0,9);
         console.log(bgModule.topTenYesterday);
         console.log(bgModule.websiteList);
         //bgModule.websiteList = [];

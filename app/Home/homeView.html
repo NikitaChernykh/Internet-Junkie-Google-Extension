@@ -60,7 +60,7 @@
                 </tr>
             </tbody>
             <tbody ng-show="dayBtn == 2" dataaaa>
-                <tr ng-repeat="topTenYesterday in topTenYesterdays" ng-mouseleave="removeStyle={left:30+'px'}">
+                <tr ng-repeat="topTenYesterday in topTenYesterdays | limitTo:10" ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{topTenYesterday.favIcon}}" height='20' width='20' /></td>
                     <td>
                         <a ng-href="http://{{topTenYesterday.websiteName}}" target="_blank" tabindex="-1">
