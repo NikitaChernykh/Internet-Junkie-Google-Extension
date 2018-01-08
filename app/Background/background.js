@@ -42,7 +42,7 @@ var bgModule = {
         bgModule.saveTopYesterday();
         bgModule.resetAtMidnight();
         console.log(bgModule.daysfrominstall);
-      }, 30000);
+      }, 1800000);
     },
     extractDomain: function (url){
       if (url !== undefined) {

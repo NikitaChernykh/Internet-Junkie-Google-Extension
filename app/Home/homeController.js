@@ -78,7 +78,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
       authService.view = APP_VIEWS.loginView;
       $scope.$emit('view', authService.view);
   };
-  var today = {number: moment().format("D"), name: moment().format("ddd"), fulldate : moment()};
+  var today = {number: moment().format("D"), name: moment().format("ddd"), fulldate : moment(), today: true};
   $scope.today = today;
   //show day table
   $scope.dayBtn = $scope.today.number;
@@ -89,18 +89,18 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
 
   for (var i = 6; i >= 1; i--) {
       var date = moment().subtract(i,'days');
-      var formattedDate = {number: moment(date).format("D"), name: moment(date).format("ddd")};
+      var formattedDate = {number: moment(date).format("D"), name: moment(date).format("ddd"), fulldate : moment(),today : false};
       $scope.days.push(formattedDate);
   }
 
   $scope.dayClick = function(number){
-
-    if(number == 6){
+    //for yesteday
+    if(number == $scope.days[5].number){
       $scope.dayBtn = 2;
       console.log($scope);
-      //console.log($scope.topTenYesterday);
     }
-    if(number == 7){
+    //for today
+    if(number == $scope.days[6].number){
       $scope.dayBtn = $scope.today.number;
     }
     console.log("day clicked "+ number);
