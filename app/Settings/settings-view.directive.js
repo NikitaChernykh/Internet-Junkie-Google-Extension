@@ -1,6 +1,6 @@
 module.exports = function() {
   return{
-      templateUrl: "/Settings/settingsView.html",
+      templateUrl: "/Settings/settings-view.html",
       restrict: "E"
   }
 };

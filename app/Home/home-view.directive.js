@@ -1,6 +1,6 @@
 module.exports = function() {
   return{
-      templateUrl: "/Home/homeView.html",
+      templateUrl: "/Home/home-view.html",
       restrict: "E"
   };
 };

@@ -1,6 +1,6 @@
 module.exports = function() {
   return{
-      templateUrl: "/Login/loginView.html",
+      templateUrl: "/Login/login-view.html",
       restrict: "E"
   };
 };
