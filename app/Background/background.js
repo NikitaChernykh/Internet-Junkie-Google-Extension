@@ -1,6 +1,7 @@
 
 var moment = require('moment');
 var bgModule = {
+    pastDays : {},
     websiteList: [],
     topTenYesterday: [],
     blackList: ["newtab", "google.", "chrome://", "localhost", "chrome-extension://"],
@@ -8,6 +9,10 @@ var bgModule = {
     prevTab: "",
     daysfrominstall: 0,
     inFocus: false,
+    formatedDate: moment().format("DDMMYYYY"),
+    total:{
+      "totalVisits": 0
+    },
     blackListInit: function(){
       chrome.storage.local.set({'blackList': bgModule.blackList}, function() {});
       chrome.storage.local.set({'topTenYesterday': bgModule.topTenYesterday}, function() {});
@@ -20,29 +25,61 @@ var bgModule = {
       chrome.storage.local.set({'websiteList': []}, function() {
       });
     },
+    getTotalVisits: function(list){
+
+      if(list.length>10){
+        for(var i = 0; i < 10; i++){
+          bgModule.total.totalVisits += list[i].websiteVisits;
+        }
+      }else{
+        for(var f = 0; f < list.length; f++){
+          bgModule.total.totalVisits += list[f].websiteVisits;
+        }
+      }
+      //TODO add total time
+    },
     resetAtMidnight: function(){
-      var now = moment();
-      var endoftheday = moment().endOf('day');
-      var nextreset = moment.duration(moment(endoftheday).diff(now));
-      bgModule.daysfrominstall++;
+
+
+
+
+      var timeNow = moment();
+      var endOfTheDay = moment().endOf('day');
+      var nextReset = moment.duration(moment(endOfTheDay).diff(timeNow));
+
       setTimeout(function() {
         'use strict';
-        console.log("day reset test");
+        bgModule.formatedDate = moment().format("DDMMYYYY");
+        console.log(bgModule.formatedDate);
+        console.log("day reset test activated");
+        bgModule.daysfrominstall++;
+        console.log("daysfrominstall "+bgModule.daysfrominstall);
         //TODO test sort
         // var thisday = bgModule.websiteList.sort(function(a,b){
         //   return b.websiteVisits - a.websiteVisits;
         // });
-        console.log("daysfrominstall "+bgModule.daysfrominstall);
-        bgModule.topTenYesterday = bgModule.websiteList;
-        bgModule.topTenYesterday.slice(0,9);
-        console.log(bgModule.topTenYesterday);
-        console.log(bgModule.websiteList);
+        //save past day
+        bgModule.pastDays = {
+              "name": bgModule.formatedDate,
+              "totalVisits": bgModule.total.totalVisits,
+              "websiteList": bgModule.websiteList.slice(0, 10)
+          };
+
+        console.log(bgModule.pastDays);
+
+        //bgModule.topTenYesterday = bgModule.websiteList;
+        //looks like this doesn't work
+        //bgModule.topTenYesterday.slice(0,9);
+
+        //console.log(bgModule.topTenYesterday);
+        //console.log(bgModule.websiteList);
         //bgModule.websiteList = [];
-        bgModule.saveData();
-        bgModule.saveTopYesterday();
+        //bgModule.saveData();
+        //bgModule.saveTopYesterday();
+        bgModule.total.totalVisits = 0;
         bgModule.resetAtMidnight();
         console.log(bgModule.daysfrominstall);
-      }, 1800000);
+      }, 30000);
     },
     extractDomain: function (url){
       if (url !== undefined) {

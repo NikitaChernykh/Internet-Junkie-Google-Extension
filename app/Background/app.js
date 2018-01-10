@@ -48,6 +48,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           // Notify that we saved.
           console.log('websiteList pulled');
           console.log(data);
+
         });
         //get blacklist
         chrome.storage.local.get('blackList', function (data) {
@@ -61,8 +62,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           console.log('topTenYesterday pulled');
           console.log(data);
         });
-
-
+        //get totalVisits
+        bgModule.getTotalVisits(bgModule.websiteList);
     }
     if (request.action == "remove") {
         bgModule.websiteList = request.list;
