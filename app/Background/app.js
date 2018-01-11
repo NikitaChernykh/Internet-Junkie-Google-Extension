@@ -57,13 +57,13 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           console.log(data);
         });
         //get topTenYesterday
-        chrome.storage.local.get('topTenYesterday', function (data) {
+        chrome.storage.local.get('pastDays', function (data) {
           // Notify that we saved.
-          console.log('topTenYesterday pulled');
+          console.log('pastDays pulled');
           console.log(data);
         });
         //get totalVisits
-        bgModule.getTotalVisits(bgModule.websiteList);
+        bgModule.updateTotalVisits(bgModule.websiteList);
     }
     if (request.action == "remove") {
         bgModule.websiteList = request.list;

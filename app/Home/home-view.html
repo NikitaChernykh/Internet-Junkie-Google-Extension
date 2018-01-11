@@ -84,6 +84,31 @@
                     </td>
                 </tr>
             </tbody>
+            <tbody ng-show="dayBtn == 3" dataaaa>
+                <tr ng-repeat="topTenYesterday in topTenBeforeYesterdays | limitTo:10" ng-mouseleave="removeStyle={left:30+'px'}">
+                    <td class="centered"><img ng-src="{{topTenYesterday.favIcon}}" height='20' width='20' /></td>
+                    <td>
+                        <a ng-href="http://{{topTenYesterday.websiteName}}" target="_blank" tabindex="-1">
+                            <div class="siteName">{{topTenYesterday.websiteName}}</div>
+                        </a>
+                    </td>
+                    <td class="centered">{{topTenYesterday.websiteVisits}}</td>
+                    <td class="centered">
+                        <div class="timeContainer" ng-hide="{{(topTenYesterday.formatedTime == undefined) ? 'true':'false'}}">
+                            <div class="inline" ng-hide="{{(topTenYesterday.formatedTime.days == 0) ? 'true':'false'}}">
+                                {{('0'+topTenYesterday.formatedTime.days.toString()).slice(-2)}}{{abbreviation_days}}
+                            </div>
+                            <div class="inline" ng-hide="{{(topTenYesterday.formatedTime.hours == 0) ? 'true':'false'}}">{{(topTenYesterday.formatedTime.hours.toString()).slice(-2)+'h'}}</div>
+                            <div class="inline" >{{(topTenYesterday.formatedTime.min.toString()).slice(-2)}}{{abbreviation_min}}</div>
+                            <div class="inline">{{('0'+topTenYesterday.formatedTime.sec.toString()).slice(-2)}}{{abbreviation_sec}}</div>
+                        </div>
+                    </td>
+                    <td class="removetd">
+                        <!-- <div class="binBG" ng-mouseleave="removeStyle={left:30+'px'}"><img remove class="remove" title="Delete" src="/assets/images/icons/bin.svg"></div> -->
+                        <!-- <div ng-style="removeStyle" ng-class="{'removeArrow': true}" ><div ng-mouseenter="removeStyle={left:0}" class="arrow"> > </div></div> -->
+                    </td>
+                </tr>
+            </tbody>
         </table>
         <div class="total-container">
           <div class="total-text">{{total_text}}</div>

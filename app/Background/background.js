@@ -1,10 +1,10 @@
 
 var moment = require('moment');
 var bgModule = {
-    pastDays : {},
+    pastDays : [],
     websiteList: [],
     topTenYesterday: [],
-    blackList: ["newtab", "google.", "chrome://", "localhost", "chrome-extension://"],
+    blackList: ["newtab", "google.", "chrome://", "localhost", "chrome-extension://","about:blank"],
     globalUrl: "",
     prevTab: "",
     daysfrominstall: 0,
@@ -15,7 +15,7 @@ var bgModule = {
     },
     blackListInit: function(){
       chrome.storage.local.set({'blackList': bgModule.blackList}, function() {});
-      chrome.storage.local.set({'topTenYesterday': bgModule.topTenYesterday}, function() {});
+      chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
     },
     resetBlackList: function(){
       chrome.storage.local.set({'blackList': []}, function() {
@@ -25,7 +25,7 @@ var bgModule = {
       chrome.storage.local.set({'websiteList': []}, function() {
       });
     },
-    getTotalVisits: function(list){
+    updateTotalVisits: function(list){
 
       if(list.length>10){
         for(var i = 0; i < 10; i++){
@@ -39,10 +39,6 @@ var bgModule = {
       //TODO add total time
     },
     resetAtMidnight: function(){
-
-
-
-
       var timeNow = moment();
       var endOfTheDay = moment().endOf('day');
       var nextReset = moment.duration(moment(endOfTheDay).diff(timeNow));
@@ -54,31 +50,42 @@ var bgModule = {
         console.log("day reset test activated");
         bgModule.daysfrominstall++;
         console.log("daysfrominstall "+bgModule.daysfrominstall);
-        //TODO test sort
-        // var thisday = bgModule.websiteList.sort(function(a,b){
-        //   return b.websiteVisits - a.websiteVisits;
-        // });
+
+        //sort list by visits
+        //maybe saparate method
+        bgModule.websiteList = bgModule.websiteList.sort(function(a,b){
+          return b.websiteVisits - a.websiteVisits;
+        });
+
         //save past day
-        bgModule.pastDays = {
+        //maybe saparate method
+        //TODO this doubles the value if popup is open as same time
+        bgModule.updateTotalVisits(bgModule.websiteList);
+        var pastDay = {
               "name": bgModule.formatedDate,
               "totalVisits": bgModule.total.totalVisits,
               "websiteList": bgModule.websiteList.slice(0, 10)
           };
+        bgModule.pastDays.push(pastDay);
+        //save pastdays
+        chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
+        //loop ony 7 days (7 objects)
+        //maybe saparate method
+        if(bgModule.pastDays.length > 7){
+          bgModule.pastDays = bgModule.pastDays.slice(1,8);
+          chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
+        }
 
         console.log(bgModule.pastDays);
 
-        //bgModule.topTenYesterday = bgModule.websiteList;
-        //looks like this doesn't work
-        //bgModule.topTenYesterday.slice(0,9);
-
-        //console.log(bgModule.topTenYesterday);
-        //console.log(bgModule.websiteList);
-        //bgModule.websiteList = [];
-        //bgModule.saveData();
-        //bgModule.saveTopYesterday();
+        //reset values
+        //maybe saparate method
         bgModule.total.totalVisits = 0;
+        bgModule.websiteList = [];
+        //save changes to chrome strage
         bgModule.resetAtMidnight();
-        console.log(bgModule.daysfrominstall);
+
+
       }, 30000);
     },
     extractDomain: function (url){

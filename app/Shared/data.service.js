@@ -17,8 +17,8 @@ module.exports = function($q) {
 			if (!data) {
 				deferred.reject();
 			} else {
-        console.log(data.topTenYesterday);
-				deferred.resolve(data.topTenYesterday);
+        console.log(data.pastDays);
+				deferred.resolve(data.pastDays);
 			}
 		});
 		return deferred.promise;
