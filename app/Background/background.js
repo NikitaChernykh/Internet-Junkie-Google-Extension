@@ -71,8 +71,8 @@ var bgModule = {
         chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
         //loop ony 7 days (7 objects)
         //maybe saparate method
-        if(bgModule.pastDays.length > 7){
-          bgModule.pastDays = bgModule.pastDays.slice(1,8);
+        if(bgModule.pastDays.length > 6){
+          bgModule.pastDays = bgModule.pastDays.slice(1,7);
           chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
         }
 

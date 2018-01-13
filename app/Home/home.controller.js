@@ -106,6 +106,18 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
     if(number == $scope.days[4].number){
       $scope.dayBtn = 3;
     }
+    if(number == $scope.days[3].number){
+      $scope.dayBtn = 4;
+    }
+    if(number == $scope.days[2].number){
+      $scope.dayBtn = 5;
+    }
+    if(number == $scope.days[1].number){
+      $scope.dayBtn = 6;
+    }
+    if(number == $scope.days[0].number){
+      $scope.dayBtn = 7;
+    }
     console.log("day clicked "+ number);
   };
   $scope.setActive = function (number) {
