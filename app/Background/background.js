@@ -66,14 +66,14 @@ var bgModule = {
               "totalVisits": bgModule.total.totalVisits,
               "websiteList": bgModule.websiteList.slice(0, 10)
           };
-        bgModule.pastDays.push(pastDay);
+        bgModule.pastDays.unshift(pastDay);
         //save pastdays
         chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
         //loop ony 7 days (7 objects)
         //maybe saparate method
         if(bgModule.pastDays.length > 6){
-          bgModule.pastDays = bgModule.pastDays.slice(1,7);
-          chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
+           bgModule.pastDays.splice(-1,1);
+           chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
         }
 
         console.log(bgModule.pastDays);
@@ -86,7 +86,7 @@ var bgModule = {
         bgModule.resetAtMidnight();
 
 
-      }, 30000);
+      }, nextReset);
     },
     extractDomain: function (url){
       if (url !== undefined) {
