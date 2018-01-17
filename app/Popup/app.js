@@ -29,6 +29,7 @@ var angular = require('angular');
     app.directive('auth', require('../../app/Login/auth.directive'));
     app.directive('remove', require('../../app/Home/remove.directive'));
     app.directive('monster', require('../../app/Home/monster.directive'));
+    app.directive('weekday', require('../../app/Home/weekday.directive'));
     app.directive('existcheck', require('../../app/Settings/existcheck.directive'));
     app.directive('removeblk', require('../../app/Settings/removeblk.directive'));
     app.directive('footer', require('../../app/Shared/footer.directive'));

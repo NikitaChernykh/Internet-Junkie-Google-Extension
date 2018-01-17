@@ -92,12 +92,11 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
       var formattedDate = {number: moment(date).format("D"), name: moment(date).format("ddd"), fulldate : moment(),today : false};
       $scope.days.push(formattedDate);
   }
-
+  
   $scope.dayClick = function(number){
     //for yesteday
     if(number == $scope.days[5].number){
       $scope.dayBtn = 2;
-      console.log($scope);
     }
     //for today
     if(number == $scope.days[6].number){
@@ -118,12 +117,8 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
     if(number == $scope.days[0].number){
       $scope.dayBtn = 7;
     }
+
     console.log("day clicked "+ number);
-  };
-  $scope.setActive = function (number) {
-    if(number != $scope.today.number){
-    //TODO figure out how to apply styles in this
-    }
   };
   $scope.days.push(today);
 
