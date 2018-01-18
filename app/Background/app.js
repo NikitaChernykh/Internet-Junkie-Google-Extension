@@ -1,4 +1,9 @@
 var bgModule = require('../../app/Background/background.js');
+
+//reset for arrays on app reload
+bgModule.resetAtMidnight();
+
+
 chrome.tabs.onActivated.addListener(function (activeInfo) {
     chrome.tabs.query({active: true, currentWindow: true},function(tabs){
         if(typeof bgModule.prevTab == "undefined"){
@@ -44,20 +49,20 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action == "popup") {
         //get websites
-        chrome.storage.sync.get('websiteList', function (data) {
+        chrome.storage.local.get('websiteList', function (data) {
           // Notify that we saved.
           console.log('websiteList pulled');
           console.log(data);
 
         });
         //get blacklist
-        chrome.storage.sync.get('blackList', function (data) {
+        chrome.storage.local.get('blackList', function (data) {
           // Notify that we saved.
           console.log('blackList pulled');
           console.log(data);
         });
         //get topTenYesterday
-        chrome.storage.sync.get('pastDays', function (data) {
+        chrome.storage.local.get('pastDays', function (data) {
           // Notify that we saved.
           console.log('pastDays pulled');
           console.log(data);
@@ -67,20 +72,16 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
     if (request.action == "remove") {
         bgModule.websiteList = request.list;
-        chrome.storage.sync.set({'websiteList': bgModule.websiteList}, function() {});
+        chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {});
     }
     if(request.action == "updateBlackList"){
       bgModule.blackList = request.blackList;
-      chrome.storage.sync.set({'blackList': bgModule.blackList}, function() {
+      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
       });
     }
 });
 
-//reset for arrays on app reload
-//bgModule.resetBlackList();
-bgModule.blackListInit();
-bgModule.resetWebsiteList();
-bgModule.resetAtMidnight();
+
 
 
 // Check if chome is out of focus or pc in sleep mode

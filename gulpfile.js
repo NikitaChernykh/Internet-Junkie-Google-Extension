@@ -37,7 +37,7 @@ gulp.task('browserify-bg', function () {
   return bundle.bundle()
     .pipe(source(paths.scripts.filename))
     .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
-    .pipe(uglify({ mangle: false }))
+    // .pipe(uglify({ mangle: false }))
     .pipe(gulp.dest(paths.scripts.destination));
 });
 
@@ -49,7 +49,7 @@ gulp.task('browserify-popup', function () {
   return bundle.bundle()
     .pipe(source(paths2.scripts.filename))
     .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
-    .pipe(uglify({ mangle: false }))
+    // .pipe(uglify({ mangle: false }))
     .pipe(gulp.dest(paths2.scripts.destination));
 });
 

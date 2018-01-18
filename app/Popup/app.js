@@ -35,7 +35,7 @@ var angular = require('angular');
     app.directive('footer', require('../../app/Shared/footer.directive'));
 
 
-    app.directive('dataaaa', require('../../app/Shared/test.directive'));
+    app.directive('loaddays', require('../../app/Shared/load-days.directive'));
     //constants
     app.constant('AUTH_EVENTS', require('../../app/Login/auth-events.constant'));
     app.constant('APP_VIEWS', require('../../app/Login/app-views.constant'));

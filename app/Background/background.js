@@ -14,15 +14,15 @@ var bgModule = {
       "totalVisits": 0
     },
     blackListInit: function(){
-      chrome.storage.sync.set({'blackList': bgModule.blackList}, function() {});
-      chrome.storage.sync.set({'pastDays': bgModule.pastDays}, function() {});
+      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {});
+      chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
     },
     resetBlackList: function(){
-      chrome.storage.sync.set({'blackList': []}, function() {
+      chrome.storage.local.set({'blackList': []}, function() {
       });
     },
     resetWebsiteList: function(){
-      chrome.storage.sync.set({'websiteList': []}, function() {
+      chrome.storage.local.set({'websiteList': []}, function() {
       });
     },
     updateTotalVisits: function(list){
@@ -68,12 +68,12 @@ var bgModule = {
           };
         bgModule.pastDays.unshift(pastDay);
         //save pastdays
-        chrome.storage.sync.set({'pastDays': bgModule.pastDays}, function() {});
+        chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
         //loop ony 7 days (7 objects)
         //maybe saparate method
         if(bgModule.pastDays.length > 6){
            bgModule.pastDays.splice(-1,1);
-           chrome.storage.sync.set({'pastDays': bgModule.pastDays}, function() {});
+           chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
         }
 
         console.log(bgModule.pastDays);
@@ -86,7 +86,7 @@ var bgModule = {
         bgModule.resetAtMidnight();
 
 
-      }, nextReset);
+      }, 30000);//nextReset
     },
     extractDomain: function (url){
       if (url !== undefined) {
@@ -137,13 +137,9 @@ var bgModule = {
       return false;
     },
     saveData: function(){
-      chrome.storage.sync.set({'websiteList': bgModule.websiteList}, function() {
+      chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
       });
-      chrome.storage.sync.set({'blackList': bgModule.blackList}, function() {
-      });
-    },
-    saveTopYesterday : function () {
-      chrome.storage.sync.set({'topTenYesterday': bgModule.topTenYesterday}, function() {
+      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
       });
     },
     updateDeactivationTime: function (tabURL) {

@@ -92,15 +92,15 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
       var formattedDate = {number: moment(date).format("D"), name: moment(date).format("ddd"), fulldate : moment(),today : false};
       $scope.days.push(formattedDate);
   }
-  
+
   $scope.dayClick = function(number){
-    //for yesteday
-    if(number == $scope.days[5].number){
-      $scope.dayBtn = 2;
-    }
     //for today
     if(number == $scope.days[6].number){
       $scope.dayBtn = $scope.today.number;
+    }
+    //for yesteday
+    if(number == $scope.days[5].number){
+      $scope.dayBtn = 2;
     }
     if(number == $scope.days[4].number){
       $scope.dayBtn = 3;
@@ -117,8 +117,6 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
     if(number == $scope.days[0].number){
       $scope.dayBtn = 7;
     }
-
-    console.log("day clicked "+ number);
   };
   $scope.days.push(today);
 
