@@ -2,7 +2,7 @@ module.exports = function($q) {
   console.log("data service loaded");
   var getData = function () {
     var deferred = $q.defer();
-    chrome.storage.local.get(function( data ) {
+    chrome.storage.sync.get(function( data ) {
 			if (!data) {
 				deferred.reject();
 			} else {
@@ -13,7 +13,7 @@ module.exports = function($q) {
   };
   var getTopTen = function () {
     var deferred = $q.defer();
-    chrome.storage.local.get(function( data ) {
+    chrome.storage.sync.get(function( data ) {
 			if (!data) {
 				deferred.reject();
 			} else {
