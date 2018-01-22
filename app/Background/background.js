@@ -86,7 +86,7 @@ var bgModule = {
         bgModule.resetAtMidnight();
 
 
-      }, 30000);//nextReset
+      }, 60000);//nextReset
     },
     extractDomain: function (url){
       if (url !== undefined) {

@@ -29,13 +29,14 @@ var angular = require('angular');
     app.directive('auth', require('../../app/Login/auth.directive'));
     app.directive('remove', require('../../app/Home/remove.directive'));
     app.directive('monster', require('../../app/Home/monster.directive'));
-    app.directive('weekday', require('../../app/Home/weekday.directive'));
+
     app.directive('existcheck', require('../../app/Settings/existcheck.directive'));
     app.directive('removeblk', require('../../app/Settings/removeblk.directive'));
     app.directive('footer', require('../../app/Shared/footer.directive'));
 
-
-    app.directive('loaddays', require('../../app/Shared/load-days.directive'));
+    app.directive('weekdays', require('../../app/Weekdays/weekdays.directive'));
+    app.directive('loaddays', require('../../app/Weekdays/load-days.directive'));
+    app.directive('daysComponent', require('../../app/Weekdays/week-days-component.directive'));
     //constants
     app.constant('AUTH_EVENTS', require('../../app/Login/auth-events.constant'));
     app.constant('APP_VIEWS', require('../../app/Login/app-views.constant'));

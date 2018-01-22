@@ -1,0 +1,9 @@
+<div class="week-menu-container" >
+    <p>See other days</p>
+    <div class="days-container" ng-repeat="day in days track by $index">
+        <div class="day-of-the-week"  ng-click="dayClick(day.number)" >
+            <div ng-class="myClass" weekdays name="{{day.number}}">{{day.number}}</div>
+            <div class="day-name">{{day.name}}</div>
+        </div>
+    </div>
+</div>
