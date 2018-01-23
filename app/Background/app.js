@@ -3,7 +3,6 @@ var bgModule = require('../../app/Background/background.js');
 //reset for arrays on app reload
 bgModule.resetAtMidnight();
 
-
 chrome.tabs.onActivated.addListener(function (activeInfo) {
     chrome.tabs.query({active: true, currentWindow: true},function(tabs){
         if(typeof bgModule.prevTab == "undefined"){
@@ -27,7 +26,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
 });
 
 //Check if the tab is Updated
-chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+chrome.tabs.onUpdated.addListener(function listener(tabId, changeInfo, tab) {
   if(tab.url != "chrome://newtab/"){
       //check for anactive tab reloading
       if (tab.active) {
@@ -44,28 +43,24 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
           }
       }
     }
+    // Passing the above test means this is the event we were waiting for.
+    // There is nothing we need to do for future onUpdated events, so we
+    // use removeListner to stop getting called when onUpdated events fire.
+    chrome.tabs.onUpdated.removeListener(listener);
 });
-
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action == "popup") {
         //get websites
         chrome.storage.local.get('websiteList', function (data) {
-          // Notify that we saved.
-          console.log('websiteList pulled');
-          console.log(data);
-
+          // Notify that we saved websiteList pulled
         });
         //get blacklist
         chrome.storage.local.get('blackList', function (data) {
-          // Notify that we saved.
-          console.log('blackList pulled');
-          console.log(data);
+          // Notify that blackList pulled
         });
         //get topTenYesterday
         chrome.storage.local.get('pastDays', function (data) {
-          // Notify that we saved.
-          console.log('pastDays pulled');
-          console.log(data);
+          // Notify that pastDays pulled
         });
         //get totalVisits
         bgModule.updateTotalVisits(bgModule.websiteList);
@@ -75,8 +70,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {});
     }
     if(request.action == "updateBlackList"){
-      bgModule.blackList = request.blackList;
-      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
+        bgModule.blackList = request.blackList;
+        chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
       });
     }
 });

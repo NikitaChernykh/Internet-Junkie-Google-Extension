@@ -9,7 +9,7 @@ var bgModule = {
     prevTab: "",
     daysfrominstall: 0,
     inFocus: false,
-    formatedDate: moment().format("DDMMYYYY"),
+    formatedDate: moment().format('LL'),
     total:{
       "totalVisits": 0
     },
@@ -45,8 +45,7 @@ var bgModule = {
 
       setTimeout(function() {
         'use strict';
-        bgModule.formatedDate = moment().format("DDMMYYYY");
-        console.log(bgModule.formatedDate);
+        bgModule.formatedDate = moment().format('LL');
         console.log("day reset test activated");
         bgModule.daysfrominstall++;
         console.log("daysfrominstall "+bgModule.daysfrominstall);
@@ -62,7 +61,7 @@ var bgModule = {
         //TODO this doubles the value if popup is open as same time
         bgModule.updateTotalVisits(bgModule.websiteList);
         var pastDay = {
-              "name": bgModule.formatedDate,
+              "date": bgModule.formatedDate,
               "totalVisits": bgModule.total.totalVisits,
               "websiteList": bgModule.websiteList.slice(0, 10)
           };
@@ -75,17 +74,13 @@ var bgModule = {
            bgModule.pastDays.splice(-1,1);
            chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
         }
-
         console.log(bgModule.pastDays);
-
         //reset values
         //maybe saparate method
         bgModule.total.totalVisits = 0;
         bgModule.websiteList = [];
         //save changes to chrome strage
         bgModule.resetAtMidnight();
-
-
       }, 60000);//nextReset
     },
     extractDomain: function (url){

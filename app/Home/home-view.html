@@ -6,7 +6,7 @@
         <a ng-click="settings()"><img class="logoffIcon" width="28" height="28" title="Settings" src="/assets/images/icons/settings.svg" /></a>
     </div>
     <monster></monster>
-    <p id="heading" ng-hide="monsterToggle()">{{table_header_text}}</p>
+    <p id="heading" ng-hide="monsterToggle()" class="past-date">{{table_header_text}}</p>
     <div id="websiteList" ng-hide="monsterToggle()" >
         <table  cellspacing="0" cellpadding="0" style="border-collapse: collapse;" >
             <thead>
@@ -33,7 +33,7 @@
                     <th class="timeLabel"></th>
                 </tr>
             </thead>
-            <tbody ng-show="dayBtn == today.number">
+            <tbody ng-show="dayBtn == 6">
                 <tr ng-repeat="website in websites | limitTo:10 | orderBy:sortOrder track by $index" ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
                     <td>
@@ -59,7 +59,7 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody ng-show="dayBtn == 2" loaddays>
+            <tbody ng-show="dayBtn == 5" loaddays>
                 <tr ng-repeat="website in firstDayWebsites" ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
                     <td>
@@ -84,7 +84,7 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody ng-show="dayBtn == 3" loaddays>
+            <tbody ng-show="dayBtn == 4" loaddays>
                 <tr ng-repeat="website in secondDayWebsites" ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
                     <td>
@@ -109,7 +109,7 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody ng-show="dayBtn == 4" loaddays>
+            <tbody ng-show="dayBtn == 3" loaddays>
                 <tr ng-repeat="website in thirdDayWebsites " ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
                     <td>
@@ -134,7 +134,7 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody ng-show="dayBtn == 5" loaddays>
+            <tbody ng-show="dayBtn == 2" loaddays>
                 <tr ng-repeat="website in  forthDayWebsites" ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
                     <td>
@@ -159,7 +159,7 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody ng-show="dayBtn == 6" loaddays>
+            <tbody ng-show="dayBtn == 1" loaddays>
                 <tr ng-repeat="website in  fifthDayWebsites" ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
                     <td>
@@ -184,7 +184,7 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody ng-show="dayBtn == 7" loaddays>
+            <tbody ng-show="dayBtn == 0" loaddays>
                 <tr ng-repeat="website in  sixthDayWebsites" ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
                     <td>

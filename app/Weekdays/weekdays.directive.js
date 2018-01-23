@@ -1,17 +1,21 @@
 module.exports = function() {
   return{
       link: function (scope,element,attrs,controller){
-          scope.myClass = "dayCircle";
-          if(attrs.name == scope.today.number){
-            scope.myClass = "day-circle-today";
-          }
+          scope.selected = false;
+
+          // scope.myClass = "dayCircle";
+          // if(attrs.name == 6){
+          //   scope.myClass = "day-circle-today";
+          // }
 
           element.on('click', function(event){
-              scope.selectedElement = element;
-              if(scope.selectedElement != element){
-                unselected(element);
-              }
-              select(element);
+              // scope.selected = !scope.selected;
+
+              // scope.selectedElement = element;
+              // if(scope.selected != element){
+              //   unselected(element);
+              // }
+              // select(element);
               // scope.myClass = "dayCircle";
               // if(attrs.name == scope.today.number){
               //   scope.myClass = "day-circle-today";

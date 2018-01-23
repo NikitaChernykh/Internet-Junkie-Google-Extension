@@ -81,9 +81,8 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   var today = {number: moment().format("D"), name: moment().format("ddd"), fulldate : moment(), today: true};
   $scope.today = today;
   //show day table
-  $scope.dayBtn = $scope.today.number;
+  $scope.dayBtn = 6;
   $scope.isActive = false;
-
   //week days in progress TODO
   $scope.days = [];
 
@@ -92,33 +91,40 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
       var formattedDate = {number: moment(date).format("D"), name: moment(date).format("ddd"), fulldate : moment(),today : false};
       $scope.days.push(formattedDate);
   }
-
+  $scope.days.push(today);
+  //$scope.pastStatistics = "Past statisics for: ";
   $scope.dayClick = function(number){
-    //for today
-    if(number == $scope.days[6].number){
-      $scope.dayBtn = $scope.today.number;
+    $scope.dayBtn = number;
+    switch(number){
+      case 6:
+        $scope.table_header_text = chrome.i18n.getMessage("table_header_text");
+      break;
+      case 5:
+        $scope.table_header_text = $scope.firstDayWebsitesDate;
+      break;
+      case 4:
+        $scope.table_header_text = $scope.secondDayWebsitesDate;
+      break;
+      case 3:
+        $scope.table_header_text = $scope.thirdDayWebsitesDate;
+      break;
+      case 2:
+        $scope.table_header_text = $scope.forthDayWebsitesDate;
+      break;
+      case 1:
+        $scope.table_header_text = $scope.fifthDayWebsitesDate;
+        break;
+      case 0:
+        $scope.table_header_text = $scope.sixthDayWebsitesDate;
+      break;
+      default:
+        $scope.table_header_text = chrome.i18n.getMessage("table_header_text");
+      break;
     }
-    //for yesteday
-    if(number == $scope.days[5].number){
-      $scope.dayBtn = 2;
-    }
-    if(number == $scope.days[4].number){
-      $scope.dayBtn = 3;
-    }
-    if(number == $scope.days[3].number){
-      $scope.dayBtn = 4;
-    }
-    if(number == $scope.days[2].number){
-      $scope.dayBtn = 5;
-    }
-    if(number == $scope.days[1].number){
-      $scope.dayBtn = 6;
-    }
-    if(number == $scope.days[0].number){
-      $scope.dayBtn = 7;
+    if(typeof $scope.table_header_text === 'object' || typeof $scope.table_header_text === 'undefined'){
+       $scope.table_header_text = "No data available yet";
     }
   };
-  $scope.days.push(today);
 
   //for debugging
   window.MY_SCOPE = $scope;
