@@ -2,19 +2,16 @@ module.exports = function() {
   return{
       link: function (scope,element,attrs,controller){
           scope.myClass = "dayCircle";
-          console.log(scope);
-          console.log(scope.myClass);
           if(attrs.name == scope.today.number){
             scope.myClass = "day-circle-today";
           }
 
           element.on('click', function(event){
-            //console.log(event);
-            if(scope.myClass.includes("activeDay")){
-              scope.myClass = scope.myClass.slice(0, -10);
-            }else{
-              scope.myClass += " activeDay";
-            }
+              scope.selectedElement = element;
+              if(scope.selectedElement != element){
+                unselected(element);
+              }
+              select(element);
               // scope.myClass = "dayCircle";
               // if(attrs.name == scope.today.number){
               //   scope.myClass = "day-circle-today";
@@ -46,16 +43,16 @@ module.exports = function() {
               // //_gaq.push(['_trackEvent', scope.website.websiteName, 'websiteRemoved']);
 
           });
-          var toggle = function(text){
-              var result;
-              if(text.includes("activeDay")){
-                console.log("has active and now should be removed");
-                result = scope.myClass.slice(0, -10);
-              }else{
-                console.log("no active and now should be added");
-                result = scope.myClass += " activeDay";
+          var selected;
+          var unselected = function(element){
+                element.removeClass('activeDay');
+          };
+          var select = function(element){
+              if (selected){
+                  unselect(selected);
               }
-              return result;
+              selected = element;
+              element.addClass('activeDay');
           };
       }
   };

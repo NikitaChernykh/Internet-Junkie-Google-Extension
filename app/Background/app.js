@@ -81,27 +81,26 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
 });
 
-
-
-
 // Check if chome is out of focus or pc in sleep mode
 chrome.windows.onFocusChanged.addListener(function(window) {
-    if (window === chrome.windows.WINDOW_ID_NONE) {
+    chrome.windows.getCurrent(function(win){
+      if(win.type === "popup" || win.id === chrome.windows.WINDOW_ID_NONE){
         bgModule.inFocus = false;
         if(bgModule.prevTab !== ""){
           bgModule.updateDeactivationTime(bgModule.prevTab);
         }
         bgModule.globalURL = bgModule.prevTab;
         console.log("chrome is not active");
-    } else {
-        bgModule.inFocus = true;
-        chrome.tabs.query({active: true, currentWindow: true},function(tabs){
-          if(bgModule.prevTab !== ""){
-              bgModule.tabUpdatedAndActive(bgModule.extractDomain(tabs[0].url));
-              bgModule.prevTab = bgModule.extractDomain(tabs[0].url);
-              bgModule.globalURL = bgModule.extractDomain(tabs[0].url);
-          }
-        });
-        console.log("chrome is active");
-    }
+      }else {
+          bgModule.inFocus = true;
+          chrome.tabs.query({active: true, currentWindow: true},function(tabs){
+            if(bgModule.prevTab !== ""){
+                bgModule.tabUpdatedAndActive(bgModule.extractDomain(tabs[0].url));
+                bgModule.prevTab = bgModule.extractDomain(tabs[0].url);
+                bgModule.globalURL = bgModule.extractDomain(tabs[0].url);
+            }
+          });
+          console.log("chrome is active");
+      }
+    });
 });
