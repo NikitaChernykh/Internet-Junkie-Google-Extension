@@ -14,7 +14,6 @@ var angular = require('angular');
     app.factory('authService', require('../../app/Login/auth.service'));
     app.factory('dataService', require('../../app/Shared/data.service'));
 
-
     //controllers
     app.controller('AppController', require('../../app/Popup/app.controller'));
     app.controller('HomeController', require('../../app/Home/home.controller'));
@@ -34,7 +33,6 @@ var angular = require('angular');
     app.directive('removeblk', require('../../app/Settings/removeblk.directive'));
     app.directive('footer', require('../../app/Shared/footer.directive'));
 
-    app.directive('weekdays', require('../../app/Weekdays/weekdays.directive'));
     app.directive('loaddays', require('../../app/Weekdays/load-days.directive'));
     app.directive('daysComponent', require('../../app/Weekdays/week-days-component.directive'));
     //constants

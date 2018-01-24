@@ -128,7 +128,6 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
 
   //for debugging
   window.MY_SCOPE = $scope;
-
   //monster toggle
   $scope.monsterToggle = function () {
       if (websiteList[0] == undefined || websiteList[0].websiteVisits < 0) {
