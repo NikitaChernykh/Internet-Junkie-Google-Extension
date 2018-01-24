@@ -19,7 +19,7 @@ module.exports = function(dataService) {
               scope.fifthDayWebsitesDate = result[4].date;
 
               scope.sixthDayWebsites = result[5].websiteList;
-              scope.sixthDayWebsitesDate = result[5].websiteList;
+              scope.sixthDayWebsitesDate = result[5].date;
         });
       }
     };

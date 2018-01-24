@@ -25,6 +25,10 @@ var bgModule = {
       chrome.storage.local.set({'websiteList': []}, function() {
       });
     },
+    resetPastDays: function(){
+      chrome.storage.local.set({'pastDays': []}, function() {
+      });
+    },
     updateTotalVisits: function(list){
 
       if(list.length>10){
@@ -70,10 +74,13 @@ var bgModule = {
         chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
         //loop ony 7 days (7 objects)
         //maybe saparate method
+        console.log("before 6 days sliced");
+        console.log(bgModule.pastDays);
         if(bgModule.pastDays.length > 6){
            bgModule.pastDays.splice(-1,1);
            chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
         }
+        console.log("after 6 days sliced");
         console.log(bgModule.pastDays);
         //reset values
         //maybe saparate method
@@ -81,7 +88,7 @@ var bgModule = {
         bgModule.websiteList = [];
         //save changes to chrome strage
         bgModule.resetAtMidnight();
-      }, 60000);//nextReset
+      }, nextReset);//nextReset
     },
     extractDomain: function (url){
       if (url !== undefined) {
