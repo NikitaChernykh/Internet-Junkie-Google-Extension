@@ -2,8 +2,8 @@ var bgModule = require('../../app/Background/background.js');
 
 //reset for arrays on app reload
 bgModule.resetAtMidnight();
-bgModule.resetPastDays();
-bgModule.resetWebsiteList();
+// bgModule.resetPastDays();
+// bgModule.resetWebsiteList();
 chrome.tabs.onActivated.addListener(function (activeInfo) {
     chrome.tabs.query({active: true, currentWindow: true},function(tabs){
         if(typeof bgModule.prevTab == "undefined"){

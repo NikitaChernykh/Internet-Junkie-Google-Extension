@@ -36,7 +36,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
     totalTime:0
   };
   //_locales text that translates
-  $scope.table_header_text = chrome.i18n.getMessage("table_header_text");
+  $scope.today_text = chrome.i18n.getMessage("today_text");
   $scope.websites_label = chrome.i18n.getMessage("websites_label");
   $scope.visits_label = chrome.i18n.getMessage("visits_label");
   $scope.time_label = chrome.i18n.getMessage("time_label");
@@ -97,32 +97,32 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
     $scope.dayBtn = number;
     switch(number){
       case 6:
-        $scope.table_header_text = chrome.i18n.getMessage("table_header_text");
+        $scope.today_text = chrome.i18n.getMessage("today_text");
       break;
       case 5:
-        $scope.table_header_text = $scope.firstDayWebsitesDate;
+        $scope.today_text = $scope.firstDayWebsitesDate;
       break;
       case 4:
-        $scope.table_header_text = $scope.secondDayWebsitesDate;
+        $scope.today_text = $scope.secondDayWebsitesDate;
       break;
       case 3:
-        $scope.table_header_text = $scope.thirdDayWebsitesDate;
+        $scope.today_text = $scope.thirdDayWebsitesDate;
       break;
       case 2:
-        $scope.table_header_text = $scope.forthDayWebsitesDate;
+        $scope.today_text = $scope.forthDayWebsitesDate;
       break;
       case 1:
-        $scope.table_header_text = $scope.fifthDayWebsitesDate;
+        $scope.today_text = $scope.fifthDayWebsitesDate;
         break;
       case 0:
-        $scope.table_header_text = $scope.sixthDayWebsitesDate;
+        $scope.today_text = $scope.sixthDayWebsitesDate;
       break;
       default:
-        $scope.table_header_text = chrome.i18n.getMessage("table_header_text");
+        $scope.today_text = chrome.i18n.getMessage("today_text");
       break;
     }
-    if(typeof $scope.table_header_text === 'object' || typeof $scope.table_header_text === 'undefined'){
-       $scope.table_header_text = "No data available yet";
+    if(typeof $scope.today_text === 'object' || typeof $scope.today_text === 'undefined'){
+       $scope.today_text = "No data available yet";
     }
   };
 

@@ -7,9 +7,9 @@
         "message": "Круть! Пока нет зависимости к каким либо сайтам...",
         "description": "Message when you have no addiction."
     },
-    "table_header_text": {
-        "message": "Самые посещаемые сайты за последнее время:",
-        "description": "Message label for top 5 websites."
+    "today_text": {
+        "message": "Статистика за сегодня",
+        "description": "Today's statistics text."
     },
     "websites_label": {
         "message": "Веб-сайты",

@@ -7,9 +7,9 @@
         "message": "Wow todavía no eres adicto a ningun sitio web!",
         "description": "Message when you have no addiction."
     },
-    "table_header_text": {
-        "message": "Lista de sitios web a los que quizás eres adicto:",
-        "description": "Message label for top 5 websites."
+    "today_text": {
+        "message": "Las estadísticas de hoy",
+        "description": "Today's statistics text."
     },
     "websites_label": {
         "message": "Sitios web",
