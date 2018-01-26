@@ -4,7 +4,10 @@ var bgModule = {
     pastDays : [],
     websiteList: [],
     topTenYesterday: [],
-    blackList: ["newtab", "google.", "chrome://", "localhost", "chrome-extension://","about:blank"],
+    blackList: [
+      "newtab", "google.", "chrome://",
+      "localhost", "chrome-extension://",
+      "about:blank"],
     globalUrl: "",
     prevTab: "",
     daysfrominstall: 0,
@@ -30,7 +33,6 @@ var bgModule = {
       });
     },
     updateTotalVisits: function(list){
-
       if(list.length>10){
         for(var i = 0; i < 10; i++){
           bgModule.total.totalVisits += list[i].websiteVisits;
@@ -46,20 +48,19 @@ var bgModule = {
       var timeNow = moment();
       var endOfTheDay = moment().endOf('day');
       var nextReset = moment.duration(moment(endOfTheDay).diff(timeNow));
+      console.log(nextReset.valueOf());
 
       setTimeout(function() {
         'use strict';
-        bgModule.formatedDate = moment().format('LL');
         console.log("day reset test activated");
         bgModule.daysfrominstall++;
         console.log("daysfrominstall "+bgModule.daysfrominstall);
-
         //sort list by visits
         //maybe saparate method
         bgModule.websiteList = bgModule.websiteList.sort(function(a,b){
           return b.websiteVisits - a.websiteVisits;
         });
-
+        bgModule.formatedDate = moment().add(2, 'm').format('LL');
         //save past day
         //maybe saparate method
         //TODO this doubles the value if popup is open as same time
@@ -74,21 +75,17 @@ var bgModule = {
         chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
         //loop ony 7 days (7 objects)
         //maybe saparate method
-        console.log("before 6 days sliced");
-        console.log(bgModule.pastDays);
         if(bgModule.pastDays.length > 6){
            bgModule.pastDays.splice(-1,1);
            chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
         }
-        console.log("after 6 days sliced");
-        console.log(bgModule.pastDays);
         //reset values
         //maybe saparate method
         bgModule.total.totalVisits = 0;
         bgModule.websiteList = [];
         //save changes to chrome strage
         bgModule.resetAtMidnight();
-      }, nextReset);//nextReset
+      }, nextReset.valueOf()); //nextReset
     },
     extractDomain: function (url){
       if (url !== undefined) {
