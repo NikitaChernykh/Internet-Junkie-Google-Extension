@@ -3,7 +3,6 @@ var moment = require('moment');
 var bgModule = {
     pastDays : [],
     websiteList: [],
-    topTenYesterday: [],
     blackList: [
       "newtab", "google.", "chrome://",
       "localhost", "chrome-extension://",
@@ -48,8 +47,6 @@ var bgModule = {
       var timeNow = moment();
       var endOfTheDay = moment().endOf('day');
       var nextReset = moment.duration(moment(endOfTheDay).diff(timeNow));
-      console.log(nextReset.valueOf());
-
       setTimeout(function() {
         'use strict';
         console.log("day reset test activated");
@@ -69,7 +66,7 @@ var bgModule = {
               "date": bgModule.formatedDate,
               "totalVisits": bgModule.total.totalVisits,
               "websiteList": bgModule.websiteList.slice(0, 10)
-          };
+        };
         bgModule.pastDays.unshift(pastDay);
         //save pastdays
         chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
@@ -85,7 +82,7 @@ var bgModule = {
         bgModule.websiteList = [];
         //save changes to chrome strage
         bgModule.resetAtMidnight();
-      }, nextReset.valueOf()); //nextReset
+      }, 30000); //nextReset nextReset.valueOf()
     },
     extractDomain: function (url){
       if (url !== undefined) {
@@ -93,7 +90,7 @@ var bgModule = {
           var domain;
           var regex = /(\..*){2,}/;
 
-          //find & remove protocol (http, ftp, etc.) and get domain
+          //find & remove protocol (http, ftp, etc.)
           if (url.indexOf("://") > -1) {
               domain = url.split('/')[2];
           } else {
@@ -101,7 +98,6 @@ var bgModule = {
           }
           //find & remove port number
           domain = domain.split(':')[0];
-
           //removes everything before 1 dot - like: "www"
           if (regex.test(domain)) {
               domain = domain.substring(domain.indexOf(".") + 1);

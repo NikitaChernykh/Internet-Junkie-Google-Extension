@@ -1,6 +1,6 @@
 var APP_VIEWS = require('../../app/Login/app-views.constant');
 
-module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS) {
+module.exports = function($scope,authService, dataService, APP_VIEWS) {
   'use strict';
 
 

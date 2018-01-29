@@ -2,7 +2,7 @@ var bgModule = require('../../app/Background/background.js');
 
 //reset for arrays on app reload
 bgModule.resetAtMidnight();
-// bgModule.resetPastDays();
+bgModule.resetPastDays();
 // bgModule.resetWebsiteList();
 chrome.tabs.onActivated.addListener(function (activeInfo) {
     chrome.tabs.query({active: true, currentWindow: true},function(tabs){
@@ -59,7 +59,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         chrome.storage.local.get('blackList', function (data) {
           // Notify that blackList pulled
         });
-        //get topTenYesterday
+        //get pastDays
         chrome.storage.local.get('pastDays', function (data) {
           // Notify that pastDays pulled
         });

@@ -7,7 +7,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
 
 
   dataService.getData().then(function(result){
-
+    console.log(result);
     $timeout(function() {
       websiteList = result.websiteList;
 
@@ -78,6 +78,8 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
       authService.view = APP_VIEWS.loginView;
       $scope.$emit('view', authService.view);
   };
+
+
   var today = {number: moment().format("D"), name: moment().format("ddd"), fulldate : moment(), today: true};
   $scope.today = today;
   //show day table
@@ -92,39 +94,6 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
       $scope.days.push(formattedDate);
   }
   $scope.days.push(today);
-  //$scope.pastStatistics = "Past statisics for: ";
-  $scope.dayClick = function(number){
-    $scope.dayBtn = number;
-    switch(number){
-      case 6:
-        $scope.today_text = chrome.i18n.getMessage("today_text");
-      break;
-      case 5:
-        $scope.today_text = $scope.firstDayWebsitesDate;
-      break;
-      case 4:
-        $scope.today_text = $scope.secondDayWebsitesDate;
-      break;
-      case 3:
-        $scope.today_text = $scope.thirdDayWebsitesDate;
-      break;
-      case 2:
-        $scope.today_text = $scope.forthDayWebsitesDate;
-      break;
-      case 1:
-        $scope.today_text = $scope.fifthDayWebsitesDate;
-        break;
-      case 0:
-        $scope.today_text = $scope.sixthDayWebsitesDate;
-      break;
-      default:
-        $scope.today_text = chrome.i18n.getMessage("today_text");
-      break;
-    }
-    if(typeof $scope.today_text === 'object' || typeof $scope.today_text === 'undefined'){
-       $scope.today_text = "No data available yet";
-    }
-  };
 
   //for debugging
   window.MY_SCOPE = $scope;

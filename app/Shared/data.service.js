@@ -3,18 +3,21 @@ module.exports = function($q) {
     var deferred = $q.defer();
     chrome.storage.local.get(function( data ) {
 			if (!data) {
-				deferred.reject();
+				deferred.reject('No data availble from chrome storage.');
 			} else {
 				deferred.resolve(data);
 			}
 		});
 		return deferred.promise;
   };
-  var getTopTen = function () {
+  var getPastDays = function () {
     var deferred = $q.defer();
     chrome.storage.local.get(function( data ) {
-			if (!data) {
-				deferred.reject();
+      // for (var i = 0; i < data.pastDays.length; i++){
+      //     return data.pastDays[i].websiteList;
+      // }
+			if (data.pastDays.length == 0) {
+				deferred.reject('Past days have no data yet.');
 			} else {
 				deferred.resolve(data.pastDays);
 			}
@@ -22,7 +25,7 @@ module.exports = function($q) {
 		return deferred.promise;
   };
   return {
-    getTopTen : getTopTen,
+    getPastDays : getPastDays,
     getData : getData
   };
 };
