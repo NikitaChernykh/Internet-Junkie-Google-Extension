@@ -7,9 +7,9 @@
         "message": "Wow! You are not addicted to any website yet!",
         "description": "Message when you have no addiction."
     },
-    "table_header_text": {
-        "message": "List of the websites you maybe addicted to:",
-        "description": "Message label for top 5 websites."
+    "today_text": {
+        "message": "Today's statistics",
+        "description": "Today's statistics text."
     },
     "websites_label": {
         "message": "Websites",
@@ -22,6 +22,49 @@
     "time_label": {
         "message": "Time",
         "description": "Label for row with time."
+    },
+    "total_text": {
+        "message": "Total: ",
+        "description": "Total text."
+    },
+    "visits_text": {
+        "message": "visits",
+        "description": "Visits lowercase text."
+    },
+    "abbreviation_min": {
+        "message": "m",
+        "description": "Abbreviation for minutes."
+    },
+    "abbreviation_sec": {
+        "message": "s",
+        "description": "Abbreviation for seconds."
+    },
+    "abbreviation_days": {
+        "message": "d",
+        "description": "Abbreviation for days."
+    },
+    "settings_title":{
+        "message": "Settings",
+        "description": "Settings title."
+    },
+    "settings_del":{
+        "message": "Delete all websites:",
+        "description": "Clear the site list."
+    },
+    "settings_btn_clear":{
+        "message": "Clear all",
+        "description": "Clear btn text."
+    },
+    "settings_add_blacklist":{
+        "message": "Add website to blacklist:",
+        "description": "Add to blacklist text."
+    },
+    "settings_btn_blacklist":{
+        "message": "Add to blacklist",
+        "description": "Add to blacklist btn."
+    },
+    "settings_btn_goback":{
+        "message": "Go back",
+        "description": "Go back btn."
     }
-   
 }

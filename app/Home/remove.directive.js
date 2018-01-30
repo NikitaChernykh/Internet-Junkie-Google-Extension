@@ -14,9 +14,9 @@ module.exports = function() {
                     scope.model.totalTime += scope.websites[i].formatedTime.min+(scope.websites[i].formatedTime.hours*60)+((scope.websites[i].formatedTime.days*24)*60);
                 }
               }else{
-                for(var i = 0; i < scope.websites.length; i++){
-                    scope.model.totalVisits += scope.websites[i].websiteVisits;
-                    scope.model.totalTime += scope.websites[i].formatedTime.min+(scope.websites[i].formatedTime.hours*60)+((scope.websites[i].formatedTime.days*24)*60);
+                for(var r = 0; r < scope.websites.length; r++){
+                    scope.model.totalVisits += scope.websites[r].websiteVisits;
+                    scope.model.totalTime += scope.websites[r].formatedTime.min+(scope.websites[r].formatedTime.hours*60)+((scope.websites[r].formatedTime.days*24)*60);
                 }
               }
               scope.$apply();
@@ -27,5 +27,5 @@ module.exports = function() {
               });
           });
       }
-  }
+  };
 };

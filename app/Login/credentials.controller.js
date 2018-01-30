@@ -1,4 +1,4 @@
-var APP_VIEWS = require('../../app/Login/appViewsConstant');
+var APP_VIEWS = require('../../app/Login/app-views.constant');
 
 module.exports = function($scope, authService,APP_VIEWS) {
   'use strict';

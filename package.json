@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/NikitaChernykh/Internet-Junkie-Google-Extension#readme",
   "devDependencies": {
+    "angular-mocks": "^1.6.8",
     "browserify": "^14.4.0",
     "cb": "^0.1.0",
     "gulp": "^3.9.1",

@@ -1,4 +1,9 @@
 var bgModule = require('../../app/Background/background.js');
+
+//reset for arrays on app reload
+bgModule.resetAtMidnight();
+bgModule.resetPastDays();
+// bgModule.resetWebsiteList();
 chrome.tabs.onActivated.addListener(function (activeInfo) {
     chrome.tabs.query({active: true, currentWindow: true},function(tabs){
         if(typeof bgModule.prevTab == "undefined"){
@@ -22,7 +27,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
 });
 
 //Check if the tab is Updated
-chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+chrome.tabs.onUpdated.addListener(function listener(tabId, changeInfo, tab) {
   if(tab.url != "chrome://newtab/"){
       //check for anactive tab reloading
       if (tab.active) {
@@ -39,54 +44,59 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
           }
       }
     }
+    // Passing the above test means this is the event we were waiting for.
+    // There is nothing we need to do for future onUpdated events, so we
+    // use removeListner to stop getting called when onUpdated events fire.
+    chrome.tabs.onUpdated.removeListener(listener);
 });
-
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action == "popup") {
         //get websites
-        chrome.storage.local.get('websiteList', function (data) {});
+        chrome.storage.local.get('websiteList', function (data) {
+          // Notify that we saved websiteList pulled
+        });
         //get blacklist
-        chrome.storage.local.get('blackList', function (data) {});
+        chrome.storage.local.get('blackList', function (data) {
+          // Notify that blackList pulled
+        });
+        //get pastDays
+        chrome.storage.local.get('pastDays', function (data) {
+          // Notify that pastDays pulled
+        });
+        //get totalVisits
+        bgModule.updateTotalVisits(bgModule.websiteList);
     }
     if (request.action == "remove") {
         bgModule.websiteList = request.list;
         chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {});
     }
-    if(request.action == "addBlacklist"){
+    if(request.action == "updateBlackList"){
         bgModule.blackList = request.blackList;
         chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
-        });
-    }
-    if(request.action == "removeBlacklist"){
-      bgModule.blackList = request.blackList;
-      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
       });
     }
 });
 
-//reset for arrays on app reload
-bgModule.resetBlackList();
-bgModule.blackListInit();
-bgModule.resetWesiteList();
-
 // Check if chome is out of focus or pc in sleep mode
 chrome.windows.onFocusChanged.addListener(function(window) {
-    if (window === chrome.windows.WINDOW_ID_NONE) {
+    chrome.windows.getCurrent(function(win){
+      if(win.type === "popup" || win.id === chrome.windows.WINDOW_ID_NONE){
         bgModule.inFocus = false;
         if(bgModule.prevTab !== ""){
           bgModule.updateDeactivationTime(bgModule.prevTab);
         }
         bgModule.globalURL = bgModule.prevTab;
         console.log("chrome is not active");
-    } else {
-        bgModule.inFocus = true;
-        chrome.tabs.query({active: true, currentWindow: true},function(tabs){
-          if(bgModule.prevTab !== ""){
-              bgModule.tabUpdatedAndActive(bgModule.extractDomain(tabs[0].url));
-              bgModule.prevTab = bgModule.extractDomain(tabs[0].url);
-              bgModule.globalURL = bgModule.extractDomain(tabs[0].url);
-          }
-        });
-        console.log("chrome is active");
-    }
+      }else {
+          bgModule.inFocus = true;
+          chrome.tabs.query({active: true, currentWindow: true},function(tabs){
+            if(bgModule.prevTab !== ""){
+                bgModule.tabUpdatedAndActive(bgModule.extractDomain(tabs[0].url));
+                bgModule.prevTab = bgModule.extractDomain(tabs[0].url);
+                bgModule.globalURL = bgModule.extractDomain(tabs[0].url);
+            }
+          });
+          console.log("chrome is active");
+      }
+    });
 });

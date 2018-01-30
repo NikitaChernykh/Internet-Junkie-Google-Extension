@@ -1,39 +1,44 @@
 var angular = require('angular');
 (function () {
     'use strict';
-    var app = angular.module("internetJunkie", [require('angular-messages'),require('angular-animate')]);
+    var app = angular.module("internetJunkie", [require('angular-messages')]);
 
     //app config for overwriting whitelist ex: for img path
     app.config(['$compileProvider',function ($compileProvider) {
-          //  Default imgSrcSanitizationWhitelist: /^\s*((https?|ftp|file|blob):|data:image\/)/
-          //  chrome-extension: will be added to the end of the expression
+          //  Default imgSrcSanitizationWhitelist: /^\s*((https?|ftp|file|blob):|data:image\/)
           $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
         }
     ]);
+
     //services
-    app.factory('authService', require('../../app/Login/authService'));
-    app.factory('dataService', require('../../app/Shared/dataService'));
+    app.factory('authService', require('../../app/Login/auth.service'));
+    app.factory('dataService', require('../../app/Shared/data.service'));
 
     //controllers
-    app.controller('AppController', require('../../app/Popup/appController'));
-    app.controller('HomeController', require('../../app/Home/homeController'));
-    app.controller('CredentialsController', require('../../app/Login/credentialsController'));
-    app.controller('OptionsController', require('../../app/Options/optionsController'));
-    app.controller('SettingsController', require('../../app/Settings/settingsController'));
+    app.controller('AppController', require('../../app/Popup/app.controller'));
+    app.controller('HomeController', require('../../app/Home/home.controller'));
+    app.controller('CredentialsController', require('../../app/Login/credentials.controller'));
+    app.controller('OptionsController', require('../../app/Options/options.controller'));
+    app.controller('SettingsController', require('../../app/Settings/settings.controller'));
 
     //directives
-    app.directive('authDirective', require('../../app/Login/authDirective'));
-    app.directive('loginView', require('../../app/Login/loginViewDirective'));
-    app.directive('homeView', require('../../app/Home/homeViewDirective'));
-    app.directive('settingsView', require('../../app/Settings/settingsViewDirective'));
-    app.directive('remove', require('../../app/Home/removeDirective'));
-    app.directive('monster', require('../../app/Home/monsterDirective'));
-    app.directive('existcheck', require('../../app/Settings/existcheckDirective'));
-    app.directive('removeblk', require('../../app/Settings/removeblkDirective'));
+    app.directive('loginView', require('../../app/Login/login-view.directive'));
+    app.directive('homeView', require('../../app/Home/home-view.directive'));
+    app.directive('settingsView', require('../../app/Settings/settings-view.directive'));
+    app.directive('auth', require('../../app/Login/auth.directive'));
+    app.directive('remove', require('../../app/Home/remove.directive'));
+    app.directive('monster', require('../../app/Home/monster.directive'));
+
+    app.directive('existcheck', require('../../app/Settings/existcheck.directive'));
+    app.directive('removeblk', require('../../app/Settings/removeblk.directive'));
+    app.directive('footer', require('../../app/Shared/footer.directive'));
+
+    app.directive('loaddays', require('../../app/Weekdays/load-days.directive'));
+    app.directive('daysComponent', require('../../app/Weekdays/week-days-component.directive'));
 
     //constants
-    app.constant('AUTH_EVENTS', require('../../app/Login/authEventsConstant'));
-    app.constant('APP_VIEWS', require('../../app/Login/appViewsConstant'));
+    app.constant('AUTH_EVENTS', require('../../app/Login/auth-events.constant'));
+    app.constant('APP_VIEWS', require('../../app/Login/app-views.constant'));
 
     module.exports = app;
 }());

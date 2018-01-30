@@ -1,6 +1,6 @@
 module.exports = function() {
   return{
-      templateUrl: "/Login/loginView.html",
+      templateUrl: "/Weekdays/week-days-component.html",
       restrict: "E"
-  }
+  };
 };

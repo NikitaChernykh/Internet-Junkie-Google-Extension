@@ -7,9 +7,9 @@
         "message": "Круть! Пока нет зависимости к каким либо сайтам...",
         "description": "Message when you have no addiction."
     },
-    "table_header_text": {
-        "message": "Самые посещаемые сайты за последнее время:",
-        "description": "Message label for top 5 websites."
+    "today_text": {
+        "message": "Статистика за сегодня",
+        "description": "Today's statistics text."
     },
     "websites_label": {
         "message": "Веб-сайты",
@@ -22,5 +22,49 @@
     "time_label": {
         "message": "Время",
         "description": "Label for row with time."
+    },
+    "total_text": {
+        "message": "Всего: ",
+        "description": "Total text."
+    },
+    "visits_text": {
+        "message": "посещений",
+        "description": "Visits lowercase text."
+    },
+    "abbreviation_min": {
+        "message": "м",
+        "description": "Abbreviation for minutes."
+    },
+    "abbreviation_sec": {
+        "message": "с",
+        "description": "Abbreviation for seconds."
+    },
+    "abbreviation_days": {
+        "message": "д",
+        "description": "Abbreviation for days."
+    },
+    "settings_title":{
+        "message": "Настройки",
+        "description": "Settings title."
+    },
+    "settings_del":{
+        "message": "Очистить список сайтов:",
+        "description": "Clear the site list."
+    },
+    "settings_btn_clear":{
+        "message": "Стереть все",
+        "description": "Clear btn text."
+    },
+    "settings_add_blacklist":{
+        "message": "Добавить сайт в черный список:",
+        "description": "Add to blacklist text."
+    },
+    "settings_btn_blacklist":{
+        "message": "Добавить",
+        "description": "Add to blacklist btn."
+    },
+    "settings_btn_goback":{
+        "message": "Вернуться назад",
+        "description": "Go back btn."
     }
 }

@@ -1,6 +1,6 @@
-var APP_VIEWS = require('../../app/Login/appViewsConstant');
+var APP_VIEWS = require('../../app/Login/app-views.constant');
 
-module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS) {
+module.exports = function($scope,authService, dataService, APP_VIEWS) {
   'use strict';
 
 
@@ -12,11 +12,19 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
     console.log("getData error");
   });
 
+  //_locales text that translates
+  $scope.settings_title = chrome.i18n.getMessage("settings_title");
+  $scope.settings_del = chrome.i18n.getMessage("settings_del");
+  $scope.settings_btn_clear = chrome.i18n.getMessage("settings_btn_clear");
+  $scope.settings_add_blacklist = chrome.i18n.getMessage("settings_add_blacklist");
+  $scope.settings_btn_blacklist = chrome.i18n.getMessage("settings_btn_blacklist");
+  $scope.settings_btn_goback = chrome.i18n.getMessage("settings_btn_goback");
+
   //clear all website list
   $scope.clearAll = function(){
       //TODO make a confirmation modal
       $scope.websites.length = 0;
-      _gaq.push(['_trackEvent', 'clearAllWebsites']);
+      _gaq.push(['_trackEvent','clearAllWebsites']);
       chrome.runtime.sendMessage({
           action: "remove",
           list: $scope.websites
@@ -25,9 +33,10 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   };
   $scope.addToBlackList = function(){
     if($scope.blacklistForm.$valid){
+      _gaq.push(['_trackEvent', $scope.website, 'addToBlackList']);
       $scope.blackList.push($scope.website);
       chrome.runtime.sendMessage({
-          action: "addBlacklist",
+          action: "updateBlackList",
           blackList: $scope.blackList
       });
       $scope.website = "";
@@ -36,6 +45,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
     }
   };
   $scope.goback = function(){
+    _gaq.push(['_trackEvent','backFromSettings']);
     authService.view = APP_VIEWS.homeView;
     $scope.$emit('view', authService.view);
   };

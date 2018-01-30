@@ -15,15 +15,15 @@ These instructions will get you a copy of the project up and running on your loc
 * Clone this repo
 * Checkout dev branch for latest version command: "git checkout dev"
 * When in the root folder before making changes run: "npm install"
-* After you have all this ready go inside chrome extension manager and find Developer mode checkbox/button => activate it.
-* Click load unpacked extension and find "app" folder inside this cloned repo on your local maschine.
+* After you have done steps above, go inside chrome extension manager and find Developer mode checkbox/button => activate it.
+* Click load unpacked extension and find "app" folder inside this cloned repo on your local machine.
 * All done! You should see it appear on the top right corner of your browser.
 
 
 ## Deployment
-* For build commands to build .js bundles run: "npm run build1" and "npm run build2"(only if any changes made in .js files)
-* To compile scss run gulp tasks: "gulp scss" or "gulp scss-watcher"
-* To run test use: "jest test" command.
+* To build the app run 'gulp build'.
+* To watch changes on js files and scss files run 'gulp watch' command.
+* To run tests use: 'npm test' command.
 
 
 

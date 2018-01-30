@@ -1,6 +1,6 @@
 module.exports = function() {
   return{
-      templateUrl: "/Settings/settingsView.html",
+      templateUrl: "/Home/monster.html",
       restrict: "E"
-  }
+  };
 };

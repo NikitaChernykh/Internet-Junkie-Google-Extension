@@ -1,5 +1,5 @@
-var AUTH_EVENTS = require('../../app/Login/authEventsConstant');
-var APP_VIEWS = require('../../app/Login/appViewsConstant');
+var AUTH_EVENTS = require('../../app/Login/auth-events.constant');
+var APP_VIEWS = require('../../app/Login/app-views.constant');
 
 module.exports = function(AUTH_EVENTS,APP_VIEWS) {
 

@@ -1,8 +1,4 @@
 {
-    "ext_name": {
-        "message": "Internet Junkie",
-        "description": "The title of the application, displayed in the web store."
-    },
     "ext_description": {
         "message": "Verifica el tiempo que gastas en sitios web diariamente.",
         "description": "The description of the application, displayed in the web store."
@@ -11,9 +7,9 @@
         "message": "Wow todavía no eres adicto a ningun sitio web!",
         "description": "Message when you have no addiction."
     },
-    "table_header_text": {
-        "message": "Lista de sitios web a los que quizás eres adicto:",
-        "description": "Message label for top 5 websites."
+    "today_text": {
+        "message": "Las estadísticas de hoy",
+        "description": "Today's statistics text."
     },
     "websites_label": {
         "message": "Sitios web",
@@ -26,5 +22,49 @@
     "time_label": {
         "message": "Hora",
         "description": "Label for row with time."
+    },
+    "total_text": {
+        "message": "Total: ",
+        "description": "Total text."
+    },
+    "visits_text": {
+        "message": "visitas",
+        "description": "Visits lowercase text."
+    },
+    "abbreviation_min": {
+        "message": "m",
+        "description": "Abbreviation for minutes."
+    },
+    "abbreviation_sec": {
+        "message": "s",
+        "description": "Abbreviation for seconds."
+    },
+    "abbreviation_days": {
+        "message": "d",
+        "description": "Abbreviation for days."
+    },
+    "settings_title":{
+        "message": "Ajustes",
+        "description": "Settings title."
+    },
+    "settings_del":{
+        "message": "Eliminar todos los sitios web:",
+        "description": "Clear the site list."
+    },
+    "settings_btn_clear":{
+        "message": "Limpiar todo",
+        "description": "Clear btn text."
+    },
+    "settings_add_blacklist":{
+        "message": "Agregar sitio web a la lista negra:",
+        "description": "Add to blacklist text."
+    },
+    "settings_btn_blacklist":{
+        "message": "Agregar a lista negra",
+        "description": "Add to blacklist btn."
+    },
+    "settings_btn_goback":{
+        "message": "Regresar",
+        "description": "Go back btn."
     }
 }

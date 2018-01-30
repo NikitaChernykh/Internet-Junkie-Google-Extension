@@ -13,16 +13,16 @@ var paths = {
     filename: 'bundle.js',
     watch: './app/Background/*.js'
   }
-}
+};
 
 var paths2 = {
   scripts: {
     source: './app/Popup/app.js',
     destination: './app/Popup/',
     filename: 'bundle.js',
-    watch: './app/Settings/*.js'
+    watch: ['./app/*/*.js', '!./app/Background/*.js']
   }
-}
+};
 
 gulp.task('browserify-bg', function () {
   var bundle = browserify({
@@ -33,11 +33,11 @@ gulp.task('browserify-bg', function () {
     return function (err) {
       console.error('Error from ' + name + ' in compress task', err.toString());
     };
-  };
+  }
   return bundle.bundle()
     .pipe(source(paths.scripts.filename))
     .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
-    .pipe(uglify({ mangle: false }))
+    // .pipe(uglify({ mangle: false }))
     .pipe(gulp.dest(paths.scripts.destination));
 });
 
@@ -49,7 +49,7 @@ gulp.task('browserify-popup', function () {
   return bundle.bundle()
     .pipe(source(paths2.scripts.filename))
     .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
-    .pipe(uglify({ mangle: false }))
+    // .pipe(uglify({ mangle: false }))
     .pipe(gulp.dest(paths2.scripts.destination));
 });
 

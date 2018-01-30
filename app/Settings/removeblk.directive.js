@@ -4,11 +4,12 @@ module.exports = function() {
           element.on('click', function(event){
               scope.blackList.splice(scope.blackList.indexOf(scope.item), 1);
               scope.$apply();
+              _gaq.push(['_trackEvent', scope.item ,'removedBlackListItem']);
               chrome.runtime.sendMessage({
-                  action: "removeBlacklist",
+                  action: "updateBlackList",
                   blackList: scope.blackList
               });
           });
       }
-  }
+  };
 };

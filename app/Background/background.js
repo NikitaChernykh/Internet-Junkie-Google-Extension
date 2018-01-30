@@ -1,26 +1,88 @@
-'use strict';
+
 var moment = require('moment');
 var bgModule = {
+    pastDays : [],
     websiteList: [],
-    blackList: ["newtab", "google.", "chrome://", "localhost", "chrome-extension://"],
+    blackList: [
+      "newtab", "google.", "chrome://",
+      "localhost", "chrome-extension://",
+      "about:blank"],
     globalUrl: "",
     prevTab: "",
+    daysfrominstall: 0,
     inFocus: false,
+    formatedDate: moment().format('LL'),
+    total:{
+      "totalVisits": 0
+    },
     blackListInit: function(){
-      chrome.storage.local.get('blackList', function (data) {
-        if(data.blackList.length == 0){
-          chrome.storage.local.set({'blackList': bgModule.blackList}, function() {});
-        }
-        bgModule.blackList = data.blackList.slice(0);
-       });
+      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {});
+      chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
     },
     resetBlackList: function(){
       chrome.storage.local.set({'blackList': []}, function() {
       });
     },
-    resetWesiteList: function(){
+    resetWebsiteList: function(){
       chrome.storage.local.set({'websiteList': []}, function() {
       });
+    },
+    resetPastDays: function(){
+      chrome.storage.local.set({'pastDays': []}, function() {
+      });
+    },
+    updateTotalVisits: function(list){
+      if(list.length>10){
+        for(var i = 0; i < 10; i++){
+          bgModule.total.totalVisits += list[i].websiteVisits;
+        }
+      }else{
+        for(var f = 0; f < list.length; f++){
+          bgModule.total.totalVisits += list[f].websiteVisits;
+        }
+      }
+      //TODO add total time
+    },
+    resetAtMidnight: function(){
+      var timeNow = moment();
+      var endOfTheDay = moment().endOf('day');
+      var nextReset = moment.duration(moment(endOfTheDay).diff(timeNow));
+      setTimeout(function() {
+        'use strict';
+        console.log("day reset test activated");
+        bgModule.daysfrominstall++;
+        console.log("daysfrominstall "+bgModule.daysfrominstall);
+        //sort list by visits
+        //maybe saparate method
+        bgModule.websiteList = bgModule.websiteList.sort(function(a,b){
+          return b.websiteVisits - a.websiteVisits;
+        });
+        bgModule.formatedDate = moment().add(2, 'm').format('LL');
+        //save past day
+        //maybe saparate method
+        //TODO this doubles the value if popup is open as same time
+        bgModule.updateTotalVisits(bgModule.websiteList);
+        var pastDay = {
+              "date": bgModule.formatedDate,
+              "totalVisits": bgModule.total.totalVisits,
+              "websiteList": bgModule.websiteList.slice(0, 10)
+        };
+        bgModule.pastDays.unshift(pastDay);
+        //save pastdays
+        chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
+        //loop ony 7 days (7 objects)
+        //maybe saparate method
+        if(bgModule.pastDays.length > 6){
+           bgModule.pastDays.splice(-1,1);
+           chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
+        }
+        //reset values
+        //maybe saparate method
+        bgModule.total.totalVisits = 0;
+        bgModule.websiteList = [];
+        //save changes to chrome strage
+        bgModule.resetAtMidnight();
+      }, nextReset.valueOf()); //nextReset 
     },
     extractDomain: function (url){
       if (url !== undefined) {
@@ -28,7 +90,7 @@ var bgModule = {
           var domain;
           var regex = /(\..*){2,}/;
 
-          //find & remove protocol (http, ftp, etc.) and get domain
+          //find & remove protocol (http, ftp, etc.)
           if (url.indexOf("://") > -1) {
               domain = url.split('/')[2];
           } else {
@@ -36,7 +98,6 @@ var bgModule = {
           }
           //find & remove port number
           domain = domain.split(':')[0];
-
           //removes everything before 1 dot - like: "www"
           if (regex.test(domain)) {
               domain = domain.substring(domain.indexOf(".") + 1);
@@ -70,6 +131,12 @@ var bgModule = {
       }
       return false;
     },
+    saveData: function(){
+      chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
+      });
+      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
+      });
+    },
     updateDeactivationTime: function (tabURL) {
       var websiteName = bgModule.extractDomain(tabURL);
       var existingWebsite = bgModule.search(websiteName);
@@ -96,10 +163,9 @@ var bgModule = {
           existingWebsite.timeDifference = duration;
           existingWebsite.formatedTime = formatedTime;
       }
-      chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
-      });
+      bgModule.saveData();
     },
-    tabUpdatedAndActive: function (newUrl, favIcon, startTime, deactivationTime, timeDifference) {
+    tabUpdatedAndActive: function (newUrl, favIcon) {
       //blacklist check
       if (bgModule.blackListCheck(newUrl) == false) {
           var websiteName = bgModule.extractDomain(newUrl);
@@ -110,6 +176,10 @@ var bgModule = {
               favIcon = "/assets/images/default_icon.png";
           }
           if (!existingWebsite) {
+              //max 30 website cap for faster loading
+              if(bgModule.websiteList.length >=30){
+                return;
+              }
               //add new website to the list
               var website = {
                   websiteName: websiteName,
@@ -128,9 +198,7 @@ var bgModule = {
               //add visits
               existingWebsite.websiteVisits++;
           }
-          //save the webiste list to the storage
-          chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
-          });
+          bgModule.saveData();
       } else {
           //log if blocked
           console.log("blocked website: " + newUrl);
