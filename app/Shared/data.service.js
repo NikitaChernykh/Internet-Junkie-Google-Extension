@@ -13,9 +13,6 @@ module.exports = function($q) {
   var getPastDays = function () {
     var deferred = $q.defer();
     chrome.storage.local.get(function( data ) {
-      // for (var i = 0; i < data.pastDays.length; i++){
-      //     return data.pastDays[i].websiteList;
-      // }
 			if (data.pastDays.length == 0) {
 				deferred.reject('Past days have no data yet.');
 			} else {

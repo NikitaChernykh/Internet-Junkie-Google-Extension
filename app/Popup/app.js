@@ -1,15 +1,15 @@
 var angular = require('angular');
 (function () {
     'use strict';
-    var app = angular.module("internetJunkie", [require('angular-messages'),require('angular-animate')]);
+    var app = angular.module("internetJunkie", [require('angular-messages')]);
 
     //app config for overwriting whitelist ex: for img path
     app.config(['$compileProvider',function ($compileProvider) {
-          //  Default imgSrcSanitizationWhitelist: /^\s*((https?|ftp|file|blob):|data:image\/)/
-          //  chrome-extension: will be added to the end of the expression
+          //  Default imgSrcSanitizationWhitelist: /^\s*((https?|ftp|file|blob):|data:image\/)
           $compileProvider.imgSrcSanitizationWhitelist(/^\s*((https?|ftp|file|blob|chrome-extension):|data:image\/)/);
         }
     ]);
+
     //services
     app.factory('authService', require('../../app/Login/auth.service'));
     app.factory('dataService', require('../../app/Shared/data.service'));
@@ -35,6 +35,7 @@ var angular = require('angular');
 
     app.directive('loaddays', require('../../app/Weekdays/load-days.directive'));
     app.directive('daysComponent', require('../../app/Weekdays/week-days-component.directive'));
+
     //constants
     app.constant('AUTH_EVENTS', require('../../app/Login/auth-events.constant'));
     app.constant('APP_VIEWS', require('../../app/Login/app-views.constant'));

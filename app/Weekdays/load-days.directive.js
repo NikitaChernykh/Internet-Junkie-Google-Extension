@@ -47,7 +47,6 @@ module.exports = function(dataService) {
                 console.log('no data here for now.');
               }
 
-
               scope.thirdDayWebsites = result[2].websiteList;
               scope.thirdDayWebsitesDate = result[2].date;
 
