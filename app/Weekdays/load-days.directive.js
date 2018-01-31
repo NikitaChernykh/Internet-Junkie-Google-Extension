@@ -3,6 +3,7 @@ module.exports = function(dataService) {
       link: function (scope){
           scope.dayClick = function(number){
             scope.dayBtn = number;
+            scope.showTableHead = true;
             switch(number){
               case 6:
                 scope.today_text = chrome.i18n.getMessage("today_text");
@@ -30,7 +31,9 @@ module.exports = function(dataService) {
               break;
             }
             if(typeof scope.today_text === 'object' || typeof scope.today_text === 'undefined'){
-               scope.today_text = "No data available yet";
+               scope.today_text = "";
+               scope.nodata_text = "Sorry, data is not available for this day yet.";
+               scope.showTableHead = false;
             }
           };
           dataService.getPastDays().then(function(result){

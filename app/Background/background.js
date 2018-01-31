@@ -82,7 +82,7 @@ var bgModule = {
         bgModule.websiteList = [];
         //save changes to chrome strage
         bgModule.resetAtMidnight();
-      }, nextReset.valueOf()); //nextReset 
+      }, nextReset.valueOf()); //nextReset nextReset.valueOf()
     },
     extractDomain: function (url){
       if (url !== undefined) {

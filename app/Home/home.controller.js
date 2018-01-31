@@ -5,7 +5,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   'use strict';
   var websiteList = [];
 
-
+  $scope.showTableHead = true;
   dataService.getData().then(function(result){
     console.log(result);
     $timeout(function() {

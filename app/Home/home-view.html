@@ -9,7 +9,7 @@
     <p id="heading" ng-hide="monsterToggle()" class="past-date">{{today_text}}</p>
     <div id="websiteList" ng-hide="monsterToggle()" >
         <table  cellspacing="0" cellpadding="0" style="border-collapse: collapse;" >
-            <thead>
+            <thead ng-show="showTableHead">
                 <tr>
                     <th class="nameLabel"></th>
                     <th class="nameLabel">
@@ -58,7 +58,9 @@
                         <div ng-style="removeStyle" ng-class="{'removeArrow': true}" ><div ng-mouseenter="removeStyle={left:0}" class="arrow"> > </div></div>
                     </td>
                 </tr>
+
             </tbody>
+
             <tbody ng-show="dayBtn == 5" loaddays>
                 <tr ng-repeat="website in firstDayWebsites" ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
@@ -210,7 +212,7 @@
                 </tr>
             </tbody>
         </table>
-        <div class="total-container">
+        <div class="total-container" ng-show="dayBtn == 6">
           <div class="total-text">{{total_text}}</div>
           <div class="total-visits">{{model.totalVisits}} {{visits_text}}</div>
           <div class="total-time">{{model.totalTime}} {{abbreviation_min}}</div>
