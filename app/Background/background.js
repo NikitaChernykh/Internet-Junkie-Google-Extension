@@ -57,7 +57,7 @@ var bgModule = {
         bgModule.websiteList = bgModule.websiteList.sort(function(a,b){
           return b.websiteVisits - a.websiteVisits;
         });
-        bgModule.formatedDate = moment().add(2, 'm').format('LL');
+        bgModule.formatedDate = moment().subtract(5, 'm').format('LL');
         //save past day
         //maybe saparate method
         //TODO this doubles the value if popup is open as same time
