@@ -138,6 +138,10 @@ var bgModule = {
       });
     },
     updateDeactivationTime: function (tabURL) {
+      //prevent from empty entry needs refactor leter
+      if(tabURL == ""){
+        return;
+      }
       var websiteName = bgModule.extractDomain(tabURL);
       var existingWebsite = bgModule.search(websiteName);
       if (existingWebsite) {
@@ -166,6 +170,11 @@ var bgModule = {
       bgModule.saveData();
     },
     tabUpdatedAndActive: function (newUrl, favIcon) {
+      //prevent from empty entry needs refactor leter
+      //could be similar issue with favicon url
+      if(newUrl == ""){
+        return;
+      }
       //blacklist check
       if (bgModule.blackListCheck(newUrl) == false) {
           var websiteName = bgModule.extractDomain(newUrl);

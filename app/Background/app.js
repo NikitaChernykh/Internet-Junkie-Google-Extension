@@ -80,7 +80,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 // Check if chome is out of focus or pc in sleep mode
 chrome.windows.onFocusChanged.addListener(function(window) {
     chrome.windows.getCurrent(function(win){
-      if(win.type !== "normal" || win.id === chrome.windows.WINDOW_ID_NONE){
+      if(win.type !== "normal" || window === chrome.windows.WINDOW_ID_NONE){
         bgModule.inFocus = false;
         if(bgModule.prevTab !== ""){
           bgModule.updateDeactivationTime(bgModule.prevTab);
