@@ -25,7 +25,7 @@ These instructions will get you a copy of the project up and running on your loc
 * To watch changes on js files and scss files run 'gulp watch' command.
 * To run tests use: 'npm test' command.
 
-##Contribution
+## Contribution
 * To contribute please refer to this guide: [here](https://akrabat.com/the-beginners-guide-to-contributing-to-a-github-project/)
 
 # Install from Chrome Web Store
