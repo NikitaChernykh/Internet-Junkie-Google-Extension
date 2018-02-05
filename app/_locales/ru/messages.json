@@ -31,15 +31,19 @@
         "message": "посещений",
         "description": "Visits lowercase text."
     },
-    "abbreviation_min": {
+    "abbr_sec": {
+        "message": "c",
+        "description": "Abbreviation for seconds."
+    },
+    "abbr_min": {
         "message": "м",
         "description": "Abbreviation for minutes."
     },
-    "abbreviation_sec": {
-        "message": "с",
-        "description": "Abbreviation for seconds."
+    "abbr_hours": {
+        "message": "ч",
+        "description": "Abbreviation for days."
     },
-    "abbreviation_days": {
+    "abbr_days": {
         "message": "д",
         "description": "Abbreviation for days."
     },

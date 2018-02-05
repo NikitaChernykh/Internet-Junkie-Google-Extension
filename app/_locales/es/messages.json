@@ -31,15 +31,19 @@
         "message": "visitas",
         "description": "Visits lowercase text."
     },
-    "abbreviation_min": {
-        "message": "m",
-        "description": "Abbreviation for minutes."
-    },
-    "abbreviation_sec": {
+    "abbr_sec": {
         "message": "s",
         "description": "Abbreviation for seconds."
     },
-    "abbreviation_days": {
+    "abbr_min": {
+        "message": "m",
+        "description": "Abbreviation for minutes."
+    },
+    "abbr_hours": {
+        "message": "h",
+        "description": "Abbreviation for days."
+    },
+    "abbr_days": {
         "message": "d",
         "description": "Abbreviation for days."
     },

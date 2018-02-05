@@ -45,9 +45,10 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   $scope.total_text = chrome.i18n.getMessage("total_text");
   $scope.visits_text = chrome.i18n.getMessage("visits_text");
 
-  $scope.abbreviation_min = chrome.i18n.getMessage("abbreviation_min");
-  $scope.abbreviation_sec = chrome.i18n.getMessage("abbreviation_sec");
-  $scope.abbreviation_days = chrome.i18n.getMessage("abbreviation_days");
+  $scope.abbr_min = chrome.i18n.getMessage("abbr_min");
+  $scope.abbr_sec = chrome.i18n.getMessage("abbr_sec");
+  $scope.abbr_days = chrome.i18n.getMessage("abbr_days");
+  $scope.abbr_hours = chrome.i18n.getMessage("abbr_hours");
 
   //sort & color change on order toggle
   $scope.sortToggle = function (order) {
