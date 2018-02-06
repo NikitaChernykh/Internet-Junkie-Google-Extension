@@ -1,3 +1,4 @@
+var moment = require('moment');
 module.exports = function(dataService) {
   return{
       link: function (scope){
@@ -9,60 +10,53 @@ module.exports = function(dataService) {
                 scope.today_text = chrome.i18n.getMessage("today_text");
               break;
               case 5:
-                scope.today_text = scope.firstDayWebsitesDate;
+                scope.today_text = moment().subtract(1, 'days').format('LL');
               break;
               case 4:
-                scope.today_text = scope.secondDayWebsitesDate;
+                scope.today_text = moment().subtract(2, 'days').format('LL');
               break;
               case 3:
-                scope.today_text = scope.thirdDayWebsitesDate;
+                scope.today_text = moment().subtract(3, 'days').format('LL');
               break;
               case 2:
-                scope.today_text = scope.forthDayWebsitesDate;
+                scope.today_text = moment().subtract(4, 'days').format('LL');
               break;
               case 1:
-                scope.today_text = scope.fifthDayWebsitesDate;
+                scope.today_text = moment().subtract(5, 'days').format('LL');
                 break;
               case 0:
-                scope.today_text = scope.sixthDayWebsitesDate;
+                scope.today_text = moment().subtract(6, 'days').format('LL');
               break;
               default:
                 scope.today_text = chrome.i18n.getMessage("today_text");
               break;
             }
             if(typeof scope.today_text === 'object' || typeof scope.today_text === 'undefined'){
-               scope.today_text = "";
                scope.nodata_text = "There was no activity on this day.";
-               scope.showTableHead = false;
+               scope.showTableHead = true;
             }
           };
           dataService.getPastDays().then(function(result){
               if(result[0].websiteList.length > 0){
                 scope.firstDayWebsites = result[0].websiteList;
-                scope.firstDayWebsitesDate = result[0].date;
               }else{
                 console.log('no data here for now.');
 
               }
               if(result[1].websiteList.length > 0){
                 scope.secondDayWebsites = result[1].websiteList;
-                scope.secondDayWebsitesDate = result[1].date;
               }else{
                 console.log('no data here for now.');
                 scope.nodata_text = "no data here for now.";
               }
 
               scope.thirdDayWebsites = result[2].websiteList;
-              scope.thirdDayWebsitesDate = result[2].date;
 
               scope.forthDayWebsites = result[3].websiteList;
-              scope.forthDayWebsitesDate = result[3].date;
 
               scope.fifthDayWebsites = result[4].websiteList;
-              scope.fifthDayWebsitesDate = result[4].date;
 
               scope.sixthDayWebsites = result[5].websiteList;
-              scope.sixthDayWebsitesDate = result[5].date;
         }).catch(function(error) {
           console.log(error);
           return;

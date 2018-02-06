@@ -12,7 +12,6 @@ var bgModule = {
     lastActiveSince: "",
     daysfrominstall: 0,
     inFocus: false,
-    formatedDate: moment().format('LL'),
     total:{
       "totalVisits": 0
     },
@@ -50,52 +49,48 @@ var bgModule = {
     checkInactiveTime: function(){
         var timeNow = moment();
         //testing line for multiple days
-        //var timeInactive = moment.duration(moment(timeNow).add(2, 'days').diff(bgModule.lastActiveSince)).days();
-        var timeInactive = moment.duration(moment(timeNow).diff(bgModule.lastActiveSince)).days();
+        var timeInactive = moment.duration(moment(timeNow).add(2, 'days').diff(bgModule.lastActiveSince)).days();
+        // var timeInactive = moment.duration(moment(timeNow).diff(bgModule.lastActiveSince)).days();
         return timeInactive;
     },
     addEmptyDays : function(days){
       console.log("add this amount of empty days: "+days);
       bgModule.savePastDay();
       while (days > 0) {
+        var counter = 1;
         bgModule.saveEmptyDay();
+        counter++;
         days--;
       }
     },
     savePastDay: function(){
-      console.log("day saved");
       bgModule.sortWebsiteList();
       var pastDay = {
-            "date": bgModule.formatedDate,
             "totalVisits": bgModule.total.totalVisits,
             "websiteList": bgModule.websiteList.slice(0, 10)
       };
       bgModule.pastDays.unshift(pastDay);
-      //save pastdays
       chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
-      //loop ony 7 days (7 objects)
-      //maybe saparate method
+      bgModule.cleanDaysToEqualSeven();
+      //reset
+      bgModule.total.totalVisits = 0;
+      bgModule.websiteList = [];
+      console.log("day saved");
+    },
+    cleanDaysToEqualSeven: function(){
       if(bgModule.pastDays.length > 6){
          bgModule.pastDays.splice(-1,1);
          chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
       }
     },
     saveEmptyDay: function(){
-
       var pastDay = {
-            "date": bgModule.formatedDate,
             "totalVisits": 0,
             "websiteList": []
       };
       bgModule.pastDays.unshift(pastDay);
-      //save pastdays
       chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
-      //loop ony 7 days (7 objects)
-      //maybe saparate method
-      if(bgModule.pastDays.length > 6){
-         bgModule.pastDays.splice(-1,1);
-         chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
-      }
+      bgModule.cleanDaysToEqualSeven();
       console.log("empty day saved!");
     },
     sortWebsiteList: function(){
@@ -109,19 +104,9 @@ var bgModule = {
       var nextReset = moment.duration(moment(endOfTheDay).diff(timeNow));
       setTimeout(function() {
         'use strict';
-        console.log("day reset test activated");
-        bgModule.daysfrominstall++;
-        console.log("daysfrominstall "+bgModule.daysfrominstall);
-        bgModule.formatedDate = moment().subtract(5, 'm').format('LL');
         //TODO this doubles the value if popup is open as same time
         bgModule.updateTotalVisits(bgModule.websiteList);
         bgModule.savePastDay();
-        //reset values
-        //maybe saparate method
-        bgModule.total.totalVisits = 0;
-        bgModule.websiteList = [];
-        //save changes to chrome strage
-
         bgModule.resetAtMidnight();
       }, nextReset.valueOf()); //nextReset nextReset.valueOf()
     },
