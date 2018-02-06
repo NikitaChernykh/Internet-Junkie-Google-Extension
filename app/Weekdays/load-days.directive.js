@@ -32,7 +32,7 @@ module.exports = function(dataService) {
             }
             if(typeof scope.today_text === 'object' || typeof scope.today_text === 'undefined'){
                scope.today_text = "";
-               scope.nodata_text = "Sorry, data is not available for this day yet.";
+               scope.nodata_text = "There was no activity on this day.";
                scope.showTableHead = false;
             }
           };
@@ -42,12 +42,14 @@ module.exports = function(dataService) {
                 scope.firstDayWebsitesDate = result[0].date;
               }else{
                 console.log('no data here for now.');
+
               }
               if(result[1].websiteList.length > 0){
                 scope.secondDayWebsites = result[1].websiteList;
                 scope.secondDayWebsitesDate = result[1].date;
               }else{
                 console.log('no data here for now.');
+                scope.nodata_text = "no data here for now.";
               }
 
               scope.thirdDayWebsites = result[2].websiteList;

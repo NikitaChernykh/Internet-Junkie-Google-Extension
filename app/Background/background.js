@@ -9,6 +9,7 @@ var bgModule = {
       "about:blank"],
     globalUrl: "",
     prevTab: "",
+    lastActiveSince: "",
     daysfrominstall: 0,
     inFocus: false,
     formatedDate: moment().format('LL'),
@@ -43,6 +44,65 @@ var bgModule = {
       }
       //TODO add total time
     },
+    timeStamp: function(){
+      return moment();
+    },
+    checkInactiveTime: function(){
+        var timeNow = moment();
+        //testing line for multiple days
+        //var timeInactive = moment.duration(moment(timeNow).add(2, 'days').diff(bgModule.lastActiveSince)).days();
+        var timeInactive = moment.duration(moment(timeNow).diff(bgModule.lastActiveSince)).days();
+        return timeInactive;
+    },
+    addEmptyDays : function(days){
+      console.log("add this amount of empty days: "+days);
+      bgModule.savePastDay();
+      while (days > 0) {
+        bgModule.saveEmptyDay();
+        days--;
+      }
+    },
+    savePastDay: function(){
+      console.log("day saved");
+      bgModule.sortWebsiteList();
+      var pastDay = {
+            "date": bgModule.formatedDate,
+            "totalVisits": bgModule.total.totalVisits,
+            "websiteList": bgModule.websiteList.slice(0, 10)
+      };
+      bgModule.pastDays.unshift(pastDay);
+      //save pastdays
+      chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
+      //loop ony 7 days (7 objects)
+      //maybe saparate method
+      if(bgModule.pastDays.length > 6){
+         bgModule.pastDays.splice(-1,1);
+         chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
+      }
+    },
+    saveEmptyDay: function(){
+
+      var pastDay = {
+            "date": bgModule.formatedDate,
+            "totalVisits": 0,
+            "websiteList": []
+      };
+      bgModule.pastDays.unshift(pastDay);
+      //save pastdays
+      chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
+      //loop ony 7 days (7 objects)
+      //maybe saparate method
+      if(bgModule.pastDays.length > 6){
+         bgModule.pastDays.splice(-1,1);
+         chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
+      }
+      console.log("empty day saved!");
+    },
+    sortWebsiteList: function(){
+      bgModule.websiteList = bgModule.websiteList.sort(function(a,b){
+        return b.websiteVisits - a.websiteVisits;
+      });
+    },
     resetAtMidnight: function(){
       var timeNow = moment();
       var endOfTheDay = moment().endOf('day');
@@ -52,35 +112,16 @@ var bgModule = {
         console.log("day reset test activated");
         bgModule.daysfrominstall++;
         console.log("daysfrominstall "+bgModule.daysfrominstall);
-        //sort list by visits
-        //maybe saparate method
-        bgModule.websiteList = bgModule.websiteList.sort(function(a,b){
-          return b.websiteVisits - a.websiteVisits;
-        });
         bgModule.formatedDate = moment().subtract(5, 'm').format('LL');
-        //save past day
-        //maybe saparate method
         //TODO this doubles the value if popup is open as same time
         bgModule.updateTotalVisits(bgModule.websiteList);
-        var pastDay = {
-              "date": bgModule.formatedDate,
-              "totalVisits": bgModule.total.totalVisits,
-              "websiteList": bgModule.websiteList.slice(0, 10)
-        };
-        bgModule.pastDays.unshift(pastDay);
-        //save pastdays
-        chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
-        //loop ony 7 days (7 objects)
-        //maybe saparate method
-        if(bgModule.pastDays.length > 6){
-           bgModule.pastDays.splice(-1,1);
-           chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
-        }
+        bgModule.savePastDay();
         //reset values
         //maybe saparate method
         bgModule.total.totalVisits = 0;
         bgModule.websiteList = [];
         //save changes to chrome strage
+
         bgModule.resetAtMidnight();
       }, nextReset.valueOf()); //nextReset nextReset.valueOf()
     },
@@ -89,7 +130,6 @@ var bgModule = {
           //vars
           var domain;
           var regex = /(\..*){2,}/;
-
           //find & remove protocol (http, ftp, etc.)
           if (url.indexOf("://") > -1) {
               domain = url.split('/')[2];
@@ -169,6 +209,7 @@ var bgModule = {
       }
       bgModule.saveData();
     },
+
     tabUpdatedAndActive: function (newUrl, favIcon) {
       //prevent from empty entry needs refactor leter
       //could be similar issue with favicon url

@@ -65,6 +65,13 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         });
         //get totalVisits
         bgModule.updateTotalVisits(bgModule.websiteList);
+
+        if(bgModule.checkInactiveTime() >= 1){
+            console.log("adding empty days");
+            bgModule.addEmptyDays(bgModule.checkInactiveTime());
+        }else{
+          console.log("don't do anything");
+        }
     }
     if (request.action == "remove") {
         bgModule.websiteList = request.list;
@@ -86,7 +93,9 @@ chrome.windows.onFocusChanged.addListener(function(window) {
           bgModule.updateDeactivationTime(bgModule.prevTab);
         }
         bgModule.globalURL = bgModule.prevTab;
-        console.log("chrome is not active");
+        bgModule.saveData();
+        bgModule.lastActiveSince = bgModule.timeStamp();
+        console.log("chrome is not active " );
       }else {
           bgModule.inFocus = true;
           chrome.tabs.query({active: true, currentWindow: true},function(tabs){
@@ -96,7 +105,7 @@ chrome.windows.onFocusChanged.addListener(function(window) {
                 bgModule.globalURL = bgModule.extractDomain(tabs[0].url);
             }
           });
-          console.log("chrome is active");
+          console.log("chrome is active ");
       }
     });
 });
