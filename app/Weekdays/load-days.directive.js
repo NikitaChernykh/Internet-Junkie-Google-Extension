@@ -34,6 +34,7 @@ module.exports = function(dataService) {
             if(typeof scope.today_text === 'object' || typeof scope.today_text === 'undefined'){
                scope.nodata_text = "There was no activity on this day.";
                scope.showTableHead = true;
+
             }
           };
           dataService.getPastDays().then(function(result){
@@ -45,9 +46,10 @@ module.exports = function(dataService) {
               }
               if(result[1].websiteList.length > 0){
                 scope.secondDayWebsites = result[1].websiteList;
+
               }else{
-                console.log('no data here for now.');
                 scope.nodata_text = "no data here for now.";
+
               }
 
               scope.thirdDayWebsites = result[2].websiteList;

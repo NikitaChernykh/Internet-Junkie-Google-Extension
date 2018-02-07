@@ -21,20 +21,22 @@ var angular = require('angular');
     app.controller('OptionsController', require('../../app/Options/options.controller'));
     app.controller('SettingsController', require('../../app/Settings/settings.controller'));
 
+
     //directives
     app.directive('loginView', require('../../app/Login/login-view.directive'));
     app.directive('homeView', require('../../app/Home/home-view.directive'));
+    app.directive('noDataMonster', require('../../app/Home/no-data-monster.directive'));
     app.directive('settingsView', require('../../app/Settings/settings-view.directive'));
     app.directive('auth', require('../../app/Login/auth.directive'));
     app.directive('remove', require('../../app/Home/remove.directive'));
-    app.directive('monster', require('../../app/Home/monster.directive'));
+
 
     app.directive('existcheck', require('../../app/Settings/existcheck.directive'));
     app.directive('removeblk', require('../../app/Settings/removeblk.directive'));
     app.directive('footer', require('../../app/Shared/footer.directive'));
 
-    app.directive('loaddays', require('../../app/Weekdays/load-days.directive'));
-    app.directive('daysComponent', require('../../app/Weekdays/week-days-component.directive'));
+    app.directive('loadDays', require('../../app/Weekdays/load-days.directive'));
+    app.directive('weekDaysComponent', require('../../app/Weekdays/week-days-component.directive'));
 
     //constants
     app.constant('AUTH_EVENTS', require('../../app/Login/auth-events.constant'));

@@ -49,8 +49,8 @@ var bgModule = {
     checkInactiveTime: function(){
         var timeNow = moment();
         //testing line for multiple days
-        var timeInactive = moment.duration(moment(timeNow).add(2, 'days').diff(bgModule.lastActiveSince)).days();
-        // var timeInactive = moment.duration(moment(timeNow).diff(bgModule.lastActiveSince)).days();
+        //var timeInactive = moment.duration(moment(timeNow).add(2, 'days').diff(bgModule.lastActiveSince)).days();
+        var timeInactive = moment.duration(moment(timeNow).diff(bgModule.lastActiveSince)).days();
         return timeInactive;
     },
     addEmptyDays : function(days){

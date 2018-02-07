@@ -5,9 +5,9 @@
         <!-- <a ng-click="signOut()"><img class="logoffIcon" width="23" height="23" title="Sign out" src="/assets/images/icons/logoff.svg" /></a> -->
         <a ng-click="settings()"><img class="logoffIcon" width="28" height="28" title="Settings" src="/assets/images/icons/settings.svg" /></a>
     </div>
-    <monster></monster>
-    <p id="heading" ng-hide="monsterToggle()" class="past-date">{{today_text}}</p>
-    <div id="websiteList" ng-hide="monsterToggle()" >
+    <p id="heading" class="past-date">{{today_text}}</p>
+    <no-data-monster></no-data-monster>
+    <div id="websiteList" ng-hide="monsterToggle()">
         <table  cellspacing="0" cellpadding="0" style="border-collapse: collapse;" >
             <thead ng-show="showTableHead">
                 <tr>
@@ -58,7 +58,7 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody ng-show="dayBtn == 5" loaddays>
+            <tbody ng-show="dayBtn == 5" load-days>
                 <tr ng-repeat="website in firstDayWebsites" ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
                     <td>
@@ -83,7 +83,7 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody ng-show="dayBtn == 4" loaddays>
+            <tbody ng-show="dayBtn == 4" load-days>
                 <tr ng-repeat="website in secondDayWebsites" ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
                     <td>
@@ -108,7 +108,7 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody ng-show="dayBtn == 3" loaddays>
+            <tbody ng-show="dayBtn == 3" load-days>
                 <tr ng-repeat="website in thirdDayWebsites " ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
                     <td>
@@ -133,7 +133,7 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody ng-show="dayBtn == 2" loaddays>
+            <tbody ng-show="dayBtn == 2" load-days>
                 <tr ng-repeat="website in  forthDayWebsites" ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
                     <td>
@@ -158,7 +158,7 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody ng-show="dayBtn == 1" loaddays>
+            <tbody ng-show="dayBtn == 1" load-days>
                 <tr ng-repeat="website in  fifthDayWebsites" ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
                     <td>
@@ -183,7 +183,7 @@
                     </td>
                 </tr>
             </tbody>
-            <tbody ng-show="dayBtn == 0" loaddays>
+            <tbody ng-show="dayBtn == 0" load-days>
                 <tr ng-repeat="website in  sixthDayWebsites" ng-mouseleave="removeStyle={left:30+'px'}">
                     <td class="centered"><img ng-src="{{website.favIcon}}" height='20' width='20' /></td>
                     <td>
@@ -214,7 +214,6 @@
           <div class="total-visits">{{model.totalVisits}} {{visits_text}}</div>
           <div class="total-time">{{model.totalTime}} {{abbr_min}}</div>
         </div>
-        <days-component></days-component>
+        <week-days-component></week-days-component>
     </div>
-    <footer></footer>
 </div>
