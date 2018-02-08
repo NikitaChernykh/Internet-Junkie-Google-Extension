@@ -106,7 +106,7 @@ var bgModule = {
       //bgModule.lastActiveSince = bgModule.timeStamp();
       if(bgModule.lastActiveSince != null){
         if(moment(bgModule.lastActiveSince).isSame(moment(), 'day') == false){
-          nextReset = 0;
+          nextResetTime = 0;
         }
       }
 
