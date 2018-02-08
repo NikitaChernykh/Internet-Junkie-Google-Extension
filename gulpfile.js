@@ -36,8 +36,24 @@ gulp.task('browserify-bg', function () {
   }
   return bundle.bundle()
     .pipe(source(paths.scripts.filename))
-    .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
-    // .pipe(uglify({ mangle: false }))
+    .pipe(buffer())
+    .pipe(gulp.dest(paths.scripts.destination));
+});
+
+gulp.task('browserify-bg-prod', function () {
+  var bundle = browserify({
+    entries: [paths.scripts.source],
+    debug: true
+  });
+  function createErrorHandler(name) {
+    return function (err) {
+      console.error('Error from ' + name + ' in compress task', err.toString());
+    };
+  }
+  return bundle.bundle()
+    .pipe(source(paths.scripts.filename))
+    .pipe(buffer())
+    .pipe(uglify({ mangle: false }))
     .pipe(gulp.dest(paths.scripts.destination));
 });
 
@@ -48,8 +64,18 @@ gulp.task('browserify-popup', function () {
   });
   return bundle.bundle()
     .pipe(source(paths2.scripts.filename))
-    .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
-    // .pipe(uglify({ mangle: false }))
+    .pipe(buffer())
+    .pipe(gulp.dest(paths2.scripts.destination));
+});
+gulp.task('browserify-popup-prod', function () {
+  var bundle = browserify({
+    entries: [paths2.scripts.source],
+    debug: true
+  });
+  return bundle.bundle()
+    .pipe(source(paths2.scripts.filename))
+    .pipe(buffer())
+    .pipe(uglify({ mangle: false }))
     .pipe(gulp.dest(paths2.scripts.destination));
 });
 
@@ -73,6 +99,7 @@ gulp.task('scss-watcher',function(){
   gulp.watch('./app/assets/scss/*.scss',['scss']);
 });
 
-//Full build
+//run commands
 gulp.task('watch', ['watch-two','scss-watcher']);
 gulp.task('build', ['browserify-bg','browserify-popup', 'scss']);
+gulp.task('build-prod', ['browserify-bg-prod','browserify-popup-prod', 'scss']);

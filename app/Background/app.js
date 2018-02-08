@@ -25,11 +25,10 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
         }
     });
 });
-
 //Check if the tab is Updated
 chrome.tabs.onUpdated.addListener(function listener(tabId, changeInfo, tab) {
   if(tab.url != "chrome://newtab/"){
-      //check for anactive tab reloading
+      //check for inactive tab reloading
       if (tab.active) {
           //comapre if the domain is the same
           if (!tab.url.includes(bgModule.extractDomain(bgModule.globalURL))) {
@@ -53,18 +52,24 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action == "popup") {
         //get websites
         chrome.storage.local.get('websiteList', function (data) {
-          // Notify that we saved websiteList pulled
+          //TODO: add logging
         });
         //get blacklist
         chrome.storage.local.get('blackList', function (data) {
-          // Notify that blackList pulled
         });
         //get pastDays
         chrome.storage.local.get('pastDays', function (data) {
-          // Notify that pastDays pulled
         });
         //get totalVisits
         bgModule.updateTotalVisits(bgModule.websiteList);
+        var inactiveDays = bgModule.checkInactiveTime();
+        if( inactiveDays >= 1){
+            console.log("adding empty days");
+            bgModule.addEmptyDays(inactiveDays);
+        }else{
+            console.log("don't do anything");
+        }
+
     }
     if (request.action == "remove") {
         bgModule.websiteList = request.list;
@@ -86,7 +91,9 @@ chrome.windows.onFocusChanged.addListener(function(window) {
           bgModule.updateDeactivationTime(bgModule.prevTab);
         }
         bgModule.globalURL = bgModule.prevTab;
-        console.log("chrome is not active");
+        bgModule.saveData();
+        bgModule.lastActiveSince = bgModule.timeStamp();
+        console.log("chrome is not active " );
       }else {
           bgModule.inFocus = true;
           chrome.tabs.query({active: true, currentWindow: true},function(tabs){
@@ -96,7 +103,7 @@ chrome.windows.onFocusChanged.addListener(function(window) {
                 bgModule.globalURL = bgModule.extractDomain(tabs[0].url);
             }
           });
-          console.log("chrome is active");
+          console.log("chrome is active ");
       }
     });
 });

@@ -4,10 +4,8 @@ var APP_VIEWS = require('../../app/Login/app-views.constant');
 module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS) {
   'use strict';
   var websiteList = [];
-
   $scope.showTableHead = true;
   dataService.getData().then(function(result){
-    console.log(result);
     $timeout(function() {
       websiteList = result.websiteList;
 
@@ -30,11 +28,11 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
     console.log("getData error");
   });
 
-  $scope.sortOrder = "-websiteVisits";
   $scope.model = {
     totalVisits: 0,
     totalTime:0
   };
+
   //_locales text that translates
   $scope.today_text = chrome.i18n.getMessage("today_text");
   $scope.websites_label = chrome.i18n.getMessage("websites_label");
@@ -49,7 +47,9 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   $scope.abbr_sec = chrome.i18n.getMessage("abbr_sec");
   $scope.abbr_days = chrome.i18n.getMessage("abbr_days");
   $scope.abbr_hours = chrome.i18n.getMessage("abbr_hours");
+  $scope.no_activity_text = "You had no activity recorded for this day.";
 
+  $scope.sortOrder = "-websiteVisits";
   //sort & color change on order toggle
   $scope.sortToggle = function (order) {
       //track website sorting event
@@ -73,14 +73,15 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   };
 
   //sign out button
-  $scope.signOut = function(){
-      _gaq.push(['_trackEvent', 'userSignedOut']);
-      authService.signOut();
-      authService.view = APP_VIEWS.loginView;
-      $scope.$emit('view', authService.view);
-  };
+  //belongs to hidden login functionality
+  // $scope.signOut = function(){
+  //     _gaq.push(['_trackEvent', 'userSignedOut']);
+  //     authService.signOut();
+  //     authService.view = APP_VIEWS.loginView;
+  //     $scope.$emit('view', authService.view);
+  // };
 
-
+  //TODO move to week-days-component
   var today = {number: moment().format("D"), name: moment().format("ddd"), fulldate : moment(), today: true};
   $scope.today = today;
   //show day table
@@ -96,8 +97,12 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   }
   $scope.days.push(today);
 
+
   //for debugging
   window.MY_SCOPE = $scope;
+
+
+  //TODO move to directive
   //monster toggle
   $scope.monsterToggle = function () {
       if (websiteList[0] == undefined || websiteList[0].websiteVisits < 0) {
@@ -106,5 +111,11 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
       }else{
            return false;
       }
+  };
+  $scope.noActivityMonsterToggle = function(){
+    if($scope.activityMonster){
+      return true;
+    }
+    return false;
   };
 };

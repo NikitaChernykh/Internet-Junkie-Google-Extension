@@ -1,6 +1,6 @@
 module.exports = function() {
   return{
-      templateUrl: "/Home/monster.html",
+      templateUrl: "/Home/no-activity-monster.html",
       restrict: "E"
   };
 };

@@ -4,14 +4,14 @@ var bgModule = {
     pastDays : [],
     websiteList: [],
     blackList: [
-      "newtab", "google.", "chrome://",
+      "newtab", "www.google", "chrome://",
       "localhost", "chrome-extension://",
       "about:blank"],
     globalUrl: "",
     prevTab: "",
+    lastActiveSince: null,
     daysfrominstall: 0,
     inFocus: false,
-    formatedDate: moment().format('LL'),
     total:{
       "totalVisits": 0
     },
@@ -24,6 +24,7 @@ var bgModule = {
       });
     },
     resetWebsiteList: function(){
+      bgModule.websiteList = [];
       chrome.storage.local.set({'websiteList': []}, function() {
       });
     },
@@ -43,53 +44,92 @@ var bgModule = {
       }
       //TODO add total time
     },
+    timeStamp: function(){
+      return moment();
+    },
+    checkInactiveTime: function(){
+        var timeNow = moment();
+        //testing line for multiple days
+        //var inactiveDays = moment.duration(moment(timeNow).add(2, 'days').diff(bgModule.lastActiveSince)).days();
+        var inactiveDays = moment.duration(moment(timeNow).diff(bgModule.lastActiveSince)).days();
+        return inactiveDays;
+    },
+    addEmptyDays : function(days){
+      console.log("add this amount of empty days: "+days);
+      bgModule.savePastDay();
+      while (days > 0) {
+        var counter = 1;
+        bgModule.saveEmptyDay();
+        counter++;
+        days--;
+      }
+    },
+    savePastDay: function(){
+      bgModule.sortWebsiteList();
+      var pastDay = {
+            "totalVisits": bgModule.total.totalVisits,
+            "websiteList": bgModule.websiteList.slice(0, 10)
+      };
+      bgModule.pastDays.unshift(pastDay);
+      chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
+      bgModule.cleanDaysToEqualSeven();
+      bgModule.total.totalVisits = 0;
+      bgModule.resetWebsiteList();
+      bgModule.saveData();
+      console.log("day saved");
+    },
+    cleanDaysToEqualSeven: function(){
+      if(bgModule.pastDays.length > 6){
+         bgModule.pastDays.splice(-1,1);
+         chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
+      }
+    },
+    saveEmptyDay: function(){
+      var pastDay = {
+            "totalVisits": 0,
+            "websiteList": []
+      };
+      bgModule.pastDays.unshift(pastDay);
+      chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
+      bgModule.cleanDaysToEqualSeven();
+      bgModule.resetWebsiteList();
+      console.log("empty day saved!");
+    },
+    saveData: function(){
+      chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
+      });
+      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
+      });
+    },
+    sortWebsiteList: function(){
+      bgModule.websiteList = bgModule.websiteList.sort(function(a,b){
+        return b.websiteVisits - a.websiteVisits;
+      });
+    },
     resetAtMidnight: function(){
       var timeNow = moment();
       var endOfTheDay = moment().endOf('day');
-      var nextReset = moment.duration(moment(endOfTheDay).diff(timeNow));
+      var nextResetTime = moment.duration(moment(endOfTheDay).diff(timeNow)).asMilliseconds();
+      if(bgModule.lastActiveSince != null){
+        if(moment(bgModule.lastActiveSince).isSame(moment(), 'day') == false){
+          nextResetTime = 0;
+        }
+      }
+
       setTimeout(function() {
         'use strict';
-        console.log("day reset test activated");
-        bgModule.daysfrominstall++;
-        console.log("daysfrominstall "+bgModule.daysfrominstall);
-        //sort list by visits
-        //maybe saparate method
-        bgModule.websiteList = bgModule.websiteList.sort(function(a,b){
-          return b.websiteVisits - a.websiteVisits;
-        });
-        bgModule.formatedDate = moment().subtract(5, 'm').format('LL');
-        //save past day
-        //maybe saparate method
         //TODO this doubles the value if popup is open as same time
         bgModule.updateTotalVisits(bgModule.websiteList);
-        var pastDay = {
-              "date": bgModule.formatedDate,
-              "totalVisits": bgModule.total.totalVisits,
-              "websiteList": bgModule.websiteList.slice(0, 10)
-        };
-        bgModule.pastDays.unshift(pastDay);
-        //save pastdays
-        chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
-        //loop ony 7 days (7 objects)
-        //maybe saparate method
-        if(bgModule.pastDays.length > 6){
-           bgModule.pastDays.splice(-1,1);
-           chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
-        }
-        //reset values
-        //maybe saparate method
-        bgModule.total.totalVisits = 0;
-        bgModule.websiteList = [];
-        //save changes to chrome strage
+        bgModule.savePastDay();
+        bgModule.lastActiveSince = null;
         bgModule.resetAtMidnight();
-      }, nextReset.valueOf()); //nextReset nextReset.valueOf()
+      }, nextResetTime);
     },
     extractDomain: function (url){
       if (url !== undefined) {
           //vars
           var domain;
           var regex = /(\..*){2,}/;
-
           //find & remove protocol (http, ftp, etc.)
           if (url.indexOf("://") > -1) {
               domain = url.split('/')[2];
@@ -131,12 +171,7 @@ var bgModule = {
       }
       return false;
     },
-    saveData: function(){
-      chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
-      });
-      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
-      });
-    },
+
     updateDeactivationTime: function (tabURL) {
       //prevent from empty entry needs refactor leter
       if(tabURL == ""){
@@ -169,6 +204,7 @@ var bgModule = {
       }
       bgModule.saveData();
     },
+
     tabUpdatedAndActive: function (newUrl, favIcon) {
       //prevent from empty entry needs refactor leter
       //could be similar issue with favicon url
@@ -215,3 +251,7 @@ var bgModule = {
     }
 };
 module.exports = bgModule;
+
+//for web console testing
+//to call methods from the web console use window.test.[name of the method]
+//window.test = bgModule;

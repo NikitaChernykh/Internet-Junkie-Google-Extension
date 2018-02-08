@@ -1,67 +1,67 @@
+var moment = require('moment');
 module.exports = function(dataService) {
   return{
       link: function (scope){
           scope.dayClick = function(number){
             scope.dayBtn = number;
             scope.showTableHead = true;
+            scope.activityMonster = false;
             switch(number){
               case 6:
                 scope.today_text = chrome.i18n.getMessage("today_text");
+                scope.activityMonster = false;
               break;
               case 5:
-                scope.today_text = scope.firstDayWebsitesDate;
+                scope.today_text = moment().subtract(1, 'days').format('LL');
+                if(!scope.firstDayWebsites || scope.firstDayWebsites.length == 0){
+                  scope.activityMonster = true;
+                }
+                console.log();
               break;
               case 4:
-                scope.today_text = scope.secondDayWebsitesDate;
+                scope.today_text = moment().subtract(2, 'days').format('LL');
+                if(!scope.secondDayWebsites || scope.secondDayWebsites.length == 0){
+                  scope.activityMonster = true;
+                }
               break;
               case 3:
-                scope.today_text = scope.thirdDayWebsitesDate;
+                scope.today_text = moment().subtract(3, 'days').format('LL');
+                if(!scope.thirdDayWebsites || scope.thirdDayWebsites.length == 0){
+                  scope.activityMonster = true;
+                }
               break;
               case 2:
-                scope.today_text = scope.forthDayWebsitesDate;
+                scope.today_text = moment().subtract(4, 'days').format('LL');
+                if(!scope.forthDayWebsites || scope.forthDayWebsites.length == 0){
+                  scope.activityMonster = true;
+                }
               break;
               case 1:
-                scope.today_text = scope.fifthDayWebsitesDate;
+                scope.today_text = moment().subtract(5, 'days').format('LL');
+                if(!scope.fifthDayWebsites || scope.fifthDayWebsites.length == 0){
+                  scope.activityMonster = true;
+                }
                 break;
               case 0:
-                scope.today_text = scope.sixthDayWebsitesDate;
+                scope.today_text = moment().subtract(6, 'days').format('LL');
+                if(!scope.sixthDayWebsites || scope.sixthDayWebsites.length == 0){
+                  scope.activityMonster = true;
+                }
               break;
               default:
                 scope.today_text = chrome.i18n.getMessage("today_text");
+                scope.activityMonster = false;
               break;
             }
-            if(typeof scope.today_text === 'object' || typeof scope.today_text === 'undefined'){
-               scope.today_text = "";
-               scope.nodata_text = "Sorry, data is not available for this day yet.";
-               scope.showTableHead = false;
-            }
           };
-          dataService.getPastDays().then(function(result){
-              if(result[0].websiteList.length > 0){
-                scope.firstDayWebsites = result[0].websiteList;
-                scope.firstDayWebsitesDate = result[0].date;
-              }else{
-                console.log('no data here for now.');
-              }
-              if(result[1].websiteList.length > 0){
-                scope.secondDayWebsites = result[1].websiteList;
-                scope.secondDayWebsitesDate = result[1].date;
-              }else{
-                console.log('no data here for now.');
-              }
-
-              scope.thirdDayWebsites = result[2].websiteList;
-              scope.thirdDayWebsitesDate = result[2].date;
-
-              scope.forthDayWebsites = result[3].websiteList;
-              scope.forthDayWebsitesDate = result[3].date;
-
-              scope.fifthDayWebsites = result[4].websiteList;
-              scope.fifthDayWebsitesDate = result[4].date;
-
-              scope.sixthDayWebsites = result[5].websiteList;
-              scope.sixthDayWebsitesDate = result[5].date;
-        }).catch(function(error) {
+          dataService.getPastDays().then(function(data){
+              scope.firstDayWebsites = data[0].websiteList;
+              scope.secondDayWebsites = data[1].websiteList;
+              scope.thirdDayWebsites = data[2].websiteList;
+              scope.forthDayWebsites = data[3].websiteList;
+              scope.fifthDayWebsites = data[4].websiteList;
+              scope.sixthDayWebsites = data[5].websiteList;
+      }).catch(function(error) {
           console.log(error);
           return;
         });
