@@ -1,12 +1,11 @@
 /*MONSTER STYLES START*/
 
 .monsterText {
-    position: absolute;
     color: #fff;
+    position: relative;
+    /* margin: auto; */
     text-align: center;
-    left: 80px;
-    top: 270px;
-    width: 280px;
+    margin-top: 160px;
 }
 
 .container,
