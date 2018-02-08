@@ -9,7 +9,7 @@ var bgModule = {
       "about:blank"],
     globalUrl: "",
     prevTab: "",
-    lastActiveSince: "",
+    lastActiveSince: null,
     daysfrominstall: 0,
     inFocus: false,
     total:{
@@ -44,14 +44,14 @@ var bgModule = {
       //TODO add total time
     },
     timeStamp: function(){
-      return moment();
+      return moment().subtract(14, 'h');
     },
     checkInactiveTime: function(){
         var timeNow = moment();
         //testing line for multiple days
-        //var timeInactive = moment.duration(moment(timeNow).add(2, 'days').diff(bgModule.lastActiveSince)).days();
-        var timeInactive = moment.duration(moment(timeNow).diff(bgModule.lastActiveSince)).days();
-        return timeInactive;
+        //var timeInactiveDays = moment.duration(moment(timeNow).add(2, 'days').diff(bgModule.lastActiveSince)).days();
+        var inactiveDays = moment.duration(moment(timeNow).diff(bgModule.lastActiveSince)).days();
+        return inactiveDays;
     },
     addEmptyDays : function(days){
       console.log("add this amount of empty days: "+days);
@@ -101,14 +101,23 @@ var bgModule = {
     resetAtMidnight: function(){
       var timeNow = moment();
       var endOfTheDay = moment().endOf('day');
-      var nextReset = moment.duration(moment(endOfTheDay).diff(timeNow));
+      var nextResetTime = moment.duration(moment(endOfTheDay).diff(timeNow)).asMilliseconds();
+
+      //bgModule.lastActiveSince = bgModule.timeStamp();
+      if(bgModule.lastActiveSince != null){
+        if(moment(bgModule.lastActiveSince).isSame(moment(), 'day') == false){
+          nextReset = 0;
+        }
+      }
+
       setTimeout(function() {
         'use strict';
         //TODO this doubles the value if popup is open as same time
         bgModule.updateTotalVisits(bgModule.websiteList);
         bgModule.savePastDay();
+        bgModule.lastActiveSince = null;
         bgModule.resetAtMidnight();
-      }, nextReset.valueOf()); //nextReset nextReset.valueOf()
+      }, nextResetTime);
     },
     extractDomain: function (url){
       if (url !== undefined) {

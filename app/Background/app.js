@@ -65,10 +65,10 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         });
         //get totalVisits
         bgModule.updateTotalVisits(bgModule.websiteList);
-
-        if(bgModule.checkInactiveTime() >= 1){
+        var inactiveDays = bgModule.checkInactiveTime();
+        if( inactiveDays >= 1){
             console.log("adding empty days");
-            bgModule.addEmptyDays(bgModule.checkInactiveTime());
+            bgModule.addEmptyDays(inactiveDays);
         }else{
           console.log("don't do anything");
         }
