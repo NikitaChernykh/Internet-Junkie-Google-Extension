@@ -26,6 +26,7 @@ var angular = require('angular');
     app.directive('loginView', require('../../app/Login/login-view.directive'));
     app.directive('homeView', require('../../app/Home/home-view.directive'));
     app.directive('noDataMonster', require('../../app/Home/no-data-monster.directive'));
+    app.directive('noActivityMonster', require('../../app/Home/no-activity-monster.directive'));
     app.directive('settingsView', require('../../app/Settings/settings-view.directive'));
     app.directive('auth', require('../../app/Login/auth.directive'));
     app.directive('remove', require('../../app/Home/remove.directive'));

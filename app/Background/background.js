@@ -4,7 +4,7 @@ var bgModule = {
     pastDays : [],
     websiteList: [],
     blackList: [
-      "newtab", "google.", "chrome://",
+      "newtab", "www.google", "chrome://",
       "localhost", "chrome-extension://",
       "about:blank"],
     globalUrl: "",
@@ -24,6 +24,7 @@ var bgModule = {
       });
     },
     resetWebsiteList: function(){
+      bgModule.websiteList = [];
       chrome.storage.local.set({'websiteList': []}, function() {
       });
     },
@@ -44,12 +45,12 @@ var bgModule = {
       //TODO add total time
     },
     timeStamp: function(){
-      return moment().subtract(14, 'h');
+      return moment();
     },
     checkInactiveTime: function(){
         var timeNow = moment();
         //testing line for multiple days
-        //var timeInactiveDays = moment.duration(moment(timeNow).add(2, 'days').diff(bgModule.lastActiveSince)).days();
+        //var inactiveDays = moment.duration(moment(timeNow).add(2, 'days').diff(bgModule.lastActiveSince)).days();
         var inactiveDays = moment.duration(moment(timeNow).diff(bgModule.lastActiveSince)).days();
         return inactiveDays;
     },
@@ -72,9 +73,9 @@ var bgModule = {
       bgModule.pastDays.unshift(pastDay);
       chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
       bgModule.cleanDaysToEqualSeven();
-      //reset
       bgModule.total.totalVisits = 0;
-      bgModule.websiteList = [];
+      bgModule.resetWebsiteList();
+      bgModule.saveData();
       console.log("day saved");
     },
     cleanDaysToEqualSeven: function(){
@@ -91,7 +92,14 @@ var bgModule = {
       bgModule.pastDays.unshift(pastDay);
       chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
       bgModule.cleanDaysToEqualSeven();
+      bgModule.resetWebsiteList();
       console.log("empty day saved!");
+    },
+    saveData: function(){
+      chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
+      });
+      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
+      });
     },
     sortWebsiteList: function(){
       bgModule.websiteList = bgModule.websiteList.sort(function(a,b){
@@ -102,8 +110,6 @@ var bgModule = {
       var timeNow = moment();
       var endOfTheDay = moment().endOf('day');
       var nextResetTime = moment.duration(moment(endOfTheDay).diff(timeNow)).asMilliseconds();
-
-      //bgModule.lastActiveSince = bgModule.timeStamp();
       if(bgModule.lastActiveSince != null){
         if(moment(bgModule.lastActiveSince).isSame(moment(), 'day') == false){
           nextResetTime = 0;
@@ -165,12 +171,7 @@ var bgModule = {
       }
       return false;
     },
-    saveData: function(){
-      chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
-      });
-      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
-      });
-    },
+
     updateDeactivationTime: function (tabURL) {
       //prevent from empty entry needs refactor leter
       if(tabURL == ""){
@@ -250,3 +251,7 @@ var bgModule = {
     }
 };
 module.exports = bgModule;
+
+//for web console testing
+//to call methods from the web console use window.test.[name of the method]
+//window.test = bgModule;

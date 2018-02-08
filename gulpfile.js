@@ -101,5 +101,5 @@ gulp.task('scss-watcher',function(){
 
 //run commands
 gulp.task('watch', ['watch-two','scss-watcher']);
-gulp.task('build-dev', ['browserify-bg','browserify-popup', 'scss']);
+gulp.task('build', ['browserify-bg','browserify-popup', 'scss']);
 gulp.task('build-prod', ['browserify-bg-prod','browserify-popup-prod', 'scss']);
