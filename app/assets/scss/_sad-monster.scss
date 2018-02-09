@@ -7,15 +7,19 @@
 .text {
   position: absolute;
 }
-
 .monsterText {
   color: #fff;
   position: absolute;
   margin-top: 140px;
   left: 110px;
 }
+.noActivitymonsterText{
+  color: #fff;
+  position: absolute;
+  margin-top: 140px;
+  left: 130px;
+}
 .monst-wrap{
-  
   width:80px;
   height: 90px;
   position: absolute;
@@ -23,7 +27,6 @@
   top:150px;
 }
 .container {
-
   margin: auto;
   top: 90px;
   bottom: 0;
