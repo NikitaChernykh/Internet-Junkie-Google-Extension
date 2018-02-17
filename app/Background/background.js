@@ -85,6 +85,7 @@ var bgModule = {
       }
     },
     saveEmptyDay: function(){
+      bgModule.savePastDay();
       var pastDay = {
             "totalVisits": 0,
             "websiteList": []
@@ -254,4 +255,4 @@ module.exports = bgModule;
 
 //for web console testing
 //to call methods from the web console use window.test.[name of the method]
-//window.test = bgModule;
+window.test = bgModule;
