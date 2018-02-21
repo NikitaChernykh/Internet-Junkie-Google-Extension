@@ -15,11 +15,13 @@ var bgModule = {
     total:{
       "totalVisits": 0
     },
-    blackListInit: function(){
-      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {});
-      chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
+    saveData: function(){
+      chrome.storage.local.set({'blackList': bgModule.blackList});
+      chrome.storage.local.set({'pastDays': bgModule.pastDays});
+      chrome.storage.local.set({'websiteList': bgModule.websiteList});
     },
     resetBlackList: function(){
+      bgModule.blackList = [];
       chrome.storage.local.set({'blackList': []}, function() {
       });
     },
@@ -29,6 +31,7 @@ var bgModule = {
       });
     },
     resetPastDays: function(){
+      bgModule.pastDays = [];
       chrome.storage.local.set({'pastDays': []}, function() {
       });
     },
@@ -96,12 +99,7 @@ var bgModule = {
       bgModule.resetWebsiteList();
       console.log("empty day saved!");
     },
-    saveData: function(){
-      chrome.storage.local.set({'websiteList': bgModule.websiteList}, function() {
-      });
-      chrome.storage.local.set({'blackList': bgModule.blackList}, function() {
-      });
-    },
+
     sortWebsiteList: function(){
       bgModule.websiteList = bgModule.websiteList.sort(function(a,b){
         return b.websiteVisits - a.websiteVisits;

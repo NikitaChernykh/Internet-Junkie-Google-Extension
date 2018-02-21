@@ -1,18 +1,63 @@
 
-jest.dontMock("../../app/Background/background.js");
-jest.dontMock('moment');
+// jshint esversion: 6
+
+jest.unmock("../../app/Background/background.js");
+jest.unmock('moment');
 
 const bgModule = require("../../app/Background/background.js");
 const moment = require('moment');
 
+const get = jest.fn();
+const set = jest.fn();
+global.chrome = {
+  storage: {
+    local: {
+      set,
+      get
+    }
+  }
+};
+// let blackListStub = bgModule.blackList;
+// let pastDaysStub = [
+//   {day: "day1"},
+//   {day2: "day2"},
+//   {day3: "day3"}];
+// let websiteListStub = [
+//   {websiteName: "facebook.com"},
+//   {websiteName: "stackoverflow.com"},
+//   {websiteName: "github.com"}];
+
 describe("background script", () =>{
-    var chrome = {
-      storage: {
-        local: {
-          set: function() {}
-        }
-      }
-    };
+
+    it ("should save data in local storage", () => {
+      bgModule.saveData();
+      expect(chrome.storage.local.set).toHaveBeenCalledTimes(3);
+    });
+
+    it ("should reset black list in local storage", () => {
+      const spy = spyOn(chrome.storage.local, 'set');
+      blackListStub = [];
+      spy({'blackList' : blackListStub});
+      expect(spy).toHaveBeenCalledWith({'blackList' : []});
+      expect(blackListStub).toEqual(expect.arrayContaining([]));
+    });
+
+    it ("should reset website list in local storage", () => {
+      const spy = spyOn(chrome.storage.local, 'set');
+      websiteListStub = [];
+      chrome.storage.local.set({'websiteList': websiteListStub});
+      expect(spy).toHaveBeenCalledWith({'websiteList' : []});
+      expect(websiteListStub).toEqual(expect.arrayContaining([]));
+    });
+
+    it ("should reset past days in local storage", () => {
+      const spy = spyOn(chrome.storage.local, 'set');
+      pastDaysStub = [];
+      chrome.storage.local.set({'pastDays': pastDaysStub});
+      expect(spy).toHaveBeenCalledWith({'pastDays' : []});
+      expect(pastDaysStub).toEqual(expect.arrayContaining([]));
+    });
+
     it("should extract domain from a string", () => {
         const testData = {
            url_1: "https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_split",
