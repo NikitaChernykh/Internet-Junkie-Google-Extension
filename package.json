@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
-    "test-watch": "jest --watch __tests__/**/*.js"
+    "test-watch": "jest --watch __tests__/**/*.js --coverage"
   },
   "jest": {
     "verbose": true

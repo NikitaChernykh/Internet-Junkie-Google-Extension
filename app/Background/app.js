@@ -62,7 +62,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         });
         //get totalVisits
         bgModule.updateTotalVisits(bgModule.websiteList);
-        var inactiveDays = bgModule.checkInactiveTime();
+        var inactiveDays = bgModule.checkInactiveDays();
         if( inactiveDays >= 1){
             console.log("adding empty days");
             bgModule.addEmptyDays(inactiveDays);

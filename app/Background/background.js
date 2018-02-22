@@ -50,20 +50,15 @@ var bgModule = {
     timeStamp: function(){
       return moment();
     },
-    checkInactiveTime: function(){
+    checkInactiveDays: function(){
         var timeNow = moment();
-        //testing line for multiple days
-        //var inactiveDays = moment.duration(moment(timeNow).add(2, 'days').diff(bgModule.lastActiveSince)).days();
         var inactiveDays = moment.duration(moment(timeNow).diff(bgModule.lastActiveSince)).days();
         return inactiveDays;
     },
     addEmptyDays : function(days){
-      console.log("add this amount of empty days: "+days);
       bgModule.savePastDay();
       while (days > 0) {
-        var counter = 1;
         bgModule.saveEmptyDay();
-        counter++;
         days--;
       }
     },
@@ -75,29 +70,30 @@ var bgModule = {
       };
       bgModule.pastDays.unshift(pastDay);
       chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
-      bgModule.cleanDaysToEqualSeven();
+      bgModule.cleanDaysToEqualSeven(bgModule.pastDays);
       bgModule.total.totalVisits = 0;
       bgModule.resetWebsiteList();
       bgModule.saveData();
       console.log("day saved");
     },
-    cleanDaysToEqualSeven: function(){
-      if(bgModule.pastDays.length > 6){
-         bgModule.pastDays.splice(-1,1);
-         chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
+    cleanDaysToEqualSeven: function(pastDays){
+      if(pastDays.length > 6){
+         pastDays = pastDays.slice(0,6);
+         chrome.storage.local.set({'pastDays': pastDays});
+      }else {
+        bgModule.pastDays = pastDays;
       }
     },
     saveEmptyDay: function(){
-      bgModule.savePastDay();
       var pastDay = {
             "totalVisits": 0,
             "websiteList": []
       };
       bgModule.pastDays.unshift(pastDay);
       chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
-      bgModule.cleanDaysToEqualSeven();
+      bgModule.cleanDaysToEqualSeven(bgModule.pastDays);
       bgModule.resetWebsiteList();
-      console.log("empty day saved!");
+      bgModule.saveData();
     },
 
     sortWebsiteList: function(){

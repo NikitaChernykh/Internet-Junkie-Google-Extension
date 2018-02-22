@@ -9,6 +9,7 @@ const moment = require('moment');
 
 const get = jest.fn();
 const set = jest.fn();
+const expectedEmptyArray = [];
 global.chrome = {
   storage: {
     local: {
@@ -31,33 +32,71 @@ describe("background script", () =>{
 
     it ("should save data in local storage", () => {
       bgModule.saveData();
-      expect(chrome.storage.local.set).toHaveBeenCalledTimes(3);
+      expect(chrome.storage.local.set).toHaveBeenCalledWith({'blackList': bgModule.blackList});
+      expect(chrome.storage.local.set).toHaveBeenCalledWith({'pastDays': bgModule.pastDays});
+      expect(chrome.storage.local.set).toHaveBeenCalledWith({'websiteList': bgModule.websiteList});
     });
 
-    it ("should reset black list in local storage", () => {
-      const spy = spyOn(chrome.storage.local, 'set');
-      blackListStub = [];
-      spy({'blackList' : blackListStub});
-      expect(spy).toHaveBeenCalledWith({'blackList' : []});
-      expect(blackListStub).toEqual(expect.arrayContaining([]));
+    it ("should reset blacklist in local storage to empty array", () => {
+      bgModule.resetBlackList();
+      expect(bgModule.blackList).toEqual(expectedEmptyArray);
     });
 
-    it ("should reset website list in local storage", () => {
-      const spy = spyOn(chrome.storage.local, 'set');
-      websiteListStub = [];
-      chrome.storage.local.set({'websiteList': websiteListStub});
-      expect(spy).toHaveBeenCalledWith({'websiteList' : []});
-      expect(websiteListStub).toEqual(expect.arrayContaining([]));
+    it ("should reset websitelist in local storage to empty array", () => {
+      bgModule.resetWebsiteList();
+      expect(bgModule.websiteList).toEqual(expectedEmptyArray);
     });
 
-    it ("should reset past days in local storage", () => {
-      const spy = spyOn(chrome.storage.local, 'set');
-      pastDaysStub = [];
-      chrome.storage.local.set({'pastDays': pastDaysStub});
-      expect(spy).toHaveBeenCalledWith({'pastDays' : []});
-      expect(pastDaysStub).toEqual(expect.arrayContaining([]));
+    it ("should reset past days in local storage to empty array", () => {
+      bgModule.resetPastDays();
+      expect(bgModule.pastDays).toEqual(expectedEmptyArray);
     });
 
+    it ("time stamp should return today's time", () => {
+       let time = bgModule.timeStamp();
+       expect(time).toEqual(time);
+    });
+
+    it ("shpuld alwayse keep passDays length to 6", () => {
+      let pastDaysMoreThanSix = [
+        {"day":"Monday"},
+        {"day":"Tuesday"},
+        {"day":"Wednesday"},
+        {"day":"Thursday"},
+        {"day":"Saturday"},
+        {"day":"Sunday"},
+        {"day":"NewMonday"},
+        {"day":"NewTuesday"}
+        ];
+        let expectedArray = [
+          {"day":"Monday"},
+          {"day":"Tuesday"},
+          {"day":"Wednesday"},
+          {"day":"Thursday"},
+          {"day":"Saturday"},
+          {"day":"Sunday"}
+        ];
+      bgModule.cleanDaysToEqualSeven(pastDaysMoreThanSix);
+      expect(chrome.storage.local.set).toHaveBeenCalledWith({'pastDays': expectedArray});
+    });
+    it ("shpuld keep passDays same if length is less the 6", () => {
+      let pastDaysLessThanSix = [
+        {"day":"Monday"},
+        {"day":"Tuesday"},
+        {"day":"Wednesday"},
+        {"day":"Thursday"},
+        {"day":"Saturday"},
+        {"day":"Sunday"}
+        ];
+      bgModule.cleanDaysToEqualSeven(pastDaysLessThanSix);
+      expect(bgModule.pastDays).toEqual(pastDaysLessThanSix);
+    });
+
+    it ("should check the number of inactive days", () => {
+       bgModule.lastActiveSince = moment().subtract(2, 'days');
+       let numberOfDays = bgModule.checkInactiveDays();
+       expect(numberOfDays).toEqual(2);
+    });
     it("should extract domain from a string", () => {
         const testData = {
            url_1: "https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_split",
@@ -143,6 +182,14 @@ describe("background script", () =>{
             search_3_result: false
         });
     });
+    it('should add exact amount of empty days', function() {
+      const saveEmptyDaySpy = spyOn(bgModule, "saveEmptyDay");
+      const savePastDaySpy = spyOn(bgModule, "savePastDay");
+
+      bgModule.addEmptyDays(2);
+      expect(savePastDaySpy).toHaveBeenCalledTimes(1);
+      expect(saveEmptyDaySpy.calls.count()).toEqual(2);
+    });
 
     it('should save website list to storage', function() {
       spyOn(chrome.storage.local, 'set').and.callThrough();
@@ -151,9 +198,7 @@ describe("background script", () =>{
       expect(bgModule.saveWebsiteList).toHaveBeenCalledTimes(1);
     });
     it("should check if deactivation time was updated correctly", () => {
-       // var myurl = "https://open.spotify.com/search/playlists/focus";
-       // bgModule.updateDeactivationTime(myurl);
-       // expect(bgModule.updateDeactivationTime).toHaveBeenCalledTimes(1);
+
     });
     it("should check if tab was updated correctly", () => {
       var testData ={
