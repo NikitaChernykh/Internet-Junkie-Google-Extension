@@ -36,28 +36,23 @@ describe("background script", () =>{
       expect(chrome.storage.local.set).toHaveBeenCalledWith({'pastDays': bgModule.pastDays});
       expect(chrome.storage.local.set).toHaveBeenCalledWith({'websiteList': bgModule.websiteList});
     });
-
     it ("should reset blacklist in local storage to empty array", () => {
       bgModule.resetBlackList();
       expect(bgModule.blackList).toEqual(expectedEmptyArray);
     });
-
     it ("should reset websitelist in local storage to empty array", () => {
       bgModule.resetWebsiteList();
       expect(bgModule.websiteList).toEqual(expectedEmptyArray);
     });
-
     it ("should reset past days in local storage to empty array", () => {
       bgModule.resetPastDays();
       expect(bgModule.pastDays).toEqual(expectedEmptyArray);
     });
-
     it ("time stamp should return today's time", () => {
        let time = bgModule.timeStamp();
        expect(time).toEqual(time);
     });
-
-    it ("shpuld alwayse keep passDays length to 6", () => {
+    it ("should alwayse keep passDays length to 6", () => {
       let pastDaysMoreThanSix = [
         {"day":"Monday"},
         {"day":"Tuesday"},
@@ -79,7 +74,7 @@ describe("background script", () =>{
       bgModule.cleanDaysToEqualSeven(pastDaysMoreThanSix);
       expect(chrome.storage.local.set).toHaveBeenCalledWith({'pastDays': expectedArray});
     });
-    it ("shpuld keep passDays same if length is less the 6", () => {
+    it ("should keep passDays same if length is less the 6", () => {
       let pastDaysLessThanSix = [
         {"day":"Monday"},
         {"day":"Tuesday"},
@@ -91,7 +86,20 @@ describe("background script", () =>{
       bgModule.cleanDaysToEqualSeven(pastDaysLessThanSix);
       expect(bgModule.pastDays).toEqual(pastDaysLessThanSix);
     });
-
+    it ("should sort website list", () => {
+      let fakeList = [
+        {"websiteVisits": 56},
+        {"websiteVisits": 1},
+        {"websiteVisits": 23}
+      ];
+      let sortedfakeList = [
+        {"websiteVisits": 56},
+        {"websiteVisits": 23},
+        {"websiteVisits": 1}
+      ];
+      bgModule.sortWebsiteList(fakeList);
+      expect(fakeList).toEqual(sortedfakeList);
+    });
     it ("should check the number of inactive days", () => {
        bgModule.lastActiveSince = moment().subtract(2, 'days');
        let numberOfDays = bgModule.checkInactiveDays();
@@ -103,28 +111,47 @@ describe("background script", () =>{
            url_2: "www.w3schools.com/jsref/tryit.asp?filename",
            url_3: "dfsdfsdfsdfsdfsdfsdfsdfsdfsdfgsdfsdfssdgsghs",
            url_4: undefined,
-           url_5: "w3schools.com"
+           url_5: "w3schools.com",
+           url_6: "",
+           url_7: "http://projects.google.com/#/projects/active",
+           url_8: "www.blog.classroom.me.uk",
+           url_9: "http://www.example.com:8080",
+           url_10: "http://mywebsitehaswww.com"
         };
-        var expectedData = {};
-        var result1 = bgModule.extractDomain(testData.url_1);
-        var result2 = bgModule.extractDomain(testData.url_2);
-        var result3 = bgModule.extractDomain(testData.url_3);
-        var result4 = bgModule.extractDomain(testData.url_4);
-        var result5 = bgModule.extractDomain(testData.url_5);
+        let expectedData = {};
+        let result1 = bgModule.extractDomain(testData.url_1);
+        let result2 = bgModule.extractDomain(testData.url_2);
+        let result3 = bgModule.extractDomain(testData.url_3);
+        let result4 = bgModule.extractDomain(testData.url_4);
+        let result5 = bgModule.extractDomain(testData.url_5);
+        let result6 = bgModule.extractDomain(testData.url_6);
+        let result7 = bgModule.extractDomain(testData.url_7);
+        let result8 = bgModule.extractDomain(testData.url_8);
+        let result9 = bgModule.extractDomain(testData.url_9);
+        let result10 = bgModule.extractDomain(testData.url_10);
         expectedData ={
            url_1_result: result1,
            url_2_result: result2,
            url_3_result: result3,
            url_4_result: result4,
-           url_5_result: result5
+           url_5_result: result5,
+           url_6_result: result6,
+           url_7_result: result7,
+           url_8_result: result8,
+           url_9_result: result9,
+           url_10_result: result10
         };
         expect(expectedData).toEqual({
             url_1_result: "w3schools.com",
             url_2_result: "w3schools.com",
             url_3_result: "",
             url_4_result: "",
-            url_5_result: "w3schools.com"
-
+            url_5_result: "w3schools.com",
+            url_6_result: "",
+            url_7_result: "projects.google.com",
+            url_8_result: "blog.classroom.me.uk",
+            url_9_result: "example.com",
+            url_10_result: "mywebsitehaswww.com"
         });
     });
     it("should check if website exists in global website list", () => {
@@ -190,7 +217,6 @@ describe("background script", () =>{
       expect(savePastDaySpy).toHaveBeenCalledTimes(1);
       expect(saveEmptyDaySpy.calls.count()).toEqual(2);
     });
-
     it('should save website list to storage', function() {
       spyOn(chrome.storage.local, 'set').and.callThrough();
       bgModule.saveWebsiteList = jest.fn();

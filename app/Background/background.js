@@ -63,7 +63,7 @@ var bgModule = {
       }
     },
     savePastDay: function(){
-      bgModule.sortWebsiteList();
+      bgModule.sortWebsiteList(bgModule.websiteList);
       var pastDay = {
             "totalVisits": bgModule.total.totalVisits,
             "websiteList": bgModule.websiteList.slice(0, 10)
@@ -96,8 +96,8 @@ var bgModule = {
       bgModule.saveData();
     },
 
-    sortWebsiteList: function(){
-      bgModule.websiteList = bgModule.websiteList.sort(function(a,b){
+    sortWebsiteList: function(list){
+      list = list.sort(function(a,b){
         return b.websiteVisits - a.websiteVisits;
       });
     },
@@ -120,33 +120,35 @@ var bgModule = {
         bgModule.resetAtMidnight();
       }, nextResetTime);
     },
+    extractHostname: function(url) {
+
+    },
     extractDomain: function (url){
       if (url !== undefined) {
-          //vars
-          var domain;
-          var regex = /(\..*){2,}/;
-          //find & remove protocol (http, ftp, etc.)
-          if (url.indexOf("://") > -1) {
-              domain = url.split('/')[2];
-          } else {
-              domain = url.split('/')[0];
-          }
-          //find & remove port number
-          domain = domain.split(':')[0];
-          //removes everything before 1 dot - like: "www"
-          if (regex.test(domain)) {
-              domain = domain.substring(domain.indexOf(".") + 1);
-          }
-          var arr = domain.match(/[.]/gi);
-          if(arr == null){
-             return "";
-          }
-          var counter = arr.length;
-          while(counter > 1){
-              domain = domain.substr(domain.indexOf('.')+1);
-              counter--;
-          }
-          return domain;
+        var hostname;
+        //find & remove protocol (http, ftp, etc.) and get hostname
+
+        if (url.indexOf("://") > -1) {
+            hostname = url.split('/')[2];
+        }
+        else {
+            hostname = url.split('/')[0];
+        }
+        //find & remove port number
+        hostname = hostname.split(':')[0];
+        //find & remove "?"
+        hostname = hostname.split('?')[0];
+
+        //text wiput dots will not pass
+        var arr = hostname.match(/[.]/gi);
+        if(arr == null){
+           return "";
+        }
+        //removes www. from filtered urls
+        if(hostname.substring(0,4) == "www."){
+          hostname = hostname.slice(4);
+        }
+        return hostname;
       }
       return "";
     },
