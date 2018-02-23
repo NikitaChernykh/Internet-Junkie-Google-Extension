@@ -69,12 +69,11 @@ var bgModule = {
             "websiteList": bgModule.websiteList.slice(0, 10)
       };
       bgModule.pastDays.unshift(pastDay);
-      chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
+      chrome.storage.local.set({'pastDays': bgModule.pastDays});
       bgModule.cleanDaysToEqualSeven(bgModule.pastDays);
       bgModule.total.totalVisits = 0;
       bgModule.resetWebsiteList();
       bgModule.saveData();
-      console.log("day saved");
     },
     cleanDaysToEqualSeven: function(pastDays){
       if(pastDays.length > 6){
@@ -90,7 +89,7 @@ var bgModule = {
             "websiteList": []
       };
       bgModule.pastDays.unshift(pastDay);
-      chrome.storage.local.set({'pastDays': bgModule.pastDays}, function() {});
+      chrome.storage.local.set({'pastDays': bgModule.pastDays});
       bgModule.cleanDaysToEqualSeven(bgModule.pastDays);
       bgModule.resetWebsiteList();
       bgModule.saveData();
@@ -110,7 +109,6 @@ var bgModule = {
           nextResetTime = 0;
         }
       }
-
       setTimeout(function() {
         'use strict';
         //TODO this doubles the value if popup is open as same time
@@ -119,9 +117,6 @@ var bgModule = {
         bgModule.lastActiveSince = null;
         bgModule.resetAtMidnight();
       }, nextResetTime);
-    },
-    extractHostname: function(url) {
-
     },
     extractDomain: function (url){
       if (url !== undefined) {
@@ -205,7 +200,7 @@ var bgModule = {
     tabUpdatedAndActive: function (newUrl, favIcon) {
       //prevent from empty entry needs refactor leter
       //could be similar issue with favicon url
-      if(newUrl == ""){
+      if(newUrl === "" || newUrl === undefined){
         return;
       }
       //blacklist check
@@ -214,7 +209,7 @@ var bgModule = {
           var existingWebsite = bgModule.search(websiteName);
           var start = moment().format();
           //favicon check
-          if (favIcon === undefined) {
+          if (favIcon === undefined || favIcon === "") {
               favIcon = "/assets/images/default_icon.png";
           }
           if (!existingWebsite) {

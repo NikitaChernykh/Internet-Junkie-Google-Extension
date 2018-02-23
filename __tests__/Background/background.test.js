@@ -105,7 +105,7 @@ describe("background script", () =>{
        let numberOfDays = bgModule.checkInactiveDays();
        expect(numberOfDays).toEqual(2);
     });
-    it("should extract domain from a string", () => {
+    it ("should extract domain from a string", () => {
         const testData = {
            url_1: "https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_split",
            url_2: "www.w3schools.com/jsref/tryit.asp?filename",
@@ -154,7 +154,7 @@ describe("background script", () =>{
             url_10_result: "mywebsitehaswww.com"
         });
     });
-    it("should check if website exists in global website list", () => {
+    it ("should check if website exists in global website list", () => {
         const testWebsite = "facebook.dev.com";
         const testWebsiteList = [
           [],
@@ -183,7 +183,7 @@ describe("background script", () =>{
 
         });
     });
-    it("should check if website exists in blacklist", () => {
+    it ("should check if website exists in blacklist", () => {
         const testWebsite = "www.google.ca";
         const testBlacklist = [
           [],
@@ -191,14 +191,14 @@ describe("background script", () =>{
           ["newtab", "chrome://", "localhost", "chrome-extension://", "badwebsite.com"]
         ];
 
-        var results = [];
+        let results = [];
 
         for (var i = 0; i < testBlacklist.length; i++) {
           bgModule.blackList = testBlacklist[i];
           results.push(bgModule.blackListCheck(testWebsite));
         }
 
-        var expectedData ={
+        const expectedData ={
            search_1_result: results[0],
            search_2_result: results[1],
            search_3_result: results[2]
@@ -209,7 +209,7 @@ describe("background script", () =>{
             search_3_result: false
         });
     });
-    it('should add exact amount of empty days', function() {
+    it ('should add exact amount of empty days', function() {
       const saveEmptyDaySpy = spyOn(bgModule, "saveEmptyDay");
       const savePastDaySpy = spyOn(bgModule, "savePastDay");
 
@@ -217,49 +217,54 @@ describe("background script", () =>{
       expect(savePastDaySpy).toHaveBeenCalledTimes(1);
       expect(saveEmptyDaySpy.calls.count()).toEqual(2);
     });
-    it('should save website list to storage', function() {
-      spyOn(chrome.storage.local, 'set').and.callThrough();
-      bgModule.saveWebsiteList = jest.fn();
-      bgModule.saveWebsiteList();
-      expect(bgModule.saveWebsiteList).toHaveBeenCalledTimes(1);
-    });
-    it("should check if deactivation time was updated correctly", () => {
 
+    it ("should check search can find website by name", () => {
+      let result = bgModule.search('facebook.com');
+      expect(result).toEqual({"websiteName": "facebook.com"});
     });
-    it("should check if tab was updated correctly", () => {
+    it ("should check if tab was updated correctly with existing website", () => {
       var testData ={
          newUrl: "https://esj.com/articles/2012/09/24/better-unit-testing.aspx",
          favIcon: "https://scott.mn/favicon.ico"
       };
+      let websiteName = "esj.com";
 
-      const testWebsiteList = [
-         {
-           websiteName: "scott.mn",
-           favIcon: "https://scott.mn/favicon.ico",
-           websiteVisits: 5,
-           startTime: "2017-10-02T15:50:40-04:00",
-           deactivationTime: "2017-10-02T15:49:43-04:00"
-         },
-         {
-           websiteName: "stackoverflow.com",
-           favIcon: "https://scott.mn/favicon.ico",
-           websiteVisits: 5,
-           startTime: "2017-10-02T15:49:40-04:00",
-           deactivationTime: "2017-10-02T15:49:43-04:00"
-         },
-         {
-           websiteName: "esj.com",
-           favIcon: "https://scott.mn/favicon.ico",
-           websiteVisits: 5,
-           startTime: "2017-10-02T15:49:40-04:00",
-           deactivationTime: "2017-10-02T15:49:43-04:00"
-         },
-         {websiteName: "w3schools.com"}
-       ];
-      testWebsiteList[2].websiteVisits++;
-      expect(testWebsiteList[2].websiteVisits).toEqual(6);
+      bgModule.search = jest.fn();
+      bgModule.search.mockImplementation(() => ({
+        websiteName: "esj.com",
+        startTime : moment().format(),
+        websiteVisits : 55
+      }));
+      let result = bgModule.search();
+      bgModule.tabUpdatedAndActive(testData.newUrl,testData.favIcon);
+
+      expect(bgModule.extractDomain(testData.newUrl)).toEqual(websiteName);
+      expect(bgModule.search(websiteName)).toBeTruthy();
+      expect(result.websiteVisits).toEqual(55);
     });
-    it("should check reset timer at midnight", () => {
-
+    it ("should check if empty day is saved", () => {
+      bgModule.cleanDaysToEqualSeven = jest.fn();
+      bgModule.resetWebsiteList = jest.fn();
+      bgModule.saveData = jest.fn();
+      bgModule.saveEmptyDay();
+      expect(bgModule.pastDays[0]).toEqual({"totalVisits": 0, "websiteList": []});
+      expect(bgModule.cleanDaysToEqualSeven).toHaveBeenCalledWith(bgModule.pastDays);
+      expect(bgModule.resetWebsiteList).toHaveBeenCalledTimes(1);
+      expect(bgModule.saveData).toHaveBeenCalledTimes(1);
+      expect(chrome.storage.local.set).toHaveBeenCalledWith({'pastDays': bgModule.pastDays});
+    });
+    it ("should check if past day is saved", () => {
+      bgModule.sortWebsiteList = jest.fn();
+      bgModule.cleanDaysToEqualSeven = jest.fn();
+      bgModule.resetWebsiteList = jest.fn();
+      bgModule.saveData = jest.fn();
+      bgModule.savePastDay();
+      expect(bgModule.total.totalVisits).toEqual(0);
+      expect(bgModule.sortWebsiteList).toHaveBeenCalledTimes(1);
+      expect(bgModule.pastDays[0]).toEqual({"totalVisits": bgModule.total.totalVisits, "websiteList": bgModule.websiteList.slice(0, 10)});
+      expect(bgModule.cleanDaysToEqualSeven).toHaveBeenCalledWith(bgModule.pastDays);
+      expect(bgModule.resetWebsiteList).toHaveBeenCalledTimes(1);
+      expect(bgModule.saveData).toHaveBeenCalledTimes(1);
+      expect(chrome.storage.local.set).toHaveBeenCalledWith({'pastDays': bgModule.pastDays});
     });
 });

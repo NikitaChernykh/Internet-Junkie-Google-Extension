@@ -47,7 +47,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   $scope.abbr_sec = chrome.i18n.getMessage("abbr_sec");
   $scope.abbr_days = chrome.i18n.getMessage("abbr_days");
   $scope.abbr_hours = chrome.i18n.getMessage("abbr_hours");
-  $scope.no_activity_text = "You had no activity recorded for this day.";
+  $scope.no_activity_text = "You have no activity recorded for this day.";
 
   $scope.sortOrder = "-websiteVisits";
   //sort & color change on order toggle
