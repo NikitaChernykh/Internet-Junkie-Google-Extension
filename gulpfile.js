@@ -1,5 +1,6 @@
 var gulp       = require('gulp');
 var sass       = require('gulp-sass');
+var clean      = require('gulp-clean');
 var browserify = require('browserify');
 var source     = require('vinyl-source-stream');
 var csso       = require('gulp-csso');
@@ -97,6 +98,25 @@ gulp.task('scss', function () {
 
 gulp.task('scss-watcher',function(){
   gulp.watch('./app/assets/scss/*.scss',['scss']);
+});
+
+
+//prod dist folder tasks
+var paths3 = {
+ manifest:['app/manifest.json'],
+ app:['app/*/**'],
+ dist: 'dist/'
+};
+
+// Delete the dist directory
+gulp.task('clean', function() {
+ return gulp.src(paths3.dist)
+ .pipe(clean());
+});
+//create dist
+gulp.task('default', function(){
+ gulp.src(paths3.app.concat(paths3.manifest))
+ .pipe(gulp.dest(paths3.dist));
 });
 
 //run commands
