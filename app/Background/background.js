@@ -1,5 +1,5 @@
 
-var moment = require('moment');
+var moment = require('moment-timezone');
 var bgModule = {
     pastDays : [],
     websiteList: [],
@@ -48,12 +48,17 @@ var bgModule = {
       //TODO add total time
     },
     timeStamp: function(){
-      return moment();
+      return moment().format("YYYY-MM-DD HH:mm");
     },
-    checkInactiveDays: function(){
-        var timeNow = moment();
-        var inactiveDays = moment.duration(moment(timeNow).diff(bgModule.lastActiveSince)).days();
-        return inactiveDays;
+    checkInactiveDays: function(lastActive){
+        var inactiveDays = 0;
+        if(lastActive === null){
+          return inactiveDays;
+        }else{
+          var timeNow = moment();
+          inactiveDays = moment.duration(moment(timeNow).diff(lastActive.format("YYYY-MM-DD HH:mm"))).days();
+          return inactiveDays;
+        }
     },
     addEmptyDays : function(days){
       bgModule.savePastDay();
@@ -94,7 +99,6 @@ var bgModule = {
       bgModule.resetWebsiteList();
       bgModule.saveData();
     },
-
     sortWebsiteList: function(list){
       list = list.sort(function(a,b){
         return b.websiteVisits - a.websiteVisits;
@@ -105,7 +109,7 @@ var bgModule = {
       var endOfTheDay = moment().endOf('day');
       var nextResetTime = moment.duration(moment(endOfTheDay).diff(timeNow)).asMilliseconds();
       if(bgModule.lastActiveSince != null){
-        if(moment(bgModule.lastActiveSince).isSame(moment(), 'day') == false){
+        if(moment(bgModule.lastActiveSince.format("YYYY-MM-DD HH:mm")).isSame(moment(), 'day') == false){
           nextResetTime = 0;
         }
       }

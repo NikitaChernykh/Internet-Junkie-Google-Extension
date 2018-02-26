@@ -62,7 +62,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         });
         //get totalVisits
         bgModule.updateTotalVisits(bgModule.websiteList);
-        var inactiveDays = bgModule.checkInactiveDays();
+        var inactiveDays = bgModule.checkInactiveDays(bgModule.lastActiveSince);
         if( inactiveDays >= 1){
             console.log("adding empty days");
             bgModule.addEmptyDays(inactiveDays);
@@ -93,6 +93,7 @@ chrome.windows.onFocusChanged.addListener(function(window) {
         bgModule.globalURL = bgModule.prevTab;
         bgModule.saveData();
         bgModule.lastActiveSince = bgModule.timeStamp();
+        console.log(bgModule.lastActiveSince);
         console.log("chrome is not active " );
       }else {
           bgModule.inFocus = true;

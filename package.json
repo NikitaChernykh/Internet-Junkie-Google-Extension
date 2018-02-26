@@ -40,6 +40,7 @@
   "dependencies": {
     "angular": "~1.5.3",
     "angular-messages": "~1.5.3",
-    "moment": "^2.19.2"
+    "moment": "^2.19.2",
+    "moment-timezone": "^0.5.14"
   }
 }
