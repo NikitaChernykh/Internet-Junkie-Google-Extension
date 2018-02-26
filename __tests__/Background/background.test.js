@@ -272,8 +272,8 @@ describe("background script", () =>{
       expect(chrome.storage.local.set).toHaveBeenCalledWith({'pastDays': bgModule.pastDays});
     });
     it ("should check if timer resets at midnight", () => {
-        const timeNow = moment();
-        const endOfTheDay = moment().endOf('day');
+        let timeNow = moment();
+        let endOfTheDay = moment().endOf('day');
         let nextResetTime = moment.duration(moment(endOfTheDay).diff(timeNow)).asMilliseconds();
         if(bgModule.lastActiveSince != null){
           if(moment(bgModule.lastActiveSince).isSame(moment(), 'day') == false){

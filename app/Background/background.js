@@ -4,7 +4,7 @@ var bgModule = {
     pastDays : [],
     websiteList: [],
     blackList: [
-      "newtab", "www.google", "chrome://",
+      "newtab","chrome://",
       "localhost", "chrome-extension://",
       "about:blank"],
     globalUrl: "",
@@ -56,7 +56,7 @@ var bgModule = {
           return inactiveDays;
         }else{
           var timeNow = moment();
-          inactiveDays = moment.duration(moment(timeNow).diff(lastActive.format("YYYY-MM-DD HH:mm"))).days();
+          inactiveDays = moment.duration(moment(timeNow).diff(lastActive)).days();
           return inactiveDays;
         }
     },
@@ -104,14 +104,17 @@ var bgModule = {
         return b.websiteVisits - a.websiteVisits;
       });
     },
-    resetAtMidnight: function(){
+    resetAtMidnight: function(val){
       var timeNow = moment();
       var endOfTheDay = moment().endOf('day');
       var nextResetTime = moment.duration(moment(endOfTheDay).diff(timeNow)).asMilliseconds();
       if(bgModule.lastActiveSince != null){
-        if(moment(bgModule.lastActiveSince.format("YYYY-MM-DD HH:mm")).isSame(moment(), 'day') == false){
+        if(moment(bgModule.lastActiveSince).isSame(moment(), 'day') == false){
           nextResetTime = 0;
         }
+      }
+      if(val){
+        nextResetTime = 0;
       }
       setTimeout(function() {
         'use strict';
@@ -167,7 +170,6 @@ var bgModule = {
       }
       return false;
     },
-
     updateDeactivationTime: function (tabURL) {
       //prevent from empty entry needs refactor leter
       if(tabURL == ""){
@@ -200,7 +202,6 @@ var bgModule = {
       }
       bgModule.saveData();
     },
-
     tabUpdatedAndActive: function (newUrl, favIcon) {
       //prevent from empty entry needs refactor leter
       //could be similar issue with favicon url
