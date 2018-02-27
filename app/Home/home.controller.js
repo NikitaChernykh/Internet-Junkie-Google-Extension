@@ -5,12 +5,12 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   'use strict';
   var websiteList = [];
   $scope.showTableHead = true;
+
   dataService.getData().then(function(result){
     $timeout(function() {
       websiteList = result.websiteList;
 
       $scope.websites = websiteList;
-
       if($scope.websites.length>10){
         for(var i = 0; i < 10; i++){
             $scope.model.totalVisits += $scope.websites[i].websiteVisits;
@@ -22,7 +22,6 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
             $scope.model.totalTime += $scope.websites[f].formatedTime.min+($scope.websites[f].formatedTime.hours*60)+(($scope.websites[f].formatedTime.days*24)*60);
         }
       }
-
     });
   }).catch(function () {
     console.log("getData error");

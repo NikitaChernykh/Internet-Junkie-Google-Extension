@@ -19,16 +19,6 @@ global.chrome = {
     }
   }
 };
-// let blackListStub = bgModule.blackList;
-// let pastDaysStub = [
-//   {day: "day1"},
-//   {day2: "day2"},
-//   {day3: "day3"}];
-// let websiteListStub = [
-//   {websiteName: "facebook.com"},
-//   {websiteName: "stackoverflow.com"},
-//   {websiteName: "github.com"}];
-
 describe("background script", () =>{
     it ("should save data in local storage", () => {
       bgModule.saveData();
