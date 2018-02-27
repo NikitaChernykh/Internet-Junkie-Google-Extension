@@ -271,34 +271,30 @@ describe("background script", () =>{
       expect(bgModule.saveData).toHaveBeenCalledTimes(1);
       expect(chrome.storage.local.set).toHaveBeenCalledWith({'pastDays': bgModule.pastDays});
     });
-    it ("should check if timer resets at midnight", () => {
-        let timeNow = moment();
-        let endOfTheDay = moment().endOf('day');
-        let nextResetTime = moment.duration(moment(endOfTheDay).diff(timeNow)).asMilliseconds();
-        if(bgModule.lastActiveSince != null){
-          if(moment(bgModule.lastActiveSince).isSame(moment(), 'day') == false){
-            nextResetTime = 0;
-          }
-        }
-        bgModule.lastActiveSince = moment().subtract(15, 'm');
-        bgModule.resetAtMidnight();
-        expect(bgModule.lastActiveSince.format("YYYY-MM-DD HH:mm")).toEqual(bgModule.lastActiveSince.format("YYYY-MM-DD HH:mm"));
-        expect(setTimeout).toHaveBeenCalledTimes(1);
-        expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), nextResetTime);
+    it ("should get the reset time", () => {
+      var timeNow = moment();
+      var endOfTheDay = moment().endOf('day');
+      var nextResetTime = moment.duration(moment(endOfTheDay).diff(timeNow)).asMilliseconds();
+      expect(bgModule.getResetTime(bgModule.lastActiveSince)).toBeLessThanOrEqual(nextResetTime);
     });
-    it ("should resets at midnight even with lastActiveSince as null", () => {
-        bgModule.lastActiveSince = null;
-        let timeNow = moment();
-        let endOfTheDay = moment().endOf('day');
-        let nextResetTime = moment.duration(moment(endOfTheDay).diff(timeNow)).asMilliseconds();
-        if(bgModule.lastActiveSince != null){
-          if(moment(bgModule.lastActiveSince.format("YYYY-MM-DD HH:mm")).isSame(moment(), 'day') == false){
-            nextResetTime = 0;
-          }
-        }
-        bgModule.resetAtMidnight();
-        expect(bgModule.lastActiveSince).toEqual(null);
-        expect(setTimeout).toHaveBeenCalledTimes(2);
-        expect(setTimeout).toBeCalledWith(expect.any(Function), nextResetTime);
+    it ("should return 0 when lastActiveSince is in the past day", () => {
+      let lastActive = bgModule.lastActiveSince;
+      lastActive = moment().subtract(24, 'h');
+      expect(bgModule.getResetTime(lastActive)).toEqual(0);
     });
+    it ("should reset timer", () => {
+      const spy = spyOn(bgModule, 'setDaylyTimer');
+      let timeout = bgModule.myTimer;
+      bgModule.resetTimer();
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(timeout).toEqual(timeout++);
+    });
+    it ("should set dayly timer", () => {
+      bgModule.setDaylyTimer();
+      const setDaylyTimerSpy = spyOn(bgModule, 'setDaylyTimer');
+      jest.runOnlyPendingTimers();
+      expect(setDaylyTimerSpy).toHaveBeenCalledTimes(1);
+      expect(setTimeout).toHaveBeenCalledTimes(1);
+    });
+
 });

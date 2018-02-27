@@ -10,6 +10,7 @@ var bgModule = {
     globalUrl: "",
     prevTab: "",
     lastActiveSince: null,
+    myTimer: 0,
     daysfrominstall: 0,
     inFocus: false,
     total:{
@@ -104,26 +105,31 @@ var bgModule = {
         return b.websiteVisits - a.websiteVisits;
       });
     },
-    resetAtMidnight: function(val){
+    getResetTime: function(lastActive){
       var timeNow = moment();
       var endOfTheDay = moment().endOf('day');
       var nextResetTime = moment.duration(moment(endOfTheDay).diff(timeNow)).asMilliseconds();
-      if(bgModule.lastActiveSince != null){
-        if(moment(bgModule.lastActiveSince).isSame(moment(), 'day') == false){
+      if(lastActive != null){
+        if(moment(lastActive).isSame(moment(), 'day') == false){
           nextResetTime = 0;
         }
       }
-      if(val){
-        nextResetTime = 0;
-      }
-      setTimeout(function() {
+      return nextResetTime;
+    },
+    setDaylyTimer: function(){
+      var resetTime = bgModule.getResetTime(bgModule.lastActiveSince);
+      bgModule.myTimer = setTimeout(function() {
         'use strict';
         //TODO this doubles the value if popup is open as same time
         bgModule.updateTotalVisits(bgModule.websiteList);
         bgModule.savePastDay();
-        bgModule.lastActiveSince = null;
-        bgModule.resetAtMidnight();
-      }, nextResetTime);
+        bgModule.lastActiveSince = bgModule.timeStamp();
+        bgModule.setDaylyTimer();
+      }, resetTime);
+    },
+    resetTimer: function (){
+      clearTimeout(bgModule.myTimer);
+      bgModule.setDaylyTimer();
     },
     extractDomain: function (url){
       if (url !== undefined) {

@@ -1,7 +1,7 @@
 var bgModule = require('../../app/Background/background.js');
-
+var moment = require('moment-timezone');
 //reset for arrays on app reload
-bgModule.resetAtMidnight();
+bgModule.setDaylyTimer();
 bgModule.resetPastDays();
 // bgModule.resetWebsiteList();
 chrome.tabs.onActivated.addListener(function (activeInfo) {
@@ -69,7 +69,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         }else{
             console.log("don't do anything");
         }
-
+        bgModule.resetTimer();
+        console.log(moment.utc(bgModule.getResetTime(bgModule.lastActiveSince)).format('HH:mm:ss'));
     }
     if (request.action == "remove") {
         bgModule.websiteList = request.list;
