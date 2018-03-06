@@ -31,6 +31,10 @@ var bgModule = {
       chrome.storage.local.set({'websiteList': []}, function() {
       });
     },
+    changelastActiveTime: function(hours){
+      var now = moment();
+      bgModule.lastActiveSince = now.subtract(hours, 'h');
+    },
     resetPastDays: function(){
       bgModule.pastDays = [];
       chrome.storage.local.set({'pastDays': []}, function() {
@@ -52,14 +56,37 @@ var bgModule = {
       return moment().format("YYYY-MM-DD HH:mm");
     },
     checkInactiveDays: function(lastActive){
+      console.log("metod runs");
+      console.log(lastActive);
         var inactiveDays = 0;
         if(lastActive === null){
-          return inactiveDays;
+          return;
         }else{
-          var timeNow = moment();
-          inactiveDays = moment.duration(moment(timeNow).diff(lastActive)).days();
-          return inactiveDays;
+          if(moment(lastActive).isSame(moment(), 'day') == false){
+            console.log("lastActive not the same day as today");
+            console.log(lastActive);
+            //if yesteday
+            if(lastActive.date() === moment().add(-1, 'days').date()){
+              console.log("last active was yestedsy");
+              //savePastDay
+              bgModule.savePastDay();
+              bgModule.lastActiveSince = null;
+            }else{
+              console.log("last active was NOT yestedsy");
+              var startOfDay = moment().startOf('day');
+              inactiveDays = moment.duration(moment(startOfDay).diff(lastActive)).days();
+              if( inactiveDays >= 1){
+                  console.log("adding empty days");
+                  bgModule.addEmptyDays(inactiveDays);
+                  bgModule.lastActiveSince = null;
+              }else{
+                  console.log("don't do anything 2");
+              }
+            }
+          }else{
+            return;
         }
+      }
     },
     addEmptyDays : function(days){
       bgModule.savePastDay();
@@ -75,18 +102,15 @@ var bgModule = {
             "websiteList": bgModule.websiteList.slice(0, 10)
       };
       bgModule.pastDays.unshift(pastDay);
-      chrome.storage.local.set({'pastDays': bgModule.pastDays});
       bgModule.cleanDaysToEqualSeven(bgModule.pastDays);
+      chrome.storage.local.set({'pastDays': bgModule.pastDays});
       bgModule.total.totalVisits = 0;
       bgModule.resetWebsiteList();
       bgModule.saveData();
     },
     cleanDaysToEqualSeven: function(pastDays){
       if(pastDays.length > 6){
-         pastDays = pastDays.slice(0,6);
-         chrome.storage.local.set({'pastDays': pastDays});
-      }else {
-        bgModule.pastDays = pastDays;
+         bgModule.pastDays = pastDays.slice(0,6);
       }
     },
     saveEmptyDay: function(){
@@ -95,8 +119,8 @@ var bgModule = {
             "websiteList": []
       };
       bgModule.pastDays.unshift(pastDay);
-      chrome.storage.local.set({'pastDays': bgModule.pastDays});
       bgModule.cleanDaysToEqualSeven(bgModule.pastDays);
+      chrome.storage.local.set({'pastDays': bgModule.pastDays});
       bgModule.resetWebsiteList();
       bgModule.saveData();
     },

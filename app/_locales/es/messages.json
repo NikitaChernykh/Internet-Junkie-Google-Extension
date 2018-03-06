@@ -52,12 +52,12 @@
         "description": "Settings title."
     },
     "settings_del":{
-        "message": "Eliminar todos los sitios web:",
-        "description": "Clear the site list."
+        "message": "Restablecer las estadísticas de hoy:",
+        "description": "Reset today's site list."
     },
     "settings_btn_clear":{
-        "message": "Limpiar todo",
-        "description": "Clear btn text."
+        "message": "Reiniciar",
+        "description": "Reset btn text."
     },
     "settings_add_blacklist":{
         "message": "Agregar sitio web a la lista negra:",

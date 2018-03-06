@@ -52,12 +52,12 @@
         "description": "Settings title."
     },
     "settings_del":{
-        "message": "Очистить список сайтов:",
-        "description": "Clear the site list."
+        "message": "Очистить статистику за сегодня:",
+        "description": "Reset today's site list."
     },
     "settings_btn_clear":{
-        "message": "Стереть все",
-        "description": "Clear btn text."
+        "message": "Очистить",
+        "description": "Reset btn text."
     },
     "settings_add_blacklist":{
         "message": "Добавить сайт в черный список:",

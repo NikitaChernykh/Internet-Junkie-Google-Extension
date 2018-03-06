@@ -1,9 +1,8 @@
 var bgModule = require('../../app/Background/background.js');
 var moment = require('moment-timezone');
-//reset for arrays on app reload
+
 bgModule.setDaylyTimer();
-bgModule.resetPastDays();
-// bgModule.resetWebsiteList();
+//bgModule.resetPastDays();
 chrome.tabs.onActivated.addListener(function (activeInfo) {
     chrome.tabs.query({active: true, currentWindow: true},function(tabs){
         if(typeof bgModule.prevTab == "undefined"){
@@ -62,13 +61,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         });
         //get totalVisits
         bgModule.updateTotalVisits(bgModule.websiteList);
-        var inactiveDays = bgModule.checkInactiveDays(bgModule.lastActiveSince);
-        if( inactiveDays >= 1){
-            console.log("adding empty days");
-            bgModule.addEmptyDays(inactiveDays);
-        }else{
-            console.log("don't do anything");
-        }
+        bgModule.checkInactiveDays(bgModule.lastActiveSince);
         bgModule.resetTimer();
         console.log(moment.utc(bgModule.getResetTime(bgModule.lastActiveSince)).format('HH:mm:ss'));
     }
@@ -93,9 +86,12 @@ chrome.windows.onFocusChanged.addListener(function(window) {
         }
         bgModule.globalURL = bgModule.prevTab;
         bgModule.saveData();
-        bgModule.lastActiveSince = bgModule.timeStamp();
         console.log(bgModule.lastActiveSince);
         console.log("chrome is not active " );
+        bgModule.updateTotalVisits(bgModule.websiteList);
+        bgModule.checkInactiveDays(bgModule.lastActiveSince);
+        bgModule.resetTimer();
+        bgModule.lastActiveSince = bgModule.timeStamp();
       }else {
           bgModule.inFocus = true;
           chrome.tabs.query({active: true, currentWindow: true},function(tabs){
@@ -106,6 +102,11 @@ chrome.windows.onFocusChanged.addListener(function(window) {
             }
           });
           console.log("chrome is active ");
+          console.log(bgModule.lastActiveSince);
+          //get totalVisits
+          bgModule.updateTotalVisits(bgModule.websiteList);
+          bgModule.checkInactiveDays(bgModule.lastActiveSince);
+          bgModule.resetTimer();
       }
     });
 });
