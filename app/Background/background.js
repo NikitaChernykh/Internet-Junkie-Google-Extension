@@ -56,17 +56,15 @@ var bgModule = {
       return moment().format("YYYY-MM-DD HH:mm");
     },
     checkInactiveDays: function(lastActive){
-      console.log("metod runs");
-      console.log(lastActive);
         var inactiveDays = 0;
-        if(lastActive === null){
+        if(lastActive === null && isNaN(moment(lastActive).date())){
           return;
         }else{
           if(moment(lastActive).isSame(moment(), 'day') == false){
             console.log("lastActive not the same day as today");
             console.log(lastActive);
             //if yesteday
-            if(lastActive.date() === moment().add(-1, 'days').date()){
+            if(moment(lastActive).date() === moment().add(-1, 'days').date()){
               console.log("last active was yestedsy");
               //savePastDay
               bgModule.savePastDay();

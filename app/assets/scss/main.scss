@@ -149,11 +149,10 @@ img {
     display: inline-block;
 }
 .visitsLabel{
-    padding-bottom: 2px;
     border-collapse: collapse;
     border-bottom:1px solid #22d8ff;
     position: relative;
-    padding-right: 5px;
+    padding: 0 20px 2px 20px;
 }
 
 .visitsLabel .circle {
@@ -190,7 +189,6 @@ img {
     height: 30px;
     line-height: 30px;
     padding-left: 15px;
-    width:130px;
 }
 
 .inline{
@@ -265,7 +263,7 @@ img {
 .week-menu-container{
     position: absolute;
     left: 20px;
-    top: 365px;
+    top: 360px;
     width: 269px;
     padding-left: 60px;
 }

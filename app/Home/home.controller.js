@@ -70,7 +70,12 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
     authService.view = APP_VIEWS.settingsView;
     $scope.$emit('view', authService.view);
   };
-
+  $scope.websiteName = function(name){
+    if(name.length >= 32){
+      name = name.slice(0,32)+'(...)';
+    }
+    return name;
+  };
   //sign out button
   //belongs to hidden login functionality
   // $scope.signOut = function(){

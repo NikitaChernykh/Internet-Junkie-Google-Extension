@@ -1,11 +1,16 @@
-.footer {
-    height: 25px;
-    left: 0;
-    bottom: 0;
-    padding-left: 5px;
-    position: fixed;
-    margin-bottom: 2px;
-    p{
-      font-size: 0.8em;
-    }
+
+footer{
+  bottom: 0;
+  position: fixed;
+  font-size: 0.8em;
+  width: inherit;
+  .footer--copyright, .footer--version {
+    margin-bottom: 3px;
+  }
+  .footer--copyright {
+    float: left;
+  }
+  .footer--version {
+    float: right;
+  }
 }
