@@ -7,7 +7,9 @@
 @import '_login';
 @import '_footer';
 @import '_settings';
+@import '_week-days-component';
 @import '_snow';
+
 
 html {
     outline: 1px solid red;
@@ -259,79 +261,3 @@ img {
 .notActive{
      left:30px;
 }
-
-/*WEEK-START END*/
-.week-menu-container{
-    position: absolute;
-    left: 20px;
-    top: 360px;
-    width: 269px;
-    padding-left: 60px;
-}
-.days-container{
-     display: inline;
-}
-.week-menu-container p {
-    margin-bottom: 5px;
-    text-align: center;
-}
-.day-of-the-week{
-    height: inherit;
-    display: inline-block;
-    cursor: pointer;
-}
-.dayCircle{
-    margin-left: 2px;
-    margin-right: 2px;
-    border-radius: 50%;
-	  width: 30px;
-    height: 30px;
-    border: 1px white solid;
-    text-align: center;
-    line-height: 30px;
-    background-color: $light-blue;
-}
-.activeDay{
-    border: 1px $red-monster solid;
-    box-shadow: 0px 0px 8px 2px rgba(222, 63, 83, .75);
-}
-.dayCircle2{
-    margin-left: 2px;
-    margin-right: 2px;
-    border-radius: 50%;
-	  width: 30px;
-    height: 30px;
-    border: 1px white solid;
-    text-align: center;
-    line-height: 30px;
-    border: 1px $red-monster solid;
-    box-shadow: 0px 0px 8px 2px rgba(222, 63, 83, .75);
-}
-.day-name{
-    margin-top: 5px;
-    text-align: center;
-    text-transform: uppercase;
-}
-
-.dayCircle:hover{
-    border: 1px $red-monster solid;
-    box-shadow: 0px 0px 8px 2px rgba(222, 63, 83, .75);
-}
-
-.dayCircleToday{
-  margin-left: 2px;
-  margin-right: 2px;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  border: 1px white solid;
-  text-align: center;
-  line-height: 30px;
-  background-color: $light-blue;
-  border: 1px $acid-green solid;
-  box-shadow: 0px 0px 8px 2px rgba(145, 255, 143, .75);
-}
-.past-date{
-  text-align: center;
-}
-/*WEEK-MENU END*/
