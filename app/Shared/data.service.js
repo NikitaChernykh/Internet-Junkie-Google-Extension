@@ -61,6 +61,7 @@ module.exports = function($q) {
       });
   };
   getTotalVisits();
+  
   return {
     getPastDays : getPastDays,
     getData : getData

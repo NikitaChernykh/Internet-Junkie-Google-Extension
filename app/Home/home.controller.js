@@ -1,4 +1,4 @@
-var moment = require('moment');
+var moment = require('moment-timezone');
 
 var APP_VIEWS = require('../../app/Login/app-views.constant');
 module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS) {
