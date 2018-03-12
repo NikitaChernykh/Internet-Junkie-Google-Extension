@@ -22,6 +22,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
             $scope.model.totalTime += $scope.websites[f].formatedTime.min+($scope.websites[f].formatedTime.hours*60)+(($scope.websites[f].formatedTime.days*24)*60);
         }
       }
+      $scope.model.totalTime = moment($scope.model.totalTime,'minutes').format("HH:mm:SS");
     });
   }).catch(function () {
     console.log("getData error");
