@@ -14,15 +14,21 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
       if($scope.websites.length>10){
         for(var i = 0; i < 10; i++){
             $scope.model.totalVisits += $scope.websites[i].websiteVisits;
-            $scope.model.totalTime += $scope.websites[i].formatedTime.min+($scope.websites[i].formatedTime.hours*60)+(($scope.websites[i].formatedTime.days*24)*60);
+            $scope.model.totalTime.min += $scope.websites[i].formatedTime.min;
+            $scope.model.totalTime.sec += $scope.websites[i].formatedTime.sec;
+            $scope.model.totalTime.hours += $scope.websites[i].formatedTime.hours;
+            $scope.model.totalTime.days += $scope.websites[i].formatedTime.days;
         }
       }else{
         for(var f = 0; f < $scope.websites.length; f++){
             $scope.model.totalVisits += $scope.websites[f].websiteVisits;
-            $scope.model.totalTime += $scope.websites[f].formatedTime.min+($scope.websites[f].formatedTime.hours*60)+(($scope.websites[f].formatedTime.days*24)*60);
+            $scope.model.totalTime.min += $scope.websites[f].formatedTime.min;
+            $scope.model.totalTime.sec += $scope.websites[f].formatedTime.sec;
+            $scope.model.totalTime.hours += $scope.websites[f].formatedTime.hours;
+            $scope.model.totalTime.days += $scope.websites[f].formatedTime.days;
         }
       }
-      $scope.model.totalTime = moment($scope.model.totalTime,'minutes').format("HH:mm:SS");
+      //$scope.model.totalTime = moment($scope.model.totalTime,'minutes').format("HH:mm:SS");
     });
   }).catch(function () {
     console.log("getData error");
@@ -30,7 +36,12 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
 
   $scope.model = {
     totalVisits: 0,
-    totalTime:0
+    totalTime: {
+      sec:0,
+      min: 0,
+      hours:0,
+      days:0
+    }
   };
 
   //_locales text that translates
