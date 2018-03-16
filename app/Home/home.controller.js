@@ -11,21 +11,13 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
       websiteList = result.websiteList;
 
       $scope.websites = websiteList;
-      if($scope.websites.length>10){
-        for(var i = 0; i < 10; i++){
-            $scope.model.totalVisits += $scope.websites[i].websiteVisits;
-            $scope.model.totalTime.min += $scope.websites[i].formatedTime.min;
-            $scope.model.totalTime.sec += $scope.websites[i].formatedTime.sec;
-            $scope.model.totalTime.hours += $scope.websites[i].formatedTime.hours;
-            $scope.model.totalTime.days += $scope.websites[i].formatedTime.days;
-        }
-      }else{
-        for(var f = 0; f < $scope.websites.length; f++){
-            $scope.model.totalVisits += $scope.websites[f].websiteVisits;
-            $scope.model.totalTime.min += $scope.websites[f].formatedTime.min;
-            $scope.model.totalTime.sec += $scope.websites[f].formatedTime.sec;
-            $scope.model.totalTime.hours += $scope.websites[f].formatedTime.hours;
-            $scope.model.totalTime.days += $scope.websites[f].formatedTime.days;
+      for(var f = 0; f < $scope.websites.length; f++){
+        if(f < 10){
+          $scope.model.totalVisits += $scope.websites[f].websiteVisits;
+          $scope.model.totalTime.min += $scope.websites[f].formatedTime.min;
+          $scope.model.totalTime.sec += $scope.websites[f].formatedTime.sec;
+          $scope.model.totalTime.hours += $scope.websites[f].formatedTime.hours;
+          $scope.model.totalTime.days += $scope.websites[f].formatedTime.days;
         }
       }
       //$scope.model.totalTime = moment($scope.model.totalTime,'minutes').format("HH:mm:SS");
