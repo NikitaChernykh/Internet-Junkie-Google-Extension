@@ -16,6 +16,9 @@ var bgModule = {
     total:{
       "totalVisits": 0
     },
+    /**
+    * Saves blacklist days, past days and website list to chrome storage.
+    **/
     saveData: function(){
       chrome.storage.local.set({'blackList': bgModule.blackList});
       chrome.storage.local.set({'pastDays': bgModule.pastDays});

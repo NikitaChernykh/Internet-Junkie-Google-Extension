@@ -14,13 +14,15 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
       for(var f = 0; f < $scope.websites.length; f++){
         if(f < 10){
           $scope.model.totalVisits += $scope.websites[f].websiteVisits;
-          $scope.model.totalTime.min += $scope.websites[f].formatedTime.min;
-          $scope.model.totalTime.sec += $scope.websites[f].formatedTime.sec;
-          $scope.model.totalTime.hours += $scope.websites[f].formatedTime.hours;
-          $scope.model.totalTime.days += $scope.websites[f].formatedTime.days;
+          $scope.model.totalSeconds += $scope.websites[f].formatedTime.min*60;
+          $scope.model.totalSeconds += $scope.websites[f].formatedTime.sec;
+          $scope.model.totalSeconds += ($scope.websites[f].formatedTime.hours*60)*60;
+          $scope.model.totalSeconds += (($scope.websites[f].formatedTime.days*24)*60)*60;
         }
       }
-      //$scope.model.totalTime = moment($scope.model.totalTime,'minutes').format("HH:mm:SS");
+      $scope.model.totalSeconds = moment("0").seconds($scope.model.totalSeconds).format('H')+$scope.abbr_hours+
+      " "+moment("0").seconds($scope.model.totalSeconds).format('mm')+$scope.abbr_min+
+      " "+moment("0").seconds($scope.model.totalSeconds).format('ss')+$scope.abbr_sec;
     });
   }).catch(function () {
     console.log("getData error");
@@ -28,12 +30,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
 
   $scope.model = {
     totalVisits: 0,
-    totalTime: {
-      sec:0,
-      min: 0,
-      hours:0,
-      days:0
-    }
+    totalSeconds: 0
   };
 
   //_locales text that translates
