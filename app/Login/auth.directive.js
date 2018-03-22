@@ -1,4 +1,4 @@
-var APP_VIEWS = require('../../app/Login/app-views.constant');
+var APP_VIEWS = require('../../app/Shared/constants/app-views.constant');
 
 module.exports = function(authService,APP_VIEWS) {
   return{

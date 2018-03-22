@@ -21,7 +21,7 @@ var paths2 = {
     source: './app/Popup/app.js',
     destination: './app/Popup/',
     filename: 'bundle.js',
-    watch: ['./app/*/*.js', '!./app/Background/*.js']
+    watch: ['./app/**/*.js', '!./app/Background/*.js']
   }
 };
 

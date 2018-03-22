@@ -1,6 +1,7 @@
-var APP_VIEWS = require('../../app/Login/app-views.constant');
+var APP_VIEWS = require('../../app/Shared/constants/app-views.constant');
+var APP_TRANSLATIONS = require('../../app/Shared/constants/translations.constant');
 
-module.exports = function($scope,authService, dataService, APP_VIEWS) {
+module.exports = function($scope,authService, dataService, APP_VIEWS,APP_TRANSLATIONS) {
   'use strict';
 
 
@@ -13,12 +14,12 @@ module.exports = function($scope,authService, dataService, APP_VIEWS) {
   });
 
   //_locales text that translates
-  $scope.settings_title = chrome.i18n.getMessage("settings_title");
-  $scope.settings_del = chrome.i18n.getMessage("settings_del");
-  $scope.settings_btn_clear = chrome.i18n.getMessage("settings_btn_clear");
-  $scope.settings_add_blacklist = chrome.i18n.getMessage("settings_add_blacklist");
-  $scope.settings_btn_blacklist = chrome.i18n.getMessage("settings_btn_blacklist");
-  $scope.settings_btn_goback = chrome.i18n.getMessage("settings_btn_goback");
+  $scope.settings_title = APP_TRANSLATIONS.settings.settings_title;
+  $scope.settings_del = APP_TRANSLATIONS.settings.settings_del;
+  $scope.settings_btn_clear = APP_TRANSLATIONS.settings.settings_btn_clear;
+  $scope.settings_add_blacklist = APP_TRANSLATIONS.settings.settings_add_blacklist;
+  $scope.settings_btn_blacklist = APP_TRANSLATIONS.settings.settings_btn_blacklist;
+  $scope.settings_btn_goback = APP_TRANSLATIONS.settings.settings_btn_goback;
 
   //clear all website list
   $scope.clearAll = function(){

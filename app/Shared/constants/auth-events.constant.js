@@ -1,6 +1,3 @@
-//nice to use when this repeating across the app
-//in this case you only change the messages here
-//it will be updated automatically across the app
 var AUTH_EVENTS = {
   loginSuccess: 'auth-login-success',
   loginFailed: 'auth-login-failed',

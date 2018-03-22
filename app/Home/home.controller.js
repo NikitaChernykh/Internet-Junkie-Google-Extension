@@ -1,7 +1,8 @@
 var moment = require('moment-timezone');
+var APP_VIEWS = require('../../app/Shared/constants/app-views.constant');
+var APP_TRANSLATIONS = require('../../app/Shared/constants/translations.constant');
 
-var APP_VIEWS = require('../../app/Login/app-views.constant');
-module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS) {
+module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,APP_TRANSLATIONS) {
   'use strict';
   var websiteList = [];
   $scope.showTableHead = true;
@@ -34,19 +35,19 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS)
   };
 
   //_locales text that translates
-  $scope.today_text = chrome.i18n.getMessage("today_text");
-  $scope.websites_label = chrome.i18n.getMessage("websites_label");
-  $scope.visits_label = chrome.i18n.getMessage("visits_label");
-  $scope.time_label = chrome.i18n.getMessage("time_label");
-  $scope.placeholder_msg = chrome.i18n.getMessage("placeholder_msg");
+  $scope.today_text = APP_TRANSLATIONS.home.today_text;
+  $scope.websites_label = APP_TRANSLATIONS.home.websites_label;
+  $scope.visits_label = APP_TRANSLATIONS.home.visits_label;
+  $scope.time_label = APP_TRANSLATIONS.home.time_label;
+  $scope.placeholder_msg = APP_TRANSLATIONS.home.placeholder_msg;
 
-  $scope.total_text = chrome.i18n.getMessage("total_text");
-  $scope.visits_text = chrome.i18n.getMessage("visits_text");
+  $scope.total_text = APP_TRANSLATIONS.home.total_text;
+  $scope.visits_text = APP_TRANSLATIONS.home.visits_text;
 
-  $scope.abbr_min = chrome.i18n.getMessage("abbr_min");
-  $scope.abbr_sec = chrome.i18n.getMessage("abbr_sec");
-  $scope.abbr_days = chrome.i18n.getMessage("abbr_days");
-  $scope.abbr_hours = chrome.i18n.getMessage("abbr_hours");
+  $scope.abbr_min = APP_TRANSLATIONS.home.abbr_min;
+  $scope.abbr_sec = APP_TRANSLATIONS.home.abbr_sec;
+  $scope.abbr_days = APP_TRANSLATIONS.home.abbr_days;
+  $scope.abbr_hours = APP_TRANSLATIONS.home.abbr_hours;
   $scope.no_activity_text = "You have no activity recorded for this day.";
 
   $scope.sortOrder = "-websiteVisits";

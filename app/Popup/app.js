@@ -39,8 +39,9 @@ var angular = require('angular');
     app.directive('weekDaysComponent', require('../../app/Weekdays/week-days-component.directive'));
 
     //constants
-    app.constant('AUTH_EVENTS', require('../../app/Login/auth-events.constant'));
-    app.constant('APP_VIEWS', require('../../app/Login/app-views.constant'));
+    app.constant('AUTH_EVENTS', require('../../app/Shared/constants/auth-events.constant'));
+    app.constant('APP_VIEWS', require('../../app/Shared/constants/app-views.constant'));
+    app.constant('APP_TRANSLATIONS', require('../../app/Shared/constants/translations.constant'));
 
     module.exports = app;
 }());
