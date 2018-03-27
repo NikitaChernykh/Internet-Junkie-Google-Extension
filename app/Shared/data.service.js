@@ -21,47 +21,36 @@ module.exports = function($q) {
 		});
 		return deferred.promise;
   };
-
+  //TODO test sort here and on background. They should be exactly same.
   var getTotalVisits = function(){
       getData().then(function(result){
-        websiteList = result.websiteList;
-        var totalVisits = 0;
-        var totalDays = 0;
-        var totalHours = 0;
-        var totalMin = 0;
-        var totalSec = 0;
-        var totalTime = 0;
-        var total = {};
-        var getTotal = function(length,list){
-          totalVisits += list[length].websiteVisits;
-          totalDays += list[length].formatedTime.days;
-          totalHours += list[length].formatedTime.hours;
-          totalMin += list[length].formatedTime.min;
-          totalSec += list[length].formatedTime.sec;
-        };
-        console.log(websiteList);
-        if(websiteList.length>10){
-          for(var i = 0; i < 10; i++){
-                getTotal(i,websiteList);
-            }
-        }else{
-          for(var f = 0; f < websiteList.length; f++){
-                getTotal(f,websiteList);
-            }
-        }
-        total = {
-          totalVisits :totalVisits,
-          totalDays : totalDays,
-          totalHours : totalHours,
-          totalMin : totalMin,
-          totalSec: totalSec
-        };
+        result.websiteList.sort(function(a, b){return b.websiteVisits - a.websiteVisits;});
+        var total = getTotalTime(result.websiteList);
         console.log(total);
-        return total;
       });
   };
   getTotalVisits();
 
+  var getTotalTime = function(websiteList){
+    var totalVisits = 0;
+    var totalSeconds = 0;
+    var total = {};
+
+    for(var f = 0; f < websiteList.length; f++){
+      if(f < 10){
+        totalVisits += websiteList[f].websiteVisits;
+        totalSeconds += websiteList[f].formatedTime.min*60;
+        totalSeconds += websiteList[f].formatedTime.sec;
+        totalSeconds += (websiteList[f].formatedTime.hours*60)*60;
+        totalSeconds += ((websiteList[f].formatedTime.days*24)*60)*60;
+        total = {
+          totalSeconds: totalSeconds,
+          totalVisits: totalVisits
+        };
+      }
+    }
+    return total;
+  };
   return {
     getPastDays : getPastDays,
     getData : getData
