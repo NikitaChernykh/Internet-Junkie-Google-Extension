@@ -21,9 +21,9 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
           $scope.model.totalSeconds += (($scope.websites[f].formatedTime.days*24)*60)*60;
         }
       }
-      $scope.model.totalSeconds = moment("0").seconds($scope.model.totalSeconds).format('H')+$scope.abbr_hours+
-      " "+moment("0").seconds($scope.model.totalSeconds).format('mm')+$scope.abbr_min+
-      " "+moment("0").seconds($scope.model.totalSeconds).format('ss')+$scope.abbr_sec;
+      $scope.model.totalSeconds = moment(0).utc().seconds($scope.model.totalSeconds).format('H')+$scope.abbr_hours+
+      " "+moment(0).utc().seconds($scope.model.totalSeconds).format('mm')+$scope.abbr_min+
+      " "+moment(0).utc().seconds($scope.model.totalSeconds).format('ss')+$scope.abbr_sec;
     });
   }).catch(function () {
     console.log("getData error");
