@@ -42,12 +42,9 @@ var bgModule = {
       });
     },
     updateTotalVisits: function(list){
-      if(list.length>10){
-        for(var i = 0; i < 10; i++){
-          bgModule.total.totalVisits += list[i].websiteVisits;
-        }
-      }else{
-        for(var f = 0; f < list.length; f++){
+      list = bgModule.sortWebsiteList(list);
+      for(var f = 0; f < list.length; f++){
+        if(f < 10){
           bgModule.total.totalVisits += list[f].websiteVisits;
         }
       }

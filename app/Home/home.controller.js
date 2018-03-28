@@ -6,7 +6,6 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
   'use strict';
   var websiteList = [];
   $scope.showTableHead = true;
-
   dataService.getData().then(function(result){
     $timeout(function() {
       websiteList = result.websiteList;
@@ -27,6 +26,13 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
     });
   }).catch(function () {
     console.log("getData error");
+  });
+
+  //TODO figure this part out
+  dataService.calucalteTotal(websiteList).then(function(total){
+    $timeout(function() {
+        console.log(total);
+    });
   });
 
   $scope.model = {

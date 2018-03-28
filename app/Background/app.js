@@ -49,6 +49,7 @@ chrome.tabs.onUpdated.addListener(function listener(tabId, changeInfo, tab) {
 });
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action == "popup") {
+        bgModule.updateTotalVisits(bgModule.websiteList);
         //get websites
         chrome.storage.local.get('websiteList', function (data) {
           //TODO: add logging
@@ -60,7 +61,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         chrome.storage.local.get('pastDays', function (data) {
         });
         //get totalVisits
-        bgModule.updateTotalVisits(bgModule.websiteList);
+
         bgModule.checkInactiveDays(bgModule.lastActiveSince);
         bgModule.resetTimer();
         console.log(moment.utc(bgModule.getResetTime(bgModule.lastActiveSince)).format('HH:mm:ss'));
