@@ -6,8 +6,10 @@
 @import '_monster';
 @import '_login';
 @import '_footer';
+@import '_header';
 @import '_settings';
 @import '_week-days-component';
+@import '_totals-component';
 @import '_snow';
 
 
@@ -75,7 +77,6 @@ tbody tr:hover .removeArrow {
 table {
     width: 100%;
 }
-
 img {
     margin-top: 3px;
 }
@@ -84,41 +85,9 @@ img {
     position: fixed;
     left: 0;
     right: 0;
-
     font-family: "Roboto Condensed", Arial, sans-serif;
 }
 
-
-.settingsIcon {
-    position: absolute;
-    right: 25px;
-    bottom: -5px;
-    cursor: pointer;
-}
-.logoffIcon{
-    position: absolute;
-    right: 5px;
-    bottom: -2px;
-    cursor: pointer;
-}
-.header {
-    border-top: 0;
-    position: fixed;
-    height: 80px;
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 5px;
-    color: $white;
-    background-color: $red-monster;
-}
-
-#heading {
-
-    height: 20px;
-    margin-top: 10px;
-    color: $white;
-}
 .timeContainer{
     display: block;
 }
@@ -199,31 +168,9 @@ img {
 .removetd{
     width: 60px;
 }
-.total-container{
-  padding-top: 5px;
-  padding-bottom: 5px;
-  text-align: right;
-  background-color: $dark-blue;
-}
-.total-text{
-  width: 50px;
-  display: inline-block;
-  font-weight: 300;
-}
-.total-visits{
-  width: 70px;
-  display: inline-block;
-  text-align: center;
-  font-weight: 300;
-}
-.total-time{
-  width: 61px;
-  display: inline-block;
-  text-align: center;
-  margin-right: 50px;
-  margin-left: 10px;
-  font-weight: 300;
-}
+
+
+
 .binBG{
     width: 30px;
     height: 30px;
