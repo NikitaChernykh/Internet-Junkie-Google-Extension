@@ -6,33 +6,25 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
   'use strict';
   var websiteList = [];
   $scope.showTableHead = true;
+
   dataService.getData().then(function(result){
     $timeout(function() {
       websiteList = result.websiteList;
-
       $scope.websites = websiteList;
-      for(var f = 0; f < $scope.websites.length; f++){
-        if(f < 10){
-          $scope.model.totalVisits += $scope.websites[f].websiteVisits;
-          $scope.model.totalSeconds += $scope.websites[f].formatedTime.min*60;
-          $scope.model.totalSeconds += $scope.websites[f].formatedTime.sec;
-          $scope.model.totalSeconds += ($scope.websites[f].formatedTime.hours*60)*60;
-          $scope.model.totalSeconds += (($scope.websites[f].formatedTime.days*24)*60)*60;
-        }
-      }
-      $scope.model.totalSeconds = moment(0).utc().seconds($scope.model.totalSeconds).format('H')+$scope.abbr_hours+
-      " "+moment(0).utc().seconds($scope.model.totalSeconds).format('mm')+$scope.abbr_min+
-      " "+moment(0).utc().seconds($scope.model.totalSeconds).format('ss')+$scope.abbr_sec;
     });
   }).catch(function () {
-    console.log("getData error");
+    console.log("getData error.");
   });
 
-  //TODO figure this part out
-  dataService.calucalteTotal(websiteList).then(function(total){
-    $timeout(function() {
-        console.log(total);
-    });
+  dataService.getTotals().then(function(total){
+    console.log(total);
+    $scope.model.totalVisits = total.totalVisits;
+    //Converting seconds to readable time format.
+    $scope.model.totalSeconds = moment(0).utc().seconds(total.totalSeconds).format('H')+$scope.abbr_hours+
+    " "+moment(0).utc().seconds(total.totalSeconds).format('mm')+$scope.abbr_min+
+    " "+moment(0).utc().seconds(total.totalSeconds).format('ss')+$scope.abbr_sec;
+  }).catch(function () {
+    console.log("getTotals error.");
   });
 
   $scope.model = {

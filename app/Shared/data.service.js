@@ -1,4 +1,4 @@
-module.exports = function($q,$timeout) {
+module.exports = function($q) {
   var getData = function () {
     var deferred = $q.defer();
     chrome.storage.local.get(function( data ) {
@@ -21,10 +21,21 @@ module.exports = function($q,$timeout) {
 		});
 		return deferred.promise;
   };
+  var getTotals = function () {
+    var deferred = $q.defer();
+    chrome.storage.local.get(function( data ) {
+      if(data === undefined){
+        deferred.reject('No data availble, background error.');
+			} else {
+        var totalObj = calucalteTotal(data.websiteList);
+				deferred.resolve(totalObj);
+			}
+		});
+		return deferred.promise;
+  };
   //TODO figure this part out
   var calucalteTotal = function(websiteList){
-    //websiteList = websiteList.sort(function(a, b){return b.websiteVisits - a.websiteVisits;});
-    return $timeout(function(){
+      websiteList = websiteList.sort(function(a, b){return b.websiteVisits - a.websiteVisits;});
       var totalVisits = 0;
       var totalSeconds = 0;
       var total = {};
@@ -40,12 +51,11 @@ module.exports = function($q,$timeout) {
             totalVisits: totalVisits
           };
         }
-        return total;
       }
-    });
+      return total;
   };
   return {
-    calucalteTotal: calucalteTotal,
+    getTotals: getTotals,
     getPastDays : getPastDays,
     getData : getData
   };
