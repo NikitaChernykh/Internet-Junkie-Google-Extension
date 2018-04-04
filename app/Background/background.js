@@ -12,7 +12,6 @@ var bgModule = {
     lastActiveSince: null,
     myTimer: 0,
     daysfrominstall: 0,
-    inFocus: false,
     total:{
       "totalVisits": 0
     },
@@ -157,7 +156,6 @@ var bgModule = {
         //find & remove protocol (http, ftp, etc.) and get hostname
         if (url.indexOf("://") > -1) {
             hostname = url.split('/')[2];
-            console.log(hostname);
         }
         else {
             hostname = url.split('/')[0];
@@ -212,16 +210,11 @@ var bgModule = {
           if (existingWebsite.timeDifference != null) {
               duration = duration.add(existingWebsite.timeDifference);
           }
-          //format time
-          var days = duration.days();
-          var hours = duration.hours();
-          var min = duration.minutes();
-          var sec = duration.seconds();
           var formatedTime = {
-              "days": days,
-              "hours": hours,
-              "min": min,
-              "sec": sec
+              "days": duration.days(),
+              "hours": duration.hours(),
+              "min": duration.minutes(),
+              "sec": duration.seconds()
           };
           //update values
           existingWebsite.deactivationTime = deactivationTime;

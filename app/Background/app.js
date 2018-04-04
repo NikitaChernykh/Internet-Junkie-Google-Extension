@@ -80,8 +80,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 // Check if chome is out of focus or pc in sleep mode
 chrome.windows.onFocusChanged.addListener(function(window) {
     chrome.windows.getCurrent(function(win){
+      console.log(win.id);
       if(win.type !== "normal" || window === chrome.windows.WINDOW_ID_NONE){
-        bgModule.inFocus = false;
         if(bgModule.prevTab !== ""){
           bgModule.updateDeactivationTime(bgModule.prevTab);
         }
@@ -94,12 +94,16 @@ chrome.windows.onFocusChanged.addListener(function(window) {
         bgModule.resetTimer();
         bgModule.lastActiveSince = bgModule.timeStamp();
       }else {
-          bgModule.inFocus = true;
+        console.log("prev tab: " + bgModule.prevTab);
+        console.log("global url: " + bgModule.globalURL);
           chrome.tabs.query({active: true, currentWindow: true},function(tabs){
+            var websiteName = bgModule.extractDomain(tabs[0].url);
             if(bgModule.prevTab !== ""){
-                bgModule.tabUpdatedAndActive(bgModule.extractDomain(tabs[0].url));
-                bgModule.prevTab = bgModule.extractDomain(tabs[0].url);
-                bgModule.globalURL = bgModule.extractDomain(tabs[0].url);
+                bgModule.tabUpdatedAndActive(websiteName);
+                bgModule.prevTab = websiteName;
+                bgModule.globalURL = websiteName;
+            }else{
+              bgModule.prevTab = websiteName;
             }
           });
           console.log("chrome is active ");
