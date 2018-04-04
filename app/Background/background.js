@@ -6,7 +6,7 @@ var bgModule = {
     blackList: [
       "newtab","chrome://",
       "localhost", "chrome-extension://",
-      "about:blank"],
+      "about:blank","file://"],
     globalUrl: "",
     prevTab: "",
     lastActiveSince: null,
@@ -155,15 +155,17 @@ var bgModule = {
       if (url !== undefined) {
         var hostname;
         //find & remove protocol (http, ftp, etc.) and get hostname
-
         if (url.indexOf("://") > -1) {
             hostname = url.split('/')[2];
+            console.log(hostname);
         }
         else {
             hostname = url.split('/')[0];
         }
+
         //find & remove port number
         hostname = hostname.split(':')[0];
+
         //find & remove "?"
         hostname = hostname.split('?')[0];
 
