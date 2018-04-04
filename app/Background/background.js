@@ -42,7 +42,7 @@ var bgModule = {
       });
     },
     updateTotalVisits: function(list){
-      list = bgModule.sortWebsiteList(list);
+      bgModule.sortWebsiteList(list);
       for(var f = 0; f < list.length; f++){
         if(f < 10){
           bgModule.total.totalVisits += list[f].websiteVisits;
@@ -92,7 +92,8 @@ var bgModule = {
       }
     },
     savePastDay: function(){
-      bgModule.sortWebsiteList(bgModule.websiteList);
+
+      bgModule.updateTotalVisits(bgModule.websiteList);
       var pastDay = {
             "totalVisits": bgModule.total.totalVisits,
             "websiteList": bgModule.websiteList.slice(0, 10)
@@ -140,8 +141,7 @@ var bgModule = {
       var resetTime = bgModule.getResetTime(bgModule.lastActiveSince);
       bgModule.myTimer = setTimeout(function() {
         'use strict';
-        //TODO this doubles the value if popup is open as same time
-        bgModule.updateTotalVisits(bgModule.websiteList);
+        bgModule.sortWebsiteList(bgModule.websiteList);
         bgModule.savePastDay();
         bgModule.lastActiveSince = bgModule.timeStamp();
         bgModule.setDaylyTimer();

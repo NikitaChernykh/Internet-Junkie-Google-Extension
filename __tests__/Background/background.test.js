@@ -249,7 +249,7 @@ describe("background script", () =>{
       bgModule.savePastDay();
       expect(bgModule.total.totalVisits).toEqual(0);
       expect(bgModule.sortWebsiteList).toHaveBeenCalledTimes(1);
-      expect(bgModule.pastDays[0]).toEqual({"totalVisits": bgModule.total.totalVisits, "websiteList": bgModule.websiteList.slice(0, 10)});
+      expect(bgModule.pastDays[0]).toEqual({"totalVisits": bgModule.pastDays[0].totalVisits, "websiteList": bgModule.websiteList.slice(0, 10)});
       expect(bgModule.cleanDaysToEqualSeven).toHaveBeenCalledWith(bgModule.pastDays);
       expect(bgModule.resetWebsiteList).toHaveBeenCalledTimes(1);
       expect(bgModule.saveData).toHaveBeenCalledTimes(1);
