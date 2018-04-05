@@ -3,7 +3,9 @@ footer{
   position: fixed;
   font-size: 0.8em;
   width: inherit;
-  .footer--copyright, .footer--version {
+  
+  .footer--copyright,
+  .footer--version {
     margin-bottom: 5px;
   }
   .footer--copyright {
