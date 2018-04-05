@@ -13,14 +13,14 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
       $scope.websites = websiteList;
     });
   }).catch(function () {
-    console.error("Error: Could not retrive website list.");
+    console.error("Could not retrive website list.");
   });
 
   dataService.getTotalTimeAndVisits().then(function(total){
     $scope.model.totalVisits = total.totalVisits;
     $scope.model.totalTime = total.totalTime;
   }).catch(function () {
-    console.error("Error: Can't get total time and visits.");
+    console.error("Can't get total time and visits.");
   });
 
   $scope.model = {

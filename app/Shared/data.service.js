@@ -16,7 +16,7 @@ module.exports = function($q) {
     var deferred = $q.defer();
     chrome.storage.local.get(function( data ) {
 			if (data.pastDays.length == 0) {
-				deferred.reject('Error: No data for past days.');
+				deferred.reject('No data for past days.');
 			} else {
 				deferred.resolve(data.pastDays);
 			}
@@ -28,9 +28,9 @@ module.exports = function($q) {
     var deferred = $q.defer();
     chrome.storage.local.get(function( data ) {
       if(data === undefined){
-        deferred.reject('Error: No data availble from chrome storage.');
+        deferred.reject('No data availble from chrome storage.');
 			} else {
-        var totalObj = calucalteTotal(data.websiteList);
+        var totalObj = calculateTotal(data.websiteList);
 				deferred.resolve(totalObj);
 			}
 		});
@@ -38,11 +38,11 @@ module.exports = function($q) {
   };
 
   //Helpers
-  var calucalteTotal = function(websiteList){
+  var calculateTotal = function(websiteList){
       var totalVisits = 0;
       var totalSeconds = 0;
       var total = {};
-      websiteList = websiteList.sort(function(a, b){return b.websiteVisits - a.websiteVisits;});
+      websiteList.sort(function(a, b){return b.websiteVisits - a.websiteVisits;});
       for(var f = 0; f < websiteList.length; f++){
         if(f < 10){
           totalVisits += websiteList[f].websiteVisits;
@@ -71,6 +71,7 @@ module.exports = function($q) {
   return {
     getTotalTimeAndVisits: getTotalTimeAndVisits,
     getPastDays : getPastDays,
-    getWebsites : getWebsites
+    getWebsites : getWebsites,
+    calculateTotal: calculateTotal
   };
 };

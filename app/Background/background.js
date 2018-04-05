@@ -94,7 +94,6 @@ var bgModule = {
 
       bgModule.updateTotalVisits(bgModule.websiteList);
       var pastDay = {
-            "totalVisits": bgModule.total.totalVisits,
             "websiteList": bgModule.websiteList.slice(0, 10)
       };
       bgModule.pastDays.unshift(pastDay);
@@ -111,7 +110,6 @@ var bgModule = {
     },
     saveEmptyDay: function(){
       var pastDay = {
-            "totalVisits": 0,
             "websiteList": []
       };
       bgModule.pastDays.unshift(pastDay);
