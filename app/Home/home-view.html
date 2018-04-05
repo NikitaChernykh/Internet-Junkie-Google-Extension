@@ -213,7 +213,9 @@
         <div class="total-container" >
           <div class="total-text">{{total_text}}</div>
           <div class="total-visits">{{model.totalVisits}} {{visits_text}}</div>
-          <div class="total-time">{{model.totalSeconds}}</div>
+          <div class="total-time">{{model.totalTime.hours+abbr_hours+' '+
+                                    model.totalTime.minutes+abbr_min+' '+
+                                    model.totalTime.seconds+abbr_sec}}</div>
         </div>
         <week-days-component></week-days-component>
     </div>

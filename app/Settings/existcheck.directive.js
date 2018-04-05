@@ -14,7 +14,6 @@ module.exports = function() {
       ngModel.$parsers.unshift(function(value) {
         var valid = searchBlacklist(value.toLowerCase(),scope.blackList);
         if(value){
-          // test and set the validity
           ngModel.$setValidity('invalidEntry', valid);
         }
         return valid ? value : undefined;

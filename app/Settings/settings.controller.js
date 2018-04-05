@@ -3,17 +3,6 @@ var APP_TRANSLATIONS = require('../../app/Shared/constants/translations.constant
 
 module.exports = function($scope,authService, dataService, APP_VIEWS,APP_TRANSLATIONS) {
   'use strict';
-
-
-  //get website data
-  dataService.getData().then(function(result){
-    $scope.websites = result.websiteList;
-    $scope.blackList = result.blackList;
-  }).catch(function () {
-    console.log("getData error");
-  });
-
-  //_locales text that translates
   $scope.settings_title = APP_TRANSLATIONS.settings.settings_title;
   $scope.settings_del = APP_TRANSLATIONS.settings.settings_del;
   $scope.settings_btn_clear = APP_TRANSLATIONS.settings.settings_btn_clear;
@@ -21,8 +10,15 @@ module.exports = function($scope,authService, dataService, APP_VIEWS,APP_TRANSLA
   $scope.settings_btn_blacklist = APP_TRANSLATIONS.settings.settings_btn_blacklist;
   $scope.settings_btn_goback = APP_TRANSLATIONS.settings.settings_btn_goback;
 
-  //clear all website list
-  $scope.clearAll = function(){
+  dataService.getWebsites().then(function(result){
+    $scope.websites = result.websiteList;
+    $scope.blackList = result.blackList;
+  }).catch(function () {
+    console.error("Error: Could not retrive website list.");
+  });
+
+
+  $scope.clearTodayStatistics = function(){
       //TODO make a confirmation modal
       $scope.websites.length = 0;
       _gaq.push(['_trackEvent','clearAllWebsites']);
@@ -32,6 +28,7 @@ module.exports = function($scope,authService, dataService, APP_VIEWS,APP_TRANSLA
       });
       return;
   };
+
   $scope.addToBlackList = function(){
     if($scope.blacklistForm.$valid){
       _gaq.push(['_trackEvent', $scope.website, 'addToBlackList']);
@@ -45,6 +42,7 @@ module.exports = function($scope,authService, dataService, APP_VIEWS,APP_TRANSLA
       $scope.blacklistForm.$setUntouched();
     }
   };
+
   $scope.goback = function(){
     _gaq.push(['_trackEvent','backFromSettings']);
     authService.view = APP_VIEWS.homeView;

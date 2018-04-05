@@ -7,29 +7,25 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
   var websiteList = [];
   $scope.showTableHead = true;
 
-  dataService.getData().then(function(result){
+  dataService.getWebsites().then(function(result){
     $timeout(function() {
       websiteList = result.websiteList;
       $scope.websites = websiteList;
     });
   }).catch(function () {
-    console.log("getData error.");
+    console.error("Error: Could not retrive website list.");
   });
 
-  dataService.getTotals().then(function(total){
-    console.log(total);
+  dataService.getTotalTimeAndVisits().then(function(total){
     $scope.model.totalVisits = total.totalVisits;
-    //Converting seconds to readable time format.
-    $scope.model.totalSeconds = moment(0).utc().seconds(total.totalSeconds).format('H')+$scope.abbr_hours+
-    " "+moment(0).utc().seconds(total.totalSeconds).format('mm')+$scope.abbr_min+
-    " "+moment(0).utc().seconds(total.totalSeconds).format('ss')+$scope.abbr_sec;
+    $scope.model.totalTime = total.totalTime;
   }).catch(function () {
-    console.log("getTotals error.");
+    console.error("Error: Can't get total time and visits.");
   });
 
   $scope.model = {
     totalVisits: 0,
-    totalSeconds: 0
+    totalTime:{}
   };
 
   //_locales text that translates
