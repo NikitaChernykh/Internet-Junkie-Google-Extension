@@ -72,6 +72,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
     }
     return name;
   };
+
   //sign out button
   //belongs to hidden login functionality
   // $scope.signOut = function(){

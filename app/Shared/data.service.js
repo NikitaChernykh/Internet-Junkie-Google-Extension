@@ -1,5 +1,6 @@
 var moment = require('moment');
 module.exports = function($q) {
+
   var getWebsites = function () {
     var deferred = $q.defer();
     chrome.storage.local.get(function( data ) {
@@ -37,26 +38,32 @@ module.exports = function($q) {
 		return deferred.promise;
   };
 
+  var updateTotalTimeAndVisits = function(websiteList){
+    console.log("update");
+    console.log(websiteList);
+    return calculateTotal(websiteList);
+  };
+
   //Helpers
   var calculateTotal = function(websiteList){
-      var totalVisits = 0;
-      var totalSeconds = 0;
-      var total = {};
-      websiteList.sort(function(a, b){return b.websiteVisits - a.websiteVisits;});
-      for(var f = 0; f < websiteList.length; f++){
-        if(f < 10){
-          totalVisits += websiteList[f].websiteVisits;
-          totalSeconds += websiteList[f].formatedTime.min*60;
-          totalSeconds += websiteList[f].formatedTime.sec;
-          totalSeconds += (websiteList[f].formatedTime.hours*60)*60;
-          totalSeconds += ((websiteList[f].formatedTime.days*24)*60)*60;
-          total = {
-            totalVisits: totalVisits,
-            totalTime: convertSecondsToTimeFormat(totalSeconds)
-          };
-        }
+    var totalVisits = 0;
+    var totalSeconds = 0;
+    var total = {};
+    websiteList.sort(function(a, b){return b.websiteVisits - a.websiteVisits;});
+    for(var f = 0; f < websiteList.length; f++){
+      if(f < 10){
+        totalVisits += websiteList[f].websiteVisits;
+        totalSeconds += websiteList[f].formatedTime.min*60;
+        totalSeconds += websiteList[f].formatedTime.sec;
+        totalSeconds += (websiteList[f].formatedTime.hours*60)*60;
+        totalSeconds += ((websiteList[f].formatedTime.days*24)*60)*60;
+        total = {
+          totalVisits: totalVisits,
+          totalTime: convertSecondsToTimeFormat(totalSeconds)
+        };
       }
-      return total;
+    }
+    return total;
   };
 
   var convertSecondsToTimeFormat = function(seconds){
@@ -69,6 +76,7 @@ module.exports = function($q) {
   };
 
   return {
+    updateTotalTimeAndVisits: updateTotalTimeAndVisits,
     getTotalTimeAndVisits: getTotalTimeAndVisits,
     getPastDays : getPastDays,
     getWebsites : getWebsites,
