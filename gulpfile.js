@@ -108,13 +108,11 @@ var paths3 = {
  dist: 'dist/'
 };
 
-// Delete the dist directory
-gulp.task('clean', function() {
+gulp.task('clean-dist', function() {
  return gulp.src(paths3.dist)
  .pipe(clean());
 });
-//create dist
-gulp.task('default', function(){
+gulp.task('create-dist', function(){
  gulp.src(paths3.app.concat(paths3.manifest))
  .pipe(gulp.dest(paths3.dist));
 });

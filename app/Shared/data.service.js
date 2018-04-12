@@ -39,8 +39,6 @@ module.exports = function($q) {
   };
 
   var updateTotalTimeAndVisits = function(websiteList){
-    console.log("update");
-    console.log(websiteList);
     return calculateTotal(websiteList);
   };
 

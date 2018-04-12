@@ -2,7 +2,7 @@ var bgModule = require('../../app/Background/background.js');
 var moment = require('moment-timezone');
 
 bgModule.setDaylyTimer();
-//bgModule.resetPastDays();
+
 chrome.tabs.onActivated.addListener(function (activeInfo) {
     chrome.tabs.query({active: true, currentWindow: true},function(tabs){
         if(typeof bgModule.prevTab == "undefined"){
@@ -24,7 +24,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
         }
     });
 });
-//Check if the tab is Updated
+
 chrome.tabs.onUpdated.addListener(function listener(tabId, changeInfo, tab) {
   if(tab.url != "chrome://newtab/"){
       //check for inactive tab reloading
@@ -42,26 +42,20 @@ chrome.tabs.onUpdated.addListener(function listener(tabId, changeInfo, tab) {
           }
       }
     }
-    // Passing the above test means this is the event we were waiting for.
     // There is nothing we need to do for future onUpdated events, so we
     // use removeListner to stop getting called when onUpdated events fire.
     chrome.tabs.onUpdated.removeListener(listener);
 });
+
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action == "popup") {
         bgModule.updateTotalVisits(bgModule.websiteList);
-        //get websites
         chrome.storage.local.get('websiteList', function (data) {
-          //TODO: add logging
         });
-        //get blacklist
         chrome.storage.local.get('blackList', function (data) {
         });
-        //get pastDays
         chrome.storage.local.get('pastDays', function (data) {
         });
-        //get totalVisits
-
         bgModule.checkInactiveDays(bgModule.lastActiveSince);
         bgModule.resetTimer();
         console.log(moment.utc(bgModule.getResetTime(bgModule.lastActiveSince)).format('HH:mm:ss'));
@@ -77,7 +71,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
 });
 
-// Check if chome is out of focus or pc in sleep mode
+// Check if chrome is out of focus or pc in sleep mode
 chrome.windows.onFocusChanged.addListener(function(window) {
     chrome.windows.getCurrent(function(win){
       console.log(win.id);
