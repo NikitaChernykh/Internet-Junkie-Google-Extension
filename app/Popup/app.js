@@ -13,6 +13,7 @@ var angular = require('angular');
     //services
     app.factory('authService', require('../../app/Login/auth.service'));
     app.factory('dataService', require('../../app/Shared/data.service'));
+    app.service('modalService', require('../../app/Shared/modal.service'));
 
     //controllers
     app.controller('AppController', require('../../app/Popup/app.controller'));
@@ -20,6 +21,7 @@ var angular = require('angular');
     app.controller('CredentialsController', require('../../app/Login/credentials.controller'));
     app.controller('OptionsController', require('../../app/Options/options.controller'));
     app.controller('SettingsController', require('../../app/Settings/settings.controller'));
+    app.controller('ModalController', require('../../app/Shared/modal.controller'));
 
 
     //directives

@@ -21,8 +21,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 
 ## Deployment
-* To build the app run 'gulp build'.
-* To watch changes on js files and scss files run 'gulp watch' command.
+* To build the app run 'npm build'.
+* To start the app run 'npm start' command.
 * To run tests use: 'npm test' command.
 
 ## Contribution

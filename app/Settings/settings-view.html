@@ -4,7 +4,7 @@
     </div>
     <h2>{{settings_title}}</h2>
     <p>{{settings_del}}</p>
-    <button ng-click="clearTodayStatistics()" class="btn">{{settings_btn_clear}}</button>
+    <button ng-click="openModal()" class="btn">{{settings_btn_clear}}</button>
     <br>
     <br>
     <form name="blacklistForm" novalidate>
@@ -25,10 +25,27 @@
           {{item}}
         </div>
         <div class="blacklist-remove">
-          <img class="closeIcon" removeblk width="15" height="15" title="Settings" src="/assets/images/icons/close.svg" />
+          <img class="closeIcon" removeblk width="15" height="15" title="remove" src="/assets/images/icons/close-red.svg" />
         </div>
       </div>
     </div>
     <br>
     <button type="button" name="button" class="btn" ng-click="goback()"> <= {{settings_btn_goback}}</button>
+    <div class="overlay" ng-show="modalActive">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Confirmation</h2>
+          <button type="button" ng-click="closeModal()">
+            <img class="closeIcon" width="20" height="20" title="close" src="/assets/images/icons/close-white.svg" />
+          </button>
+        </div>
+        <div class="modal-content">
+          <p>Are you sure you want to delete today statistics?</p>
+        </div>
+        <div class="button-container">
+          <button type="button" name="button" class="passive" ng-click="closeModal()">Cancel</button>
+          <button type="button" name="button" ng-click="clearTodayStatisics()">Delete</button>
+        </div>
+      </div>
+    </div>
 </div>
