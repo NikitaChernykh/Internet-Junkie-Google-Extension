@@ -68,7 +68,7 @@
         "description": "Add to blacklist btn."
     },
     "settings_btn_goback":{
-        "message": "Вернуться назад",
+        "message": "Назад",
         "description": "Go back btn."
     }
 }

@@ -3,7 +3,7 @@ module.exports = function() {
     return chrome.runtime.getManifest().version;
   }
   return{
-      template: '<p class="footer--copyright">&copy; Copyright 2017 All Rights Reserved.</p><p class="footer--version">'+getVersion()+'</p>',
+      template: '<p class="footer--copyright">&copy; 2017-'+ (new Date()).getFullYear()+ '</p><p class="footer--version">'+getVersion()+'</p>',
       restrict: "E"
   };
 };

@@ -22,6 +22,7 @@ var angular = require('angular');
     app.controller('SettingsController', require('../../app/Settings/settings.controller'));
 
     //directives
+    app.directive('lang', require('../../app/Shared/lang.directive'));
     app.directive('loginView', require('../../app/Login/login-view.directive'));
     app.directive('homeView', require('../../app/Home/home-view.directive'));
     app.directive('noDataMonster', require('../../app/Home/no-data-monster.directive'));

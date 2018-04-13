@@ -14,9 +14,9 @@
       <input type="text" class="blk-input" existcheck name="website"  ng-minlength="3" ng-model="website" required/>
       <button ng-click="addToBlackList()" type="submit" class="btn" style="margin-left: 10px;">{{settings_btn_blacklist}}</button>
       <div ng-messages="blacklistForm.website.$error" class="error" ng-show="blacklistForm.website.$dirty && blacklistForm.website.$touched">
-        <div ng-message="minlength">Your field is too short.</div>
+        <div ng-message="minlength">Your website name is too short.</div>
         <div ng-message="required">The input is empty.</div>
-        <div ng-message="invalidEntry">This is already in the blacklist.</div>
+        <div ng-message="invalidEntry">This already exist in the blacklist.</div>
       </div>
     </form>
     <div class="blacklist-container">

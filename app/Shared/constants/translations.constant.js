@@ -1,4 +1,5 @@
 var APP_TRANSLATIONS = {
+  lang: chrome.i18n.getMessage("lang"),
   home: {
     today_text: chrome.i18n.getMessage("today_text"),
     websites_label: chrome.i18n.getMessage("websites_label"),

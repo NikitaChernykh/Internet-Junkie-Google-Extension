@@ -1,12 +1,30 @@
 var moment = require('moment-timezone');
+
 var APP_VIEWS = require('../../app/Shared/constants/app-views.constant');
 var APP_TRANSLATIONS = require('../../app/Shared/constants/translations.constant');
 
 module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,APP_TRANSLATIONS) {
   'use strict';
+  //_locales text that translates
+  $scope.lang = chrome.runtime.getManifest().default_locale;
+  $scope.today_text = APP_TRANSLATIONS.home.today_text;
+  $scope.websites_label = APP_TRANSLATIONS.home.websites_label;
+  $scope.visits_label = APP_TRANSLATIONS.home.visits_label;
+  $scope.time_label = APP_TRANSLATIONS.home.time_label;
+  $scope.placeholder_msg = APP_TRANSLATIONS.home.placeholder_msg;
+
+  $scope.total_text = APP_TRANSLATIONS.home.total_text;
+  $scope.visits_text = APP_TRANSLATIONS.home.visits_text;
+
+  $scope.abbr_min = APP_TRANSLATIONS.home.abbr_min;
+  $scope.abbr_sec = APP_TRANSLATIONS.home.abbr_sec;
+  $scope.abbr_days = APP_TRANSLATIONS.home.abbr_days;
+  $scope.abbr_hours = APP_TRANSLATIONS.home.abbr_hours;
+  $scope.no_activity_text = "You have no activity recorded for this day.";
+
+  moment.locale($scope.lang);
   var websiteList = [];
   $scope.showTableHead = true;
-
   dataService.getWebsites().then(function(result){
     $timeout(function() {
       websiteList = result.websiteList;
@@ -28,21 +46,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
     totalTime:{}
   };
 
-  //_locales text that translates
-  $scope.today_text = APP_TRANSLATIONS.home.today_text;
-  $scope.websites_label = APP_TRANSLATIONS.home.websites_label;
-  $scope.visits_label = APP_TRANSLATIONS.home.visits_label;
-  $scope.time_label = APP_TRANSLATIONS.home.time_label;
-  $scope.placeholder_msg = APP_TRANSLATIONS.home.placeholder_msg;
 
-  $scope.total_text = APP_TRANSLATIONS.home.total_text;
-  $scope.visits_text = APP_TRANSLATIONS.home.visits_text;
-
-  $scope.abbr_min = APP_TRANSLATIONS.home.abbr_min;
-  $scope.abbr_sec = APP_TRANSLATIONS.home.abbr_sec;
-  $scope.abbr_days = APP_TRANSLATIONS.home.abbr_days;
-  $scope.abbr_hours = APP_TRANSLATIONS.home.abbr_hours;
-  $scope.no_activity_text = "You have no activity recorded for this day.";
 
   $scope.sortOrder = "-websiteVisits";
   //sort & color change on order toggle
