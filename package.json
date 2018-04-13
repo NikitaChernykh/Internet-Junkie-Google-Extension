@@ -4,8 +4,10 @@
   "description": "**Track how much time you spend on the websites daily.<br /> \r  Your own internet time tracker.**\r <br />\r <br />\r Nowadays, we spent most of the time searching through the internet. This extension will calculate total time you spent and number of clicks you made on your favourite websites during the day.",
   "main": "index.js",
   "scripts": {
+    "start": "gulp watch",
+    "build": "gulp build",
     "test": "jest --coverage",
-    "test-watch": "jest --watch __tests__/**/*.js --coverage"
+    "watch-test": "jest --watch __tests__/**/*.js --coverage"
   },
   "jest": {
     "verbose": true
