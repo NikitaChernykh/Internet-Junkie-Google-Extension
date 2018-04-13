@@ -1,7 +1,7 @@
 var APP_VIEWS = require('../../app/Shared/constants/app-views.constant');
 var APP_TRANSLATIONS = require('../../app/Shared/constants/translations.constant');
 
-module.exports = function($scope,authService, dataService, modalService, APP_VIEWS,APP_TRANSLATIONS) {
+module.exports = function($scope,authService, dataService, APP_VIEWS,APP_TRANSLATIONS) {
   'use strict';
   $scope.settings_title = APP_TRANSLATIONS.settings.settings_title;
   $scope.settings_del = APP_TRANSLATIONS.settings.settings_del;
@@ -38,7 +38,6 @@ module.exports = function($scope,authService, dataService, modalService, APP_VIE
     });
     $scope.closeModal();
   };
-
   $scope.addToBlackList = function(){
     if($scope.blacklistForm.$valid){
       _gaq.push(['_trackEvent', $scope.website, 'addToBlackList']);
