@@ -1,6 +1,6 @@
 {
     "ext_description": {
-        "message": "Твой личный счетчик времени в интернете. Узнай сколько ежедневно времени ты тратишь на сайтах.",
+        "message": "Internet Junkie, твой лучший счетчик времени в интернете. Узнай на каких сайтах ты провел больше всего времени каждый день.  Ежедневная статистика времени в проведенном в браузере.",
         "description": "The description of the application, displayed in the web store."
     },
     "placeholder_msg": {
@@ -70,5 +70,33 @@
     "settings_btn_goback":{
         "message": "Назад",
         "description": "Go back btn."
+    },
+    "settings_error_minlength":{
+      "message": "Имя сайта слишком короткое.",
+      "description": "Website name length error messege."
+    },
+    "settings_error_required":{
+      "message": "Это поле не может быть пустым.",
+      "description": "Website name required error messege."
+    },
+    "settings_error_blacklist_exist":{
+      "message": "Это уже добавленно в черный список.",
+      "description": "Website name was already added to blacklist error messege."
+    },
+    "modal_title":{
+      "message": "Подтвердить",
+      "description": "Modal title."
+    },
+    "modal_body":{
+      "message": "Вы уверенны что хотите очистить статистику за сегодня?",
+      "description": "Modal text."
+    },
+    "modal_cancel_btn":{
+      "message": "Отмена",
+      "description": "Modal button cancel."
+    },
+    "modal_delete_btn":{
+      "message": "Удалить",
+      "description": "Modal button delete."
     }
 }

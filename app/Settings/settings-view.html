@@ -14,9 +14,9 @@
       <input type="text" class="blk-input" existcheck name="website"  ng-minlength="3" ng-model="website" required/>
       <button ng-click="addToBlackList()" type="submit" class="btn" style="margin-left: 10px;">{{settings_btn_blacklist}}</button>
       <div ng-messages="blacklistForm.website.$error" class="error" ng-show="blacklistForm.website.$dirty && blacklistForm.website.$touched">
-        <div ng-message="minlength">Your website name is too short.</div>
-        <div ng-message="required">The input is empty.</div>
-        <div ng-message="invalidEntry">This already exist in the blacklist.</div>
+        <div ng-message="minlength">{{settings_error_minlength}}</div>
+        <div ng-message="required">{{settings_error_required}}</div>
+        <div ng-message="invalidEntry">{{settings_error_blacklist_exist}}</div>
       </div>
     </form>
     <div class="blacklist-container">
@@ -34,17 +34,17 @@
     <div class="overlay" ng-show="modalActive">
       <div class="modal">
         <div class="modal-header">
-          <h2>Confirmation</h2>
+          <h2>{{modal_title}}</h2>
           <button type="button" ng-click="closeModal()">
             <img class="closeIcon" width="20" height="20" title="close" src="/assets/images/icons/close-white.svg" />
           </button>
         </div>
         <div class="modal-content">
-          <p>Are you sure you want to delete today statistics?</p>
+          <p>{{modal_body}}</p>
         </div>
         <div class="button-container">
-          <button type="button" name="button" class="passive" ng-click="closeModal()">Cancel</button>
-          <button type="button" name="button" ng-click="clearTodayStatisics()">Delete</button>
+          <button type="button" name="button" class="passive" ng-click="closeModal()">{{modal_cancel_btn}}</button>
+          <button type="button" name="button" ng-click="clearTodayStatisics()">{{modal_delete_btn}}</button>
         </div>
       </div>
     </div>

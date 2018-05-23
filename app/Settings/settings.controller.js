@@ -9,7 +9,13 @@ module.exports = function($scope,authService, dataService, APP_VIEWS,APP_TRANSLA
   $scope.settings_add_blacklist = APP_TRANSLATIONS.settings.settings_add_blacklist;
   $scope.settings_btn_blacklist = APP_TRANSLATIONS.settings.settings_btn_blacklist;
   $scope.settings_btn_goback = APP_TRANSLATIONS.settings.settings_btn_goback;
-
+  $scope.settings_error_minlength = APP_TRANSLATIONS.settings.settings_error_minlength;
+  $scope.settings_error_required = APP_TRANSLATIONS.settings.settings_error_required;
+  $scope.settings_error_blacklist_exist = APP_TRANSLATIONS.settings.settings_error_blacklist_exist;
+  $scope.modal_title = APP_TRANSLATIONS.settings.modal_title;
+  $scope.modal_body = APP_TRANSLATIONS.settings.modal_body;
+  $scope.modal_cancel_btn = APP_TRANSLATIONS.settings.modal_cancel_btn;
+  $scope.modal_delete_btn = APP_TRANSLATIONS.settings.modal_delete_btn;
   $scope.modalActive = false;
 
   dataService.getWebsites().then(function(result){

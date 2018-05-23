@@ -1,6 +1,6 @@
 {
     "ext_description": {
-        "message": "Verifica el tiempo que gastas en sitios web diariamente.",
+        "message": "Internet Junkie, tu mejor rastreador de tiempo en internet. Rastree diariamente el tiempo que pasa en el navegador.",
         "description": "The description of the application, displayed in the web store."
     },
     "placeholder_msg": {
@@ -70,5 +70,34 @@
     "settings_btn_goback":{
         "message": "Regresar",
         "description": "Go back btn."
+    },
+    "settings_error_minlength":{
+      "message": "El nombre de tu sitio web es demasiado corto.",
+      "description": "Website name length error messege."
+    },
+    "settings_error_required":{
+      "message": "La entrada está vacía.",
+      "description": "Website name required error messege."
+    },
+    "settings_error_blacklist_exist":{
+      "message": "Esto ya existe en la lista negra.",
+      "description": "Website name was already added to blacklist error messege."
+    },
+    "modal_title":{
+      "message": "Confirmación",
+      "description": "Modal title."
+    },
+    "modal_body":{
+      "message": "Estás seguro que deseas eliminar las estadísticas de hoy ?",
+      "description": "Modal text."
+    },
+    "modal_cancel_btn":{
+      "message": "Cancelar",
+      "description": "Modal button cancel."
+    },
+    "modal_delete_btn":{
+      "message": "Eliminar",
+      "description": "Modal button delete."
     }
+
 }

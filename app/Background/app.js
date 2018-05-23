@@ -18,6 +18,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
             console.error(errorMsg);
         }else{
             if(tab.active && tab.url != "chrome://newtab/"){
+                console.log("tab url on activate " + tab.favIconUrl);
                 bgModule.tabUpdatedAndActive(tab.url, tab.favIconUrl);
                 bgModule.globalURL = tab.url;
             }
@@ -25,26 +26,18 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
     });
 });
 
-chrome.tabs.onUpdated.addListener(function listener(tabId, changeInfo, tab) {
-  if(tab.url != "chrome://newtab/"){
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
       //check for inactive tab reloading
-      if (tab.active) {
-          //comapre if the domain is the same
-          if (!tab.url.includes(bgModule.extractDomain(bgModule.globalURL))) {
-              if (changeInfo.status == "complete" && tab.status == "complete" && tab.url != undefined) {
-                  if (tab.active && tab.url != "chrome://newtab/") {
-                      bgModule.tabUpdatedAndActive(tab.url, tab.favIconUrl);
-                      bgModule.updateDeactivationTime(bgModule.prevTab);
-                      bgModule.prevTab = bgModule.extractDomain(tab.url);
-                      bgModule.globalURL = tab.url;
-                  }
-              }
-          }
+      if (tab.active && tab.url !== "chrome://newtab/" && changeInfo.status === "complete") {
+          console.log("reloaded tab");
+          console.log("lastActiveURL " + bgModule.prevTab);
+          console.log(bgModule.extractDomain(tab.url));
+          console.log("favIconUrl " + tab.favIconUrl);
+          bgModule.tabUpdatedAndActive(tab.url, tab.favIconUrl);
+          bgModule.updateDeactivationTime(bgModule.prevTab);
+          bgModule.prevTab = bgModule.extractDomain(tab.url);
+          bgModule.globalURL = tab.url;
       }
-    }
-    // There is nothing we need to do for future onUpdated events, so we
-    // use removeListner to stop getting called when onUpdated events fire.
-    chrome.tabs.onUpdated.removeListener(listener);
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
@@ -74,6 +67,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 // Check if chrome is out of focus or pc in sleep mode
 chrome.windows.onFocusChanged.addListener(function(window) {
     chrome.windows.getCurrent(function(win){
+      console.log("waht is prevTab on focus change: "+bgModule.prevTab);
       console.log(win.id);
       if(win.type !== "normal" || window === chrome.windows.WINDOW_ID_NONE){
         if(bgModule.prevTab !== ""){
@@ -88,14 +82,19 @@ chrome.windows.onFocusChanged.addListener(function(window) {
         bgModule.resetTimer();
         bgModule.lastActiveSince = bgModule.timeStamp();
       }else {
-        console.log("prev tab: " + bgModule.prevTab);
-        console.log("global url: " + bgModule.globalURL);
+        //set current active to start the timer
           chrome.tabs.query({active: true, currentWindow: true},function(tabs){
             var websiteName = bgModule.extractDomain(tabs[0].url);
+            var favIcon = tabs[0].favIconUrl;
+            console.log(tabs[0]);
+            console.log("favIcon "+favIcon);
+            console.log("websiteName after focus changed on normal "+websiteName);
             if(bgModule.prevTab !== ""){
-                bgModule.tabUpdatedAndActive(websiteName);
-                bgModule.prevTab = websiteName;
-                bgModule.globalURL = websiteName;
+                bgModule.updateDeactivationTime(bgModule.prevTab);
+                console.log("updateDeactivationTime for "+bgModule.prevTab);
+                bgModule.prevTab = websiteName;//to reset prevTab to be up to date.
+                bgModule.globalURL = websiteName;//? why?
+                bgModule.tabUpdatedAndActive(websiteName, favIcon);
             }else{
               bgModule.prevTab = websiteName;
             }

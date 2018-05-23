@@ -19,7 +19,14 @@ var APP_TRANSLATIONS = {
     settings_btn_clear: chrome.i18n.getMessage("settings_btn_clear"),
     settings_add_blacklist: chrome.i18n.getMessage("settings_add_blacklist"),
     settings_btn_blacklist: chrome.i18n.getMessage("settings_btn_blacklist"),
-    settings_btn_goback: chrome.i18n.getMessage("settings_btn_goback")
+    settings_btn_goback: chrome.i18n.getMessage("settings_btn_goback"),
+    settings_error_minlength: chrome.i18n.getMessage("settings_error_minlength"),
+    settings_error_required: chrome.i18n.getMessage("settings_error_required"),
+    settings_error_blacklist_exist: chrome.i18n.getMessage("settings_error_blacklist_exist"),
+    modal_title: chrome.i18n.getMessage("modal_title"),
+    modal_body: chrome.i18n.getMessage("modal_body"),
+    modal_cancel_btn: chrome.i18n.getMessage("modal_cancel_btn"),
+    modal_delete_btn: chrome.i18n.getMessage("modal_delete_btn")
   }
 };
 module.exports = APP_TRANSLATIONS;

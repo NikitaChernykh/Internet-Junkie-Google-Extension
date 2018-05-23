@@ -1,5 +1,7 @@
 
 var moment = require('moment-timezone');
+
+
 var bgModule = {
     pastDays : [],
     websiteList: [],
@@ -233,9 +235,9 @@ var bgModule = {
           var existingWebsite = bgModule.search(websiteName);
           var start = moment().format();
           //favicon check
-          if (favIcon === undefined || favIcon === "") {
-              favIcon = "/assets/images/default_icon.png";
-          }
+          // if (favIcon === undefined || favIcon === "") {
+          //     favIcon = "/assets/images/default_icon.png";
+          // }
           if (!existingWebsite) {
               //max 30 website cap for faster loading
               if(bgModule.websiteList.length >=30){

@@ -1,6 +1,6 @@
 {
     "ext_description": {
-        "message": "Your own internet time tracker. Track the time which you spend on the websites daily.",
+        "message": "Internet Junkie, your best internet time tracker. Track the time you spend on the browser daily.",
         "description": "The description of the application, displayed in the web store."
     },
     "placeholder_msg": {
@@ -70,5 +70,33 @@
     "settings_btn_goback":{
         "message": "Go back",
         "description": "Go back btn."
+    },
+    "settings_error_minlength":{
+      "message": "Your website name is too short.",
+      "description": "Website name length error messege."
+    },
+    "settings_error_required":{
+      "message": "The input is empty.",
+      "description": "Website name required error messege."
+    },
+    "settings_error_blacklist_exist":{
+      "message": "This already exist in the blacklist.",
+      "description": "Website name was already added to blacklist error messege."
+    },
+    "modal_title":{
+      "message": "Confirmation",
+      "description": "Modal title."
+    },
+    "modal_body":{
+      "message": "Are you sure you want to delete today statistics?",
+      "description": "Modal text."
+    },
+    "modal_cancel_btn":{
+      "message": "Cancel",
+      "description": "Modal button cancel."
+    },
+    "modal_delete_btn":{
+      "message": "Delete",
+      "description": "Modal button delete."
     }
 }
