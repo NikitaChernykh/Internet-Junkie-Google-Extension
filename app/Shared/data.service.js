@@ -47,7 +47,8 @@ module.exports = function($q) {
     var totalVisits = 0;
     var totalSeconds = 0;
     var total = {};
-    websiteList.sort(function(a, b){return b.websiteVisits - a.websiteVisits;});
+    console.log(websiteList);
+    
     for(var f = 0; f < websiteList.length; f++){
       if(f < 10){
         totalVisits += websiteList[f].websiteVisits;

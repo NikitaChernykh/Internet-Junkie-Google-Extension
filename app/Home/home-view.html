@@ -49,7 +49,7 @@
                               {{('0'+website.formatedTime.days.toString()).slice(-2)}}{{abbr_days}}
                           </div>
                           <div class="inline" ng-hide="{{(website.formatedTime.hours == 0) ? 'true':'false'}}">{{(website.formatedTime.hours.toString()).slice(-2)}}{{abbr_hours}}</div>
-                          <!-- <div class="inline" ng-hide="{{(website.formatedTime.min == 0) ? 'true':'false'}}">{{(website.formatedTime.min.toString()).slice(-2)}}{{abbr_min}}</div> -->
+                          <div class="inline" ng-hide="{{(website.formatedTime.min == 0) ? 'true':'false'}}">{{(website.formatedTime.min.toString()).slice(-2)}}{{abbr_min}}</div>
                           <div class="inline">{{('0'+website.formatedTime.sec.toString()).slice(-2)}}{{abbr_sec}}</div>
                       </div>
                     </td>
