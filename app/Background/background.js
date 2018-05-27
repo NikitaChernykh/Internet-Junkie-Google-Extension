@@ -226,18 +226,17 @@ var bgModule = {
     tabUpdatedAndActive: function (newUrl, favIcon) {
       //prevent from empty entry needs refactor leter
       //could be similar issue with favicon url
-      if(newUrl === "" || newUrl === undefined){
+      if(newUrl === "" || typeof newUrl === "undefined"){
         return;
+      }
+      if(typeof favIcon === "undefined"){
+        favIcon = "/assets/images/default_icon.png";
       }
       //blacklist check
       if (bgModule.blackListCheck(newUrl) == false) {
           var websiteName = bgModule.extractDomain(newUrl);
           var existingWebsite = bgModule.search(websiteName);
           var start = moment().format();
-          //favicon check
-          // if (favIcon === undefined || favIcon === "") {
-          //     favIcon = "/assets/images/default_icon.png";
-          // }
           if (!existingWebsite) {
               //max 30 website cap for faster loading
               if(bgModule.websiteList.length >=30){

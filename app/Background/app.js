@@ -18,7 +18,6 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
             console.error(errorMsg);
         }else{
             if(tab.active && tab.url != "chrome://newtab/"){
-                console.log("tab url on activate " + tab.favIconUrl);
                 bgModule.tabUpdatedAndActive(tab.url, tab.favIconUrl);
                 bgModule.globalURL = tab.url;
             }
@@ -29,10 +28,6 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
       //check for inactive tab reloading
       if (tab.active && tab.url !== "chrome://newtab/" && changeInfo.status === "complete") {
-          console.log("reloaded tab");
-          console.log("lastActiveURL " + bgModule.prevTab);
-          console.log(bgModule.extractDomain(tab.url));
-          console.log("favIconUrl " + tab.favIconUrl);
           bgModule.tabUpdatedAndActive(tab.url, tab.favIconUrl);
           bgModule.updateDeactivationTime(bgModule.prevTab);
           bgModule.prevTab = bgModule.extractDomain(tab.url);
@@ -51,7 +46,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         });
         bgModule.checkInactiveDays(bgModule.lastActiveSince);
         bgModule.resetTimer();
-        console.log(moment.utc(bgModule.getResetTime(bgModule.lastActiveSince)).format('HH:mm:ss'));
     }
     if (request.action == "remove") {
         bgModule.websiteList = request.list;
