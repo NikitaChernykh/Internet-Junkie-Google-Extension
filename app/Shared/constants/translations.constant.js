@@ -11,7 +11,9 @@ var APP_TRANSLATIONS = {
     abbr_min: chrome.i18n.getMessage("abbr_min"),
     abbr_sec: chrome.i18n.getMessage("abbr_sec"),
     abbr_days: chrome.i18n.getMessage("abbr_days"),
-    abbr_hours: chrome.i18n.getMessage("abbr_hours")
+    abbr_hours: chrome.i18n.getMessage("abbr_hours"),
+    see_other_days: chrome.i18n.getMessage("see_other_days"),
+    no_activity_text: chrome.i18n.getMessage("no_activity_text")
   },
   settings: {
     settings_title: chrome.i18n.getMessage("settings_title"),

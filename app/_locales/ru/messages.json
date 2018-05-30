@@ -31,6 +31,14 @@
         "message": "посещений",
         "description": "Visits lowercase text."
     },
+    "see_other_days": {
+        "message": "Показать другие дни",
+        "description": "See other days text"
+    },
+    "no_activity_text": {
+        "message": "В этот день не было активности.",
+        "description": "No activity text."
+    },
     "abbr_sec": {
         "message": "c",
         "description": "Abbreviation for seconds."

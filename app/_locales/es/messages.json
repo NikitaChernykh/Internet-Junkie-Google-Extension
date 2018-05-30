@@ -31,6 +31,14 @@
         "message": "visitas",
         "description": "Visits lowercase text."
     },
+    "see_other_days": {
+        "message": "Ver otros días",
+        "description": "See other days text"
+    },
+    "no_activity_text": {
+        "message": "No tienes actividad registrada para esta día.",
+        "description": "No activity text."
+    },
     "abbr_sec": {
         "message": "s",
         "description": "Abbreviation for seconds."

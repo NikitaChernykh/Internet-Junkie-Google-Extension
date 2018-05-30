@@ -20,7 +20,8 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
   $scope.abbr_sec = APP_TRANSLATIONS.home.abbr_sec;
   $scope.abbr_days = APP_TRANSLATIONS.home.abbr_days;
   $scope.abbr_hours = APP_TRANSLATIONS.home.abbr_hours;
-  $scope.no_activity_text = "You have no activity recorded for this day.";
+  $scope.no_activity_text = APP_TRANSLATIONS.home.no_activity_text;
+  $scope.see_other_days = APP_TRANSLATIONS.home.see_other_days;
 
   moment.locale($scope.lang);
   var websiteList = [];
