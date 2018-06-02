@@ -1,5 +1,4 @@
 html {
-    outline: 1px solid red;
     margin: 0;
     padding: 0;
     background-color: #38416C;
@@ -25,14 +24,11 @@ a:hover {
 body {
     overflow: hidden;
     color: $white;
-    margin-top: 100px;
     width: 420px;
-    height:520px;
+    height:620px;
     font-family: "Roboto Condensed", Arial, sans-serif;
     margin-left: 0;
     margin-right: 0;
-    padding-left: 8px;
-    padding-right: 8px;
 }
 
 th {
@@ -61,14 +57,13 @@ tbody tr:hover .removeArrow {
 table {
     width: 100%;
 }
-img {
+tr img {
     margin-top: 3px;
+    margin-left: 3px;
 }
 
 #websiteList {
-    position: fixed;
-    left: 0;
-    right: 0;
+
     font-family: "Roboto Condensed", Arial, sans-serif;
 }
 

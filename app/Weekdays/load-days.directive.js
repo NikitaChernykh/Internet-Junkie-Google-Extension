@@ -6,19 +6,21 @@ module.exports = function(dataService) {
             scope.dayBtn = number;
             scope.showTableHead = true;
             scope.activityMonster = false;
+            scope.statisticsMonster = true;
             switch(number){
               case 6:
                 scope.today_text = chrome.i18n.getMessage("today_text");
                 scope.activityMonster = false;
+                scope.statisticsMonster = false;
                 var result6 = dataService.calculateTotal(scope.websites);
                 scope.model.totalVisits = result6.totalVisits;
                 scope.model.totalTime = result6.totalTime;
               break;
               case 5:
                 scope.today_text = moment().subtract(1, 'days').format('LL');
-
                 if(!scope.firstDayWebsites || scope.firstDayWebsites.length == 0){
                   scope.activityMonster = true;
+                  scope.statisticsMonster = true;
                   scope.model.totalVisits= 0;
                   scope.model.totalTime = {
                     hours : 0,
@@ -35,6 +37,7 @@ module.exports = function(dataService) {
                 scope.today_text = moment().subtract(2, 'days').format('LL');
                 if(!scope.secondDayWebsites || scope.secondDayWebsites.length == 0){
                   scope.activityMonster = true;
+                  scope.statisticsMonster = true;
                   scope.model.totalVisits= 0;
                   scope.model.totalTime = {
                     hours : 0,
@@ -51,6 +54,7 @@ module.exports = function(dataService) {
                 scope.today_text = moment().subtract(3, 'days').format('LL');
                 if(!scope.thirdDayWebsites || scope.thirdDayWebsites.length == 0){
                   scope.activityMonster = true;
+                  scope.statisticsMonster = true;
                   scope.model.totalVisits= 0;
                   scope.model.totalTime = {
                     hours : 0,
@@ -67,6 +71,7 @@ module.exports = function(dataService) {
                 scope.today_text = moment().subtract(4, 'days').format('LL');
                 if(!scope.forthDayWebsites || scope.forthDayWebsites.length == 0){
                   scope.activityMonster = true;
+                  scope.statisticsMonster = true;
                   scope.model.totalVisits= 0;
                   scope.model.totalTime = {
                     hours : 0,
@@ -83,6 +88,7 @@ module.exports = function(dataService) {
                 scope.today_text = moment().subtract(5, 'days').format('LL');
                 if(!scope.fifthDayWebsites || scope.fifthDayWebsites.length == 0){
                   scope.activityMonster = true;
+                  scope.statisticsMonster = true;
                   scope.model.totalVisits= 0;
                   scope.model.totalTime = {
                     hours : 0,
@@ -99,6 +105,7 @@ module.exports = function(dataService) {
                 scope.today_text = moment().subtract(6, 'days').format('LL');
                 if(!scope.sixthDayWebsites || scope.sixthDayWebsites.length == 0){
                   scope.activityMonster = true;
+                  scope.statisticsMonster = true;
                   scope.model.totalVisits= 0;
                   scope.model.totalTime = {
                     hours : 0,

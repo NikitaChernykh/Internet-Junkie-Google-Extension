@@ -6,12 +6,14 @@ footer{
   
   .footer--copyright,
   .footer--version {
-    margin-bottom: 5px;
+    margin-bottom: 7px;
   }
   .footer--copyright {
+    margin-left: 8px;
     float: left;
   }
   .footer--version {
+    margin-right: 8px;
     float: right;
   }
 }

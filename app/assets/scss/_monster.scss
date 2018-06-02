@@ -8,23 +8,21 @@
   position: absolute;
 }
 .monsterText {
+  margin-top: 105px;
   color: #fff;
-  position: absolute;
-  margin-top: 140px;
-  left: 110px;
+  text-align: center;
 }
 .noActivitymonsterText{
+  margin-top: 105px;
   color: #fff;
-  position: absolute;
-  margin-top: 140px;
-  left: 130px;
+  text-align: center;
 }
 .monst-wrap{
   width:80px;
   height: 90px;
   position: absolute;
-  left: 170px;
-  top:150px;
+  left: 163px;
+  top:110px;
 }
 .container {
   margin: auto;
@@ -33,7 +31,7 @@
   right: 0;
   left: 0;
   width: 400px;
-  height: 400px;
+  height: 300px;
 }
 .container:hover .mouth {
   height: 22px ;

@@ -24,6 +24,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
   $scope.see_other_days = APP_TRANSLATIONS.home.see_other_days;
 
   moment.locale($scope.lang);
+  console.log($scope.lang);
   var websiteList = [];
   $scope.showTableHead = true;
   dataService.getWebsites().then(function(result){
@@ -65,12 +66,7 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
       }
   };
 
-  //open setting page
-  $scope.settings = function(){
-    _gaq.push(['_trackEvent', 'settingsOpen']);
-    authService.view = APP_VIEWS.settingsView;
-    $scope.$emit('view', authService.view);
-  };
+  
   $scope.websiteName = function(name){
     if(name.length >= 32){
       name = name.slice(0,32)+'(...)';
@@ -111,11 +107,13 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
   //TODO move to directive
   //monster toggle
   $scope.monsterToggle = function () {
-      if (websiteList[0] == undefined || websiteList[0].websiteVisits < 0) {
-           _gaq.push(['_trackEvent', 'showedMonster']);
-           return true;
+      if (websiteList[0] == undefined || websiteList[0].websiteVisits < 0 ) {
+          if($scope.statisticsMonster){
+            return false;
+          }
+          return true;
       }else{
-           return false;
+          return false;
       }
   };
   $scope.noActivityMonsterToggle = function(){
@@ -124,4 +122,5 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
     }
     return false;
   };
+  
 };
