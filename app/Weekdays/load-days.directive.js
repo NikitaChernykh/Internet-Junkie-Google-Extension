@@ -132,7 +132,7 @@ module.exports = function(dataService) {
               scope.fifthDayWebsites = data[4].websiteList;
               scope.sixthDayWebsites = data[5].websiteList;
       }).catch(function(error) {
-          console.error(error);
+          console.log(error);
           // return;
         });
       }

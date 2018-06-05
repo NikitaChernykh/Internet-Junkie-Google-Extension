@@ -22,9 +22,8 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
   $scope.abbr_hours = APP_TRANSLATIONS.home.abbr_hours;
   $scope.no_activity_text = APP_TRANSLATIONS.home.no_activity_text;
   $scope.see_other_days = APP_TRANSLATIONS.home.see_other_days;
-
-  moment.locale($scope.lang);
-  console.log($scope.lang);
+  //trigger for translations
+  moment.locale(chrome.runtime.getManifest().current_locale);
   var websiteList = [];
   $scope.showTableHead = true;
   dataService.getWebsites().then(function(result){
@@ -33,14 +32,14 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
       $scope.websites = websiteList;
     });
   }).catch(function () {
-    console.error("Could not retrive website list.");
+    console.log("Could not retrive website list.");
   });
 
   dataService.getTotalTimeAndVisits().then(function(total){
     $scope.model.totalVisits = total.totalVisits;
     $scope.model.totalTime = total.totalTime;
   }).catch(function () {
-    console.error("Can't get total time and visits.");
+    console.log("Can't get total time and visits.");
   });
 
   $scope.model = {
@@ -68,8 +67,8 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
 
   
   $scope.websiteName = function(name){
-    if(name.length >= 32){
-      name = name.slice(0,32)+'(...)';
+    if(name.length >= 24){
+      name = name.slice(0,24)+'(...)';
     }
     return name;
   };
