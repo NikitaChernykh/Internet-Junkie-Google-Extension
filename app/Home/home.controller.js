@@ -47,8 +47,6 @@ module.exports = function($scope, $timeout, authService, dataService, APP_VIEWS,
     totalTime:{}
   };
 
-
-
   $scope.sortOrder = "-websiteVisits";
   //sort & color change on order toggle
   $scope.sortToggle = function (order) {

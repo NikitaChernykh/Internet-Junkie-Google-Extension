@@ -60,24 +60,19 @@ var bgModule = {
           return;
         }else{
           if(moment(lastActive).isSame(moment(), 'day') == false){
-            console.log("lastActive not the same day as today");
-            console.log(lastActive);
             //if yesteday
             if(moment(lastActive).date() === moment().add(-1, 'days').date()){
-              console.log("last active was yestedsy");
               //savePastDay
               bgModule.savePastDay();
               bgModule.lastActiveSince = null;
             }else{
-              console.log("last active was NOT yestedsy");
               var startOfDay = moment().startOf('day');
               inactiveDays = moment.duration(moment(startOfDay).diff(lastActive)).days();
               if( inactiveDays >= 1){
-                  console.log("adding empty days");
                   bgModule.addEmptyDays(inactiveDays);
                   bgModule.lastActiveSince = null;
               }else{
-                  console.log("don't do anything 2");
+                  //console.log("don't do anything 2");
               }
             }
           }else{
@@ -271,4 +266,4 @@ module.exports = bgModule;
 
 //for web console testing
 //to call methods from the web console use window.test.[name of the method]
-window.test = bgModule;
+//window.test = bgModule;

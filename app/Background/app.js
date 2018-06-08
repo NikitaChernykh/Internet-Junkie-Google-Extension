@@ -15,7 +15,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
     chrome.tabs.get(activeInfo.tabId, function(tab){
         if(chrome.runtime.lastError){
             var errorMsg = chrome.runtime.lastError.message;
-            console.error(errorMsg);
+            console.log(errorMsg);
         }else{
             if(tab.active && tab.url != "chrome://newtab/"){
                 bgModule.tabUpdatedAndActive(tab.url, tab.favIconUrl);
@@ -61,16 +61,13 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 // Check if chrome is out of focus or pc in sleep mode
 chrome.windows.onFocusChanged.addListener(function(window) {
     chrome.windows.getCurrent(function(win){
-      console.log("waht is prevTab on focus change: "+bgModule.prevTab);
-      console.log(win.id);
       if(win.type !== "normal" || window === chrome.windows.WINDOW_ID_NONE){
         if(bgModule.prevTab !== ""){
           bgModule.updateDeactivationTime(bgModule.prevTab);
         }
         bgModule.globalURL = bgModule.prevTab;
         bgModule.saveData();
-        console.log(bgModule.lastActiveSince);
-        console.log("chrome is not active " );
+        //console.log("chrome is not active " );
         bgModule.updateTotalVisits(bgModule.websiteList);
         bgModule.checkInactiveDays(bgModule.lastActiveSince);
         bgModule.resetTimer();
@@ -80,12 +77,8 @@ chrome.windows.onFocusChanged.addListener(function(window) {
           chrome.tabs.query({active: true, currentWindow: true},function(tabs){
             var websiteName = bgModule.extractDomain(tabs[0].url);
             var favIcon = tabs[0].favIconUrl;
-            console.log(tabs[0]);
-            console.log("favIcon "+favIcon);
-            console.log("websiteName after focus changed on normal "+websiteName);
             if(bgModule.prevTab !== ""){
                 bgModule.updateDeactivationTime(bgModule.prevTab);
-                console.log("updateDeactivationTime for "+bgModule.prevTab);
                 bgModule.prevTab = websiteName;//to reset prevTab to be up to date.
                 bgModule.globalURL = websiteName;//? why?
                 bgModule.tabUpdatedAndActive(websiteName, favIcon);
@@ -93,8 +86,7 @@ chrome.windows.onFocusChanged.addListener(function(window) {
               bgModule.prevTab = websiteName;
             }
           });
-          console.log("chrome is active ");
-          console.log(bgModule.lastActiveSince);
+          //console.log("chrome is active ");
           //get totalVisits
           bgModule.updateTotalVisits(bgModule.websiteList);
           bgModule.checkInactiveDays(bgModule.lastActiveSince);
