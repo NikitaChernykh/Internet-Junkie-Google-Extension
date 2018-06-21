@@ -1,4 +1,5 @@
 var bgModule = require('../../app/Background/background.js');
+var UtilitiesModule = require('../../app/Background/utilities.module.js');
 var moment = require('moment-timezone');
 
 bgModule.setDaylyTimer();

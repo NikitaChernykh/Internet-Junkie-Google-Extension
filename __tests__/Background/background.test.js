@@ -1,6 +1,3 @@
-
-// jshint esversion: 6
-
 jest.unmock("../../app/Background/background.js");
 jest.unmock('moment');
 
@@ -38,10 +35,7 @@ describe("background script", () =>{
       bgModule.resetPastDays();
       expect(bgModule.pastDays).toEqual(expectedEmptyArray);
     });
-    it ("time stamp should return today's time", () => {
-       let time = bgModule.timeStamp();
-       expect(time).toEqual(time);
-    });
+
     it ("should alwayse keep passDays length to 6", () => {
       let pastDaysMoreThanSix = [
         {"day":"Monday"},

@@ -7,7 +7,7 @@
     "start": "gulp watch",
     "build": "gulp build",
     "test": "jest --coverage",
-    "watch-test": "jest --watch __tests__/**/*.js --coverage"
+    "test-watch": "jest --watch __tests__/**/*.js --coverage"
   },
   "jest": {
     "verbose": true

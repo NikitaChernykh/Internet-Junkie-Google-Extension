@@ -1,6 +1,6 @@
 
 var moment = require('moment-timezone');
-
+var UtilitiesModule = require('../../app/Background/utilities.module.js');
 
 var bgModule = {
     pastDays : [],
@@ -50,9 +50,6 @@ var bgModule = {
         }
       }
       //TODO add total time
-    },
-    timeStamp: function(){
-      return moment().format("YYYY-MM-DD HH:mm");
     },
     checkInactiveDays: function(lastActive){
         var inactiveDays = 0;
@@ -107,7 +104,8 @@ var bgModule = {
     },
     saveEmptyDay: function(){
       var pastDay = {
-            "websiteList": []
+            "websiteList": [],
+            "totalVisits": 0
       };
       bgModule.pastDays.unshift(pastDay);
       bgModule.cleanDaysToEqualSeven(bgModule.pastDays);
@@ -137,7 +135,7 @@ var bgModule = {
         'use strict';
         bgModule.sortWebsiteList(bgModule.websiteList);
         bgModule.savePastDay();
-        bgModule.lastActiveSince = bgModule.timeStamp();
+        bgModule.lastActiveSince = UtilitiesModule.timeStamp();
         bgModule.setDaylyTimer();
       }, resetTime);
     },
