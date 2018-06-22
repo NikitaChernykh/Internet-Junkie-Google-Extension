@@ -1,5 +1,6 @@
-var moment = require('moment-timezone');
+"use strict";
 
+var moment = require('moment-timezone');
 
 module.exports = {
   timeStamp: function(){

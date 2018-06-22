@@ -13,5 +13,4 @@ describe("Utilities Module", () =>{
         expect(timeStampTest).toEqual(time);
     });
   });
-
 });

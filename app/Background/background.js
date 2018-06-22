@@ -1,7 +1,12 @@
 
-var moment = require('moment-timezone');
-var UtilitiesModule = require('../../app/Background/utilities.module.js');
+const moment = require('moment-timezone');
+const UtilitiesModule = require('../../app/Background/utilities.module.js');
+const Website = require('./Website');
 
+
+var myWebsite = new Website();
+myWebsite.print();
+console.log(myWebsite);
 var bgModule = {
     pastDays : [],
     websiteList: [],
