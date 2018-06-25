@@ -7,10 +7,10 @@ bgModule.setDaylyTimer();
 chrome.tabs.onActivated.addListener(function (activeInfo) {
     chrome.tabs.query({active: true, currentWindow: true},function(tabs){
         if(typeof bgModule.prevTab == "undefined"){
-            bgModule.prevTab = bgModule.extractDomain(tabs[0].url);
+            bgModule.prevTab = UtilitiesModule.extractDomain(tabs[0].url);
         }else{
             bgModule.updateDeactivationTime(bgModule.prevTab);
-            bgModule.prevTab = bgModule.extractDomain(tabs[0].url);
+            bgModule.prevTab = UtilitiesModule.extractDomain(tabs[0].url);
         }
     });
     chrome.tabs.get(activeInfo.tabId, function(tab){
@@ -31,7 +31,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
       if (tab.active && tab.url !== "chrome://newtab/" && changeInfo.status === "complete") {
           bgModule.tabUpdatedAndActive(tab.url, tab.favIconUrl);
           bgModule.updateDeactivationTime(bgModule.prevTab);
-          bgModule.prevTab = bgModule.extractDomain(tab.url);
+          bgModule.prevTab = UtilitiesModule.extractDomain(tab.url);
           bgModule.globalURL = tab.url;
       }
 });
@@ -72,11 +72,11 @@ chrome.windows.onFocusChanged.addListener(function(window) {
         bgModule.updateTotalVisits(bgModule.websiteList);
         bgModule.checkInactiveDays(bgModule.lastActiveSince);
         bgModule.resetTimer();
-        bgModule.lastActiveSince = bgModule.timeStamp();
+        bgModule.lastActiveSince = UtilitiesModule.timeStamp();
       }else {
         //set current active to start the timer
           chrome.tabs.query({active: true, currentWindow: true},function(tabs){
-            var websiteName = bgModule.extractDomain(tabs[0].url);
+            var websiteName = UtilitiesModule.extractDomain(tabs[0].url);
             var favIcon = tabs[0].favIconUrl;
             if(bgModule.prevTab !== ""){
                 bgModule.updateDeactivationTime(bgModule.prevTab);

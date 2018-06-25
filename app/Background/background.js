@@ -2,11 +2,11 @@
 const moment = require('moment-timezone');
 const UtilitiesModule = require('../../app/Background/utilities.module.js');
 const Website = require('./Website');
+const WebsiteList = require('./WebsiteList');
+const WebsiteBlackList = require('./WebsiteBlackList');
 
-
-var myWebsite = new Website();
-myWebsite.print();
-console.log(myWebsite);
+var myWebsiteList = new WebsiteList(new Website('sdfsf','someurl'),new Website('sdfsf','someurl'));
+var myBlackList = new WebsiteBlackList();
 var bgModule = {
     pastDays : [],
     websiteList: [],
@@ -148,44 +148,8 @@ var bgModule = {
       clearTimeout(bgModule.myTimer);
       bgModule.setDaylyTimer();
     },
-    extractDomain: function (url){
-      if (url !== undefined) {
-        var hostname;
-        //find & remove protocol (http, ftp, etc.) and get hostname
-        if (url.indexOf("://") > -1) {
-            hostname = url.split('/')[2];
-        }
-        else {
-            hostname = url.split('/')[0];
-        }
 
-        //find & remove port number
-        hostname = hostname.split(':')[0];
 
-        //find & remove "?"
-        hostname = hostname.split('?')[0];
-
-        //text wiput dots will not pass
-        var arr = hostname.match(/[.]/gi);
-        if(arr == null){
-           return "";
-        }
-        //removes www. from filtered urls
-        if(hostname.substring(0,4) == "www."){
-          hostname = hostname.slice(4);
-        }
-        return hostname;
-      }
-      return "";
-    },
-    search: function (websiteName){
-      for (var i = 0; i < bgModule.websiteList.length; i++) {
-          if (bgModule.websiteList[i].websiteName === websiteName) {
-              return bgModule.websiteList[i];
-          }
-      }
-      return null;
-    },
     blackListCheck: function (websiteName) {
       for (var b = 0; b < bgModule.blackList.length; b++) {
           if (websiteName.includes(bgModule.blackList[b])) {
@@ -199,8 +163,8 @@ var bgModule = {
       if(tabURL == ""){
         return;
       }
-      var websiteName = bgModule.extractDomain(tabURL);
-      var existingWebsite = bgModule.search(websiteName);
+      var websiteName = UtilitiesModule.extractDomain(tabURL);
+      var existingWebsite = UtilitiesModule.search(websiteName,bgModule.websiteList);
       if (existingWebsite) {
           var deactivationTime = moment().format();
           var duration = moment.duration(moment(deactivationTime).diff(existingWebsite.startTime));
@@ -232,8 +196,8 @@ var bgModule = {
       }
       //blacklist check
       if (bgModule.blackListCheck(newUrl) == false) {
-          var websiteName = bgModule.extractDomain(newUrl);
-          var existingWebsite = bgModule.search(websiteName);
+          var websiteName = UtilitiesModule.extractDomain(newUrl);
+          var existingWebsite = UtilitiesModule.search(websiteName,bgModule.websiteList);
           var start = moment().format();
           if (!existingWebsite) {
               //max 30 website cap for faster loading

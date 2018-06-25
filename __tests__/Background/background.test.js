@@ -2,6 +2,7 @@ jest.unmock("../../app/Background/background.js");
 jest.unmock('moment');
 
 const bgModule = require("../../app/Background/background.js");
+const UtilitiesModule = require("../../app/Background/utilities.module.js");
 const moment = require('moment');
 
 const get = jest.fn();
@@ -88,84 +89,6 @@ describe("background script", () =>{
        let lastActive = moment().subtract(41, 'h');
        let numberOfDays = bgModule.checkInactiveDays(lastActive);
     });
-    it ("should extract domain from a string", () => {
-        const testData = {
-           url_1: "https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_split",
-           url_2: "www.w3schools.com/jsref/tryit.asp?filename",
-           url_3: "dfsdfsdfsdfsdfsdfsdfsdfsdfsdfgsdfsdfssdgsghs",
-           url_4: undefined,
-           url_5: "w3schools.com",
-           url_6: "",
-           url_7: "http://projects.google.com/#/projects/active",
-           url_8: "www.blog.classroom.me.uk",
-           url_9: "http://www.example.com:8080",
-           url_10: "http://mywebsitehaswww.com"
-        };
-        let expectedData = {};
-        let result1 = bgModule.extractDomain(testData.url_1);
-        let result2 = bgModule.extractDomain(testData.url_2);
-        let result3 = bgModule.extractDomain(testData.url_3);
-        let result4 = bgModule.extractDomain(testData.url_4);
-        let result5 = bgModule.extractDomain(testData.url_5);
-        let result6 = bgModule.extractDomain(testData.url_6);
-        let result7 = bgModule.extractDomain(testData.url_7);
-        let result8 = bgModule.extractDomain(testData.url_8);
-        let result9 = bgModule.extractDomain(testData.url_9);
-        let result10 = bgModule.extractDomain(testData.url_10);
-        expectedData ={
-           url_1_result: result1,
-           url_2_result: result2,
-           url_3_result: result3,
-           url_4_result: result4,
-           url_5_result: result5,
-           url_6_result: result6,
-           url_7_result: result7,
-           url_8_result: result8,
-           url_9_result: result9,
-           url_10_result: result10
-        };
-        expect(expectedData).toEqual({
-            url_1_result: "w3schools.com",
-            url_2_result: "w3schools.com",
-            url_3_result: "",
-            url_4_result: "",
-            url_5_result: "w3schools.com",
-            url_6_result: "",
-            url_7_result: "projects.google.com",
-            url_8_result: "blog.classroom.me.uk",
-            url_9_result: "example.com",
-            url_10_result: "mywebsitehaswww.com"
-        });
-    });
-    it ("should check if website exists in global website list", () => {
-        const testWebsite = "facebook.dev.com";
-        const testWebsiteList = [
-          [],
-          [{websiteName: "facebook.com"}],
-          [{websiteName: "facebook.com"}, {websiteName: "stackoverflow.com"}, {websiteName: "github.com"}],
-          [{websiteName: "facebook.com"}, {websiteName: "stackoverflow.com"}, {websiteName: "facebook.dev.com"}]
-        ];
-        var results = [];
-
-        for (var i = 0; i < testWebsiteList.length; i++) {
-          bgModule.websiteList = testWebsiteList[i];
-          results.push(bgModule.search(testWebsite));
-        }
-
-        var expectedData ={
-           search_1_result: results[0],
-           search_2_result: results[1],
-           search_3_result: results[2],
-           search_4_result: results[3]
-        };
-        expect(expectedData).toEqual({
-            search_1_result: null,
-            search_2_result: null,
-            search_3_result: null,
-            search_4_result: {websiteName: "facebook.dev.com"},
-
-        });
-    });
     it ("should check if website exists in blacklist", () => {
         const testWebsite = "www.google.ca";
         const testBlacklist = [
@@ -200,10 +123,7 @@ describe("background script", () =>{
       expect(savePastDaySpy).toHaveBeenCalledTimes(1);
       expect(saveEmptyDaySpy.calls.count()).toEqual(2);
     });
-    it ("should check search can find website by name", () => {
-      let result = bgModule.search('facebook.com');
-      expect(result).toEqual({"websiteName": "facebook.com"});
-    });
+
     it.skip("should check if tab was updated correctly with existing website", () => {
       var testData ={
          newUrl: "https://esj.com/articles/2012/09/24/better-unit-testing.aspx",
@@ -220,7 +140,7 @@ describe("background script", () =>{
       let result = bgModule.search();
       bgModule.tabUpdatedAndActive(testData.newUrl,testData.favIcon);
 
-      expect(bgModule.extractDomain(testData.newUrl)).toEqual(websiteName);
+      expect(bgModule.UtilitiesModule(testData.newUrl)).toEqual(websiteName);
       expect(bgModule.search(websiteName)).toBeTruthy();
       expect(result.websiteVisits).toEqual(55);
     });
