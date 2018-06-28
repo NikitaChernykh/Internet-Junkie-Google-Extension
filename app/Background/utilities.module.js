@@ -6,7 +6,7 @@ module.exports = {
   timeStamp: function(){
     return moment().format("YYYY-MM-DD HH:mm");
   },
-  extractDomain: function (url){
+  extractDomain: function(url){
     if (url !== undefined) {
       var hostname;
       //find & remove protocol (http, ftp, etc.) and get hostname
@@ -36,12 +36,17 @@ module.exports = {
     }
     return "";
   },
-  search: function (websiteName, list){
+  search: function(websiteName, list){
     for (var i = 0; i < list.length; i++) {
         if (list[i].websiteName === websiteName) {
             return list[i];
         }
     }
     return null;
+  },
+  sortWebsiteList: function(list){
+    list = list.sort(function(a,b){
+      return b.websiteVisits - a.websiteVisits;
+    });
   }
 };

@@ -22,7 +22,6 @@ var bgModule = {
     total:{
       "totalVisits": 0
     },
-
     saveData: function(){
       chrome.storage.local.set({'blackList': bgModule.blackList});
       chrome.storage.local.set({'pastDays': bgModule.pastDays});
@@ -48,7 +47,7 @@ var bgModule = {
       });
     },
     updateTotalVisits: function(list){
-      bgModule.sortWebsiteList(list);
+      UtilitiesModule.sortWebsiteList(list);
       for(var f = 0; f < list.length; f++){
         if(f < 10){
           bgModule.total.totalVisits += list[f].websiteVisits;
@@ -90,7 +89,6 @@ var bgModule = {
       }
     },
     savePastDay: function(){
-
       bgModule.updateTotalVisits(bgModule.websiteList);
       var pastDay = {
             "websiteList": bgModule.websiteList.slice(0, 10)
@@ -118,11 +116,6 @@ var bgModule = {
       bgModule.resetWebsiteList();
       bgModule.saveData();
     },
-    sortWebsiteList: function(list){
-      list = list.sort(function(a,b){
-        return b.websiteVisits - a.websiteVisits;
-      });
-    },
     getResetTime: function(lastActive){
       var timeNow = moment();
       var endOfTheDay = moment().endOf('day');
@@ -138,7 +131,7 @@ var bgModule = {
       var resetTime = bgModule.getResetTime(bgModule.lastActiveSince);
       bgModule.myTimer = setTimeout(function() {
         'use strict';
-        bgModule.sortWebsiteList(bgModule.websiteList);
+        UtilitiesModule.sortWebsiteList(bgModule.websiteList);
         bgModule.savePastDay();
         bgModule.lastActiveSince = UtilitiesModule.timeStamp();
         bgModule.setDaylyTimer();
