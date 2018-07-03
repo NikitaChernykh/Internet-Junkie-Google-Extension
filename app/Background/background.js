@@ -6,14 +6,10 @@ const WebsiteList = require('./WebsiteList');
 const WebsiteBlackList = require('./WebsiteBlackList');
 
 var myWebsiteList = new WebsiteList(new Website('sdfsf','someurl'),new Website('sdfsf','someurl'));
-var myBlackList = new WebsiteBlackList();
+const blackList = new WebsiteBlackList();
 var bgModule = {
     pastDays : [],
     websiteList: [],
-    blackList: [
-      "newtab","chrome://",
-      "localhost", "chrome-extension://",
-      "about:blank","file://"],
     globalUrl: "",
     prevTab: "",
     lastActiveSince: null,
@@ -141,7 +137,6 @@ var bgModule = {
       clearTimeout(bgModule.myTimer);
       bgModule.setDaylyTimer();
     },
-
 
     blackListCheck: function (websiteName) {
       for (var b = 0; b < bgModule.blackList.length; b++) {

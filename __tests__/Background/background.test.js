@@ -82,39 +82,14 @@ describe("background script", () =>{
         {"websiteVisits": 23},
         {"websiteVisits": 1}
       ];
-      bgModule.sortWebsiteList(fakeList);
+      UtilitiesModule.sortWebsiteList(fakeList);
       expect(fakeList).toEqual(sortedfakeList);
     });
     it.skip("should check the number of inactive days", () => {
        let lastActive = moment().subtract(41, 'h');
        let numberOfDays = bgModule.checkInactiveDays(lastActive);
     });
-    it ("should check if website exists in blacklist", () => {
-        const testWebsite = "www.google.ca";
-        const testBlacklist = [
-          [],
-          ["newtab", "www.google.", "chrome://", "localhost", "chrome-extension://"],
-          ["newtab", "chrome://", "localhost", "chrome-extension://", "badwebsite.com"]
-        ];
 
-        let results = [];
-
-        for (var i = 0; i < testBlacklist.length; i++) {
-          bgModule.blackList = testBlacklist[i];
-          results.push(bgModule.blackListCheck(testWebsite));
-        }
-
-        const expectedData ={
-           search_1_result: results[0],
-           search_2_result: results[1],
-           search_3_result: results[2]
-        };
-        expect(expectedData).toEqual({
-            search_1_result: false,
-            search_2_result: true,
-            search_3_result: false
-        });
-    });
     it ('should add exact amount of empty days', function() {
       const saveEmptyDaySpy = spyOn(bgModule, "saveEmptyDay");
       const savePastDaySpy = spyOn(bgModule, "savePastDay");
@@ -156,13 +131,13 @@ describe("background script", () =>{
       expect(chrome.storage.local.set).toHaveBeenCalledWith({'pastDays': bgModule.pastDays});
     });
     it ("should check if past day is saved", () => {
-      bgModule.sortWebsiteList = jest.fn();
+      UtilitiesModule.sortWebsiteList = jest.fn();
       bgModule.cleanDaysToEqualSeven = jest.fn();
       bgModule.resetWebsiteList = jest.fn();
       bgModule.saveData = jest.fn();
       bgModule.savePastDay();
       expect(bgModule.total.totalVisits).toEqual(0);
-      expect(bgModule.sortWebsiteList).toHaveBeenCalledTimes(1);
+      expect(UtilitiesModule.sortWebsiteList).toHaveBeenCalledTimes(1);
       expect(bgModule.pastDays[0]).toEqual({"totalVisits": bgModule.pastDays[0].totalVisits, "websiteList": bgModule.websiteList.slice(0, 10)});
       expect(bgModule.cleanDaysToEqualSeven).toHaveBeenCalledWith(bgModule.pastDays);
       expect(bgModule.resetWebsiteList).toHaveBeenCalledTimes(1);

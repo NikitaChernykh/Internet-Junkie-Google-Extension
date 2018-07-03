@@ -1,28 +1,25 @@
 "use strict";
 
 class WebsiteBlackList extends Array{
-  constructor() {
+  constructor(list) {
     super();
-    this.blacklist = [
-      "newtab","chrome://",
-      "localhost", "chrome-extension://",
-      "about:blank","file://"
-    ];
-    console.log(this.blacklist);
+    this.blacklist = list;
   }
-  add(websiteName) {
-    this.websiteName = websiteName;
+  getList(){
+    return this.blacklist;
+  }
+  addToList(websiteName) {
     this.blacklist.push(websiteName);
   }
-  remove(websiteName){
+  removeFromList(websiteName){
     //TODO implement remove
     //this.websiteName = websiteName;
     //this.blacklist.push(websiteName);
     //console.log(this.blacklist);
   }
-  checkExists(websiteName) {
-    for (var b = 0; b < this.blacklist.length; b++) {
-        if (websiteName.includes(this.blackList[b])) {
+  checkIfExistInList(websiteName) {
+    for (var i = 0; i < this.blacklist.length; i++) {
+        if (this.blacklist[i].includes(websiteName)) {
             return true;
         }
     }
