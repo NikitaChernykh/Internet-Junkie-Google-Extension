@@ -2,10 +2,12 @@
 jest.unmock("../../app/Background/WebsiteBlackList");
 
 const WebsiteBlackList = require("../../app/Background/WebsiteBlackList");
-const bl = new WebsiteBlackList(["newtab","chrome://",
-"localhost", "chrome-extension://",
-"about:blank","file://"]);
-const blacklist = bl.getList();
+const bl = new WebsiteBlackList([
+              "newtab","chrome://",
+              "localhost", "chrome-extension://",
+              "about:blank","file://"
+              ]);
+let blacklist = bl.getList();
 
 describe("Black List", () =>{
 
@@ -24,11 +26,30 @@ describe("Black List", () =>{
   describe("addToList functionality", () =>{
     it ("should add website to blacklist", () => {
       const testWebsite = "www.google.com";
-
       const length = blacklist.length;
+
       bl.addToList(testWebsite);
       expect(blacklist.length).toEqual(length+1);
       expect(blacklist[(blacklist.length)-1]).toEqual(testWebsite);
+    });
+  });
+
+  describe("removeFromList functionality", () =>{
+    it ("should add remove website from blacklist", () => {
+      const testWebsite = "chrome-extension://";
+      const length = blacklist.length;
+      const index = blacklist.indexOf(testWebsite);
+
+      bl.removeFromList(testWebsite);
+      expect(blacklist.length).toEqual(length-1);
+      expect(blacklist.indexOf(testWebsite)).toEqual(-1);
+    });
+  });
+
+  describe("resetList functionality", () =>{
+    it ("should reset to empty blacklist", () => {
+      bl.resetList();
+      expect(blacklist.length).toEqual(0);
     });
   });
 

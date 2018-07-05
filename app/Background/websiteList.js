@@ -1,11 +1,18 @@
 "use strict";
 
 class WebsiteList extends Array{
-  constructor(...websites) {
+  constructor(list) {
     super();
-    this.websites = [];
-    websites.forEach((website) => this.websites.push(website));
-    console.log(websites);
+    this.websites = list;
+  }
+  getList(){
+    return this.websites;
+  }
+  addToList(website) {
+    this.websites.push(website);
+  }
+  removeFromList(website){
+    
   }
 }
 module.exports = WebsiteList;

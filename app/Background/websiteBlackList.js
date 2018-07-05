@@ -1,9 +1,10 @@
-"use strict";
+"use strict"
+// const Data = require('./data');
 
-class WebsiteBlackList extends Array{
+class WebsiteBlackList {
   constructor(list) {
-    super();
     this.blacklist = list;
+    //super.save('balcklist',this.blacklist);
   }
   getList(){
     return this.blacklist;
@@ -12,10 +13,11 @@ class WebsiteBlackList extends Array{
     this.blacklist.push(websiteName);
   }
   removeFromList(websiteName){
-    //TODO implement remove
-    //this.websiteName = websiteName;
-    //this.blacklist.push(websiteName);
-    //console.log(this.blacklist);
+    const index = this.blacklist.indexOf(websiteName);
+    this.blacklist.splice(index, 1);
+  }
+  resetList(){
+    this.blacklist.length = 0;
   }
   checkIfExistInList(websiteName) {
     for (var i = 0; i < this.blacklist.length; i++) {

@@ -3,8 +3,15 @@ jest.unmock('moment');
 
 const bgModule = require("../../app/Background/background.js");
 const UtilitiesModule = require("../../app/Background/utilities.module.js");
+const WebsiteBlackList = require("../../app/Background/WebsiteBlackList");
 const moment = require('moment');
 
+const bl = new WebsiteBlackList([
+              "newtab","chrome://",
+              "localhost", "chrome-extension://",
+              "about:blank","file://"
+              ]);
+let blacklist = bl.getList();
 const get = jest.fn();
 const set = jest.fn();
 const expectedEmptyArray = [];
@@ -18,24 +25,8 @@ global.chrome = {
   }
 };
 describe("background script", () =>{
-    it ("should save data in local storage", () => {
-      bgModule.saveData();
-      expect(chrome.storage.local.set).toHaveBeenCalledWith({'blackList': bgModule.blackList});
-      expect(chrome.storage.local.set).toHaveBeenCalledWith({'pastDays': bgModule.pastDays});
-      expect(chrome.storage.local.set).toHaveBeenCalledWith({'websiteList': bgModule.websiteList});
-    });
-    it ("should reset blacklist in local storage to empty array", () => {
-      bgModule.resetBlackList();
-      expect(bgModule.blackList).toEqual(expectedEmptyArray);
-    });
-    it ("should reset websitelist in local storage to empty array", () => {
-      bgModule.resetWebsiteList();
-      expect(bgModule.websiteList).toEqual(expectedEmptyArray);
-    });
-    it ("should reset past days in local storage to empty array", () => {
-      bgModule.resetPastDays();
-      expect(bgModule.pastDays).toEqual(expectedEmptyArray);
-    });
+
+
 
     it ("should alwayse keep passDays length to 6", () => {
       let pastDaysMoreThanSix = [

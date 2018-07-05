@@ -5,8 +5,12 @@ const Website = require('./Website');
 const WebsiteList = require('./WebsiteList');
 const WebsiteBlackList = require('./WebsiteBlackList');
 
-var myWebsiteList = new WebsiteList(new Website('sdfsf','someurl'),new Website('sdfsf','someurl'));
-const blackList = new WebsiteBlackList();
+const bl = new WebsiteBlackList([
+              "newtab","chrome://",
+              "localhost", "chrome-extension://",
+              "about:blank","file://"
+              ]);
+let blacklist = bl.getList();
 var bgModule = {
     pastDays : [],
     websiteList: [],
@@ -19,12 +23,12 @@ var bgModule = {
       "totalVisits": 0
     },
     saveData: function(){
-      chrome.storage.local.set({'blackList': bgModule.blackList});
+      chrome.storage.local.set({'blackList': blacklist});
       chrome.storage.local.set({'pastDays': bgModule.pastDays});
       chrome.storage.local.set({'websiteList': bgModule.websiteList});
     },
     resetBlackList: function(){
-      bgModule.blackList = [];
+      bl.resetList();
       chrome.storage.local.set({'blackList': []}, function() {
       });
     },
@@ -138,14 +142,6 @@ var bgModule = {
       bgModule.setDaylyTimer();
     },
 
-    blackListCheck: function (websiteName) {
-      for (var b = 0; b < bgModule.blackList.length; b++) {
-          if (websiteName.includes(bgModule.blackList[b])) {
-              return true;
-          }
-      }
-      return false;
-    },
     updateDeactivationTime: function (tabURL) {
       //prevent from empty entry needs refactor leter
       if(tabURL == ""){
@@ -183,7 +179,7 @@ var bgModule = {
         favIcon = "/assets/images/default_icon.png";
       }
       //blacklist check
-      if (bgModule.blackListCheck(newUrl) == false) {
+      if (bl.checkIfExistInList(newUrl) == false) {
           var websiteName = UtilitiesModule.extractDomain(newUrl);
           var existingWebsite = UtilitiesModule.search(websiteName,bgModule.websiteList);
           var start = moment().format();
