@@ -11,6 +11,8 @@ const bl = new WebsiteBlackList([
               "about:blank","file://"
               ]);
 let blacklist = bl.getList();
+console.log(blacklist);
+
 var bgModule = {
     pastDays : [],
     websiteList: [],
@@ -23,7 +25,7 @@ var bgModule = {
       "totalVisits": 0
     },
     saveData: function(){
-      chrome.storage.local.set({'blackList': blacklist});
+      //chrome.storage.local.set({'blackList': blacklist});
       chrome.storage.local.set({'pastDays': bgModule.pastDays});
       chrome.storage.local.set({'websiteList': bgModule.websiteList});
     },

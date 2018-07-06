@@ -4,14 +4,18 @@ class Data {
   constructor(storageName, list){
     this.storageName = storageName;
     this.list = list;
+    this.save(storageName,list);
   }
 
-  save(this.storageName,this.list){
-    chrome.storage.local.set({this.storageName, this.list});
+  save(storageName,list){
+    chrome.storage.local.set({'blacklist' : list});
+    console.log("saved");
   }
-
-  get(this.storageName){
-    chrome.storage.local.get(this.storageName);
+  get(){
+    chrome.storage.local.get(function(result){
+      console.log(result);
+      return result.blacklist;
+    });
   }
 }
 

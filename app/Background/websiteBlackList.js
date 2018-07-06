@@ -1,13 +1,13 @@
 "use strict"
-// const Data = require('./data');
+ const Data = require('./data');
 
-class WebsiteBlackList {
+class WebsiteBlackList extends Data{
   constructor(list) {
+    super('blacklist',list);
     this.blacklist = list;
-    //super.save('balcklist',this.blacklist);
   }
   getList(){
-    return this.blacklist;
+    return super.get();
   }
   addToList(websiteName) {
     this.blacklist.push(websiteName);
