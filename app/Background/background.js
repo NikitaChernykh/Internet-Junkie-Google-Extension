@@ -10,9 +10,23 @@ const bl = new WebsiteBlackList([
               "localhost", "chrome-extension://",
               "about:blank","file://"
               ]);
-let blacklist = bl.getList();
-console.log(blacklist);
+console.log("before Promise");
 
+
+async function initBlackList(){
+  const response = await bl.getList();
+  const blacklist = await response;
+  return blacklist;
+}
+const blacklist = initBlackList();
+console.log(blacklist);
+setTimeout(function () {
+  console.log(blacklist);
+});
+
+
+
+console.log("after Promise");
 var bgModule = {
     pastDays : [],
     websiteList: [],
