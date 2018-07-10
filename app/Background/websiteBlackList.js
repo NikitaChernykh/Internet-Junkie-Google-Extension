@@ -7,7 +7,10 @@ class WebsiteBlackList extends Data{
     this.blacklist = list;
   }
   getList(){
-    return super.get();
+    const result = super.get();
+    return new Promise(function(resolve, reject) {
+      resolve(result);
+    });
   }
   addToList(websiteName) {
     this.blacklist.push(websiteName);
@@ -21,9 +24,9 @@ class WebsiteBlackList extends Data{
   }
   checkIfExistInList(websiteName) {
     for (var i = 0; i < this.blacklist.length; i++) {
-        if (this.blacklist[i].includes(websiteName)) {
-            return true;
-        }
+      if (this.blacklist[i].includes(websiteName)) {
+          return true;
+      }
     }
     return false;
   }

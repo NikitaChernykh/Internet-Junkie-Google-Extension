@@ -12,21 +12,16 @@ const bl = new WebsiteBlackList([
               ]);
 console.log("before Promise");
 
-
 async function initBlackList(){
-  const response = await bl.getList();
-  const blacklist = await response;
-  return blacklist;
+  let prom = await bl.getList();
+  console.log(prom.blacklist);
+  //prom.then(result => result);
+  return prom.blacklist;
 }
-const blacklist = initBlackList();
+
+let blacklist = initBlackList();
 console.log(blacklist);
-setTimeout(function () {
-  console.log(blacklist);
-});
 
-
-
-console.log("after Promise");
 var bgModule = {
     pastDays : [],
     websiteList: [],
@@ -42,11 +37,6 @@ var bgModule = {
       //chrome.storage.local.set({'blackList': blacklist});
       chrome.storage.local.set({'pastDays': bgModule.pastDays});
       chrome.storage.local.set({'websiteList': bgModule.websiteList});
-    },
-    resetBlackList: function(){
-      bl.resetList();
-      chrome.storage.local.set({'blackList': []}, function() {
-      });
     },
     resetWebsiteList: function(){
       bgModule.websiteList = [];

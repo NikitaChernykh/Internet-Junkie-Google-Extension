@@ -4,27 +4,23 @@ class Data {
   constructor(storageName, list){
     this.storageName = storageName;
     this.list = list;
-    console.log();
-    this.save(storageName,list).then((successMessage) => {
-      console.log("Yay! " + successMessage);
-    })
+    this.save(storageName,list);
   }
 
   save(storageName,list){
-    return new Promise(function(resolve, reject) {
-      chrome.storage.local.set({'blacklist' : list});
-      resolve("blacklist saved!");
-    });
+    chrome.storage.local.set({[storageName] : list});
+    console.log(storageName + " saved!");
   }
 
   get(){
     return new Promise(function(resolve, reject) {
-      chrome.storage.local.get(function(result){
-        console.log("Got the blacklist");
-        resolve(result.blacklist);
-      });
+      chrome.storage.local.get(result => resolve(result));
     });
   }
+  //TODO
+  //to remove item in the storage
+  //chrome.storage.local.remove("storageName");
+
 }
 
 module.exports = Data;
