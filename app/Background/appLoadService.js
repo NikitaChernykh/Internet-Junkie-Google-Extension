@@ -1,19 +1,19 @@
 "use strict";
-const WebsiteBlackList = require('./WebsiteBlackList');
-
+const WebsiteBlackList = require('./websiteBlackList');
+const PastDaysList = require('./pastDaysList');
+const WebsiteList = require('./websiteList');
 class AppLoadService {
   constructor(){
     return this.initializeApp();
   }
   initializeApp(){
-    //TODO
-    //initialise lists(empyt or pull from storage/firebase)
     return {
       WebsiteBlackList : this.initializeBlackList(),
       WebsiteList : this.initializeWebsiteList(),
       PastDaysList : this.initializePastDaysList()
     }
-    //start timer
+    //TODO
+    //start everyday timer
   }
   initializeBlackList(){
     const instance = new WebsiteBlackList("blacklist",[
@@ -25,13 +25,11 @@ class AppLoadService {
     return instance;
   }
   initializeWebsiteList(){
-    //TODO
-    const instance = [];
+    const instance = new WebsiteList("websiteList",[]);
     return instance;
   }
   initializePastDaysList(){
-    //TODO
-    const instance = [];
+    const instance = new PastDaysList("pastDays",[]);
     return instance;
   }
 }

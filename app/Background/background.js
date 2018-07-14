@@ -1,24 +1,23 @@
 
-var AppLoadService = require('../../app/Background/appLoadService');
 const moment = require('moment-timezone');
+const AppLoadService = require('../../app/Background/appLoadService');
 const UtilitiesModule = require('../../app/Background/utilities.module.js');
 const Website = require('./Website');
-const WebsiteList = require('./WebsiteList');
 
 const appLoadService = new AppLoadService();
-console.log(appLoadService);
+
 const WebsiteBlackList = appLoadService.WebsiteBlackList;
-WebsiteBlackList.getList();
-WebsiteBlackList.addToList("sdafsf");
-console.log(WebsiteBlackList.blacklist) 
-WebsiteBlackList.removeFromList("sdaff");
-console.log(WebsiteBlackList.blacklist)       
-    
+const PastDaysList = appLoadService.PastDaysList;
+const WebsiteList = appLoadService.WebsiteList;
+
+console.log(WebsiteBlackList.blacklist);
+console.log(PastDaysList.pastDays);              
+console.log(WebsiteList.websiteList);      
 
 
 var bgModule = {
     pastDays : [],
-    websiteList: [],
+    websiteList: WebsiteList.websiteList,
     globalUrl: "",
     prevTab: "",
     lastActiveSince: null,
@@ -29,22 +28,12 @@ var bgModule = {
     },
     saveData: function(){
       //chrome.storage.local.set({'blackList': blacklist});
-      chrome.storage.local.set({'pastDays': bgModule.pastDays});
+      // chrome.storage.local.set({'pastDays': bgModule.pastDays});
       chrome.storage.local.set({'websiteList': bgModule.websiteList});
-    },
-    resetWebsiteList: function(){
-      bgModule.websiteList = [];
-      chrome.storage.local.set({'websiteList': []}, function() {
-      });
     },
     changelastActiveTime: function(hours){
       var now = moment();
       bgModule.lastActiveSince = now.subtract(hours, 'h');
-    },
-    resetPastDays: function(){
-      bgModule.pastDays = [];
-      chrome.storage.local.set({'pastDays': []}, function() {
-      });
     },
     updateTotalVisits: function(list){
       UtilitiesModule.sortWebsiteList(list);
@@ -64,6 +53,7 @@ var bgModule = {
             //if yesteday
             if(moment(lastActive).date() === moment().add(-1, 'days').date()){
               //savePastDay
+              //PastDaysList.addToList();
               bgModule.savePastDay();
               bgModule.lastActiveSince = null;
             }else{
@@ -97,7 +87,7 @@ var bgModule = {
       bgModule.cleanDaysToEqualSeven(bgModule.pastDays);
       chrome.storage.local.set({'pastDays': bgModule.pastDays});
       bgModule.total.totalVisits = 0;
-      bgModule.resetWebsiteList();
+      WebsiteList.resetList();
       bgModule.saveData();
     },
     cleanDaysToEqualSeven: function(pastDays){
@@ -113,7 +103,7 @@ var bgModule = {
       bgModule.pastDays.unshift(pastDay);
       bgModule.cleanDaysToEqualSeven(bgModule.pastDays);
       chrome.storage.local.set({'pastDays': bgModule.pastDays});
-      bgModule.resetWebsiteList();
+      WebsiteList.resetList();
       bgModule.saveData();
     },
     getResetTime: function(lastActive){
@@ -196,7 +186,7 @@ var bgModule = {
                   startTime: start,
                   deactivationTime: "",
               };
-              bgModule.websiteList.push(website);
+              WebsiteList.addToList(website);
           } else {
               if (existingWebsite.favIcon == "/assets/images/default_icon.png") {
                   existingWebsite.favIcon = favIcon;
