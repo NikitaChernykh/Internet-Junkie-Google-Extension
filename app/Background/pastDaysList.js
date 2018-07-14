@@ -1,6 +1,6 @@
 "use strict";
 
-class PastDays extends Array{
+class PastDaysList extends Array{
   constructor(...days) {
     super();
     this.days = [];
@@ -8,4 +8,4 @@ class PastDays extends Array{
     console.log(days);
   }
 }
-module.exports = PastDays;
+module.exports = PastDaysList;

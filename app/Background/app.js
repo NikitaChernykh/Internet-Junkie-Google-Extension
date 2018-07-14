@@ -1,11 +1,7 @@
-var InitModule = require('../../app/Background/init.module.js');
 var bgModule = require('../../app/Background/background.js');
 var UtilitiesModule = require('../../app/Background/utilities.module.js');
-var moment = require('moment-timezone');
 
 
-
-InitModule.init();
 bgModule.setDaylyTimer();
 
 chrome.tabs.onActivated.addListener(function (activeInfo) {

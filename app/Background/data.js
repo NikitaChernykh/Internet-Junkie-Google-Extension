@@ -3,13 +3,14 @@
 class Data {
   constructor(storageName, list){
     this.storageName = storageName;
-    this.list = list;
-    this.save(storageName,list);
+    this.save(this.list);
+    console.log("saved on Data init!");
   }
 
-  save(storageName,list){
-    chrome.storage.local.set({[storageName] : list});
-    console.log(storageName + " saved!");
+  save(list){
+    //chrome.storage.local.remove("undefined");
+    chrome.storage.local.set({[this.storageName] : list});
+    console.log(this.storageName + " saved!");
   }
 
   get(){

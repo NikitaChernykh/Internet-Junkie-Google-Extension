@@ -1,26 +1,20 @@
 
+var AppLoadService = require('../../app/Background/appLoadService');
 const moment = require('moment-timezone');
 const UtilitiesModule = require('../../app/Background/utilities.module.js');
 const Website = require('./Website');
 const WebsiteList = require('./WebsiteList');
-const WebsiteBlackList = require('./WebsiteBlackList');
 
-const bl = new WebsiteBlackList([
-              "newtab","chrome://",
-              "localhost", "chrome-extension://",
-              "about:blank","file://"
-              ]);
-console.log("before Promise");
+const appLoadService = new AppLoadService();
+console.log(appLoadService);
+const WebsiteBlackList = appLoadService.WebsiteBlackList;
+WebsiteBlackList.getList();
+WebsiteBlackList.addToList("sdafsf");
+console.log(WebsiteBlackList.blacklist) 
+WebsiteBlackList.removeFromList("sdaff");
+console.log(WebsiteBlackList.blacklist)       
+    
 
-async function initBlackList(){
-  let prom = await bl.getList();
-  console.log(prom.blacklist);
-  //prom.then(result => result);
-  return prom.blacklist;
-}
-
-let blacklist = initBlackList();
-console.log(blacklist);
 
 var bgModule = {
     pastDays : [],
@@ -185,7 +179,7 @@ var bgModule = {
         favIcon = "/assets/images/default_icon.png";
       }
       //blacklist check
-      if (bl.checkIfExistInList(newUrl) == false) {
+      if (WebsiteBlackList.checkIfExistInList(newUrl) == false) {
           var websiteName = UtilitiesModule.extractDomain(newUrl);
           var existingWebsite = UtilitiesModule.search(websiteName,bgModule.websiteList);
           var start = moment().format();
