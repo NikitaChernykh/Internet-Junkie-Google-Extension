@@ -1,6 +1,7 @@
 var gulp       = require('gulp');
 var sass       = require('gulp-sass');
 var clean      = require('gulp-clean');
+var babel      = require('gulp-babel');
 var browserify = require('browserify');
 var source     = require('vinyl-source-stream');
 var csso       = require('gulp-csso');
@@ -38,6 +39,7 @@ gulp.task('browserify-bg', function () {
   return bundle.bundle()
     .pipe(source(paths.scripts.filename))
     .pipe(buffer())
+    .pipe(babel())
     .pipe(gulp.dest(paths.scripts.destination));
 });
 
@@ -54,6 +56,7 @@ gulp.task('browserify-bg-prod', function () {
   return bundle.bundle()
     .pipe(source(paths.scripts.filename))
     .pipe(buffer())
+    .pipe(babel())
     .pipe(uglify({ mangle: false }))
     .pipe(gulp.dest(paths.scripts.destination));
 });
@@ -66,6 +69,7 @@ gulp.task('browserify-popup', function () {
   return bundle.bundle()
     .pipe(source(paths2.scripts.filename))
     .pipe(buffer())
+    .pipe(babel())
     .pipe(gulp.dest(paths2.scripts.destination));
 });
 gulp.task('browserify-popup-prod', function () {

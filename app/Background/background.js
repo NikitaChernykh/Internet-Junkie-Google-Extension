@@ -3,7 +3,7 @@ const moment = require('moment-timezone');
 const AppLoadService = require('../../app/Background/appLoadService');
 const UtilitiesModule = require('../../app/Background/utilities.module.js');
 const Website = require('./Website');
- 
+
 const appLoadService = new AppLoadService();
 
 const WebsiteBlackList = appLoadService.WebsiteBlackList;
@@ -11,8 +11,8 @@ const PastDaysList = appLoadService.PastDaysList;
 const WebsiteList = appLoadService.WebsiteList;
 
 console.log(WebsiteBlackList.blacklist);
-console.log(PastDaysList.pastDays);              
-console.log(WebsiteList.websiteList);      
+console.log(PastDaysList.pastDays);
+console.log(WebsiteList.websiteList);
 
 
 var bgModule = {
@@ -28,7 +28,7 @@ var bgModule = {
     },
     saveData: function(){
       //chrome.storage.local.set({'blackList': blacklist});
-      // chrome.storage.local.set({'pastDays': bgModule.pastDays});
+      //chrome.storage.local.set({'pastDays': bgModule.pastDays});
       chrome.storage.local.set({'websiteList': bgModule.websiteList});
     },
     changelastActiveTime: function(hours){
