@@ -20,7 +20,7 @@ module.exports = function($scope,authService, dataService, APP_VIEWS,APP_TRANSLA
 
   dataService.getWebsites().then(function(result){
     $scope.websites = result.websiteList;
-    $scope.blackList = result.blackList;
+    $scope.blacklist = result.blacklist;
   }).catch(function () {
     console.error("Error: Could not retrive website list.");
   });
@@ -47,10 +47,10 @@ module.exports = function($scope,authService, dataService, APP_VIEWS,APP_TRANSLA
   $scope.addToBlackList = function(){
     if($scope.blacklistForm.$valid){
       _gaq.push(['_trackEvent', $scope.website, 'addToBlackList']);
-      $scope.blackList.push($scope.website);
+      $scope.blacklist.push($scope.website);
       chrome.runtime.sendMessage({
           action: "updateBlackList",
-          blackList: $scope.blackList
+          blacklist: $scope.blacklist
       });
       $scope.website = "";
       $scope.blacklistForm.$setPristine();

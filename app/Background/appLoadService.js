@@ -21,7 +21,6 @@ class AppLoadService {
       "localhost", "chrome-extension://",
       "about:blank","file://"
       ]);
-      
     return instance;
   }
   initializeWebsiteList(){

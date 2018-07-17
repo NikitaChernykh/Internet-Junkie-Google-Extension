@@ -14,10 +14,10 @@ console.log(WebsiteBlackList.blacklist);
 console.log(PastDaysList.pastDays);
 console.log(WebsiteList.websiteList);
 
-
 var bgModule = {
     pastDays : [],
     websiteList: WebsiteList.websiteList,
+    blacklist: WebsiteBlackList.blacklist,
     globalUrl: "",
     prevTab: "",
     lastActiveSince: null,
@@ -25,15 +25,6 @@ var bgModule = {
     daysfrominstall: 0,
     total:{
       "totalVisits": 0
-    },
-    saveData: function(){
-      //chrome.storage.local.set({'blackList': blacklist});
-      //chrome.storage.local.set({'pastDays': bgModule.pastDays});
-      chrome.storage.local.set({'websiteList': bgModule.websiteList});
-    },
-    changelastActiveTime: function(hours){
-      var now = moment();
-      bgModule.lastActiveSince = now.subtract(hours, 'h');
     },
     updateTotalVisits: function(list){
       UtilitiesModule.sortWebsiteList(list);
@@ -45,29 +36,29 @@ var bgModule = {
       //TODO add total time
     },
     checkInactiveDays: function(lastActive){
-        var inactiveDays = 0;
-        if(lastActive === null && isNaN(moment(lastActive).date())){
-          return;
-        }else{
-          if(moment(lastActive).isSame(moment(), 'day') == false){
-            //if yesteday
-            if(moment(lastActive).date() === moment().add(-1, 'days').date()){
-              //savePastDay
-              //PastDaysList.addToList();
-              bgModule.savePastDay();
-              bgModule.lastActiveSince = null;
-            }else{
-              var startOfDay = moment().startOf('day');
-              inactiveDays = moment.duration(moment(startOfDay).diff(lastActive)).days();
-              if( inactiveDays >= 1){
-                  bgModule.addEmptyDays(inactiveDays);
-                  bgModule.lastActiveSince = null;
-              }else{
-                  //console.log("don't do anything 2");
-              }
-            }
+      var inactiveDays = 0;
+      if(lastActive === null && isNaN(moment(lastActive).date())){
+        return;
+      }else{
+        if(moment(lastActive).isSame(moment(), 'day') == false){
+          //if yesteday
+          if(moment(lastActive).date() === moment().add(-1, 'days').date()){
+            //savePastDay
+            //PastDaysList.addToList();
+            bgModule.savePastDay();
+            bgModule.lastActiveSince = null;
           }else{
-            return;
+            var startOfDay = moment().startOf('day');
+            inactiveDays = moment.duration(moment(startOfDay).diff(lastActive)).days();
+            if( inactiveDays >= 1){
+                bgModule.addEmptyDays(inactiveDays);
+                bgModule.lastActiveSince = null;
+            }else{
+                //console.log("don't do anything 2");
+            }
+          }
+        }else{
+          return;
         }
       }
     },
@@ -88,7 +79,6 @@ var bgModule = {
       chrome.storage.local.set({'pastDays': bgModule.pastDays});
       bgModule.total.totalVisits = 0;
       WebsiteList.resetList();
-      bgModule.saveData();
     },
     cleanDaysToEqualSeven: function(pastDays){
       if(pastDays.length > 6){
@@ -104,7 +94,6 @@ var bgModule = {
       bgModule.cleanDaysToEqualSeven(bgModule.pastDays);
       chrome.storage.local.set({'pastDays': bgModule.pastDays});
       WebsiteList.resetList();
-      bgModule.saveData();
     },
     getResetTime: function(lastActive){
       var timeNow = moment();
@@ -157,54 +146,49 @@ var bgModule = {
           existingWebsite.timeDifference = duration;
           existingWebsite.formatedTime = formatedTime;
       }
-      bgModule.saveData();
     },
     tabUpdatedAndActive: function (newUrl, favIcon) {
-      //prevent from empty entry needs refactor leter
-      //could be similar issue with favicon url
-      if(newUrl === "" || typeof newUrl === "undefined"){
-        return;
-      }
+
+      if(newUrl === "" || typeof newUrl === "undefined") return;
+
       if(typeof favIcon === "undefined"){
         favIcon = "/assets/images/default_icon.png";
       }
+
       //blacklist check
       if (WebsiteBlackList.checkIfExistInList(newUrl) == false) {
-          var websiteName = UtilitiesModule.extractDomain(newUrl);
-          var existingWebsite = UtilitiesModule.search(websiteName,bgModule.websiteList);
-          var start = moment().format();
-          if (!existingWebsite) {
-              //max 30 website cap for faster loading
-              if(bgModule.websiteList.length >=30){
-                return;
-              }
-              //add new website to the list
-              var website = {
-                  websiteName: websiteName,
-                  favIcon: favIcon,
-                  websiteVisits: 1,
-                  startTime: start,
-                  deactivationTime: "",
-              };
-              WebsiteList.addToList(website);
-          } else {
-              if (existingWebsite.favIcon == "/assets/images/default_icon.png") {
-                  existingWebsite.favIcon = favIcon;
-              }
-              //add tab start time
-              existingWebsite.startTime = start;
-              //add visits
-              existingWebsite.websiteVisits++;
+        var websiteName = UtilitiesModule.extractDomain(newUrl);
+        var existingWebsite = UtilitiesModule.search(websiteName,bgModule.websiteList);
+        var start = moment().format();
+        if (!existingWebsite) {
+          //max 30 website cap for faster loading
+          if(bgModule.websiteList.length >=30){
+            return;
           }
-          bgModule.saveData();
-      } else {
-          //log if blocked
-          console.log("blocked website: " + newUrl);
+          //add new website to the list
+          var website = {
+              websiteName: websiteName,
+              favIcon: favIcon,
+              websiteVisits: 1,
+              startTime: start,
+              deactivationTime: "",
+          };
+          WebsiteList.addToList(website);
+        } else {
+          if (existingWebsite.favIcon == "/assets/images/default_icon.png") {
+              existingWebsite.favIcon = favIcon;
+          }
+          //add tab start time
+          existingWebsite.startTime = start;
+          //add visits
+          existingWebsite.websiteVisits++;
+        }
       }
     }
 };
 module.exports = bgModule;
 
+
 //for web console testing
 //to call methods from the web console use window.test.[name of the method]
-//window.test = bgModule;
+window.test = bgModule;

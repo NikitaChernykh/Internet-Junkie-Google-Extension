@@ -17,7 +17,7 @@
       </div>
     </form>
     <div class="blacklist-container">
-      <div class="blacklist-item" ng-repeat="item in blackList">
+      <div class="blacklist-item" ng-repeat="item in blacklist | limitTo : blacklist.length : 6">
         <div class="blacklist-item-text">
           {{item}}
         </div>

@@ -12,7 +12,7 @@ module.exports = function() {
     require: 'ngModel',
     link: function (scope, element, attr, ngModel) {
       ngModel.$parsers.unshift(function(value) {
-        var valid = searchBlacklist(value.toLowerCase(),scope.blackList);
+        var valid = searchBlacklist(value.toLowerCase(),scope.blacklist);
         if(value){
           ngModel.$setValidity('invalidEntry', valid);
         }

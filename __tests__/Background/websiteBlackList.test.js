@@ -7,9 +7,19 @@ const bl = new WebsiteBlackList([
               "localhost", "chrome-extension://",
               "about:blank","file://"
               ]);
-let blacklist = bl.getList();
 
 describe("Black List", () =>{
+  describe("getList functionality", () =>{
+    it ("should the blacklist", () => {
+        let blacklist = bl.getList();
+        console.log(blacklist);
+        expect(blacklist).toEqual([
+                      "newtab","chrome://",
+                      "localhost", "chrome-extension://",
+                      "about:blank","file://"
+                      ]);
+    });
+  });
 
   describe("checkIfExistInList functionality", () =>{
     it ("should check if website already exits in the list", () => {

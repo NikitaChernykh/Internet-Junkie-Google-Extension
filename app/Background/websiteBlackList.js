@@ -6,6 +6,7 @@ class WebsiteBlackList extends Data{
     super(storageName,blacklist);
     this.blacklist = blacklist;
   }
+
   async getList(){
     const result = await super.get();
     this.blacklist = result.blacklist;
@@ -33,6 +34,7 @@ class WebsiteBlackList extends Data{
   checkIfExistInList(websiteName) {
     for (var i = 0; i < this.blacklist.length; i++) {
       if (this.blacklist[i].includes(websiteName)) {
+          console.log(websiteName+ " was blocked...");
           return true;
       }
     }

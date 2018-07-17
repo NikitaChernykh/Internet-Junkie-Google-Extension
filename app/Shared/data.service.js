@@ -47,8 +47,6 @@ module.exports = function($q) {
     var totalVisits = 0;
     var totalSeconds = 0;
     var total = {};
-    console.log(websiteList);
-    
     for(var f = 0; f < websiteList.length; f++){
       if(f < 10){
         totalVisits += websiteList[f].websiteVisits;
