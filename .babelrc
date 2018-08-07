@@ -1,5 +1,6 @@
 {
   "presets":["es2017"],
+  "plugins": ["transform-es2015-classes"],
   "sourceMaps": true,
   "compact" : true
 }

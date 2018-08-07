@@ -32,7 +32,6 @@ module.exports = function($scope,authService, dataService, APP_VIEWS,APP_TRANSLA
   };
   $scope.closeModal = function(){
       $scope.modalActive = false;
-
   };
 
   $scope.clearTodayStatisics = function(){
