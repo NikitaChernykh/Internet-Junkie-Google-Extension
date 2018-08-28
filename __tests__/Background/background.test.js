@@ -1,5 +1,5 @@
-jest.unmock("../../app/Background/background.js");
-jest.unmock('moment');
+
+
 
 //const bgModule = require("../../app/Background/background.js");
 //const UtilitiesModule = require("../../app/Background/utilities.module.js");
@@ -12,8 +12,6 @@ const moment = require('moment');
 //               "about:blank","file://"
 //               ]);
 //let blacklist = bl.getList();
-const get = jest.fn();
-const set = jest.fn();
 //const super = jest.fn();
 
 const expectedEmptyArray = [];

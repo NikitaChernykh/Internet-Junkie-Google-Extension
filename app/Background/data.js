@@ -12,7 +12,7 @@ class Data {
     chrome.storage.local.set({[this.storageName] : list});
     console.log(this.storageName + " saved!");
   }
-
+  
   get(){
     return new Promise(function(resolve, reject) {
       chrome.storage.local.get(result => resolve(result));

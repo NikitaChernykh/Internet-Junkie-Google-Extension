@@ -1,5 +1,4 @@
 
-//jest.unmock("../../app/Background/WebsiteBlackList");
 
 //const WebsiteBlackList = require("../../app/Background/WebsiteBlackList");
 //const bl = new WebsiteBlackList([

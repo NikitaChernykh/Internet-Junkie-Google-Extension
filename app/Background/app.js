@@ -1,5 +1,5 @@
 const bgModule = require('../../app/Background/background.js');
-const UtilitiesModule = require('../../app/Background/utilities.module.js');
+const UtilitiesModule = require('../../app/Background/utilities.js');
 
 bgModule.setDaylyTimer();
 

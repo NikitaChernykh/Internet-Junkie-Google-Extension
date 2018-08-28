@@ -1,6 +1,6 @@
 "use strict";
-var bgModule = require('../../app/Background/background.js');
-var moment = require('moment-timezone');
+const bgModule = require('../../app/Background/background.js');
+const moment = require('moment-timezone');
 
 module.exports = {
   timeStamp: function(){

@@ -1,1 +1,3 @@
-//mock for something
+const data = require('../data');
+
+export default data;
