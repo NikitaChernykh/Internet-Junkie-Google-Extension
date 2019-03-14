@@ -1,33 +1,33 @@
-"use strict"
-const Data = require('./data');
+"use strict";
+const Data = require("./data");
 
-class PastDaysList extends Data{
-  constructor(storageName,pastDays) {
-    super(storageName,pastDays);
-    this.pastDays = pastDays;
+class PastDaysList extends Data {
+  constructor(storageName, pastDaysList) {
+    super(storageName, pastDaysList);
+    this.pastDaysList = pastDaysList;
   }
 
-  async getList(){
+  async getList() {
     const result = await super.get();
-    this.pastDays = result.pastDays;
+    this.pastDaysList = result.pastDaysList;
   }
 
   addToList(day) {
     this.blacklist.push(day);
-    super.save(this.pastDays);
+    super.save(this.pastDaysList);
     console.log("Past day was added to past days list...");
   }
 
-  removeFromList(day){
-    const index = this.pastDays.indexOf(day);
-    this.pastDays.splice(index, 1);
-    super.save(this.pastDays);
+  removeFromList(day) {
+    const index = this.pastDaysList.indexOf(day);
+    this.pastDaysList.splice(index, 1);
+    super.save(this.pastDaysList);
     console.log("One day was removed from past days list...");
   }
 
-  resetList(){
-    this.pastDays.length = 0;
-    super.save(this.pastDays);
+  resetList() {
+    this.pastDaysList.length = 0;
+    super.save(this.pastDaysList);
     console.log("Past days list was reset...");
   }
 }
