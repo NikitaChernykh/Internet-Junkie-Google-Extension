@@ -1,7 +1,5 @@
-"use strict";
-
 class Day {
-  constructor(name){
+  constructor(name) {
     this.name = name;
   }
 }

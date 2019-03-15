@@ -1,5 +1,3 @@
-"use strict";
-
 class Data {
   constructor(storageName, list){
     this.storageName = storageName;

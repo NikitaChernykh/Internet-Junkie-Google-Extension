@@ -1,5 +1,4 @@
-"use strict";
-const Data = require("./data");
+const Data = require('./data');
 
 class PastDaysList extends Data {
   constructor(storageName, pastDaysList) {
@@ -15,20 +14,20 @@ class PastDaysList extends Data {
   addToList(day) {
     this.blacklist.push(day);
     super.save(this.pastDaysList);
-    console.log("Past day was added to past days list...");
+    console.log('Past day was added to past days list...');
   }
 
   removeFromList(day) {
     const index = this.pastDaysList.indexOf(day);
     this.pastDaysList.splice(index, 1);
     super.save(this.pastDaysList);
-    console.log("One day was removed from past days list...");
+    console.log('One day was removed from past days list...');
   }
 
   resetList() {
     this.pastDaysList.length = 0;
     super.save(this.pastDaysList);
-    console.log("Past days list was reset...");
+    console.log('Past days list was reset...');
   }
 }
 module.exports = PastDaysList;

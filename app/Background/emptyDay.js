@@ -1,9 +1,4 @@
-"use strict";
 const Day = require('./day');
 
-class EmptyDay extends Day{
-  constructor(){
-
-  }
-}
+class EmptyDay extends Day {}
 module.exports = EmptyDay;
