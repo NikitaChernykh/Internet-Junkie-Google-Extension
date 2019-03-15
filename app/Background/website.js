@@ -1,7 +1,5 @@
-"use strict";
-
 class Website {
-  constructor(name, url){
+  constructor(name, url) {
     this.name = name;
     this.url = url;
   }
