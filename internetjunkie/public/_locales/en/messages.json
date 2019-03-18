@@ -1,0 +1,110 @@
+{
+    "ext_description": {
+        "message": "Internet Junkie, your best internet time tracker. Track the time you spend on the browser daily.",
+        "description": "The description of the application, displayed in the web store."
+    },
+    "placeholder_msg": {
+        "message": "Wow! You are not addicted to any website yet!",
+        "description": "Message when you have no addiction."
+    },
+    "today_text": {
+        "message": "Today's statistics",
+        "description": "Today's statistics text."
+    },
+    "websites_label": {
+        "message": "Websites",
+        "description": "Label for row with websites."
+    },
+    "visits_label": {
+        "message": "Visits",
+        "description": "Label for row with visits."
+    },
+    "time_label": {
+        "message": "Time",
+        "description": "Label for row with time."
+    },
+    "total_text": {
+        "message": "Total: ",
+        "description": "Total text."
+    },
+    "visits_text": {
+        "message": "visits",
+        "description": "Visits lowercase text."
+    },
+    "see_other_days": {
+        "message": "See other days",
+        "description": "See other days text."
+    },
+    "no_activity_text": {
+        "message": "You have no activity recorded for this day",
+        "description": "No activity text."
+    },
+    "abbr_sec": {
+        "message": "s",
+        "description": "Abbreviation for seconds."
+    },
+    "abbr_min": {
+        "message": "m",
+        "description": "Abbreviation for minutes."
+    },
+    "abbr_hours": {
+        "message": "h",
+        "description": "Abbreviation for days."
+    },
+    "abbr_days": {
+        "message": "d",
+        "description": "Abbreviation for days."
+    },
+    "settings_title":{
+        "message": "Settings",
+        "description": "Settings title."
+    },
+    "settings_del":{
+        "message": "Reset today's statistics:",
+        "description": "Reset today's site list."
+    },
+    "settings_btn_clear":{
+        "message": "Reset",
+        "description": "Reset btn text."
+    },
+    "settings_add_blacklist":{
+        "message": "Add website to blacklist:",
+        "description": "Add to blacklist text."
+    },
+    "settings_btn_blacklist":{
+        "message": "Add to blacklist",
+        "description": "Add to blacklist btn."
+    },
+    "settings_btn_goback":{
+        "message": "Go back",
+        "description": "Go back btn."
+    },
+    "settings_error_minlength":{
+      "message": "Your website name is too short.",
+      "description": "Website name length error messege."
+    },
+    "settings_error_required":{
+      "message": "The input is empty.",
+      "description": "Website name required error messege."
+    },
+    "settings_error_blacklist_exist":{
+      "message": "This already exist in the blacklist.",
+      "description": "Website name was already added to blacklist error messege."
+    },
+    "modal_title":{
+      "message": "Confirmation",
+      "description": "Modal title."
+    },
+    "modal_body":{
+      "message": "Are you sure you want to delete today statistics?",
+      "description": "Modal text."
+    },
+    "modal_cancel_btn":{
+      "message": "Cancel",
+      "description": "Modal button cancel."
+    },
+    "modal_delete_btn":{
+      "message": "Delete",
+      "description": "Modal button delete."
+    }
+}

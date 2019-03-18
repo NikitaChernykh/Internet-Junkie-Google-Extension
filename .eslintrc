@@ -1,0 +1,16 @@
+{
+  "extends": ["wesbos"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "webextensions": true
+  }
+}
