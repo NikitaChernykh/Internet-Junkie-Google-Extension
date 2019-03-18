@@ -12,5 +12,9 @@
     "browser": true,
     "es6": true,
     "webextensions": true
+  },
+  "globals": {
+    "_gaq": true,
+    "chrome": true
   }
 }
