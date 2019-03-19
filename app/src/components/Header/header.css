@@ -2,8 +2,8 @@
   padding-top: 15px;
   padding-right: 5px;
   padding-left: 5px;
-  background-color: #2a00ab;
-  color: #fff;
+  background: var(--theme-primary-color);
+  color: var(--theme-text-color);
 }
 .logo {
   width: 100px;

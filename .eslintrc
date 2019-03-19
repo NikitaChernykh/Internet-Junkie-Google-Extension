@@ -15,6 +15,7 @@
   },
   "globals": {
     "_gaq": true,
-    "chrome": true
+    "chrome": true,
+    "moment": true
   }
 }

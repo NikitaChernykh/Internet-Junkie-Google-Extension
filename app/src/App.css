@@ -1,3 +1,8 @@
+:root {
+  --theme-primary-color: #2a00ab;
+  --theme-text-color: #ffffff;
+}
+
 body {
   margin: 0;
 }
