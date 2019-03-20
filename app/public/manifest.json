@@ -1,6 +1,6 @@
 {
   "background": {
-    "scripts": ["/background/background.js"]
+    "page": "/background/background.html"
   },
   "name": "Internet Junkie",
   "description": "__MSG_ext_description__",

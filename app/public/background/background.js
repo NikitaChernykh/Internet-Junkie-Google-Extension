@@ -1,24 +1,50 @@
 /* global chrome */
-//const moment = require('moment-timezone');
+const moment = require('moment-timezone');
 
 console.log("Background loaded");
-chrome.browserAction.setBadgeText({ text: "BETA" });
 
+function loadData(key,callback){
+    chrome.storage.local.get(key, function(data){
+        callback(data);
+        return;
+    });
+}
 
-if(localStorage.getItem('daily_summaries') === null){
-    //TODO need to start using require...
-    // localStorage.setItem('daily_summaries', [
-    //     {
-    //         date: moment(),
-    //         websiteList:[]
-    //     }
-    // ]);
-    console.log("localStorage initialised...");
+//clear storage
+function clearStorage(){
+    chrome.storage.local.clear();
+    console.log("clearStorage ran");
+}
+
+init();
+
+function init(){
+    chrome.browserAction.setBadgeText({ text: "BETA" });
+    loadData('daily_summaries',data => {
+        if(isEmpty(data)){
+            console.log(data);
+            console.log("localStorage is empty");
+            chrome.storage.local.set({'daily_summaries':[
+                {
+                    date: moment(),
+                    websiteList:[],
+                    totalVisits: 0,
+                    totalTime: null
+                }
+            ]})
+            console.log("localStorage initialised...");
+        }else{
+            console.log(data);
+            console.log("localStorage is not empty");
+        }
+    });
+}
+
+function isEmpty(obj) {
+    return Object.keys(obj).length === 0;
 }
 
 
-
-//init chrome storage
 chrome.tabs.onActivated.addListener(function (activeInfo) {
     console.log("onActivated");
     console.log(activeInfo);
@@ -27,20 +53,20 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     console.log("onUpdated");
-    processTab(tab)
+    processTab(tab);
 });
 function processTab (tab) {
     console.log(tab);
     const websiteURL =  tab.url;
     const websiteName =  extractDomain(tab.url);
-    if(existCheck(websiteName)){
-        console.log("exist");
-        // update site entry
-    }else{
-        console.log("new site");
-        // create new site entry
+    // if(existCheck(websiteName ,daily_summaries[0])){
+    //     console.log("exist");
+    //     // update site entry
+    // } else{
+    //     console.log("new site");
+    //     // create new site entry
 
-    }
+    // }
     console.log(`${websiteURL}, ${websiteName}`);
 }
 // chrome.windows.onFocusChanged.addListener(function(window) {
@@ -49,6 +75,7 @@ function processTab (tab) {
 // });
 
 function existCheck(name, list){
+    console.log(list);
     for (let i = 0; i < list.length; i += 1) {
         if (list[i].websiteName === name) {
             return true;
